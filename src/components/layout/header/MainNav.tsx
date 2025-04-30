@@ -6,7 +6,7 @@ export default function MainNav() {
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `text-2xl ${isActive ? "text-[71EBBE]" : "text-white"}`
+          `text-[18px] ${isActive ? "text-[71EBBE]" : "text-white"}`
         }
       >
         UPCOMING CONCERTS
@@ -14,7 +14,7 @@ export default function MainNav() {
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `text-2xl ${isActive ? "text-[71EBBE]" : "text-white"}`
+          `text-[18px] ${isActive ? "text-[71EBBE]" : "text-white"}`
         }
       >
         PLAYLIST
@@ -22,7 +22,7 @@ export default function MainNav() {
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `text-2xl ${isActive ? "text-[71EBBE]" : "text-white"}`
+          `text-[18px] ${isActive ? "text-[71EBBE]" : "text-white"}`
         }
       >
         COMMUNITY
@@ -30,7 +30,7 @@ export default function MainNav() {
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `text-2xl ${isActive ? "text-[71EBBE]" : "text-white"}`
+          `text-[18px] ${isActive ? "text-[71EBBE]" : "text-white"}`
         }
       >
         ABOUT US
