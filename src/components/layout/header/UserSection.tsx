@@ -1,7 +1,8 @@
-export default function UserSection () {
+export default function UserSection() {
   return (
-    <>
-      <h1>UserSection</h1>
-    </>
+    <div className="flex h-[88px] items-center gap-6">
+      <h1>message</h1>
+      <h1>user</h1>
+    </div>
   );
 }
