@@ -1,1 +1,62 @@
 @import "./tailwind.css";
+
+:root {
+  --white: #fbfbfb;
+  --bg-color: #1b1c1e;
+  --grey-600: #333333;
+  --grey-500: #555555;
+  --grey-400: #8b8b8b;
+  --grey-300: #a7afab;
+  --grey-200: #c2c2c2;
+  --grey-100: #efefef;
+  --primary-300: #71ebbe;
+  --primary-200: #8ef3bf;
+  --primary-100: #a2f1d6;
+  --red: #e42f42;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/src/assets/fonts/Pretendard-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/src/assets/fonts/Pretendard-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/src/assets/fonts/Pretendard-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/src/assets/fonts/Pretendard-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/src/assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MonumentExtended";
+  src: url("/src/assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+}
+
+body {
+  font-family: "Pretendard";
+  background-color: var(--bg-color);
+  color: var(--white);
+}
