@@ -16,7 +16,7 @@ export default function MainNav() {
         UPCOMING CONCERTS
       </NavLink>
       <NavLink
-        to="/"
+        to="/playlist"
         className={({ isActive }) =>
           `text-[18px] ${
             isActive
