@@ -17,7 +17,7 @@ export const searchArtist = async (query: string, accessToken: string) => {
       },
     });
 
-    return res.data.artists.items; 
+    return res.data.artists.items;
   } catch (error) {
     console.error("가수 검색 실패:", error);
     throw error;
@@ -42,7 +42,7 @@ export const searchTrack = async (query: string, accessToken: string) => {
       },
     });
 
-    return res.data.tracks.items; 
+    return res.data.tracks.items;
   } catch (error) {
     console.error("노래 검색 실패:", error);
     throw error;
