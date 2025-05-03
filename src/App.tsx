@@ -5,9 +5,8 @@ import BopsCommunity from "./features/community/components/BopsCommunity";
 import ConcertCommunity from "./features/community/components/ConcertCommunity";
 import OpenCommunity from "./features/community/components/OpenCommunity";
 import CommunityNavigation from "./features/community/components/CommunityNavigation";
-import AddConcertPost from "./features/community/components/AddConcertPost";
-import AddOpenPost from "./features/community/components/AddOpenPost";
 import AddBopPost from "./features/community/components/AddBopPost";
+import AddPost from "./features/community/components/AddPost";
 
 export default function App() {
   return (
@@ -22,8 +21,14 @@ export default function App() {
           <Route path="open-community" element={<OpenCommunity />} />
 
           <Route path="bops-community/add" element={<AddBopPost />} />
-          <Route path="concert-community/add" element={<AddConcertPost />} />
-          <Route path="open-community/add" element={<AddOpenPost />} />
+          <Route
+            path="concert-community/add"
+            element={<AddPost channelName="ConcertCommunity" />}
+          />
+          <Route
+            path="open-community/add"
+            element={<AddPost channelName="OpenCommunity" />}
+          />
         </Route>
       </Route>
     </Routes>

@@ -15,7 +15,7 @@ export default function CommunityPage({ title, table }: ComunityPageProps) {
       <div className="flex w-full py-12 justify-between items-center text-[color:var(--white-80)]">
         <SearchBar
           value={searchInput}
-          onChange={setSearchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
           className="w-[50%]"
         />
 

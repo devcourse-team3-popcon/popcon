@@ -1,11 +1,19 @@
 import { useState } from "react";
-import InputField from "./InputField";
-import TextAreaField from "./TextAreaField";
+import InputField from "../../../components/common/InputField";
+import TextAreaField from "../../../components/common/TextAreaField";
+import { useChannelId } from "../../../hooks/useChannelId";
 
-export default function AddPost() {
+type AddPostProps = {
+  channelName: string;
+};
+
+export default function AddPost({ channelName }: AddPostProps) {
   const [titleInput, setTitleInput] = useState("");
   const [contentInput, setContentInput] = useState("");
   const [imageInput, setImageInput] = useState("");
+
+  const { channelId } = useChannelId(channelName);
+  console.log(channelId);
   return (
     <>
       <div className="flex flex-col w-[1080px] h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
