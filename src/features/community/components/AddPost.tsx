@@ -2,18 +2,47 @@ import { useState } from "react";
 import InputField from "../../../components/common/InputField";
 import TextAreaField from "../../../components/common/TextAreaField";
 import { useChannelId } from "../../../hooks/useChannelId";
+import { useNavigate } from "react-router";
+import { axiosInstance } from "../../../apis/axiosInstance";
 
 type AddPostProps = {
   channelName: string;
 };
 
 export default function AddPost({ channelName }: AddPostProps) {
+  const navigate = useNavigate();
   const [titleInput, setTitleInput] = useState("");
   const [contentInput, setContentInput] = useState("");
-  const [imageInput, setImageInput] = useState("");
-
+  const [imageInput, setImageInput] = useState<File | null>(null);
   const { channelId } = useChannelId(channelName);
-  console.log(channelId);
+
+  const createPostHandler = async () => {
+    const formData = new FormData();
+    formData.append("title", titleInput);
+    formData.append("content", contentInput);
+    formData.append("channelId", channelId!);
+    formData.append("image", imageInput ? imageInput : "null");
+
+    try {
+      const response = await axiosInstance.post("/posts/create", formData);
+      console.log(response);
+      if (response && response.status === 201) {
+        console.log(response.data);
+        navigate("/community");
+      } else {
+        console.log("Failed to Create Post");
+      }
+    } catch (e) {
+      console.log("Error during post creation:", e);
+    }
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setImageInput(event.target.files[0]);
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col w-[1080px] h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
@@ -50,15 +79,10 @@ export default function AddPost({ channelName }: AddPostProps) {
             <div className="flex flex-col gap-4 ">
               <label htmlFor="imageInput">이미지 첨부하기</label>
               <input
-                type="text"
+                type="file"
                 id="imageInput"
                 name="imageInput"
-                autoComplete="imageInput"
-                placeholder=".png/.jpg"
-                value={imageInput}
-                onChange={(e) => {
-                  setImageInput(e.target.value);
-                }}
+                onChange={handleImageChange}
                 className="border border-[color:var(--white-80)] px-4 rounded-[10px] text-[16px] h-10 focus:outline-none focus:border-[color:var(--primary-200)] h-[240px] w-[240px]"
               />
             </div>
@@ -66,7 +90,10 @@ export default function AddPost({ channelName }: AddPostProps) {
         </form>
 
         <div className="w-[100%] flex justify-center items-center">
-          <button className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold">
+          <button
+            className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold"
+            onClick={createPostHandler}
+          >
             저장하기
           </button>
         </div>
