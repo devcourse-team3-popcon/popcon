@@ -13,7 +13,6 @@ export default function PlaylistPanel() {
     const getData = async () => {
       const data = await getTrackToPlaylist();
       setPlayList(data);
-      // console.log(data[0])
     };
     getData();
   }, []);
@@ -32,10 +31,12 @@ export default function PlaylistPanel() {
           <TrackAddModal onClose={() => setIsModalOpen((prev) => !prev)} />
         )}
       </div>
-      {playList.map((item) => {
-        const data = JSON.parse(item.title) as TrackInfo;
-        return <PlaylistTrackItem item={data} showEllipsis={true} />;
-      })}
+      <div>
+        {playList.map((item) => {
+          const data = JSON.parse(item.title);
+          return <PlaylistTrackItem item={data} showEllipsis={true} />;
+        })}
+      </div>
     </div>
   );
 }

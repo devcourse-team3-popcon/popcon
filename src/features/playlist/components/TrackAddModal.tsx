@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import PlayListInput from "./PlayListInput";
 import { searchTrack } from "../../../apis/spotify/spotifySearch";
 import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessToken";
-import PlaylistTrackItem, { SpotifyTrack } from "./PlaylistTrackItem";
+import PlaylistTrackItem from "./PlaylistTrackItem";
 import { useAddTrackToPlaylist } from "../hooks/useAddTrackToPlaylist";
 import PlaylistTrackItemSkeleton from "./PlaylistTrackItemSkeleton";
 
@@ -14,8 +14,22 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    dialogRef.current?.showModal();
-  }, []);
+    const dialogElement = dialogRef.current;
+    dialogElement?.showModal();
+    document.body.style.overflow = "hidden";
+    const handleBackdropClick = (e: MouseEvent) => {
+      if (e.target === dialogElement) {
+        dialogElement?.close();
+        onClose();
+      }
+    };
+    dialogElement?.addEventListener("click", handleBackdropClick);
+
+    return () => {
+      dialogElement?.removeEventListener("click", handleBackdropClick);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
