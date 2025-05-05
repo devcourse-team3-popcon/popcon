@@ -1,5 +1,5 @@
 import { Calendar, Heart, MessageSquare, Type, UserRound } from "lucide-react";
-import usePostsByChannel from "../../hooks/usePostsByChannel";
+import usePostsByChannel from "../../../hooks/usePostsByChannel";
 
 type CommunityTableProps = {
   channelId: string;

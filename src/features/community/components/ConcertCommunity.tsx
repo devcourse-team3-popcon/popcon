@@ -1,5 +1,5 @@
-import CommunityTable from "../../../components/common/CommunityTable";
-import CommunityPage from "../../../components/common/CommunityPage";
+import CommunityTable from "./CommunityTable";
+import CommunityPage from "./CommunityPage";
 import { useChannelId } from "../../../hooks/useChannelId";
 
 export default function ConcertCommunity() {

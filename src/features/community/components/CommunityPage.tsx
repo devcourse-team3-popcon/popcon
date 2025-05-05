@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { useNavigate } from "react-router";
-import SearchBar from "./SearchBar";
+import SearchBar from "../../../components/common/SearchBar";
 import { Plus } from "lucide-react";
 interface ComunityPageProps {
   title: string;

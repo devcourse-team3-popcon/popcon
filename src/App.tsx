@@ -8,6 +8,7 @@ import Community from "./features/community/components/Community";
 import AddBopPost from "./features/community/components/AddBopPost";
 import AddPost from "./features/community/components/AddPost";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import PostDetail from "./features/community/components/PostDetail";
 
 export default function App() {
   return (
@@ -15,8 +16,9 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/community" element={<Community />}>
-          <Route index element={<Navigate to="bops-community" replace />} />
+          <Route index element={<Navigate to="post-detail" replace />} />
 
+          <Route path="post-detail" element={<PostDetail />} />
           <Route path="bops-community" element={<BopsCommunity />} />
           <Route path="concert-community" element={<ConcertCommunity />} />
           <Route path="open-community" element={<OpenCommunity />} />

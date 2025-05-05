@@ -3,9 +3,10 @@ import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessTok
 import { searchTrack } from "../../../apis/spotify/spotifySearch";
 import InputField from "../../../components/common/InputField";
 import SearchBar from "../../../components/common/SearchBar";
+import { Track } from "../../../types/Track";
 
 export default function AddBopPost() {
-  const [bopTrack, setBopTrack] = useState<any>(null);
+  const [bopTrack, setBopTrack] = useState<Track | null>(null);
   const [bopGenre, setBopGenre] = useState("");
   const [bopText, setBopText] = useState("");
 
@@ -88,7 +89,7 @@ export default function AddBopPost() {
           </div>
         </form>
         <ul className="m-2">
-          {tracks.map((track: any) => (
+          {tracks.map((track: Track) => (
             <li
               key={track.id}
               className="flex gap-5"

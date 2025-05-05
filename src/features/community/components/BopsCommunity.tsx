@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useChannelId } from "../../../hooks/useChannelId";
-import CommunityTable from "../../../components/common/CommunityTable";
+import CommunityTable from "./CommunityTable";
 
 export default function BopsCommunity() {
   const { channelId, loading } = useChannelId("BopsCommunity");
