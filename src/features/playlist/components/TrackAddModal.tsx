@@ -4,6 +4,7 @@ import PlayListInput from "./PlayListInput";
 import { searchTrack } from "../../../apis/spotify/spotifySearch";
 import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessToken";
 import PlaylistTrackItem, { SpotifyTrack } from "./PlaylistTrackItem";
+import { useAddTrackToPlaylist } from "../hooks/useAddTrackToPlaylist";
 
 export default function TrackAddModal({ onClose }: { onClose: () => void }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -17,6 +18,11 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
+
+  const handleTrackClick = useAddTrackToPlaylist(() => {
+    dialogRef.current?.close();
+    onClose();
+  });
 
   useEffect(() => {
     const getData = async () => {
@@ -59,7 +65,11 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
       </div>
       <div className="overflow-auto flex-1 mt-4">
         {trackList.map((track, index) => (
-          <PlaylistTrackItem key={track.id || index} track={track} />
+          <PlaylistTrackItem
+            key={track.id || index}
+            track={track}
+            onClick={handleTrackClick}
+          />
         ))}
       </div>
     </dialog>

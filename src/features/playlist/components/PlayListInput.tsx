@@ -1,12 +1,6 @@
 import { Search } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
-type PlayListInputProps = {
-  className?: string;
-  placeholder: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
 export default function PlayListInput({
   className,
   placeholder,

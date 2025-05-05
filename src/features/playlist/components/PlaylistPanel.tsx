@@ -1,10 +1,22 @@
 import { Plus } from "lucide-react";
 import PlaylistTrackItem from "./PlaylistTrackItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TrackAddModal from "./TrackAddModal";
+import { getTrackToPlaylist } from "../../../apis/playlist/getTrackToPlaylist";
 
 export default function PlaylistPanel() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [playList, setPlayList] = useState<
+    NonNullable<PlaylistTrackItemProps["item"]>[]
+  >([]);
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getTrackToPlaylist();
+      setPlayList(data);
+      // console.log(data[0])
+    };
+    getData();
+  }, []);
   return (
     <div className="flex flex-col gap-[40px] w-[560px] h-[912px] bg-[color:var(--grey-600)] rounded-[30px] p-[48px]">
       <div className="flex justify-between items-center">
@@ -20,7 +32,10 @@ export default function PlaylistPanel() {
           <TrackAddModal onClose={() => setIsModalOpen((prev) => !prev)} />
         )}
       </div>
-      {/* <PlaylistTrackItem /> */}
+      {playList.map((item) => {
+        const data = JSON.parse(item.title) as TrackInfo;
+        return <PlaylistTrackItem item={data} showEllipsis={true} />;
+      })}
     </div>
   );
 }
