@@ -40,3 +40,13 @@ interface PlaylistTrackItemProps {
   item?: TrackInfo;
   showEllipsis?: boolean;
 }
+
+interface PlaylistState {
+  tracks: TrackInfo[];
+  setTracks: (tracks: TrackInfo[]) => void;
+  addTrack: (track: TrackInfo) => void;
+}
+
+type ServerPost = {
+  title: string;
+};

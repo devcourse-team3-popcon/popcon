@@ -1,21 +1,26 @@
+import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import PlaylistTrackItem from "./PlaylistTrackItem";
-import { useEffect, useState } from "react";
 import TrackAddModal from "./TrackAddModal";
 import { getTrackToPlaylist } from "../../../apis/playlist/getTrackToPlaylist";
+import { usePlaylistStore } from "../../../stores/playlistStore";
 
 export default function PlaylistPanel() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [playList, setPlayList] = useState<
-    NonNullable<PlaylistTrackItemProps["item"]>[]
-  >([]);
+  const setTracks = usePlaylistStore((state) => state.setTracks);
+  const tracks = usePlaylistStore((state) => state.tracks);
+
   useEffect(() => {
-    const getData = async () => {
+    const fetchTracks = async () => {
       const data = await getTrackToPlaylist();
-      setPlayList(data);
+      const parsedData: TrackInfo[] = data.map((item: ServerPost) =>
+        JSON.parse(item.title)
+      );
+      setTracks(parsedData);
     };
-    getData();
-  }, []);
+    fetchTracks();
+  }, [setTracks]);
+
   return (
     <div className="flex flex-col gap-[40px] w-[560px] h-[912px] bg-[color:var(--grey-600)] rounded-[30px] p-[48px]">
       <div className="flex justify-between items-center">
@@ -32,10 +37,9 @@ export default function PlaylistPanel() {
         )}
       </div>
       <div>
-        {playList.map((item) => {
-          const data = JSON.parse(item.title);
-          return <PlaylistTrackItem item={data} showEllipsis={true} />;
-        })}
+        {tracks.map((track, idx) => (
+          <PlaylistTrackItem key={idx} item={track} showEllipsis={true} />
+        ))}
       </div>
     </div>
   );
