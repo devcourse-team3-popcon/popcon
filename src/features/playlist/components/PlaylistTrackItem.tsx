@@ -22,7 +22,7 @@ export default function PlaylistTrackItem({
             <img
               src={track ? track.album.images[0].url : item?.imgUrl}
               alt="앨범 사진"
-              className="w-[48px] h-[48px] rounded-none"
+              className="w-[48px] h-[48px] rounded-[10px]"
             />
             <div>
               <p className="text-[16px] font-bold">
