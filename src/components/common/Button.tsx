@@ -11,11 +11,11 @@ export default function ButtonComponent({
 }: ButtonProps) {
   const variantClasses: Record<Variant, string> = {
     success:
-      "w-[160px] h-[54px] rounded-[30px] bg-[#8EF3BF] text-black cursor-pointer",
+      "w-[160px] h-[54px] rounded-[30px] bg-[#8EF3BF] text-black font-bold cursor-pointer",
     delete:
-      "w-[160px] h-[54px] rounded-[30px] border border-[#8EF3BF] text-black cursor-pointer",
+      "w-[160px] h-[54px] rounded-[30px] border border-[#8EF3BF] text-white font-bold cursor-pointer",
     default:
-      "w-[153px] h-[53px] rounded-[30px] border border-white text-black cursor-pointer",
+      "w-[153px] h-[53px] rounded-[30px] border border-white text-white font-bold cursor-pointer",
   };
 
   return (
