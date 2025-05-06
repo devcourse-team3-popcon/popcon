@@ -22,7 +22,7 @@ export default function Hashtag({text, variant}: HashtagProps) {
 
   return (
     <div className={baseStyle} style={style}>
-      #{text}
+      # {text}
     </div>
   );
 }
