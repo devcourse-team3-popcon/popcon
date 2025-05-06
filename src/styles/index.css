@@ -2,6 +2,7 @@
 
 :root {
   --white: #fbfbfb;
+  --white-80: #fbfbfb80;
   --bg-color: #1b1c1e;
   --grey-600: #333333;
   --grey-500: #555555;
@@ -10,6 +11,7 @@
   --grey-200: #c2c2c2;
   --grey-100: #efefef;
   --primary-300: #71ebbe;
+  --primary-300-50: #71ebbe80;
   --primary-200: #8ef3bf;
   --primary-100: #a2f1d6;
   --red: #e42f42;
