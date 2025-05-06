@@ -48,3 +48,16 @@ export const searchTrack = async (query: string, accessToken: string) => {
     throw error;
   }
 };
+
+export const searchMultipleTracks = async (
+  tracks: TrackPrompt[],
+  token: string
+) => {
+  const results = await Promise.all(
+    tracks.map((track) =>
+      searchTrack(`${track.name} ${track.artist}`, token).then((res) => res[0])
+    )
+  );
+
+  return results.filter(Boolean);
+};

@@ -44,9 +44,18 @@ interface PlaylistTrackItemProps {
 interface PlaylistState {
   tracks: TrackInfo[];
   setTracks: (tracks: TrackInfo[]) => void;
-  addTrack: (track: TrackInfo) => void;
 }
 
 type ServerPost = {
   title: string;
 };
+
+interface TrackPrompt {
+  name: string;
+  artist: string;
+}
+
+interface TrackCardProps {
+  track?: SpotifyTrack;
+  onClick?: () => void;
+}

@@ -19,7 +19,7 @@ export default function PlaylistPanel() {
       setTracks(parsedData);
     };
     fetchTracks();
-  }, [setTracks]);
+  }, [tracks, setTracks]);
 
   return (
     <div className="flex flex-col gap-[40px] w-[560px] h-[912px] bg-[color:var(--grey-600)] rounded-[30px] p-[48px]">
@@ -37,8 +37,8 @@ export default function PlaylistPanel() {
         )}
       </div>
       <div>
-        {tracks.map((track, idx) => (
-          <PlaylistTrackItem key={idx} item={track} showEllipsis={true} />
+        {tracks.map((track, id) => (
+          <PlaylistTrackItem key={id} item={track} showEllipsis={true} />
         ))}
       </div>
     </div>
