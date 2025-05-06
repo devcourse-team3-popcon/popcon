@@ -11,18 +11,30 @@ export default function CommunityPage({ title, table }: ComunityPageProps) {
   const navigate = useNavigate();
   return (
     <>
-      <p className="text-[30px] font-semibold">{title}</p>
-      <div className="flex w-full py-12 justify-between items-center text-[color:var(--white-80)]">
-        <SearchBar
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          className="w-[50%]"
-        />
+      <div className="mb-24">
+        <p className="text-[30px] font-semibold">{title}</p>
+        <div className="flex w-full py-12 justify-between items-center text-[color:var(--white-80)]">
+          <div className="w-[70%] flex gap-4">
+            <select>
+              <option key="0" value="all">
+                통합
+              </option>
+              <option key="1" value="writer">
+                사용자
+              </option>
+            </select>
+            <SearchBar
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              className="w-[70%]"
+            />
+          </div>
 
-        <Plus className="cursor-pointer" onClick={() => navigate("add")} />
+          <Plus className="cursor-pointer" onClick={() => navigate("add")} />
+        </div>
+
+        {table}
       </div>
-
-      {table}
     </>
   );
 }

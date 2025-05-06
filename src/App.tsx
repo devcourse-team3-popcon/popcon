@@ -16,7 +16,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/community" element={<Community />}>
-          <Route index element={<Navigate to="post-detail" replace />} />
+          <Route index element={<Navigate to="bops-community" replace />} />
 
           <Route path="post-detail" element={<PostDetail />} />
           <Route path="bops-community" element={<BopsCommunity />} />
@@ -24,15 +24,19 @@ export default function App() {
           <Route path="open-community" element={<OpenCommunity />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="bops-community/add" element={<AddBopPost />} />
-            <Route
-              path="concert-community/add"
-              element={<AddPost channelName="ConcertCommunity" />}
-            />
-            <Route
-              path="open-community/add"
-              element={<AddPost channelName="OpenCommunity" />}
-            />
+            <Route path="post/:postId" element={<PostDetail />} />
+
+            <Route path="add">
+              <Route path="bops" element={<AddBopPost />} />
+              <Route
+                path="concert"
+                element={<AddPost channelName="ConcertCommunity" />}
+              />
+              <Route
+                path="open"
+                element={<AddPost channelName="OpenCommunity" />}
+              />
+            </Route>
           </Route>
         </Route>
       </Route>

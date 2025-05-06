@@ -1,11 +1,13 @@
 import { Calendar, Heart, MessageSquare, Type, UserRound } from "lucide-react";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
+import { useNavigate } from "react-router";
 
 type CommunityTableProps = {
   channelId: string;
 };
 
 export default function CommunityTable({ channelId }: CommunityTableProps) {
+  const navigate = useNavigate();
   const { posts: posts, loading } = usePostsByChannel(`${channelId}`);
   if (loading) return <p>로딩 중...</p>;
 
@@ -15,6 +17,10 @@ export default function CommunityTable({ channelId }: CommunityTableProps) {
       month: "long",
       day: "numeric",
     });
+  };
+
+  const handleClick = (postId: string) => {
+    navigate(`/community/post/${postId}`);
   };
 
   return (
@@ -65,6 +71,7 @@ export default function CommunityTable({ channelId }: CommunityTableProps) {
                 <tr
                   key={post.title}
                   className="cursor-pointer hover:text-[color:var(--primary-300)] text-[#fbfbfb95]"
+                  onClick={() => handleClick(post._id)}
                 >
                   <td className="text-[color:var(--white)] hover:text-[color:var(--primary-300)] text-left p-4 font-normal text-[16px]">
                     {post.title}

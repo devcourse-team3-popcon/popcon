@@ -1,8 +1,26 @@
+export type Comment = {
+  _id: string;
+  author: {
+    fullName: string;
+    _id: string;
+  };
+  comment: string;
+  createdAt: string;
+};
+
+export type Like = {
+  _id: string;
+  user: string;
+  post: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export interface Post {
   _id: string;
   title: string;
-  likes: string[];
-  comments: string[];
+  likes: Like[];
+  comments: Comment[];
   channel: {
     authRequired: boolean;
     posts: string[];

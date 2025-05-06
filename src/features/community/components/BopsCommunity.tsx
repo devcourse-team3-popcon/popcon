@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useChannelId } from "../../../hooks/useChannelId";
-import CommunityTable from "./CommunityTable";
+import BopCard from "../../../components/common/BopCard";
 
 export default function BopsCommunity() {
   const { channelId, loading } = useChannelId("BopsCommunity");
@@ -12,11 +12,20 @@ export default function BopsCommunity() {
 
   return (
     <>
-      <p className="text-[30px] font-semibold">
-        여기는 숨겨진 명곡들의 성지 🔮
-      </p>
-      <Plus className="cursor-pointer" onClick={() => navigate("add")} />
-      <CommunityTable channelId={channelId} />
+      <div className="flex w-full justify-between items-center">
+        <p className="text-[30px] font-semibold">
+          여기는 숨겨진 명곡들의 성지 🔮
+        </p>
+        <Plus className="cursor-pointer" onClick={() => navigate("add")} />
+      </div>
+
+      <div className="flex gap-8 flex-wrap w-full ">
+        <BopCard />
+        <BopCard />
+        <BopCard />
+        <BopCard />
+        <BopCard />
+      </div>
     </>
   );
 }

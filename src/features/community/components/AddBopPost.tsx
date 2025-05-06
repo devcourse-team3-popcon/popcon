@@ -76,7 +76,7 @@ export default function AddBopPost() {
             <InputField
               label="숨듣명 선정 이유 *"
               type="text"
-              maxLength="40"
+              //maxLength="40"
               id="bopText"
               name="bopText"
               autoComplete="bopText"
