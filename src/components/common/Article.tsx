@@ -1,8 +1,10 @@
 import { Ellipsis, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../apis/axiosInstance";
-import { Like, Post } from "../../types/Post";
+import { Post } from "../../types/Post";
+import { Like } from "../../types/Like";
 import Comment from "./Comment";
+import { parseTitle } from "../../utils/parseTitle";
 
 type ArticleProps = { postId?: string };
 
@@ -55,6 +57,8 @@ export default function Article({ postId }: ArticleProps) {
 
   if (!post) return <p>게시글을 불러오는 중...</p>;
 
+  const parsedTitle = parseTitle(post.title);
+
   return (
     <>
       <div className="flex flex-col gap-8">
@@ -73,9 +77,21 @@ export default function Article({ postId }: ArticleProps) {
         </div>
 
         <div>
-          <span className="text-[18px]">{post.title}</span>
-          <p className="mt-7 text-[color:var(--white-80)]">{post.title}</p>
+          <span className="text-[18px]">{parsedTitle.title}</span>
+          <p className="mt-7 text-[color:var(--white-80)]">
+            {parsedTitle.body}
+          </p>
         </div>
+
+        {post.image && (
+          <div className="mt-6 w-full flex justify-center">
+            <img
+              src={post.image}
+              alt="게시글 이미지"
+              className="w-[50%] h-auto rounded-lg"
+            />
+          </div>
+        )}
 
         <div className="flex justify-between">
           <div className="flex items-center gap-2 text-[13px]">
@@ -96,7 +112,7 @@ export default function Article({ postId }: ArticleProps) {
           </p>
         </div>
 
-        <div className="mt-6 border-t border-white/20 pt-4">
+        <div className="mt-6  pt-4  border-t-1 border-[color:var(--white-80)]">
           {post.comments.map((comment) => (
             <Comment key={comment._id} comment={comment} />
           ))}

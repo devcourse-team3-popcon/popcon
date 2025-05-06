@@ -1,6 +1,7 @@
 import { Calendar, Heart, MessageSquare, Type, UserRound } from "lucide-react";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import { useNavigate } from "react-router";
+import { parseTitle } from "../../../utils/parseTitle";
 
 type CommunityTableProps = {
   channelId: string;
@@ -67,23 +68,26 @@ export default function CommunityTable({ channelId }: CommunityTableProps) {
                 </td>
               </tr>
             ) : (
-              posts.map((post) => (
-                <tr
-                  key={post.title}
-                  className="cursor-pointer hover:text-[color:var(--primary-300)] text-[#fbfbfb95]"
-                  onClick={() => handleClick(post._id)}
-                >
-                  <td className="text-[color:var(--white)] hover:text-[color:var(--primary-300)] text-left p-4 font-normal text-[16px]">
-                    {post.title}
-                  </td>
-                  <td className="text-center p-4">{post.author.fullName}</td>
-                  <td className="text-center p-4">{post.comments.length}</td>
-                  <td className="text-center p-4">{post.likes.length}</td>
-                  <td className="text-center p-4">
-                    {formatTime(new Date(post.createdAt))}
-                  </td>
-                </tr>
-              ))
+              posts.map((post) => {
+                const parsedTitle = parseTitle(post.title);
+                return (
+                  <tr
+                    key={post._id}
+                    className="cursor-pointer hover:text-[color:var(--primary-300)] text-[#fbfbfb95]"
+                    onClick={() => handleClick(post._id)}
+                  >
+                    <td className="text-[color:var(--white)] hover:text-[color:var(--primary-300)] text-left p-4 font-normal text-[16px]">
+                      {parsedTitle.title}
+                    </td>
+                    <td className="text-center p-4">{post.author.fullName}</td>
+                    <td className="text-center p-4">{post.comments.length}</td>
+                    <td className="text-center p-4">{post.likes.length}</td>
+                    <td className="text-center p-4">
+                      {formatTime(new Date(post.createdAt))}
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>

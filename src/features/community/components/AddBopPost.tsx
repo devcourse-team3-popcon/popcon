@@ -4,8 +4,14 @@ import { searchTrack } from "../../../apis/spotify/spotifySearch";
 import InputField from "../../../components/common/InputField";
 import SearchBar from "../../../components/common/SearchBar";
 import { Track } from "../../../types/Track";
+import { useChannelId } from "../../../hooks/useChannelId";
+import { ChannelName } from "../../../types/ChannelName";
+import { axiosInstance } from "../../../apis/axiosInstance";
+import { useNavigate } from "react-router";
 
-export default function AddBopPost() {
+export default function AddBopPost({ channelName }: ChannelName) {
+  const navigate = useNavigate();
+  const { channelId } = useChannelId(channelName);
   const [bopTrack, setBopTrack] = useState<Track | null>(null);
   const [bopGenre, setBopGenre] = useState("");
   const [bopText, setBopText] = useState("");
@@ -37,6 +43,36 @@ export default function AddBopPost() {
     const results = await searchTrack(trackInput, accessToken);
     setTracks(results);
     console.log(results);
+  };
+
+  const createBopHandler = async () => {
+    if (!bopTrack || !bopGenre || !bopText || !channelId) {
+      alert("모든 필드를 입력해주세요.");
+      return;
+    }
+
+    const jsonTitle = {
+      track: bopTrack,
+      genre: bopGenre,
+      text: bopText,
+    };
+
+    const formData = new FormData();
+    formData.append("title", JSON.stringify(jsonTitle));
+    formData.append("channelId", channelId!);
+
+    try {
+      const response = await axiosInstance.post("/posts/create", formData);
+      console.log(response);
+      if (response && response.status === 201) {
+        console.log(response.data);
+        navigate("/community");
+      } else {
+        console.log("Failed to Create Post");
+      }
+    } catch (e) {
+      console.log("Error during Bop Post creation:", e);
+    }
   };
 
   return (
@@ -110,7 +146,10 @@ export default function AddBopPost() {
           </div>
         )}
         <div className="w-[100%] flex justify-center items-center">
-          <button className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold">
+          <button
+            className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold"
+            onClick={createBopHandler}
+          >
             저장하기
           </button>
         </div>

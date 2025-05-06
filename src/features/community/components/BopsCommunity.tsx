@@ -21,10 +21,6 @@ export default function BopsCommunity() {
 
       <div className="flex gap-8 flex-wrap w-full ">
         <BopCard />
-        <BopCard />
-        <BopCard />
-        <BopCard />
-        <BopCard />
       </div>
     </>
   );

@@ -4,12 +4,9 @@ import TextAreaField from "../../../components/common/TextAreaField";
 import { useChannelId } from "../../../hooks/useChannelId";
 import { useNavigate } from "react-router";
 import { axiosInstance } from "../../../apis/axiosInstance";
+import { ChannelName } from "../../../types/ChannelName";
 
-type AddPostProps = {
-  channelName: string;
-};
-
-export default function AddPost({ channelName }: AddPostProps) {
+export default function AddPost({ channelName }: ChannelName) {
   const navigate = useNavigate();
   const [titleInput, setTitleInput] = useState("");
   const [contentInput, setContentInput] = useState("");
@@ -17,9 +14,12 @@ export default function AddPost({ channelName }: AddPostProps) {
   const { channelId } = useChannelId(channelName);
 
   const createPostHandler = async () => {
+    const jsonTitle = {
+      title: titleInput,
+      body: contentInput,
+    };
     const formData = new FormData();
-    formData.append("title", titleInput);
-    formData.append("content", contentInput);
+    formData.append("title", JSON.stringify(jsonTitle));
     formData.append("channelId", channelId!);
     formData.append("image", imageInput ? imageInput : "null");
 
@@ -80,6 +80,7 @@ export default function AddPost({ channelName }: AddPostProps) {
               <label htmlFor="imageInput">이미지 첨부하기</label>
               <input
                 type="file"
+                accept="image/*"
                 id="imageInput"
                 name="imageInput"
                 onChange={handleImageChange}

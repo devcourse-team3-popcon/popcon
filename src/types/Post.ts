@@ -1,23 +1,10 @@
-export type Comment = {
-  _id: string;
-  author: {
-    fullName: string;
-    _id: string;
-  };
-  comment: string;
-  createdAt: string;
-};
-
-export type Like = {
-  _id: string;
-  user: string;
-  post: string;
-  createdAt: string;
-  updatedAt: string;
-};
+import { Like } from "./Like";
+import { Comment } from "./Comment";
 
 export interface Post {
   _id: string;
+  image: string;
+  imagePublicId: string;
   title: string;
   likes: Like[];
   comments: Comment[];

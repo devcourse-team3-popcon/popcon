@@ -35,7 +35,7 @@ export default function PostDetail() {
           name="contentInput"
           autoComplete="contentInput"
           placeholder="댓글을 입력해주세요."
-          className="flex-grow w-full h-[150px]"
+          className="flex-grow w-full h-[150px] "
           value={comment}
           onChange={(e) => {
             setComment(e.target.value);

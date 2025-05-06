@@ -1,5 +1,5 @@
 import { Ellipsis } from "lucide-react";
-import { Comment as CommentType } from "../../types/Post";
+import { Comment as CommentType } from "../../types/Comment";
 
 type CommentProps = {
   comment: CommentType;
@@ -10,7 +10,7 @@ export default function Comment({ comment }: CommentProps) {
 
   return (
     <>
-      <div className="flex flex-col px-2 pb-4">
+      <div className="flex flex-col px-2 pb-4 border-b border-white/20">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <div className="bg-amber-400 w-7 h-7 rounded-full mr-4"></div>
