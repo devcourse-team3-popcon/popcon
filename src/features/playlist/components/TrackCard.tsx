@@ -46,14 +46,14 @@ export default function TrackCard({ track, onClick }: TrackCardProps) {
 
   return (
     <div
-      className="w-[160px] h-[208px] overflow-hidden flex flex-col cursor-pointer justify-center items-center gap-[25px]"
+      className="w-[160px] h-[220px] overflow-hidden flex flex-col cursor-pointer justify-center items-center gap-[25px]"
       onClick={onClick || handleAddToPlaylist}
     >
-      <div className="w-[108px] h-[108px]">
+      <div className="flex w-[108px] h-[108px] justify-center items-center">
         <img
           src={track.album.images[0]?.url || "/placeholder-album.jpg"}
           alt={`${track.name} 앨범 커버`}
-          className="w-full h-full object-cover rounded-[50%]"
+          className="w-full h-full object-cover rounded-[100%]"
         />
       </div>
 

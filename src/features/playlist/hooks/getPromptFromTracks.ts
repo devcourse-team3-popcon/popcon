@@ -1,6 +1,6 @@
 export const generatePromptFromTracks = (tracks: TrackInfo[]): string => {
   if (!tracks || tracks.length === 0) {
-    throw new Error("플레이리스트가 비어있어 추천을 생성할 수 없습니다.");
+    throw new Error("추천 실패");
   }
 
   const list = tracks
