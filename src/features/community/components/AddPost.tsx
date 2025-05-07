@@ -5,6 +5,7 @@ import { useChannelId } from "../../../hooks/useChannelId";
 import { useNavigate } from "react-router";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import { ChannelName } from "../../../types/ChannelName";
+import ImageUploader from "../../../components/common/ImageUploader";
 
 export default function AddPost({ channelName }: ChannelName) {
   const navigate = useNavigate();
@@ -21,7 +22,9 @@ export default function AddPost({ channelName }: ChannelName) {
     const formData = new FormData();
     formData.append("title", JSON.stringify(jsonTitle));
     formData.append("channelId", channelId!);
-    formData.append("image", imageInput ? imageInput : "null");
+    if (imageInput) {
+      formData.append("image", imageInput);
+    }
 
     try {
       const response = await axiosInstance.post("/posts/create", formData);
@@ -34,12 +37,6 @@ export default function AddPost({ channelName }: ChannelName) {
       }
     } catch (e) {
       console.log("Error during post creation:", e);
-    }
-  };
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      setImageInput(event.target.files[0]);
     }
   };
 
@@ -76,17 +73,7 @@ export default function AddPost({ channelName }: ChannelName) {
               }}
             />
 
-            <div className="flex flex-col gap-4 ">
-              <label htmlFor="imageInput">이미지 첨부하기</label>
-              <input
-                type="file"
-                accept="image/*"
-                id="imageInput"
-                name="imageInput"
-                onChange={handleImageChange}
-                className="border border-[color:var(--white-80)] px-4 rounded-[10px] text-[16px] h-10 focus:outline-none focus:border-[color:var(--primary-200)] h-[240px] w-[240px]"
-              />
-            </div>
+            <ImageUploader onImageChange={setImageInput} />
           </div>
         </form>
 
@@ -94,6 +81,7 @@ export default function AddPost({ channelName }: ChannelName) {
           <button
             className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold"
             onClick={createPostHandler}
+            disabled={!titleInput || !contentInput}
           >
             저장하기
           </button>
