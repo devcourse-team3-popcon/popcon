@@ -59,3 +59,8 @@ interface TrackCardProps {
   track?: SpotifyTrack;
   onClick?: () => void;
 }
+
+interface TrackRecommendation {
+  name: string;
+  artist: string;
+}
