@@ -1,46 +1,30 @@
-import { SpotifyTrack } from "../../../types/spotify";
 import { usePlaylistStore } from "../../../stores/playlistStore";
 import { Plus } from "lucide-react";
-
-interface TrackCardProps {
-  track?: SpotifyTrack;
-  onClick?: () => void;
-}
+import TrackCardSkeleton from "./TrackCardSkeleton";
 
 export default function TrackCard({ track, onClick }: TrackCardProps) {
   const { setTracks } = usePlaylistStore();
+  const tracks = usePlaylistStore((state) => state.tracks);
 
   if (!track) {
-    return (
-      <div className="w-[160px] h-[240px] bg-[color:var(--grey-500)] rounded-[20px] flex items-center justify-center">
-        <p className="text-[color:var(--white-60)]">추천 준비중</p>
-      </div>
-    );
+    return <TrackCardSkeleton />;
   }
 
-  const formatDuration = (ms: number) => {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = Math.floor((ms % 60000) / 1000);
-    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-  };
-
   const handleAddToPlaylist = () => {
-    const currentTracks = usePlaylistStore.getState().tracks;
-
     const trackInfo = {
       name: track.name,
       artist: track.artists[0].name,
       imgUrl: track.album.images[0]?.url || "",
     };
-    const isAlreadyAdded = currentTracks.some(
+    const isAlreadyAdded = tracks.some(
       (t) => t.name === trackInfo.name && t.artist === trackInfo.artist
     );
 
     if (!isAlreadyAdded) {
-      setTracks([...currentTracks, trackInfo]);
-      alert("플레이리스트에 추가되었습니다!");
+      setTracks([...tracks, trackInfo]);
+      alert("플레이리스트에 추가됨");
     } else {
-      alert("이미 플레이리스트에 추가된 곡입니다.");
+      alert("이미 추가된 곡임");
     }
   };
 
