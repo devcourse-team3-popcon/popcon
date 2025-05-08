@@ -4,13 +4,13 @@ export const generatePromptFromTracks = (tracks: TrackInfo[]): string => {
   }
 
   const list = tracks
-    .map((track, i) => `${i + 1}. ${track.name} - ${track.artist}`)
+    .map((track, i) => `${i + 1}. ${track.title.name} - ${track.title.artist}`)
     .join("\n");
 
   return `
 다음은 사용자의 플레이리스트입니다. 이와 어울리는 새로운 음악 4개를 추천해주세요.
 반드시 JSON 배열 형식으로만 반환해주세요. 
-
+x
 예시 형식: 
 [
   {

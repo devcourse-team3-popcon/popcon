@@ -6,6 +6,7 @@ import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessTok
 import PlaylistTrackItem from "./PlaylistTrackItem";
 import { useAddTrackToPlaylist } from "../hooks/useAddTrackToPlaylist";
 import PlaylistTrackItemSkeleton from "./PlaylistTrackItemSkeleton";
+import SearchBar from "../../../components/common/SearchBar";
 
 export default function TrackAddModal({ onClose }: { onClose: () => void }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -87,11 +88,16 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
         />
       </div>
       <div className="flex justify-center mt-[24px]">
-        <PlayListInput
+        <SearchBar
+          value={inputValue}
+          onChange={handleInputChange}
+          className="w-[100%]"
+        />
+        {/* <PlayListInput
           className="w-[360px]"
           placeholder="검색어 입력"
           onChange={handleInputChange}
-        />
+        /> */}
       </div>
       <div className="overflow-auto flex-1 mt-4 scrollbar-hide">
         {isSearching ? (

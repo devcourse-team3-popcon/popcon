@@ -45,7 +45,7 @@ export default function TrackCard({ track }: { track: SpotifyTrack }) {
       </div>
 
       <div className="flex flex-col gap-2 justify-center items-center w-full">
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1.5 w-full">
           <p
             className="text-[14px] font-bold text-[color:var(--white)] truncate w-full text-center"
             title={track.name}
