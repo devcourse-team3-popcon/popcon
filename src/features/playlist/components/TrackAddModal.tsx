@@ -55,6 +55,7 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
           const token = await getSpotifyAccessToken();
           const searchData = await searchTrack(inputValue.trim(), token);
           setTrackList(searchData);
+          console.log(searchData);
         } catch (error) {
           console.error("노래 검색 실패:", error);
         } finally {

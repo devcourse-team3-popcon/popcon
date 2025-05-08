@@ -29,9 +29,8 @@ interface SpotifyTrack {
 }
 
 interface TrackInfo {
-  name: string;
-  imgUrl: string;
-  artist: string;
+  title: { name: string; imgUrl: string; artist: string };
+  _id: string;
 }
 
 interface PlaylistTrackItemProps {
@@ -39,6 +38,7 @@ interface PlaylistTrackItemProps {
   onClick?: (track: SpotifyTrack) => void;
   item?: TrackInfo;
   showEllipsis?: boolean;
+  trackId: string;
 }
 
 interface PlaylistState {
@@ -46,18 +46,9 @@ interface PlaylistState {
   setTracks: (tracks: TrackInfo[]) => void;
 }
 
-type ServerPost = {
-  title: string;
-};
-
 interface TrackPrompt {
   name: string;
   artist: string;
-}
-
-interface TrackCardProps {
-  track?: SpotifyTrack;
-  onClick?: () => void;
 }
 
 interface TrackRecommendation {

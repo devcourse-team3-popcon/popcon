@@ -1,11 +1,22 @@
 import { Ellipsis } from "lucide-react";
+import { deleteTrackFromPlaylist } from "../../../apis/playlist/deleteTrackFromPlaylist";
+import { usePlaylistStore } from "../../../stores/playlistStore";
 
 export default function PlaylistTrackItem({
   track,
   onClick,
   item,
   showEllipsis,
+  trackId,
 }: PlaylistTrackItemProps) {
+  const { setTracks } = usePlaylistStore();
+  const tracks = usePlaylistStore((state) => state.tracks);
+
+  const deleteTrack = async (trackId: string) => {
+    await deleteTrackFromPlaylist(trackId);
+    const updatedTracks = tracks.filter((track) => track._id !== trackId);
+    setTracks(updatedTracks);
+  };
   return (
     <div
       className="flex h-[84px] p-[18px] justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer"
@@ -13,22 +24,25 @@ export default function PlaylistTrackItem({
     >
       <div className="flex gap-[24px] items-center flex-1 overflow-hidden">
         <img
-          src={track ? track.album.images[0].url : item?.imgUrl}
-          alt="앨범 사진"
+          src={track ? track.album.images[0].url : item?.title.imgUrl}
+          alt={track ? `${track.name} 앨범 사진` : "앨범 사진"}
           className="w-[48px] h-[48px] min-w-[48px] rounded-[10px]"
         />
         <div className="overflow-hidden">
           <p className="text-[16px] font-bold truncate">
-            {track ? track.name : item?.name}
+            {track ? track.name : item?.title.name}
           </p>
           <p className="text-[16px] truncate">
-            {track ? track.artists[0].name : item?.artist}
+            {track ? track.artists[0].name : item?.title.artist}
           </p>
         </div>
       </div>
       {showEllipsis && (
         <div className="hidden group-hover:block ml-2">
-          <Ellipsis className="cursor-pointer" />
+          <Ellipsis
+            className="cursor-pointer"
+            onClick={() => deleteTrack(trackId)}
+          />
         </div>
       )}
     </div>

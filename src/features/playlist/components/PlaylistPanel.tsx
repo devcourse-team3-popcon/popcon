@@ -13,8 +13,15 @@ export default function PlaylistPanel() {
   useEffect(() => {
     const fetchTracks = async () => {
       const data = await getTrackToPlaylist();
-      const parsedData: TrackInfo[] = data.map((item: ServerPost) =>
-        JSON.parse(item.title)
+      const parsedData: TrackInfo[] = data.map(
+        (item: { title: string; _id: string }) => {
+          const parsedTitle = JSON.parse(item.title);
+
+          return {
+            title: parsedTitle,
+            _id: item._id,
+          };
+        }
       );
       setTracks(parsedData);
     };
@@ -36,9 +43,14 @@ export default function PlaylistPanel() {
           <TrackAddModal onClose={() => setIsModalOpen((prev) => !prev)} />
         )}
       </div>
-      <div>
-        {tracks.map((track, id) => (
-          <PlaylistTrackItem key={id} item={track} showEllipsis={true} />
+      <div className="overflow-auto scrollbar-hide">
+        {tracks.map((track) => (
+          <PlaylistTrackItem
+            key={track._id}
+            item={track}
+            showEllipsis={true}
+            trackId={track._id}
+          />
         ))}
       </div>
     </div>

@@ -5,6 +5,7 @@ import { generatePromptFromTracks } from "../hooks/getPromptFromTracks";
 import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessToken";
 import { searchMultipleTracks } from "../../../apis/spotify/spotifySearch";
 import { recommendTracksByGpt } from "../../../apis/openai/getMusicRecommendationByGPT";
+import TrackCardSkeleton from "./TrackCardSkeleton";
 
 export default function MusicRecommender() {
   const tracks = usePlaylistStore((state) => state.tracks);
@@ -22,35 +23,33 @@ export default function MusicRecommender() {
           recommendedTracks,
           token
         );
-
         setRecommendations(spotifyTracks);
       } catch (err) {
         console.error("추천 음악 가져오기 실패:", err);
       }
     };
-
     fetchRecommendations();
   }, [tracks]);
 
   return (
-    <div className="flex flex-col px-12 py-10 bg-[color:var(--grey-600)] rounded-[30px] gap-[32px] w-[800px]">
+    <div className="flex flex-col px-12 py-10 bg-[color:var(--grey-600)] rounded-[30px] gap-[32px] w-[800px] h-[360px]">
       <div className="flex px-8 gap-[16px] text-[24px] font-bold justify-between items-center">
         <div className="flex gap-4">
           <p>POPcon 이 추천하는 음악</p>
           <p>🎧</p>
         </div>
       </div>
-      <div className="flex overflow-x-auto gap-[25px] justify-center">
+      <div className="flex gap-[25px] justify-center items-center h-[208px]">
         {recommendations.length > 0 ? (
           recommendations.map((track, index) => (
             <TrackCard key={track.id || index} track={track} />
           ))
         ) : (
           <>
-            <TrackCard />
-            <TrackCard />
-            <TrackCard />
-            <TrackCard />
+            <TrackCardSkeleton />
+            <TrackCardSkeleton />
+            <TrackCardSkeleton />
+            <TrackCardSkeleton />
           </>
         )}
       </div>

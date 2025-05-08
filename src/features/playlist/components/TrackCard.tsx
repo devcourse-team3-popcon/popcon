@@ -1,8 +1,9 @@
 import { usePlaylistStore } from "../../../stores/playlistStore";
 import { Plus } from "lucide-react";
 import TrackCardSkeleton from "./TrackCardSkeleton";
+import { addTrackToPlayList } from "../../../apis/playlist/addTrackToPlaylist";
 
-export default function TrackCard({ track, onClick }: TrackCardProps) {
+export default function TrackCard({ track }: { track: SpotifyTrack }) {
   const { setTracks } = usePlaylistStore();
   const tracks = usePlaylistStore((state) => state.tracks);
 
@@ -12,51 +13,56 @@ export default function TrackCard({ track, onClick }: TrackCardProps) {
 
   const handleAddToPlaylist = () => {
     const trackInfo = {
-      name: track.name,
-      artist: track.artists[0].name,
-      imgUrl: track.album.images[0]?.url || "",
+      title: {
+        name: track.name,
+        artist: track.artists[0].name,
+        imgUrl: track.album.images[0]?.url || "",
+      },
+      _id: track.id,
     };
     const isAlreadyAdded = tracks.some(
-      (t) => t.name === trackInfo.name && t.artist === trackInfo.artist
+      (t) =>
+        t.title.name === trackInfo.title.name &&
+        t.title.artist === trackInfo.title.artist
     );
 
     if (!isAlreadyAdded) {
-      setTracks([...tracks, trackInfo]);
-      alert("플레이리스트에 추가됨");
+      addTrackToPlayList(trackInfo);
+      setTracks([trackInfo, ...tracks]);
     } else {
-      alert("이미 추가된 곡임");
+      alert("이미 추가된 곡입니다");
     }
   };
 
   return (
-    <div
-      className="w-[160px] h-[220px] overflow-hidden flex flex-col cursor-pointer justify-center items-center gap-[25px]"
-      onClick={onClick || handleAddToPlaylist}
-    >
+    <div className="w-[160px] h-full overflow-hidden flex flex-col cursor-pointer justify-center items-center gap-[25px] box-border">
       <div className="flex w-[108px] h-[108px] justify-center items-center">
         <img
-          src={track.album.images[0]?.url || "/placeholder-album.jpg"}
+          src={track.album.images[0]?.url || ""}
           alt={`${track.name} 앨범 커버`}
-          className="w-full h-full object-cover rounded-[100%]"
+          className="w-full h-full object-cover rounded-full"
         />
       </div>
 
-      <div className="flex flex-col gap-[8px] justify-center items-center">
+      <div className="flex flex-col gap-[8px] justify-center items-center w-full">
         <p
-          className="text-[14px] font-bold text-[color:var(--white)] truncate"
+          className="text-[14px] font-bold text-[color:var(--white)] truncate w-full text-center"
           title={track.name}
         >
           {track.name}
         </p>
-        <p
-          className="text-[14px] text-[color:var(--white)] truncate"
+        <div
+          className="text-[14px] text-[color:var(--white)] truncate w-full text-center h-[17px]"
           title={track.artists[0].name}
         >
           {track.artists[0].name}
-        </p>
-        <div className="flex justify-center gap-[8px] items-center hover:text-[color:var(--primary-100)] mt-[8px]">
-          <Plus className="w-4 h-4 text-[color:var(--grey-400)]" />
-          <p className="text-[14px] text-[color:var(--grey-400)]">
+        </div>
+        <div
+          className="flex justify-center gap-[8px] items-center mt-[8px] group"
+          onClick={handleAddToPlaylist}
+        >
+          <Plus className="w-4 h-4 text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)]" />
+          <p className="text-[14px] text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)]">
             Add Playlist
           </p>
         </div>
