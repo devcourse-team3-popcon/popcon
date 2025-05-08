@@ -1,4 +1,4 @@
-import frown from "../assets/images/icon-frown.svg";
+import frown from "../../../assets/images/icon-frown.svg";
 
 export default function NoMessages() {
   return (

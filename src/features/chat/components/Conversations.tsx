@@ -1,4 +1,4 @@
-import search from "../assets/images/icon-search.svg";
+import search from "../../../assets/images/icon-search.svg";
 import ChatUser from "./ChatUser";
 
 export default function Conversations() {

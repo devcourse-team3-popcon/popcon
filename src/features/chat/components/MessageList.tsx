@@ -1,4 +1,4 @@
-import send from "../assets/images/icon-send.svg";
+import send from "../../../assets/images/icon-send.svg";
 import LeftMessageBox from "./LeftMessageBox";
 import RightMessageBox from "./RightMessageBox";
 
