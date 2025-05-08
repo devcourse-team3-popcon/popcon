@@ -5,14 +5,16 @@ import UserPlaylistPreview from "../features/playlist/components/UserPlaylistPre
 
 export default function Playlist() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col scrollbar-hide w-[80%] justify-center items-center">
       <PlayListBanner />
-      <div className="flex gap-[32px]">
-        <div className="flex flex-col gap-[32px]">
+      <div className="flex gap-[32px] w-full">
+        <div className="flex flex-col gap-[32px] w-[58%]">
           <MusicRecommender />
           <UserPlaylistPreview />
         </div>
-        <PlaylistPanel />
+        <div className="w-[40%]">
+          <PlaylistPanel />
+        </div>
       </div>
     </div>
   );

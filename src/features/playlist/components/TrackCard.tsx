@@ -40,23 +40,26 @@ export default function TrackCard({ track }: { track: SpotifyTrack }) {
         <img
           src={track.album.images[0]?.url || ""}
           alt={`${track.name} 앨범 커버`}
-          className="w-full h-full object-cover rounded-full"
+          className="w-full h-full object-contain rounded-full"
         />
       </div>
 
-      <div className="flex flex-col gap-[8px] justify-center items-center w-full">
-        <p
-          className="text-[14px] font-bold text-[color:var(--white)] truncate w-full text-center"
-          title={track.name}
-        >
-          {track.name}
-        </p>
-        <div
-          className="text-[14px] text-[color:var(--white)] truncate w-full text-center h-[17px]"
-          title={track.artists[0].name}
-        >
-          {track.artists[0].name}
+      <div className="flex flex-col gap-2 justify-center items-center w-full">
+        <div className="flex flex-col gap-1.5">
+          <p
+            className="text-[14px] font-bold text-[color:var(--white)] truncate w-full text-center"
+            title={track.name}
+          >
+            {track.name}
+          </p>
+          <div
+            className="text-[12px] text-[color:var(--white-80)] truncate w-full text-center h-[17px]"
+            title={track.artists[0].name}
+          >
+            {track.artists[0].name}
+          </div>
         </div>
+
         <div
           className="flex justify-center gap-[8px] items-center mt-[8px] group"
           onClick={handleAddToPlaylist}

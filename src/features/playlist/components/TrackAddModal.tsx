@@ -88,7 +88,7 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
       </div>
       <div className="flex justify-center mt-[24px]">
         <PlayListInput
-          className="w-[400px]"
+          className="w-[360px]"
           placeholder="검색어 입력"
           onChange={handleInputChange}
         />
@@ -99,7 +99,7 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
         ) : inputValue.trim() === "" ? (
           ""
         ) : trackList.length === 0 ? (
-          <div className="flex justify-center items-center h-20 text-[color:var(--white-80)]">
+          <div className="flex justify-center items-center h-20 text-[color:var(--white)]">
             검색 결과가 없습니다
           </div>
         ) : (
@@ -107,6 +107,7 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
             <PlaylistTrackItem
               key={track.id || index}
               track={track}
+              trackId={track.id}
               onClick={handleTrackClick}
             />
           ))

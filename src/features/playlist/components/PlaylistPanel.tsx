@@ -29,7 +29,7 @@ export default function PlaylistPanel() {
   }, [setTracks]);
 
   return (
-    <div className="flex flex-col gap-[40px] w-[560px] h-[912px] bg-[color:var(--grey-600)] rounded-[30px] p-[48px]">
+    <div className="flex flex-col gap-[40px] h-[800px] bg-[color:var(--grey-600)] rounded-[30px] p-[48px]">
       <div className="flex justify-between items-center">
         <div className="flex gap-[16px] text-[24px] font-bold">
           <p>Jay 님의 PlayList</p>

@@ -24,22 +24,22 @@ export default function MusicRecommender() {
           token
         );
         setRecommendations(spotifyTracks);
-      } catch (err) {
-        console.error("추천 음악 가져오기 실패:", err);
+      } catch (error) {
+        console.error("추천 음악 가져오기 실패:", error);
       }
     };
     fetchRecommendations();
   }, [tracks]);
 
   return (
-    <div className="flex flex-col px-12 py-10 bg-[color:var(--grey-600)] rounded-[30px] gap-[32px] w-[800px] h-[360px]">
+    <div className="flex flex-col px-12 py-10 bg-[color:var(--grey-600)] rounded-[30px] gap-[32px] w-full h-[360px]">
       <div className="flex px-8 gap-[16px] text-[24px] font-bold justify-between items-center">
         <div className="flex gap-4">
           <p>POPcon 이 추천하는 음악</p>
           <p>🎧</p>
         </div>
       </div>
-      <div className="flex gap-[25px] justify-center items-center h-[208px]">
+      <div className="flex gap-[25px] justify-center items-center h-">
         {recommendations.length > 0 ? (
           recommendations.map((track, index) => (
             <TrackCard key={track.id || index} track={track} />
