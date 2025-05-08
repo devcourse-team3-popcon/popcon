@@ -10,8 +10,6 @@ export default function MusicRecommender() {
   const tracks = usePlaylistStore((state) => state.tracks);
   const [recommendations, setRecommendations] = useState<SpotifyTrack[]>([]);
 
-  console.log(tracks);
-
   useEffect(() => {
     if (tracks.length === 0) return;
     const fetchRecommendations = async () => {
@@ -32,7 +30,7 @@ export default function MusicRecommender() {
     };
 
     fetchRecommendations();
-  }, []);
+  }, [tracks]);
 
   return (
     <div className="flex flex-col px-12 py-10 bg-[color:var(--grey-600)] rounded-[30px] gap-[32px] w-[800px]">

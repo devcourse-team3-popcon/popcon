@@ -10,16 +10,16 @@ export default function PlaylistPanel() {
   const setTracks = usePlaylistStore((state) => state.setTracks);
   const tracks = usePlaylistStore((state) => state.tracks);
 
-  // useEffect(() => {
-  //   const fetchTracks = async () => {
-  //     const data = await getTrackToPlaylist();
-  //     const parsedData: TrackInfo[] = data.map((item: ServerPost) =>
-  //       JSON.parse(item.title)
-  //     );
-  //     setTracks(parsedData);
-  //   };
-  //   fetchTracks();
-  // }, [tracks, setTracks]);
+  useEffect(() => {
+    const fetchTracks = async () => {
+      const data = await getTrackToPlaylist();
+      const parsedData: TrackInfo[] = data.map((item: ServerPost) =>
+        JSON.parse(item.title)
+      );
+      setTracks(parsedData);
+    };
+    fetchTracks();
+  }, [setTracks]);
 
   return (
     <div className="flex flex-col gap-[40px] w-[560px] h-[912px] bg-[color:var(--grey-600)] rounded-[30px] p-[48px]">
