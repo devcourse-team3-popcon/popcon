@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { usePlaylistStore } from "../../../stores/playlistStore";
 import TrackCard from "./TrackCard";
 import { generatePromptFromTracks } from "../hooks/getPromptFromTracks";
@@ -9,6 +9,8 @@ import { recommendTracksByGpt } from "../../../apis/openai/getMusicRecommendatio
 export default function MusicRecommender() {
   const tracks = usePlaylistStore((state) => state.tracks);
   const [recommendations, setRecommendations] = useState<SpotifyTrack[]>([]);
+
+  console.log(tracks);
 
   useEffect(() => {
     if (tracks.length === 0) return;
