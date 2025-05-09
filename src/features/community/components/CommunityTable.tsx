@@ -1,7 +1,7 @@
 import { Calendar, Heart, MessageSquare, Type, UserRound } from "lucide-react";
 import { useNavigate } from "react-router";
 import { parseTitle } from "../../../utils/parseTitle";
-import { Post } from "../../../types/Post";
+import { Post } from "../types/Post";
 
 type CommunityTableProps = {
   posts: Post[];

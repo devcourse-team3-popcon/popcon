@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
-import { Post } from "../../../types/Post";
-import { Like } from "../../../types/Like";
+import { Post } from "../types/Post";
+import { Like } from "../types/Like";
 import { parseBopTitle } from "../../../utils/parseBopTitle";
 import { Ellipsis, Heart } from "lucide-react";
 import play from "../../../assets/images/playbtn.svg";

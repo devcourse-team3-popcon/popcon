@@ -1,8 +1,8 @@
 import { Ellipsis, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
-import { Post } from "../../../types/Post";
-import { Like } from "../../../types/Like";
+import { Post } from "../types/Post";
+import { Like } from "../types/Like";
 import Comment from "../../../components/common/Comment";
 import { parseTitle } from "../../../utils/parseTitle";
 import DropdownMenu from "../../../components/common/DropdownMenu";

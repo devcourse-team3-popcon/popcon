@@ -3,11 +3,12 @@ import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessTok
 import { searchTrack } from "../../../apis/spotify/spotifySearch";
 import InputField from "../../../components/common/InputField";
 import SearchBar from "../../../components/common/SearchBar";
-import { Track } from "../../../types/Track";
+import { Track } from "../types/Track";
 import { useChannelId } from "../../../hooks/useChannelId";
-import { ChannelName } from "../../../types/ChannelName";
+import { ChannelName } from "../types/ChannelName";
 import { useNavigate } from "react-router";
 import { createPost } from "../../../utils/post";
+import BackButton from "../../../components/common/BackButton";
 
 export default function AddBopPost({ channelName }: ChannelName) {
   const navigate = useNavigate();
@@ -72,7 +73,8 @@ export default function AddBopPost({ channelName }: ChannelName) {
 
   return (
     <>
-      <div className="flex flex-col w-[1080px] h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
+      <BackButton />
+      <div className="flex flex-col w-full h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
         <span className="w-full text-center text-2xl">숨듣명 추가하기</span>
         <form className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">

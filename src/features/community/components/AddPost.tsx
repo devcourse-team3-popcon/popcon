@@ -3,9 +3,10 @@ import InputField from "../../../components/common/InputField";
 import TextAreaField from "../../../components/common/TextAreaField";
 import { useChannelId } from "../../../hooks/useChannelId";
 import { useNavigate } from "react-router";
-import { ChannelName } from "../../../types/ChannelName";
+import { ChannelName } from "../types/ChannelName";
 import ImageUploader from "../../../components/common/ImageUploader";
 import { createPost } from "../../../utils/post";
+import BackButton from "../../../components/common/BackButton";
 
 export default function AddPost({ channelName }: ChannelName) {
   const navigate = useNavigate();
@@ -36,7 +37,8 @@ export default function AddPost({ channelName }: ChannelName) {
 
   return (
     <>
-      <div className="flex flex-col w-[1080px] h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
+      <BackButton />
+      <div className="flex flex-col w-full h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
         <span className="w-full text-center text-2xl">게시물 추가하기</span>
         <form className="flex flex-col gap-8">
           <InputField

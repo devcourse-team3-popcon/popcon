@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import SearchBar from "../../../components/common/SearchBar";
 import { Plus } from "lucide-react";
 import Hashtag from "../../../components/common/Hashtag";
-import { Post } from "../../../types/Post";
+import { Post } from "../types/Post";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import Pagination from "../../../components/common/Pagination";
 import { usePagination } from "../../../hooks/usePagination";
@@ -39,7 +39,7 @@ export default function CommunityPage({
   ];
 
   const hashtags =
-    channelId === "6814a8cdf940b6515bf4dfd7" ? concertHashtags : openHashtags;
+    channelId === "681e2fdd7380bb759ecc636d" ? concertHashtags : openHashtags;
 
   const filteredPosts = useMemo(() => {
     if (!posts) return [];
@@ -64,7 +64,7 @@ export default function CommunityPage({
   return (
     <>
       <div className="mb-24">
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 mt-10">
           <p className="text-[30px] font-semibold">{title}</p>
           <div className="flex gap-4 flex-wrap">
             {hashtags.map((tag, index) => (

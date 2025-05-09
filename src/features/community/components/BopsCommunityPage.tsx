@@ -23,24 +23,28 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
 
   return (
     <>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 w-full">
         <div className="flex w-full justify-between items-center">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 mt-10 w-full">
             <p className="text-[30px] font-semibold">
               여기는 숨겨진 명곡들의 성지 🔮
             </p>
-            <div className="flex gap-4 flex-wrap">
-              {hashtags.map((tag, index) => (
-                <Hashtag
-                  key={index}
-                  text={tag}
-                  variant={index % 2 ? "empty" : "filled"}
-                />
-              ))}
+            <div className="w-full flex justify-between items-center">
+              <div className="flex gap-4 flex-wrap">
+                {hashtags.map((tag, index) => (
+                  <Hashtag
+                    key={index}
+                    text={tag}
+                    variant={index % 2 ? "empty" : "filled"}
+                  />
+                ))}
+              </div>
+              <Plus
+                className="cursor-pointer text-[color:var(--white-80)]"
+                onClick={() => navigate("add")}
+              />
             </div>
           </div>
-
-          <Plus className="cursor-pointer" onClick={() => navigate("add")} />
         </div>
 
         <div className="flex gap-8 flex-wrap w-full ">

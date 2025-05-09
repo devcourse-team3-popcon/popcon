@@ -4,7 +4,7 @@ import Home from "./pages/home/Home";
 import BopsCommunity from "./features/community/components/BopsCommunity";
 import ConcertCommunity from "./features/community/components/ConcertCommunity";
 import OpenCommunity from "./features/community/components/OpenCommunity";
-import Community from "./features/community/components/Community";
+import Community from "./pages/Community";
 import AddBopPost from "./features/community/components/AddBopPost";
 import AddPost from "./features/community/components/AddPost";
 import ProtectedRoute from "./components/common/ProtectedRoute";

@@ -1,5 +1,5 @@
 import { Ellipsis } from "lucide-react";
-import { Comment as CommentType } from "../../types/Comment";
+import { Comment as CommentType } from "../../features/community/types/Comment";
 import { getCurrentUserId } from "../../utils/auth";
 
 type CommentProps = {

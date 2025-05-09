@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getCurrentUserId } from "../utils/auth";
-import { axiosInstance } from "../apis/axiosInstance";
+import { getCurrentUserId } from "../../../utils/auth";
+import { axiosInstance } from "../../../apis/axiosInstance";
 import { Post } from "../types/Post";
 
 export const useLike = (initialPost: Post | null) => {
