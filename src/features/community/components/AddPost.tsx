@@ -3,9 +3,9 @@ import InputField from "../../../components/common/InputField";
 import TextAreaField from "../../../components/common/TextAreaField";
 import { useChannelId } from "../../../hooks/useChannelId";
 import { useNavigate } from "react-router";
-import { axiosInstance } from "../../../apis/axiosInstance";
 import { ChannelName } from "../../../types/ChannelName";
 import ImageUploader from "../../../components/common/ImageUploader";
+import { createPost } from "../../../utils/post";
 
 export default function AddPost({ channelName }: ChannelName) {
   const navigate = useNavigate();
@@ -19,21 +19,15 @@ export default function AddPost({ channelName }: ChannelName) {
       title: titleInput,
       body: contentInput,
     };
-    const formData = new FormData();
-    formData.append("title", JSON.stringify(jsonTitle));
-    formData.append("channelId", channelId!);
-    if (imageInput) {
-      formData.append("image", imageInput);
-    }
 
     try {
-      const response = await axiosInstance.post("/posts/create", formData);
-      console.log(response);
-      if (response && response.status === 201) {
-        console.log(response.data);
-        navigate("/community");
-      } else {
-        console.log("Failed to Create Post");
+      const response = await createPost({
+        title: jsonTitle,
+        channelId: channelId!,
+        image: imageInput || undefined,
+      });
+      if (response.status === 201 || response.status === 200) {
+        navigate(-1);
       }
     } catch (e) {
       console.log("Error during post creation:", e);

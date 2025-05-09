@@ -1,10 +1,12 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import SearchBar from "../../../components/common/SearchBar";
 import { Plus } from "lucide-react";
 import Hashtag from "../../../components/common/Hashtag";
 import { Post } from "../../../types/Post";
-import { axiosInstance } from "../../../apis/axiosInstance";
+import usePostsByChannel from "../../../hooks/usePostsByChannel";
+import Pagination from "../../../components/common/Pagination";
+import { usePagination } from "../../../hooks/usePagination";
 
 interface ComunityPageProps {
   title: string;
@@ -18,47 +20,46 @@ export default function CommunityPage({
 }: ComunityPageProps) {
   const [searchInput, setSearchInput] = useState("");
   const [searchType, setSearchType] = useState<"all" | "writer">("all");
-  const [posts, setPosts] = useState<Post[]>([]);
   const navigate = useNavigate();
+  const { page, cntPage, setPagination } = usePagination();
+  const { posts, loading } = usePostsByChannel(channelId);
 
-  const hashtags = [
+  const concertHashtags = [
     "내 가수 자랑 😎",
     "이 노래 제목이 뭐죠? 🤔",
     "신곡 추천 🎶",
     "느좋 팝송 🎧️",
   ];
 
-  const fetchPosts = async () => {
-    try {
-      const res = await axiosInstance.get(`/posts/channel/${channelId}`);
-      setPosts(res.data);
-    } catch (e) {
-      console.error("게시글 조회 실패", e);
-    }
-  };
+  const openHashtags = [
+    "티켓팅 꿀팁 🎫",
+    "콘서트 후기 ✍️",
+    "좌석 시야 🏟️",
+    "콘서트 동행 👯‍♀️",
+  ];
 
-  const searchHandler = () => {
-    fetchPosts();
-  };
+  const hashtags =
+    channelId === "6814a8cdf940b6515bf4dfd7" ? concertHashtags : openHashtags;
 
-  // const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.key === "Enter") {
-  //     searchHandler();
-  //   }
-  // };
-
-  const filteredPosts = posts.filter((post) => {
-    if (!searchInput.trim()) return true;
-    if (searchType === "all") {
-      return post.title.includes(searchInput);
-    } else {
-      return post.author.fullName.includes(searchInput);
-    }
-  });
+  const filteredPosts = useMemo(() => {
+    if (!posts) return [];
+    return posts.filter((post) => {
+      if (!searchInput.trim()) return true;
+      return searchType === "all"
+        ? post.title.includes(searchInput)
+        : post.author.fullName.includes(searchInput);
+    });
+  }, [posts, searchInput, searchType]);
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    setPagination(cntPage, filteredPosts.length, 1);
+  }, [searchInput, searchType, cntPage]);
+
+  const indexOfLastPost = page * cntPage;
+  const indexOfFirstPost = indexOfLastPost - cntPage;
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+
+  if (loading) return <p>로딩 중...</p>;
 
   return (
     <>
@@ -94,7 +95,6 @@ export default function CommunityPage({
               value={searchInput}
               onChange={(e) => {
                 setSearchInput(e.target.value);
-                searchHandler();
               }}
               className="w-[70%]"
             />
@@ -103,7 +103,16 @@ export default function CommunityPage({
           <Plus className="cursor-pointer" onClick={() => navigate("add")} />
         </div>
 
-        {renderTable(filteredPosts)}
+        {renderTable(currentPosts)}
+
+        <div className="mt-8 flex justify-center">
+          <Pagination
+            page={page}
+            cntPage={cntPage}
+            totalCnt={filteredPosts.length}
+            setPagination={setPagination}
+          />
+        </div>
       </div>
     </>
   );

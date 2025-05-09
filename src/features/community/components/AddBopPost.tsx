@@ -6,8 +6,8 @@ import SearchBar from "../../../components/common/SearchBar";
 import { Track } from "../../../types/Track";
 import { useChannelId } from "../../../hooks/useChannelId";
 import { ChannelName } from "../../../types/ChannelName";
-import { axiosInstance } from "../../../apis/axiosInstance";
 import { useNavigate } from "react-router";
+import { createPost } from "../../../utils/post";
 
 export default function AddBopPost({ channelName }: ChannelName) {
   const navigate = useNavigate();
@@ -57,18 +57,13 @@ export default function AddBopPost({ channelName }: ChannelName) {
       text: bopText,
     };
 
-    const formData = new FormData();
-    formData.append("title", JSON.stringify(jsonTitle));
-    formData.append("channelId", channelId!);
-
     try {
-      const response = await axiosInstance.post("/posts/create", formData);
-      console.log(response);
-      if (response && response.status === 201) {
-        console.log(response.data);
-        navigate("/community");
-      } else {
-        console.log("Failed to Create Post");
+      const response = await createPost({
+        title: jsonTitle,
+        channelId,
+      });
+      if (response.status === 201 || response.status === 200) {
+        navigate(-1);
       }
     } catch (e) {
       console.log("Error during Bop Post creation:", e);
@@ -147,6 +142,7 @@ export default function AddBopPost({ channelName }: ChannelName) {
         )}
         <div className="w-[100%] flex justify-center items-center">
           <button
+            type="button"
             className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold"
             onClick={createBopHandler}
           >
