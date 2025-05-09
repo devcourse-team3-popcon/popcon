@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../apis/axiosInstance";
 import { Conversation } from "../types/Conversation";
+import { axiosInstance } from "../../../apis/axiosInstance";
 
 export default function useGetConversation() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchConversations = async () => {
+    const getConversations = async () => {
       try {
         const { data } = await axiosInstance.get("/messages/conversations");
         setConversations(data);
@@ -18,7 +18,7 @@ export default function useGetConversation() {
         setLoading(false);
       }
     };
-    fetchConversations();
+    getConversations();
   }, []);
 
   return { conversations, loading };

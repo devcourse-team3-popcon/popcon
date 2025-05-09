@@ -53,6 +53,12 @@
 }
 
 @font-face {
+  font-family: "Pretendard";
+  font-weight: 300;
+  src: url("/src/assets/fonts/Pretendard-Light.woff2") format("woff2");
+}
+
+@font-face {
   font-family: "MonumentExtended";
   src: url("/src/assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
 }

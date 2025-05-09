@@ -1,8 +1,8 @@
 import { useState } from "react";
 import SearchBar from "../../../components/common/SearchBar";
-import useGetConversation from "../../../hooks/useGetConversation";
 import ChatUser from "./ChatUser";
-import { UserInfo } from "../../../types/UserInfo";
+import { UserInfo } from "../types/UserInfo";
+import useGetConversation from "../hooks/useGetConversation";
 
 export default function Conversations({
   onSelect,
@@ -26,15 +26,15 @@ export default function Conversations({
 
   return (
     <>
-      <div className="w-[360px] h-[744px] pt-[53px] pb-[32px] px-[20px] rounded-[30px] border">
-        <div className="font-bold text-[24px] mb-[32px] cursor-default">
+      <div className="w-[25%] h-auto pt-[53px] pb-[32px] px-[20px] rounded-[30px] border">
+        <div className="font-bold text-[24px] mb-[32px] px-2 cursor-default">
           Message
         </div>
 
         <SearchBar
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="w-[320px] mb-[16px]"
+          className="w-full mb-[16px]"
         />
 
         <div className="flex flex-col gap-[8px]">

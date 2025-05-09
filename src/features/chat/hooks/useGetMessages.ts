@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { axiosInstance } from "../../../apis/axiosInstance";
 import { Message } from "../types/Message";
-import { axiosInstance } from "../apis/axiosInstance";
 
 type SimpleMsg = {
   id: string;
@@ -28,7 +28,7 @@ export default function useGetMessages(userId: string) {
   };
 
   useEffect(() => {
-    const fetchMessages = async () => {
+    const getMessages = async () => {
       try {
         const { data } = await axiosInstance.get("/messages", {
           params: { userId: userId },
@@ -51,7 +51,7 @@ export default function useGetMessages(userId: string) {
         setLoading(false);
       }
     };
-    fetchMessages();
+    getMessages();
   }, [userId]);
 
   return { messages, loading };
