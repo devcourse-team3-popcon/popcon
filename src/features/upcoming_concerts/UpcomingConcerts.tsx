@@ -7,7 +7,7 @@ export default function UpcomingConcerts() {
 
   return (
     <div className='mt-12 flex flex-col justify-center items-center'>
-      <div className='w-full grid grid-cols-4 gap-20'>
+      <div className='w-full  gap-20'>
         <h1 className='text-[55px] font-[MonumentExtended] leading-17'>
           <span className='block'>UPCOMING</span>
           <span className='text-[var(--primary-300)]'>CONCERTS</span>
