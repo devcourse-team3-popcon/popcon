@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import {getConcerts} from "../apis/upcoming_concerts/getConcerts";
-import {Concert} from "../types/upcoming_concerts/Concert";
+import {getConcerts} from "../../../apis/upcoming_concerts/getConcerts";
+import {Concert} from "../../../types/upcoming_concerts/Concert";
 
 export default function useConcerts(channelId: string) {
   const [concerts, setConcerts] = useState<Concert[]>([]);
