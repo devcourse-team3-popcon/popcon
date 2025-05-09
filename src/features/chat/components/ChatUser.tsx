@@ -13,6 +13,7 @@ export default function ChatUser({
   message,
   time,
   onClick,
+  isSelected,
 }: ConversationProps) {
   const userName = me === senderId ? receiver : sender;
   const userId = me === senderId ? receiverId : senderId;
@@ -30,7 +31,9 @@ export default function ChatUser({
     <>
       <div
         onClick={() => onClick?.(user)}
-        className="w-[320px] h-[64px] px-[9px] py-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer"
+        className={`w-[320px] h-[64px] px-[9px] py-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer ${
+          isSelected && "bg-[var(--grey-500)]"
+        }`}
       >
         {userImage ? (
           <div

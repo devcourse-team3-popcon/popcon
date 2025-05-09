@@ -17,7 +17,10 @@ export default function Chat() {
         <BackButton />
 
         <div className="flex gap-[32px]">
-          <Conversations onSelect={(user) => selectedIdHandler(user)} />
+          <Conversations
+            onSelect={(user) => selectedIdHandler(user)}
+            selectedId={selectedConversation?.id}
+          />
           <Messages userInfo={selectedConversation} />
         </div>
       </div>

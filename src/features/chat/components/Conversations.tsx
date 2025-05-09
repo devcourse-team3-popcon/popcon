@@ -6,8 +6,10 @@ import { UserInfo } from "../../../types/UserInfo";
 
 export default function Conversations({
   onSelect,
+  selectedId,
 }: {
   onSelect?: (user: UserInfo) => void;
+  selectedId?: string;
 }) {
   const [searchInput, setSearchInput] = useState("");
   const { conversations, loading } = useGetConversation();
@@ -39,21 +41,22 @@ export default function Conversations({
           {loading && <p>loading...</p>}
 
           {conversations &&
-            conversations.map((conversation) => (
+            conversations.map((conv) => (
               <ChatUser
-                key={conversation._id[1]}
-                me={conversation._id[0]}
-                sender={conversation.sender.fullName}
-                receiver={conversation.receiver.fullName}
-                senderId={conversation.sender._id}
-                receiverId={conversation.receiver._id}
-                s_isOnline={conversation.sender.isOnline}
-                r_isOnline={conversation.receiver.isOnline}
-                s_image={conversation.sender.image}
-                r_image={conversation.receiver.image}
-                message={conversation.message}
-                time={formatTime(new Date(conversation.createdAt))}
+                key={conv._id[1]}
+                me={conv._id[0]}
+                sender={conv.sender.fullName}
+                receiver={conv.receiver.fullName}
+                senderId={conv.sender._id}
+                receiverId={conv.receiver._id}
+                s_isOnline={conv.sender.isOnline}
+                r_isOnline={conv.receiver.isOnline}
+                s_image={conv.sender.image}
+                r_image={conv.receiver.image}
+                message={conv.message}
+                time={formatTime(new Date(conv.createdAt))}
                 onClick={onSelect}
+                isSelected={conv._id[1] === selectedId}
               />
             ))}
         </div>

@@ -13,4 +13,5 @@ export interface ConversationProps {
   message: string;
   time: string;
   onClick?: (user: UserInfo) => void;
+  isSelected?: boolean;
 }
