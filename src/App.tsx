@@ -1,3 +1,4 @@
+import UpcomingConcerts from "./features/upcoming_concerts/UpcomingConcerts";
 import { Route, Routes, Navigate } from "react-router";
 import Layout from "./layout/Layout";
 import Home from "./pages/home/Home";
@@ -10,11 +11,13 @@ import AddPost from "./features/community/components/AddPost";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import PostDetail from "./features/community/components/PostDetail";
 
+
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path='/upcoming-concerts' element={<UpcomingConcerts />} />
         <Route path="/community" element={<Community />}>
           <Route index element={<Navigate to="post-detail" replace />} />
 
