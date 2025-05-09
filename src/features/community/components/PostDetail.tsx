@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Article from "../../../components/common/Article";
+import Article from "./Article";
 import TextAreaField from "../../../components/common/TextAreaField";
 import { useParams } from "react-router";
 import { axiosInstance } from "../../../apis/axiosInstance";

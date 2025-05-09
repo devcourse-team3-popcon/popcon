@@ -1,7 +1,9 @@
 import { Plus } from "lucide-react";
 import { useNavigate } from "react-router";
-import BopCard from "../../../components/common/BopCard";
+import BopCard from "./BopCard";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
+import Hashtag from "../../../components/common/Hashtag";
+import { useState } from "react";
 
 type BopsCommunityProps = {
   channelId: string;
@@ -9,23 +11,48 @@ type BopsCommunityProps = {
 
 export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
   const navigate = useNavigate();
+  const hashtags = ["숨듣명 🎵", "30초 미리듣기 👂🏻", "띵곡 추천 🖤"];
+  const [currentVideo, setCurrentVideo] = useState<{
+    postId: string;
+    videoId: string;
+  } | null>(null);
+
   const { posts, loading } = usePostsByChannel(`${channelId}`);
   if (loading) return <p>로딩 중...</p>;
   if (!channelId) return <p>채널을 찾을 수 없습니다.</p>;
 
   return (
     <>
-      <div className="flex w-full justify-between items-center">
-        <p className="text-[30px] font-semibold">
-          여기는 숨겨진 명곡들의 성지 🔮
-        </p>
-        <Plus className="cursor-pointer" onClick={() => navigate("add")} />
-      </div>
+      <div className="flex flex-col gap-8">
+        <div className="flex w-full justify-between items-center">
+          <div className="flex flex-col gap-8">
+            <p className="text-[30px] font-semibold">
+              여기는 숨겨진 명곡들의 성지 🔮
+            </p>
+            <div className="flex gap-4 flex-wrap">
+              {hashtags.map((tag, index) => (
+                <Hashtag
+                  key={index}
+                  text={tag}
+                  variant={index % 2 ? "empty" : "filled"}
+                />
+              ))}
+            </div>
+          </div>
 
-      <div className="flex gap-8 flex-wrap w-full ">
-        {posts?.map((post) => (
-          <BopCard key={post._id} post={post} />
-        ))}
+          <Plus className="cursor-pointer" onClick={() => navigate("add")} />
+        </div>
+
+        <div className="flex gap-8 flex-wrap w-full ">
+          {posts?.map((post) => (
+            <BopCard
+              key={post._id}
+              post={post}
+              currentVideo={currentVideo}
+              setCurrentVideo={setCurrentVideo}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

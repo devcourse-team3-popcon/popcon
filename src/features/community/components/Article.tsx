@@ -1,17 +1,34 @@
 import { Ellipsis, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../../apis/axiosInstance";
-import { Post } from "../../types/Post";
-import { Like } from "../../types/Like";
-import Comment from "./Comment";
-import { parseTitle } from "../../utils/parseTitle";
+import { axiosInstance } from "../../../apis/axiosInstance";
+import { Post } from "../../../types/Post";
+import { Like } from "../../../types/Like";
+import Comment from "../../../components/common/Comment";
+import { parseTitle } from "../../../utils/parseTitle";
+import DropdownMenu from "../../../components/common/DropdownMenu";
 
 type ArticleProps = { postId?: string };
 
 export default function Article({ postId }: ArticleProps) {
   const [post, setPost] = useState<Post | null>(null);
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const menuItems = [
+    { label: "게시물 수정", onClick: () => alert("수정") },
+    { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
+  ];
   const currentUserId = "68160153f940b6515bf4e11f";
+
+  const deletePostHandler = async () => {
+    if (!postId) return;
+    try {
+      await axiosInstance.delete(`/posts/delete`, {
+        data: { id: postId },
+      });
+    } catch (e) {
+      console.log("게시물 삭제 : ", e);
+    }
+  };
 
   const fetchPost = async () => {
     try {
@@ -73,7 +90,19 @@ export default function Article({ postId }: ArticleProps) {
             </div>
           </div>
 
-          {post.author._id === currentUserId && <Ellipsis />}
+          {post.author._id === currentUserId && (
+            <div className="relative">
+              <Ellipsis
+                onClick={() => setIsOpen(!isOpen)}
+                className="cursor-pointer"
+              />
+              <DropdownMenu
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                menuItems={menuItems}
+              />
+            </div>
+          )}
         </div>
 
         <div>
@@ -82,7 +111,6 @@ export default function Article({ postId }: ArticleProps) {
             {parsedTitle.body}
           </p>
         </div>
-
         {post.image && (
           <div className="mt-6 w-full flex justify-center">
             <img
@@ -92,7 +120,6 @@ export default function Article({ postId }: ArticleProps) {
             />
           </div>
         )}
-
         <div className="flex justify-between">
           <div className="flex items-center gap-2 text-[13px]">
             <Heart
@@ -111,7 +138,6 @@ export default function Article({ postId }: ArticleProps) {
             <span className="font-bold">{post.comments.length}</span>개의 댓글
           </p>
         </div>
-
         <div className="mt-6  pt-4  border-t-1 border-[color:var(--white-80)]">
           {post.comments.map((comment) => (
             <Comment key={comment._id} comment={comment} />
