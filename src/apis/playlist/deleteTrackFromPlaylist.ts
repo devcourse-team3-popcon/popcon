@@ -6,8 +6,7 @@ export const deleteTrackFromPlaylist = async (id: string) => {
     const res = await axiosInstance.delete("posts/delete", {
       data: { id: id },
     });
-    console.log(res);
-    return res.data;
+    return res;
   } catch (error) {
     console.error(error);
     throw error;

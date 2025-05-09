@@ -10,6 +10,8 @@ export default function PlaylistPanel() {
   const setTracks = usePlaylistStore((state) => state.setTracks);
   const tracks = usePlaylistStore((state) => state.tracks);
 
+ 
+
   useEffect(() => {
     const fetchTracks = async () => {
       const data = await getTrackToPlaylist();
