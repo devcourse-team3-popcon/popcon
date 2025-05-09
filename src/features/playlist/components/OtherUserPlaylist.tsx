@@ -47,7 +47,7 @@ export default function OtherUserPlaylist({
   }, [selectedUserId]);
 
   return (
-    <div className="flex flex-col p-[48px] bg-[color:var(--grey-600)] w-full h-[408px] rounded-[30px] gap-[32px]">
+    <div className="flex flex-col p-[48px] bg-[color:var(--grey-600)] w-full h-[408px] rounded-[30px] gap-[12px]">
       <div className="flex items-center gap-2 px-[18px]">
         <ChevronLeft
           className="cursor-pointer"
@@ -59,7 +59,7 @@ export default function OtherUserPlaylist({
         </div>
       </div>
       <div>
-        <div className="flex w-full h-[336px] gap-[8px] px-8">
+        <div className="flex w-full h-[354px] gap-[8px]">
           <div className="flex flex-col overflow-auto h-[80%] w-full scrollbar-hide">
             {userPlaylist &&
               userPlaylist.map((track) => {
