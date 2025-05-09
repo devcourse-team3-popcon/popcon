@@ -68,4 +68,13 @@ interface UserListItemProps {
   favoriteArtist?: string;
   isOnline?: boolean;
   id: string;
+  setSelectedUserId: (id: string) => void;
+}
+
+interface ParsedDataType {
+  name: string;
+  coverImage?: string;
+  favoriteArtist?: string;
+  isOnline?: boolean;
+  id: string;
 }

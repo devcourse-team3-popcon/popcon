@@ -5,7 +5,11 @@ import SearchBar from "../../../components/common/SearchBar";
 import { getAllUserInfo } from "../../../apis/playlist/getAllUserInfo";
 import { isJSONString } from "../utils/stringUtils";
 
-export default function UserPlaylistPreview() {
+export default function UserPlaylistPreview({
+  setSelectedUserId,
+}: {
+  setSelectedUserId: (id: string) => void;
+}) {
   const [inputValue, setInputValue] = useState("");
   const [userList, setUserList] = useState<UserType[]>([]);
   const [allUserList, setAllUserList] = useState<UserType[]>([]);
@@ -59,6 +63,7 @@ export default function UserPlaylistPreview() {
                         fullName={parsedData.name}
                         isOnline={user.isOnline}
                         favoriteArtist={parsedData.favoriteArtist}
+                        setSelectedUserId={setSelectedUserId}
                       />
                     );
                   } else
@@ -68,6 +73,7 @@ export default function UserPlaylistPreview() {
                         id={user._id}
                         fullName={user.fullName}
                         isOnline={user.isOnline}
+                        setSelectedUserId={setSelectedUserId}
                       />
                     );
                 })
@@ -81,6 +87,7 @@ export default function UserPlaylistPreview() {
                         fullName={parsedData.name}
                         isOnline={user.isOnline}
                         favoriteArtist={parsedData.favoriteArtist}
+                        setSelectedUserId={setSelectedUserId}
                       />
                     );
                   } else
@@ -90,6 +97,7 @@ export default function UserPlaylistPreview() {
                         id={user._id}
                         fullName={user.fullName}
                         isOnline={user.isOnline}
+                        setSelectedUserId={setSelectedUserId}
                       />
                     );
                 })}
