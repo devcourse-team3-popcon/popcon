@@ -8,6 +8,8 @@ import play from "../../../assets/images/playbtn.svg";
 import stop from "../../../assets/images/stopbtn.svg";
 import { searchYoutubeVideo } from "../../../utils/searchYoutubeVideo";
 import DropdownMenu from "../../../components/common/DropdownMenu";
+import { deletePost } from "../../../utils/post";
+import { getCurrentUserId } from "../../../utils/auth";
 
 type BopCardProps = {
   post: Post;
@@ -24,7 +26,7 @@ export default function BopCard({
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoId, setVideoId] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const currentUserId = "68160153f940b6515bf4e11f";
+  const currentUserId = getCurrentUserId();
 
   const myMenuItems = [
     { label: "게시물 수정", onClick: () => alert("수정") },
@@ -43,14 +45,7 @@ export default function BopCard({
   }, [localPost]);
 
   const deletePostHandler = async () => {
-    if (!localPost._id) return;
-    try {
-      await axiosInstance.delete(`/posts/delete`, {
-        data: { id: localPost._id },
-      });
-    } catch (e) {
-      console.log("게시물 삭제 : ", e);
-    }
+    deletePost(localPost._id);
   };
 
   const toggleLike = async () => {

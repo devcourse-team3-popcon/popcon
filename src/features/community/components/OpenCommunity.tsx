@@ -11,7 +11,10 @@ export default function OpenCommunity() {
     <>
       <CommunityPage
         title="Jay 님의 PlayList 를 채워줄 곳 ✨"
-        table={<CommunityTable channelId={channelId} />}
+        channelId={channelId}
+        renderTable={(filteredPosts) => (
+          <CommunityTable posts={filteredPosts} />
+        )}
       />
     </>
   );

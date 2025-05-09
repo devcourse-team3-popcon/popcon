@@ -1,16 +1,14 @@
 import { Calendar, Heart, MessageSquare, Type, UserRound } from "lucide-react";
-import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import { useNavigate } from "react-router";
 import { parseTitle } from "../../../utils/parseTitle";
+import { Post } from "../../../types/Post";
 
 type CommunityTableProps = {
-  channelId: string;
+  posts: Post[];
 };
 
-export default function CommunityTable({ channelId }: CommunityTableProps) {
+export default function CommunityTable({ posts }: CommunityTableProps) {
   const navigate = useNavigate();
-  const { posts: posts, loading } = usePostsByChannel(`${channelId}`);
-  if (loading) return <p>로딩 중...</p>;
 
   const formatTime = (date: Date) => {
     return date.toLocaleDateString("ko-KR", {

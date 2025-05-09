@@ -1,12 +1,13 @@
 import { Ellipsis } from "lucide-react";
 import { Comment as CommentType } from "../../types/Comment";
+import { getCurrentUserId } from "../../utils/auth";
 
 type CommentProps = {
   comment: CommentType;
 };
 
 export default function Comment({ comment }: CommentProps) {
-  const currentUserId = "68160153f940b6515bf4e11f";
+  const currentUserId = getCurrentUserId();
 
   return (
     <>

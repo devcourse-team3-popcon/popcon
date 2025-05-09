@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import { NavLink, Outlet } from "react-router";
 import { twMerge } from "tailwind-merge";
+import { useEffect } from "react";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import { useAuthStore } from "../../../stores/authStore";
 
@@ -9,14 +9,13 @@ export default function Community() {
   useEffect(() => {
     const loginHandler = async () => {
       const { data } = await axiosInstance.post("/login", {
-        email: "test12",
-        password: "test1234",
+        email: "hello",
+        password: "1234",
       });
       login(data.accessToken);
     };
     loginHandler();
   });
-
   return (
     <div className="w-[1080px]">
       <nav className="w-full grid grid-cols-3 mb-12 mt-6 text-center  py-4">

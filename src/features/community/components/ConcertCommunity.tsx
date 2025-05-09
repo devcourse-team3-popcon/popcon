@@ -11,7 +11,10 @@ export default function ConcertCommunity() {
     <>
       <CommunityPage
         title="궁금했던 내한 공연 후기와 꿀팁 대방출 🍯"
-        table={<CommunityTable channelId={channelId} />}
+        channelId={channelId}
+        renderTable={(filteredPosts) => (
+          <CommunityTable posts={filteredPosts} />
+        )}
       />
     </>
   );

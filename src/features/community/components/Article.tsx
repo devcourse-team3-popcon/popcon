@@ -6,6 +6,8 @@ import { Like } from "../../../types/Like";
 import Comment from "../../../components/common/Comment";
 import { parseTitle } from "../../../utils/parseTitle";
 import DropdownMenu from "../../../components/common/DropdownMenu";
+import { deletePost } from "../../../utils/post";
+import { getCurrentUserId } from "../../../utils/auth";
 
 type ArticleProps = { postId?: string };
 
@@ -17,17 +19,10 @@ export default function Article({ postId }: ArticleProps) {
     { label: "게시물 수정", onClick: () => alert("수정") },
     { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
   ];
-  const currentUserId = "68160153f940b6515bf4e11f";
+  const currentUserId = getCurrentUserId();
 
   const deletePostHandler = async () => {
-    if (!postId) return;
-    try {
-      await axiosInstance.delete(`/posts/delete`, {
-        data: { id: postId },
-      });
-    } catch (e) {
-      console.log("게시물 삭제 : ", e);
-    }
+    await deletePost(postId!);
   };
 
   const fetchPost = async () => {
