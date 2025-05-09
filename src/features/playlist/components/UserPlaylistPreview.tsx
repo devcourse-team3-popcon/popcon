@@ -2,19 +2,34 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { getUserPlaylist } from "../../../apis/playlist/getUserPlaylists";
 import UserListItem from "./UserListItem";
 import SearchBar from "../../../components/common/SearchBar";
+import { getAllUserInfo } from "../../../apis/playlist/getAllUserInfo";
+import { isJSONString } from "../utils/stringUtils";
 
 export default function UserPlaylistPreview() {
   const [inputValue, setInputValue] = useState("");
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState<UserType[]>([]);
+  const [allUserList, setAllUserList] = useState<UserType[]>([]);
+
+  useEffect(() => {
+    const getAllUserList = async () => {
+      const data = await getAllUserInfo();
+      setAllUserList(data);
+    };
+    getAllUserList();
+  }, []);
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   useEffect(() => {
+    if (!inputValue.trim()) {
+      setUserList([]);
+      return;
+    }
     const getUsersData = async () => {
       const usersData = await getUserPlaylist(inputValue);
       setUserList(usersData);
-      console.log(usersData);
     };
     getUsersData();
   }, [inputValue]);
@@ -33,9 +48,51 @@ export default function UserPlaylistPreview() {
             onChange={handleInputChange}
           />
           <div className="flex flex-col overflow-auto h-[60%] scrollbar-hide">
-            {userList
-              ? userList.map((user) => <UserListItem user={user} />)
-              : ""}
+            {userList.length > 0
+              ? userList.map((user) => {
+                  if (isJSONString(user.fullName)) {
+                    const parsedData = JSON.parse(user.fullName);
+                    return (
+                      <UserListItem
+                        key={user._id}
+                        id={user._id}
+                        fullName={parsedData.name}
+                        isOnline={user.isOnline}
+                        favoriteArtist={parsedData.favoriteArtist}
+                      />
+                    );
+                  } else
+                    return (
+                      <UserListItem
+                        key={user._id}
+                        id={user._id}
+                        fullName={user.fullName}
+                        isOnline={user.isOnline}
+                      />
+                    );
+                })
+              : allUserList.map((user) => {
+                  if (isJSONString(user.fullName)) {
+                    const parsedData = JSON.parse(user.fullName);
+                    return (
+                      <UserListItem
+                        key={user._id}
+                        id={user._id}
+                        fullName={parsedData.name}
+                        isOnline={user.isOnline}
+                        favoriteArtist={parsedData.favoriteArtist}
+                      />
+                    );
+                  } else
+                    return (
+                      <UserListItem
+                        key={user._id}
+                        id={user._id}
+                        fullName={user.fullName}
+                        isOnline={user.isOnline}
+                      />
+                    );
+                })}
           </div>
         </div>
       </div>

@@ -1,29 +1,52 @@
 import { useEffect, useState } from "react";
 import { usePlaylistStore } from "../../../stores/playlistStore";
 import TrackCard from "./TrackCard";
-import { generatePromptFromTracks } from "../hooks/getPromptFromTracks";
 import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessToken";
 import { searchMultipleTracks } from "../../../apis/spotify/spotifySearch";
 import { recommendTracksByGpt } from "../../../apis/openai/getMusicRecommendationByGPT";
 import TrackCardSkeleton from "./TrackCardSkeleton";
+import { getUserInfo } from "../../../apis/playlist/getUserInfo";
+import { getPromptFromTracks } from "../hooks/getPromptFromTracks";
+import { getPromptFromGenre } from "../hooks/getPromptFromGenre";
 
 export default function MusicRecommender() {
   const tracks = usePlaylistStore((state) => state.tracks);
   const [recommendations, setRecommendations] = useState<SpotifyTrack[]>([]);
+  const [user, setUser] = useState<UserType | null>(null);
 
   useEffect(() => {
-    if (tracks.length === 0) return;
+    const getUserData = async () => {
+      const data = await getUserInfo();
+      setUser(data);
+    };
+    getUserData();
+  }, []);
+
+  useEffect(() => {
+    if (!user) return;
     const fetchRecommendations = async () => {
       try {
-        const prompt = generatePromptFromTracks(tracks);
-        const recommendedTracks = await recommendTracksByGpt(prompt);
+        if (tracks.length !== 0) {
+          const prompt = getPromptFromTracks(tracks);
+          const recommendedTracks = await recommendTracksByGpt(prompt);
 
-        const token = await getSpotifyAccessToken();
-        const spotifyTracks = await searchMultipleTracks(
-          recommendedTracks,
-          token
-        );
-        setRecommendations(spotifyTracks);
+          const token = await getSpotifyAccessToken();
+          const spotifyTracks = await searchMultipleTracks(
+            recommendedTracks,
+            token
+          );
+          setRecommendations(spotifyTracks);
+        } else {
+          const parsedData = JSON.parse(user.fullName);
+          const prompt = getPromptFromGenre(parsedData.favoriteGenre);
+          const recommendedTracks = await recommendTracksByGpt(prompt);
+          const token = await getSpotifyAccessToken();
+          const spotifyTracks = await searchMultipleTracks(
+            recommendedTracks,
+            token
+          );
+          setRecommendations(spotifyTracks);
+        }
       } catch (error) {
         console.error("추천 음악 가져오기 실패:", error);
       }

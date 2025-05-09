@@ -11,7 +11,7 @@ export default function TrackCard({ track }: { track: SpotifyTrack }) {
     return <TrackCardSkeleton />;
   }
 
-  const handleAddToPlaylist = () => {
+  const handleAddToPlaylist = async () => {
     const trackInfo = {
       title: {
         name: track.name,
@@ -27,8 +27,9 @@ export default function TrackCard({ track }: { track: SpotifyTrack }) {
     );
 
     if (!isAlreadyAdded) {
-      addTrackToPlayList(trackInfo);
-      setTracks([trackInfo, ...tracks]);
+      const data = await addTrackToPlayList(trackInfo);
+      const newTrackInfo = { ...trackInfo, _id: data._id };
+      setTracks([newTrackInfo, ...tracks]);
     } else {
       alert("이미 추가된 곡입니다");
     }

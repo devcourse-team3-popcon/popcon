@@ -1,4 +1,4 @@
-export const generatePromptFromTracks = (tracks: TrackInfo[]): string => {
+export const getPromptFromTracks = (tracks?: TrackInfo[]): string => {
   if (!tracks || tracks.length === 0) {
     throw new Error("추천 실패");
   }

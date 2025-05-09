@@ -55,3 +55,17 @@ interface TrackRecommendation {
   name: string;
   artist: string;
 }
+
+interface UserType {
+  fullName: string;
+  isOnline: boolean;
+  _id: string;
+}
+
+interface UserListItemProps {
+  fullName: string;
+  coverImage?: string;
+  favoriteArtist?: string;
+  isOnline?: boolean;
+  id: string;
+}

@@ -1,6 +1,5 @@
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import PlayListInput from "./PlayListInput";
 import { searchTrack } from "../../../apis/spotify/spotifySearch";
 import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessToken";
 import PlaylistTrackItem from "./PlaylistTrackItem";
@@ -93,11 +92,6 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
           onChange={handleInputChange}
           className="w-[100%]"
         />
-        {/* <PlayListInput
-          className="w-[360px]"
-          placeholder="검색어 입력"
-          onChange={handleInputChange}
-        /> */}
       </div>
       <div className="overflow-auto flex-1 mt-4 scrollbar-hide">
         {isSearching ? (

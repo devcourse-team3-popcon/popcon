@@ -1,4 +1,4 @@
-import { Ellipsis, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { deleteTrackFromPlaylist } from "../../../apis/playlist/deleteTrackFromPlaylist";
 import { usePlaylistStore } from "../../../stores/playlistStore";
 
