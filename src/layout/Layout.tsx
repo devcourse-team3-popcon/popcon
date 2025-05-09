@@ -5,7 +5,7 @@ export default function Layout() {
   return (
     <div className="py-4 px-[104px]">
       <Header />
-      <div className="flex justify-center">
+      <div className="flex justify-center items-center h-auto">
         <Outlet />
       </div>
     </div>
