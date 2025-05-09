@@ -3,7 +3,7 @@ import { getUserPlaylist } from "../../../apis/playlist/getUserPlaylists";
 import UserListItem from "./UserListItem";
 import SearchBar from "../../../components/common/SearchBar";
 import { getAllUserInfo } from "../../../apis/playlist/getAllUserInfo";
-import { isJSONString } from "../utils/stringUtils";
+import { isJSONString } from "../../../utils/stringUtils";
 
 export default function UserPlaylistPreview({
   setSelectedUserId,

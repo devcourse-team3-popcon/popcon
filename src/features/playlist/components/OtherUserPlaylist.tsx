@@ -1,7 +1,7 @@
 import { ChevronLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getUserById } from "../../../apis/playlist/getUserById";
-import { isJSONString } from "../utils/stringUtils";
+import { isJSONString } from "../../../utils/stringUtils";
 import { getOtherUserTrackToPlaylist } from "../../../apis/playlist/getOtherUserTrackToPlaylist";
 import PlaylistTrackItem from "./PlaylistTrackItem";
 import { getUserInfo } from "../../../apis/playlist/getUserInfo";
