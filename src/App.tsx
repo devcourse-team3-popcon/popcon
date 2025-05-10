@@ -10,6 +10,7 @@ import AddCommunityPost from "./features/community/components/AddCommunityPost";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import CommunityPostDetail from "./features/community/components/CommunityPostDetail";
 import EditCommunityPost from "./features/community/components/EditCommunityPost";
+import EditBopPost from "./features/community/components/EditBopPost";
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
               element={<AddCommunityPost channelName="ConcertCommunity" />}
             />
             <Route path="post/:postId/edit" element={<EditCommunityPost />} />
+            <Route path="post/:postId/editBop" element={<EditBopPost />} />
             <Route
               path="open-community/add"
               element={<AddCommunityPost channelName="OpenCommunity" />}

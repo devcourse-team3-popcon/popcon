@@ -10,6 +10,7 @@ import { searchYoutubeVideo } from "../../../utils/searchYoutubeVideo";
 import DropdownMenu from "../../../components/common/DropdownMenu";
 import { deletePost } from "../../../utils/post";
 import { getCurrentUserId } from "../../../utils/auth";
+import { useNavigate } from "react-router";
 
 type BopCardProps = {
   post: Post;
@@ -27,10 +28,20 @@ export default function BopCard({
   const [videoId, setVideoId] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const currentUserId = getCurrentUserId();
+  const navigate = useNavigate();
 
   const myMenuItems = [
-    { label: "게시물 수정", onClick: () => alert("수정") },
-    { label: "플리에 추가", onClick: () => alert("플레이리스트 추가") },
+    {
+      label: "게시물 수정",
+      onClick: () =>
+        navigate(`/community/post/${localPost._id}/editBop`, {
+          state: { localPost },
+        }),
+    },
+    {
+      label: "플리에 추가",
+      onClick: () => alert("추가"),
+    },
     { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
   ];
   const defaultMenuItems = [
