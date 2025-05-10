@@ -8,6 +8,7 @@ import { parseTitle } from "../../../utils/parseTitle";
 import DropdownMenu from "../../../components/common/DropdownMenu";
 import { deletePost } from "../../../utils/post";
 import { getCurrentUserId } from "../../../utils/auth";
+import { parseUserName } from "../../../utils/parseUserName";
 
 type ArticleProps = { postId?: string };
 
@@ -70,6 +71,7 @@ export default function Article({ postId }: ArticleProps) {
   if (!post) return <p>게시글을 불러오는 중...</p>;
 
   const parsedTitle = parseTitle(post.title);
+  const parsedUserName = parseUserName(post.author.fullName);
 
   return (
     <>
@@ -78,7 +80,7 @@ export default function Article({ postId }: ArticleProps) {
           <div className="flex items-center">
             <div className="bg-amber-200 w-9 h-9 rounded-full mr-4"></div>
             <div className="flex flex-col">
-              <span className="text-[18px]">{post.author.fullName}</span>
+              <span className="text-[18px]">{parsedUserName.name}</span>
               <span className="text-[13px] text-[color:var(--white-80)]">
                 {new Date(post.createdAt).toLocaleString("ko-KR")}
               </span>

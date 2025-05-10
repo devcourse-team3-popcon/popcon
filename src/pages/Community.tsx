@@ -9,7 +9,7 @@ export default function Community() {
   useEffect(() => {
     const loginHandler = async () => {
       const { data } = await axiosInstance.post("/login", {
-        email: "park@naver.com",
+        email: "popcon@gmail.com",
         password: "1234",
       });
       login(data.accessToken);

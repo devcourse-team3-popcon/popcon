@@ -2,6 +2,7 @@ import { Calendar, Heart, MessageSquare, Type, UserRound } from "lucide-react";
 import { useNavigate } from "react-router";
 import { parseTitle } from "../../../utils/parseTitle";
 import { Post } from "../types/Post";
+import { parseUserName } from "../../../utils/parseUserName";
 
 type CommunityTableProps = {
   posts: Post[];
@@ -68,6 +69,7 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
             ) : (
               posts.map((post) => {
                 const parsedTitle = parseTitle(post.title);
+                const parsedUserName = parseUserName(post.author.fullName);
                 return (
                   <tr
                     key={post._id}
@@ -77,7 +79,7 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
                     <td className="text-left p-4 font-normal text-[16px]">
                       {parsedTitle.title}
                     </td>
-                    <td className="text-center p-4">{post.author.fullName}</td>
+                    <td className="text-center p-4">{parsedUserName.name}</td>
                     <td className="text-center p-4">{post.comments.length}</td>
                     <td className="text-center p-4">{post.likes.length}</td>
                     <td className="text-center p-4">

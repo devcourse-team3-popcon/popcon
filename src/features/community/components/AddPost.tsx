@@ -20,6 +20,7 @@ export default function AddPost({ channelName }: ChannelName) {
       title: titleInput,
       body: contentInput,
     };
+    console.log(jsonTitle);
 
     try {
       const response = await createPost({

@@ -53,7 +53,12 @@ export default function AddBopPost({ channelName }: ChannelName) {
     }
 
     const jsonTitle = {
-      track: bopTrack,
+      track: {
+        id: bopTrack.id,
+        name: bopTrack.name,
+        artists: bopTrack.artists.map((artist) => artist.name),
+        image: bopTrack.album.images[0]?.url || "",
+      },
       genre: bopGenre,
       text: bopText,
     };

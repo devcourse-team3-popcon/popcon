@@ -108,7 +108,7 @@ export default function BopCard({
         <div className="w-[240px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7">
           <img
             className="w-full h-[208px] bg-[#c2c2c2] rounded-2xl"
-            src={parsedBopTitle.track.album.images[0]?.url}
+            src={parsedBopTitle.track.image}
           />
 
           <div className="flex flex-col gap-2">
@@ -132,9 +132,7 @@ export default function BopCard({
               </div>
 
               <span className="text-[12px] ">
-                {parsedBopTitle.track.artists
-                  .map((artist: { name: string }) => artist.name)
-                  .join(", ")}
+                {parsedBopTitle.track.artists.join(", ")}
               </span>
             </div>
 
