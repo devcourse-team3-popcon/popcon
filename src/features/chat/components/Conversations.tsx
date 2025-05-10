@@ -1,35 +1,64 @@
-import search from "../../../assets/images/icon-search.svg";
+import { useState } from "react";
+import SearchBar from "../../../components/common/SearchBar";
 import ChatUser from "./ChatUser";
+import { UserInfo } from "../types/UserInfo";
+import useGetConversation from "../hooks/useGetConversation";
 
-export default function Conversations() {
+export default function Conversations({
+  onSelect,
+  selectedId,
+}: {
+  onSelect?: (user: UserInfo) => void;
+  selectedId?: string;
+}) {
+  const [searchInput, setSearchInput] = useState("");
+  const { conversations, loading } = useGetConversation();
+
+  console.log("conversations: ", conversations);
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString("ko-KR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+  };
+
   return (
     <>
-      <div className="w-[360px] h-[744px] pt-[53px] pb-[32px] px-[16px] rounded-[30px] border">
-        <div className="font-bold text-[24px] mb-[32px] cursor-default">
+      <div className="w-[25%] h-auto pt-[53px] pb-[32px] px-[20px] rounded-[30px] border">
+        <div className="font-bold text-[24px] mb-[32px] px-2 cursor-default">
           Message
         </div>
 
-        <form className="flex items-center border w-[320px] h-[51px] p-[16px] rounded-[10px] mb-[16px]">
-          <button className="cursor-pointer">
-            <img
-              src={search}
-              alt="검색 아이콘"
-              className="size-[18px] opacity-50 mr-[14px]"
-            />
-          </button>
-
-          <input
-            type="text"
-            placeholder="검색어 입력"
-            className="text-[var(--grey-300)] text-[16px] font-medium"
-          />
-        </form>
+        <SearchBar
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          className="w-full mb-[16px]"
+        />
 
         <div className="flex flex-col gap-[8px]">
-          <ChatUser />
-          <ChatUser />
-          <ChatUser />
-          <ChatUser />
+          {loading && <p>loading...</p>}
+
+          {conversations &&
+            conversations.map((conv) => (
+              <ChatUser
+                key={conv._id[1]}
+                me={conv._id[0]}
+                sender={conv.sender.fullName}
+                receiver={conv.receiver.fullName}
+                senderId={conv.sender._id}
+                receiverId={conv.receiver._id}
+                s_isOnline={conv.sender.isOnline}
+                r_isOnline={conv.receiver.isOnline}
+                s_image={conv.sender.image}
+                r_image={conv.receiver.image}
+                message={conv.message}
+                time={formatTime(new Date(conv.createdAt))}
+                onClick={onSelect}
+                isSelected={conv._id[1] === selectedId}
+              />
+            ))}
         </div>
       </div>
     </>

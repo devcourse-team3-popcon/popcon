@@ -10,6 +10,7 @@ import AddBopPost from "./features/community/components/AddBopPost";
 import AddPost from "./features/community/components/AddPost";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import PostDetail from "./features/community/components/PostDetail";
+import Chat from "./pages/Chat";
 
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
             />
           </Route>
         </Route>
+        <Route path="/chat" element={<Chat />} />
       </Route>
     </Routes>
   );

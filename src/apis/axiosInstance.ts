@@ -8,7 +8,9 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MTYwMTUzZjk0MGI2NTE1YmY0ZTExZiIsImVtYWlsIjoidGVzdDEyIn0sImlhdCI6MTc0NjI3MjU5Nn0.Ctm6jGc9u4WI0CyxvMPsq3ojb7jn-X89krSuomKRDGY";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MWMxYTA3ZmI0MDBiMzg1YTJkYzgyNSIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIn0sImlhdCI6MTc0Njc1MzQxMX0.0lffjLZxImM8GfwQRNDVkVBEmtUwC0QmiuoVAsxo4_Q";
+  // useAuthStore.getState().accessToken;
+  // console.log("token: ", token);
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
