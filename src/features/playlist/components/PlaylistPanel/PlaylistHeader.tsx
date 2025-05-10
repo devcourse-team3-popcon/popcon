@@ -12,13 +12,16 @@ export default function PlaylistHeader({
   return (
     <div className="flex justify-between items-center">
       <div className="flex gap-[16px] text-[24px] font-bold">
-        <h2>{userName} 님의 PlayList</h2>
+        <h2 className="capitalize">
+          {userName}
+          님의 PlayList
+        </h2>
         <span role="img" aria-label="seedling">
           🌱
         </span>
       </div>
       <Plus
-        className="cursor-pointer hover:bg-gray-700 rounded-full p-2 transition-colors"
+        className="cursor-pointer text-[color:var(--white)]"
         onClick={onAddClick}
         aria-label="트랙 추가"
       />

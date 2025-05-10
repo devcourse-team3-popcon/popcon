@@ -1,5 +1,6 @@
-import PlaylistTrackItem from "../PlaylistTrackItem";
-import PlaylistTrackItemSkeleton from "../PlaylistTrackItemSkeleton";
+import PlaylistTrackItem from "./PlaylistTrackItem";
+import PlaylistTrackItemSkeleton from "./PlaylistTrackItemSkeleton";
+import frownicon from "../../../../assets/images/icon-frown.svg";
 
 export default function PlaylistTracks({
   tracks,
@@ -17,8 +18,9 @@ export default function PlaylistTracks({
 
   if (tracks.length === 0) {
     return (
-      <div className="flex items-center justify-center h-full text-[color:var(--grey-400)]">
-        플레이리스트가 비어있습니다. 트랙을 추가해주세요.
+      <div className="flex flex-col items-center justify-center h-full text-[color:var(--grey-400)] translate-y-[-70px] gap-6">
+        <img src={frownicon} alt="frownicon" />
+        <p>Your Playlist is empty. Add some tracks to get start</p>
       </div>
     );
   }

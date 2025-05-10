@@ -2,9 +2,9 @@ import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { searchTrack } from "../../../../apis/spotify/spotifySearch";
 import { getSpotifyAccessToken } from "../../../../apis/spotify/getSpotifyAccessToken";
-import PlaylistTrackItem from "../PlaylistTrackItem";
+import PlaylistTrackItem from "./PlaylistTrackItem";
 import { useAddTrackToPlaylist } from "../../hooks/useAddTrackToPlaylist";
-import PlaylistTrackItemSkeleton from "../PlaylistTrackItemSkeleton";
+import PlaylistTrackItemSkeleton from "./PlaylistTrackItemSkeleton";
 import SearchBar from "../../../../components/common/SearchBar";
 
 export default function TrackAddModal({ onClose }: { onClose: () => void }) {

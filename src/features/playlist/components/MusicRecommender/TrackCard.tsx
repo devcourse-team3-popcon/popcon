@@ -65,8 +65,8 @@ export default function TrackCard({ track }: { track: SpotifyTrack }) {
           className="flex justify-center gap-[8px] items-center mt-[8px] group"
           onClick={handleAddToPlaylist}
         >
-          <Plus className="w-4 h-4 text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)]" />
-          <p className="text-[14px] text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)]">
+          <Plus className="w-4 h-4 text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)] cursor-pointer" />
+          <p className="text-[14px] text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)] cursor-pointer">
             Add Playlist
           </p>
         </div>
