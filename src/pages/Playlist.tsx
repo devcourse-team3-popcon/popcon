@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import MusicRecommender from "../features/playlist/components/MusicRecommender";
+import MusicRecommender from "../features/playlist/components/MusicRecommender/MusicRecommender";
 import PlayListBanner from "../features/playlist/components/PlayListBanner";
-import PlaylistPanel from "../features/playlist/components/PlaylistPanel";
-import UserPlaylistPreview from "../features/playlist/components/UserPlaylistPreview";
-import { getUserInfo } from "../apis/playlist/getUserInfo";
-import OtherUserPlaylist from "../features/playlist/components/OtherUserPlaylist";
+import PlaylistPanel from "../features/playlist/components/PlaylistPanel/PlaylistPanel";
+import OtherUserPlaylist from "../features/playlist/components/OtherUserPlaylist/OtherUserPlaylist";
+import { getUserInfo } from "../apis/playlist/userService";
+import UserPlaylistPreview from "../features/playlist/components/UserPlaylistPreview/UserPlaylistPreview";
 
 export default function Playlist() {
   const [userId, setUserId] = useState("");

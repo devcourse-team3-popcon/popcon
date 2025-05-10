@@ -28,8 +28,14 @@ interface SpotifyTrack {
   }[];
 }
 
+interface Track {
+  name: string;
+  imgUrl: string;
+  artist: string;
+}
+
 interface TrackInfo {
-  title: { name: string; imgUrl: string; artist: string };
+  title: Track;
   _id: string;
 }
 
@@ -77,4 +83,9 @@ interface ParsedDataType {
   favoriteArtist?: string;
   isOnline?: boolean;
   id: string;
+}
+
+interface PlaylistTracksProps {
+  tracks: TrackInfo[];
+  isLoading: boolean;
 }

@@ -1,7 +1,7 @@
-import { usePlaylistStore } from "../../../stores/playlistStore";
+import { usePlaylistStore } from "../../../../stores/playlistStore";
 import { Plus } from "lucide-react";
+import { addTrackToPlayList } from "../../../../apis/playlist/playlistService";
 import TrackCardSkeleton from "./TrackCardSkeleton";
-import { addTrackToPlayList } from "../../../apis/playlist/addTrackToPlaylist";
 
 export default function TrackCard({ track }: { track: SpotifyTrack }) {
   const { setTracks } = usePlaylistStore();

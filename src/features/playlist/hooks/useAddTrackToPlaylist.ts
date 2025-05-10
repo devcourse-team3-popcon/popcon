@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { usePlaylistStore } from "../../../stores/playlistStore";
-import { addTrackToPlayList } from "../../../apis/playlist/addTrackToPlaylist";
+import { addTrackToPlayList } from "../../../apis/playlist/playlistService";
 
 export function useAddTrackToPlaylist(onSuccess?: () => void) {
   const { setTracks } = usePlaylistStore();

@@ -1,6 +1,6 @@
 import { Trash2 } from "lucide-react";
-import { deleteTrackFromPlaylist } from "../../../apis/playlist/deleteTrackFromPlaylist";
 import { usePlaylistStore } from "../../../stores/playlistStore";
+import { deleteTrackFromPlaylist } from "../../../apis/playlist/playlistService";
 
 export default function PlaylistTrackItem({
   track,
