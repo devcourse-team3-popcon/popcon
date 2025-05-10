@@ -9,29 +9,34 @@ import DropdownMenu from "../../../components/common/DropdownMenu";
 import { deletePost } from "../../../utils/post";
 import { getCurrentUserId } from "../../../utils/auth";
 import { parseUserName } from "../../../utils/parseUserName";
+import { useNavigate } from "react-router";
 
-type ArticleProps = { postId?: string };
+interface ArticleProps {
+  post: Post;
+}
 
-export default function Article({ postId }: ArticleProps) {
-  const [post, setPost] = useState<Post | null>(null);
+export default function Article({ post }: ArticleProps) {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
+
   const menuItems = [
-    { label: "게시물 수정", onClick: () => alert("수정") },
+    {
+      label: "게시물 수정",
+      onClick: () =>
+        navigate(`/community/post/${post._id}/edit`, { state: { post } }),
+    },
     { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
   ];
   const currentUserId = getCurrentUserId();
 
   const deletePostHandler = async () => {
-    await deletePost(postId!);
+    await deletePost(post._id!);
   };
 
-  const fetchPost = async () => {
+  const checkLikeStatus = async () => {
     try {
-      const res = await axiosInstance.get(`/posts/${postId}`);
-      setPost(res.data);
-
-      const userLike = res.data.likes.find(
+      const userLike = post.likes.find(
         (like: Like) => like.user === currentUserId
       );
       setIsLiked(!!userLike);
@@ -41,9 +46,9 @@ export default function Article({ postId }: ArticleProps) {
   };
 
   useEffect(() => {
-    if (!postId) return;
-    fetchPost();
-  }, [postId]);
+    if (!post) return;
+    checkLikeStatus();
+  }, [post]);
 
   const toggleLike = async () => {
     try {
@@ -57,12 +62,12 @@ export default function Article({ postId }: ArticleProps) {
         });
       } else {
         await axiosInstance.post(`/likes/create`, {
-          postId,
+          postId: post._id,
           userId: currentUserId,
         });
       }
 
-      await fetchPost();
+      await checkLikeStatus();
     } catch (e) {
       console.error("좋아요 실패 : ", e);
     }

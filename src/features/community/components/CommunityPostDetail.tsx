@@ -1,12 +1,28 @@
 import { useEffect, useState } from "react";
-import Article from "./Article";
+import CommunityArticle from "./CommunityArticle";
 import TextAreaField from "../../../components/common/TextAreaField";
 import { useParams } from "react-router";
 import { axiosInstance } from "../../../apis/axiosInstance";
+import { Post } from "../types/Post";
 
 export default function PostDetail() {
   const { postId } = useParams();
+  const [post, setPost] = useState<Post | null>(null);
   const [comment, setComment] = useState("");
+
+  const fetchPost = async () => {
+    try {
+      const res = await axiosInstance.get(`/posts/${postId}`);
+      setPost(res.data);
+    } catch (e) {
+      console.error("게시글 불러오기 실패", e);
+    }
+  };
+
+  useEffect(() => {
+    if (!postId) return;
+    fetchPost();
+  }, [postId]);
 
   const handleCommentSubmit = async () => {
     if (!comment.trim() || !postId) return;
@@ -21,14 +37,10 @@ export default function PostDetail() {
     }
   };
 
-  useEffect(() => {
-    console.log("게시물 ID: ", postId);
-  }, [postId]);
-
   return (
     <>
       <div className="flex flex-col gap-8">
-        <Article postId={postId} />
+        <CommunityArticle post={post!} />
         <TextAreaField
           label="댓글 작성"
           id="contentInput"

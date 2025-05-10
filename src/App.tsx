@@ -6,9 +6,10 @@ import ConcertCommunity from "./features/community/components/ConcertCommunity";
 import OpenCommunity from "./features/community/components/OpenCommunity";
 import Community from "./pages/Community";
 import AddBopPost from "./features/community/components/AddBopPost";
-import AddPost from "./features/community/components/AddPost";
+import AddCommunityPost from "./features/community/components/AddCommunityPost";
 import ProtectedRoute from "./components/common/ProtectedRoute";
-import PostDetail from "./features/community/components/PostDetail";
+import CommunityPostDetail from "./features/community/components/CommunityPostDetail";
+import EditCommunityPost from "./features/community/components/EditCommunityPost";
 
 export default function App() {
   return (
@@ -23,18 +24,19 @@ export default function App() {
           <Route path="open-community" element={<OpenCommunity />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="post/:postId" element={<PostDetail />} />
+            <Route path="post/:postId" element={<CommunityPostDetail />} />
             <Route
               path="bops-community/add"
               element={<AddBopPost channelName="BopsCommunity" />}
             />
             <Route
               path="concert-community/add"
-              element={<AddPost channelName="ConcertCommunity" />}
+              element={<AddCommunityPost channelName="ConcertCommunity" />}
             />
+            <Route path="post/:postId/edit" element={<EditCommunityPost />} />
             <Route
               path="open-community/add"
-              element={<AddPost channelName="OpenCommunity" />}
+              element={<AddCommunityPost channelName="OpenCommunity" />}
             />
           </Route>
         </Route>

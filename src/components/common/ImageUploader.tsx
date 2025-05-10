@@ -1,13 +1,23 @@
 import { File, ImagePlus, X } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface ImageUploaderProps {
   onImageChange: (file: File | null) => void;
+  initialImageUrl?: string;
 }
 
-export default function ImageUploader({ onImageChange }: ImageUploaderProps) {
+export default function ImageUploader({
+  onImageChange,
+  initialImageUrl,
+}: ImageUploaderProps) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (initialImageUrl) {
+      setImagePreview(initialImageUrl);
+    }
+  }, [initialImageUrl]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
