@@ -1,6 +1,6 @@
 import PlaylistTrackItem from "../PlaylistPanel/PlaylistTrackItem";
 import { EmptyPlaylist } from "./EmptyPlaylist";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../../../../components/common/LoadingSpinner";
 
 export const PlaylistContent = ({
   userPlaylist,
