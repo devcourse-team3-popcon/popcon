@@ -16,14 +16,11 @@ export default function PlaylistHeader({
           {userName}
           님의 PlayList
         </h2>
-        <span role="img" aria-label="seedling">
-          🌱
-        </span>
+        <span role="img">🌱</span>
       </div>
       <Plus
-        className="cursor-pointer text-[color:var(--white)]"
+        className="text-[color:var(--white-80)] cursor-pointer"
         onClick={onAddClick}
-        aria-label="트랙 추가"
       />
     </div>
   );

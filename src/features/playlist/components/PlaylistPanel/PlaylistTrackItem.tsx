@@ -12,11 +12,13 @@ export default function PlaylistTrackItem({
   const { setTracks } = usePlaylistStore();
   const tracks = usePlaylistStore((state) => state.tracks);
 
-  const deleteTrack = async (trackId: string) => {
+  const deleteTrack = async (e: React.MouseEvent, trackId: string) => {
+    e.stopPropagation(); 
     await deleteTrackFromPlaylist(trackId);
     const updatedTracks = tracks.filter((track) => track._id !== trackId);
     setTracks(updatedTracks);
   };
+
   return (
     <div
       className="flex h-auto p-[18px] justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer"
@@ -26,7 +28,7 @@ export default function PlaylistTrackItem({
         <img
           src={track ? track.album.images[0].url : item?.title.imgUrl}
           alt={track ? `${track.name} 앨범 사진` : "앨범 사진"}
-          className="w-15 h-15 rounded-[10px]"
+          className="w-15 h-15 rounded-[10px] flex-shrink-0"
         />
         <div className="overflow-hidden">
           <p className="text-[18px] text-[color:var(--white)] font-bold truncate">
@@ -38,10 +40,10 @@ export default function PlaylistTrackItem({
         </div>
       </div>
       {showEllipsis && (
-        <div className="hidden group-hover:block ml-2">
+        <div className="ml-2 flex-shrink-0">
           <Trash2
-            className="cursor-pointer"
-            onClick={() => deleteTrack(trackId)}
+            className="cursor-pointer invisible group-hover:visible transition-all"
+            onClick={(e) => deleteTrack(e, trackId)}
           />
         </div>
       )}
