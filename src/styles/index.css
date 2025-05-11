@@ -61,11 +61,24 @@
 
 @font-face {
   font-family: "MonumentExtended";
-  src: url("/src/assets/fonts/MonumentExtended-Regular.otf") format("woff2");
+  src: url("/src/assets/fonts/MonumentExtended-Regular.otf") format("opentype");
 }
 
 body {
   font-family: "Pretendard";
   background-color: var(--bg-color);
   color: var(--white);
+}
+
+@theme {
+  --font-monument: "MonumentExtended", sans-serif;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

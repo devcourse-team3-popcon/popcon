@@ -2,6 +2,7 @@ import UpcomingConcerts from "./features/upcoming_concerts/UpcomingConcerts";
 import { Route, Routes, Navigate } from "react-router";
 import Layout from "./layout/Layout";
 import Home from "./pages/home/Home";
+import Playlist from "./pages/Playlist";
 import BopsCommunity from "./features/community/components/BopsCommunity";
 import ConcertCommunity from "./features/community/components/ConcertCommunity";
 import OpenCommunity from "./features/community/components/OpenCommunity";
@@ -13,13 +14,13 @@ import CommunityPostDetail from "./features/community/components/CommunityPostDe
 import EditCommunityPost from "./features/community/components/EditCommunityPost";
 import EditBopPost from "./features/community/components/EditBopPost";
 
-
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path='/upcoming-concerts' element={<UpcomingConcerts />} />
+        <Route path="/playlist" element={<Playlist />} />
+        <Route path="/upcoming-concerts" element={<UpcomingConcerts />} />
         <Route path="/community" element={<Community />}>
           <Route index element={<Navigate to="bops-community" replace />} />
 
