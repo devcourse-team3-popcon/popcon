@@ -27,7 +27,11 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
         <div className="flex w-full justify-between items-center">
           <div className="flex flex-col gap-8 mt-10 w-full">
             <p className="text-[30px] font-semibold">
-              여기는 숨겨진 명곡들의 성지 🔮
+              여기는{" "}
+              <span className="text-[color:var(--primary-300)]">
+                숨겨진 명곡
+              </span>
+              들의 성지 🔮
             </p>
             <div className="w-full flex justify-between items-center">
               <div className="flex gap-4 flex-wrap">

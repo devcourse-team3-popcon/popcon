@@ -1,5 +1,5 @@
 import { Like } from "./Like";
-import { Comment } from "./Comment";
+import { CommentType } from "./Comment";
 
 export interface Post {
   _id: string;
@@ -7,7 +7,7 @@ export interface Post {
   imagePublicId: string;
   title: string;
   likes: Like[];
-  comments: Comment[];
+  comments: CommentType[];
   channel: {
     authRequired: boolean;
     posts: string[];

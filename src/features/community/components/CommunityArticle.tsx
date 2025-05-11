@@ -10,6 +10,7 @@ import { deletePost } from "../../../utils/post";
 import { getCurrentUserId } from "../../../utils/auth";
 import { parseUserName } from "../../../utils/parseUserName";
 import { useNavigate } from "react-router";
+import { CommentType } from "../types/Comment";
 
 interface ArticleProps {
   post: Post;
@@ -18,6 +19,7 @@ interface ArticleProps {
 export default function Article({ post }: ArticleProps) {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [comments, setComments] = useState<CommentType[] | null>(null);
   const navigate = useNavigate();
 
   const menuItems = [
@@ -48,6 +50,7 @@ export default function Article({ post }: ArticleProps) {
   useEffect(() => {
     if (!post) return;
     checkLikeStatus();
+    setComments(post.comments);
   }, [post]);
 
   const toggleLike = async () => {
@@ -141,9 +144,18 @@ export default function Article({ post }: ArticleProps) {
           </p>
         </div>
         <div className="mt-6  pt-4  border-t-1 border-[color:var(--white-80)]">
-          {post.comments.map((comment) => (
-            <Comment key={comment._id} comment={comment} />
-          ))}
+          {comments &&
+            comments.map((comment) => (
+              <Comment
+                key={comment._id}
+                comment={comment}
+                onDelete={(deletedId) =>
+                  setComments((prev) =>
+                    prev!.filter((p) => p._id !== deletedId)
+                  )
+                }
+              />
+            ))}
         </div>
       </div>
     </>

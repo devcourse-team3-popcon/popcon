@@ -17,6 +17,8 @@ const getIconByLabel = (label: string) => {
   switch (label) {
     case "게시물 삭제":
       return <Trash2 className="w-4 h-4 mr-2" />;
+    case "댓글 삭제":
+      return <Trash2 className="w-4 h-4 mr-2" />;
     case "게시물 수정":
       return <Pencil className="w-4 h-4 mr-2" />;
     case "마이페이지":

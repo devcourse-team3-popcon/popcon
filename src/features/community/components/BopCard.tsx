@@ -103,7 +103,7 @@ export default function BopCard({
   const parsedBopTitle = parseBopTitle(localPost.title);
   const parsedUserName = parseUserName(localPost.author.fullName);
   const trackName = parsedBopTitle.track.name;
-  const artistNames = parsedBopTitle.track.artists;
+  const artistNames = parsedBopTitle.track.artists.join(", ");
   console.log(artistNames);
 
   const togglePlayTrack = async () => {
@@ -132,9 +132,9 @@ export default function BopCard({
               alt="앨범 커버"
             />
             <div className="w-full h-full p-1 absolute inset-0  bg-black/60 flex flex-col justify-between  opacity-0 translate-y-full group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-in-out">
-              <div className="flex flex-col p-3 h-[80%] text-sm gap-2">
+              <div className="flex flex-col p-3 h-[80%] text-[12px] gap-2">
                 <span>Behind.</span>
-                <span className="text-white text-[12px] font-light mb-2 text-left">
+                <span className="text-white text-[14px] font-light mb-2 text-left">
                   {parsedBopTitle.text}
                 </span>
               </div>

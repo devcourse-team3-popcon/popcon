@@ -1,4 +1,4 @@
-export type Comment = {
+export type CommentType = {
   _id: string;
   author: {
     fullName: string;

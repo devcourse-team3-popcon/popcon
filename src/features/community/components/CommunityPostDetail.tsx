@@ -32,6 +32,7 @@ export default function PostDetail() {
         postId,
       });
       setComment("");
+      fetchPost();
     } catch (e) {
       console.error("댓글 작성 실패", e);
     }

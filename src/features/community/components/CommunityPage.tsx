@@ -2,19 +2,16 @@ import { ReactNode, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import SearchBar from "../../../components/common/SearchBar";
 import { Plus } from "lucide-react";
-import Hashtag from "../../../components/common/Hashtag";
 import { Post } from "../types/Post";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import Pagination from "../../../components/common/Pagination";
 import { usePagination } from "../../../hooks/usePagination";
 
 interface ComunityPageProps {
-  title: string;
   renderTable: (posts: Post[]) => ReactNode;
   channelId: string;
 }
 export default function CommunityPage({
-  title,
   renderTable,
   channelId,
 }: ComunityPageProps) {
@@ -23,23 +20,6 @@ export default function CommunityPage({
   const navigate = useNavigate();
   const { page, cntPage, setPagination } = usePagination();
   const { posts, loading } = usePostsByChannel(channelId);
-
-  const concertHashtags = [
-    "내 가수 자랑 😎",
-    "이 노래 제목이 뭐죠? 🤔",
-    "신곡 추천 🎶",
-    "느좋 팝송 🎧️",
-  ];
-
-  const openHashtags = [
-    "티켓팅 꿀팁 🎫",
-    "콘서트 후기 ✍️",
-    "좌석 시야 🏟️",
-    "콘서트 동행 👯‍♀️",
-  ];
-
-  const hashtags =
-    channelId === "681e2fdd7380bb759ecc636d" ? concertHashtags : openHashtags;
 
   const filteredPosts = useMemo(() => {
     if (!posts) return [];
@@ -64,18 +44,6 @@ export default function CommunityPage({
   return (
     <>
       <div className="mb-24">
-        <div className="flex flex-col gap-8 mt-10">
-          <p className="text-[30px] font-semibold">{title}</p>
-          <div className="flex gap-4 flex-wrap">
-            {hashtags.map((tag, index) => (
-              <Hashtag
-                key={index}
-                text={tag}
-                variant={index % 2 ? "empty" : "filled"}
-              />
-            ))}
-          </div>
-        </div>
         <div className="flex w-full py-12 justify-between items-center text-[color:var(--white-80)]">
           <div className="w-[70%] flex gap-4">
             <select
@@ -85,7 +53,7 @@ export default function CommunityPage({
               }
             >
               <option key="0" value="all">
-                통합
+                게시물
               </option>
               <option key="1" value="writer">
                 사용자
