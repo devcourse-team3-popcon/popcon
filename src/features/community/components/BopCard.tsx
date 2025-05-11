@@ -94,9 +94,7 @@ export default function BopCard({
     currentVideo?.postId === localPost._id && currentVideo?.videoId === videoId;
   const parsedBopTitle = parseBopTitle(localPost.title);
   const trackName = parsedBopTitle.track.name;
-  const artistNames = parsedBopTitle.track.artists
-    .map((a: { name: string }) => a.name)
-    .join(" ");
+  const artistNames = parsedBopTitle.track.artists;
 
   const togglePlayTrack = async () => {
     if (isPlaying) {
@@ -143,7 +141,7 @@ export default function BopCard({
               </div>
 
               <span className="text-[12px] ">
-                {parsedBopTitle.track.artists.join(", ")}
+                {parsedBopTitle.track.artists}
               </span>
             </div>
 

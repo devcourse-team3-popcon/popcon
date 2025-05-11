@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { Track } from "../types/Track";
 import { useChannelId } from "../../../hooks/useChannelId";
 import { ChannelName } from "../types/ChannelName";
 import { useNavigate } from "react-router";
 import { createPost } from "../../../utils/post";
 import BackButton from "../../../components/common/BackButton";
 import BopPostForm from "./BopPostForm";
+import { BopTrack } from "../types/BopTrack";
 
 export default function AddBopPost({ channelName }: ChannelName) {
   const navigate = useNavigate();
   const { channelId } = useChannelId(channelName);
-  const [bopTrack, setBopTrack] = useState<Track | null>(null);
+  const [bopTrack, setBopTrack] = useState<BopTrack | null>(null);
   const [bopGenre, setBopGenre] = useState("");
   const [bopText, setBopText] = useState("");
 
@@ -24,8 +24,8 @@ export default function AddBopPost({ channelName }: ChannelName) {
       track: {
         id: bopTrack.id,
         name: bopTrack.name,
-        artists: bopTrack.artists.map((artist) => artist.name),
-        image: bopTrack.album.images[0]?.url || "",
+        artists: bopTrack.artists.join(", "),
+        image: bopTrack.image || "",
       },
       genre: bopGenre,
       text: bopText,

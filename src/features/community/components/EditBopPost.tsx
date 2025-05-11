@@ -1,11 +1,11 @@
 import { useState } from "react";
 import BackButton from "../../../components/common/BackButton";
 import BopPostForm from "./BopPostForm";
-import { Track } from "../types/Track";
 import { useLocation, useNavigate } from "react-router";
 import { Post } from "../types/Post";
 import { parseBopTitle } from "../../../utils/parseBopTitle";
 import { updatePost } from "../../../utils/post";
+import { BopTrack } from "../types/BopTrack";
 
 export default function EditBopPost() {
   const navigate = useNavigate();
@@ -13,7 +13,9 @@ export default function EditBopPost() {
   const post = state?.localPost as Post;
 
   const parsedBopTitle = parseBopTitle(post.title);
-  const [bopTrack, setBopTrack] = useState<Track | null>(parsedBopTitle.track);
+  const [bopTrack, setBopTrack] = useState<BopTrack | null>(
+    parsedBopTitle.track
+  );
   const [bopGenre, setBopGenre] = useState(parsedBopTitle.genre);
   const [bopText, setBopText] = useState(parsedBopTitle.text);
 

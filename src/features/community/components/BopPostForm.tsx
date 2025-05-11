@@ -4,12 +4,15 @@ import { Track } from "../types/Track";
 import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessToken";
 import { searchTrack } from "../../../apis/spotify/spotifySearch";
 import InputField from "../../../components/common/InputField";
+import SelectBox from "../../../components/common/SelectBox";
+import { BopTrack } from "../types/BopTrack";
+import { X } from "lucide-react";
 
 interface BopPostFormProps {
-  bopTrack: Track | null;
+  bopTrack: BopTrack | null;
   bopGenre: string;
   bopText: string;
-  setBopTrack: (track: Track | null) => void;
+  setBopTrack: (track: BopTrack | null) => void;
   setBopText: (value: string) => void;
   setBopGenre: (value: string) => void;
 }
@@ -23,15 +26,15 @@ export default function BopPostForm({
   setBopGenre,
 }: BopPostFormProps) {
   const genreOptions = [
-    { value: 1, label: "Country" },
-    { value: 2, label: "Hip-hop" },
-    { value: 3, label: "POP" },
-    { value: 4, label: "Rock" },
-    { value: 5, label: "EDM" },
-    { value: 6, label: "Jazz" },
-    { value: 7, label: "R&B" },
-    { value: 8, label: "Indie" },
-    { value: 9, label: "alternative" },
+    { value: "Country", label: "Country" },
+    { value: "Hip-hop", label: "Hip-hop" },
+    { value: "POP", label: "POP" },
+    { value: "Rock", label: "Rock" },
+    { value: "EDM", label: "EDM" },
+    { value: "Jazz", label: "Jazz" },
+    { value: "R&B", label: "R&B" },
+    { value: "Indie", label: "Indie" },
+    { value: "alternative", label: "alternative" },
   ];
 
   const [trackInput, setTrackInput] = useState("");
@@ -63,23 +66,57 @@ export default function BopPostForm({
               searchHandler(e);
             }}
           />
+          <div className="relative w-full">
+            {bopTrack && (
+              <div className="flex px-4 items-center w-full justify-between">
+                <div className="flex gap-4 items-center">
+                  <img className="h-10 w-10" src={bopTrack.image} />
+                  {bopTrack.name} - {bopTrack.artists.join(", ")}
+                </div>
+                <X
+                  className="w-5 h-5 cursor-pointer"
+                  onClick={() => setBopTrack(null)}
+                />
+              </div>
+            )}
+            {trackInput && (
+              <ul className="absolute top-0 left-0 right-0 mt-1 border rounded-[10px] bg-[color:var(--bg-color)] shadow z-10 max-h-60 overflow-y-auto border-[color:var(--primary-200)] text-[color:var(--white-80)]">
+                {tracks.map((track: Track) => (
+                  <li
+                    key={track.id}
+                    onClick={() => {
+                      setBopTrack({
+                        id: track.id,
+                        name: track.name,
+                        artists: track.artists.map((artist) => artist.name),
+                        image: track.album.images[0]?.url ?? "",
+                      });
+                      setTracks([]);
+                      setTrackInput("");
+                    }}
+                    className="px-5 py-2 hover:bg-[color:var(--grey-600)] hover:text-[color:var(--white)] cursor-pointer"
+                  >
+                    <div className="flex gap-4 items-center">
+                      <img
+                        className="h-10 w-10"
+                        src={track.album.images[0]?.url ?? ""}
+                      />
+                      {track.name} - {track.artists[0].name}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
 
         <div className="flex flex-col gap-4">
           <label htmlFor="trackGenre">숨듣명 장르 *</label>
-          <select
-            className="border border-[color:var(--white-80)] px-4 rounded-[10px] text-[16px] h-10 focus:outline-none focus:border-[color:var(--primary-200)] w-[100%] appearance-none "
-            value={bopGenre}
-            onChange={(e) => {
-              setBopGenre(e.target.value);
-            }}
-          >
-            {genreOptions.map((option) => (
-              <option key={option.value} value={option.label}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          <SelectBox
+            options={genreOptions}
+            value={genreOptions.find((opt) => opt.value === bopGenre) || null}
+            onChange={(selected) => setBopGenre(selected.value)}
+          />
         </div>
 
         <div className="flex flex-col gap-4">
@@ -98,25 +135,6 @@ export default function BopPostForm({
           />
         </div>
       </form>
-
-      <ul className="m-2">
-        {tracks.map((track: Track) => (
-          <li
-            key={track.id}
-            className="flex gap-5"
-            onClick={() => setBopTrack(track)}
-          >
-            <img className="h-18px w-18px" src={track.image} />
-            {track.name} - {track.artists.join(",")}
-          </li>
-        ))}
-      </ul>
-      {bopTrack && (
-        <div className="flex">
-          <img className="h-18px w-18px" src={bopTrack.image} />
-          {bopTrack.name} - {bopTrack.artists.join(",")}
-        </div>
-      )}
     </>
   );
 }
