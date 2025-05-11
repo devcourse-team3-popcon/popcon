@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import { NavLink, Outlet } from "react-router";
 import { twMerge } from "tailwind-merge";
-import { axiosInstance } from "../../../apis/axiosInstance";
-import { useAuthStore } from "../../../stores/authStore";
+import { useEffect } from "react";
+import { axiosInstance } from "../apis/axiosInstance";
+import { useAuthStore } from "../stores/authStore";
 
 export default function Community() {
   const login = useAuthStore((state) => state.login);
@@ -16,10 +16,9 @@ export default function Community() {
     };
     loginHandler();
   });
-
   return (
     <div className="w-[1080px]">
-      <nav className="w-full grid grid-cols-3 mb-12 mt-6 text-center  py-4">
+      <nav className="w-full grid grid-cols-3  mt-6 text-center  py-4">
         <NavLink
           to="bops-community"
           className={({ isActive }) =>
