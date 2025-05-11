@@ -6,7 +6,7 @@ export default function MainNav() {
       <NavLink
         to="/upcoming-concerts"
         className={({ isActive }) =>
-          `text-[14px] lg:text-[18px] ${
+          `text-[14px] 2xl:text-[16px] ${
             isActive
               ? "text-[color:var(--primary-300)]"
               : "text-[color:var(--white)]"
@@ -19,7 +19,7 @@ export default function MainNav() {
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `text-[14px] lg:text-[18px] ${
+          `text-[14px] 2xl:text-[16px] ${
             isActive
               ? "text-[color:var(--primary-300)]"
               : "text-[color:var(--white)]"
@@ -31,7 +31,7 @@ export default function MainNav() {
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `text-[14px] lg:text-[18px] ${
+          `text-[14px] 2xl:text-[16px] ${
             isActive
               ? "text-[color:var(--primary-300)]"
               : "text-[color:var(--white)]"
@@ -43,7 +43,7 @@ export default function MainNav() {
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `text-[14px] lg:text-[18px] ${
+          `text-[14px] 2xl:text-[16px] ${
             isActive
               ? "text-[color:var(--primary-300)]"
               : "text-[color:var(--white)]"

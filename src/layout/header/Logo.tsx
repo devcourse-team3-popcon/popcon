@@ -13,7 +13,7 @@ export default function Logo() {
         className="flex h-[88px] items-center cursor-pointer"
         onClick={handleGoHome}
       >
-        <p className="font-[MonumentExtended] text-[color:var(--primary-300)] text-[18px] lg:text-[28px]">
+        <p className="font-[MonumentExtended] text-[color:var(--primary-300)] text-[20px] lg:text-[22px] 2xl:text-[26px]">
           POPcon <span className="text-[color:var(--white)]">.</span>
         </p>
       </div>

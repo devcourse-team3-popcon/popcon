@@ -5,13 +5,13 @@ import UserSection from "./UserSection";
 export default function Header() {
   return (
     <>
-      <div>
+      <div className="md:hidden">
         <div>
           <Logo />
         </div>
       </div>
 
-      <div className="hidden sm-block">
+      <div className="hidden md:block">
         <div className="flex justify-between px-4">
           <Logo />
           <MainNav />
