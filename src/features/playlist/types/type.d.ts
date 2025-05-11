@@ -46,6 +46,8 @@ interface PlaylistTrackItemProps {
   showEllipsis?: boolean;
   trackId: string;
   other?: boolean;
+  setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
+  currentVideo: { postId: string; videoId: string } | null;
 }
 
 interface PlaylistState {
@@ -89,10 +91,44 @@ interface ParsedDataType {
 interface PlaylistTracksProps {
   tracks: TrackInfo[];
   isLoading: boolean;
+  setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
+  currentVideo: { postId: string; videoId: string } | null;
 }
 
 interface TrackDataForPlaylist {
   name: string;
   artist: string;
   imgUrl: string;
+}
+
+interface CurrentVideoProps {
+  setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
+  currentVideo: { postId: string; videoId: string } | null;
+}
+
+interface RecommendedTrackListProps {
+  recommendations: SpotifyTrack[];
+  isLoading: boolean;
+  setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
+  currentVideo: { postId: string; videoId: string } | null;
+}
+
+interface OtherUserPlaylistProps {
+  selectedUserId: string;
+  setSelectedUserId: (id: string) => void;
+  setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
+  currentVideo: { postId: string; videoId: string } | null;
+}
+
+interface TrackCardProps {
+  track: SpotifyTrack;
+  setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
+  currentVideo: { postId: string; videoId: string } | null;
+}
+
+interface PlaylistContentProps {
+  userPlaylist: TrackInfo[] | null;
+  isLoading: boolean;
+  setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
+  currentVideo: { postId: string; videoId: string } | null;
 }

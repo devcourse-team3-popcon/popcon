@@ -9,6 +9,10 @@ import UserPlaylistPreview from "../features/playlist/components/UserPlaylistPre
 export default function Playlist() {
   const [userId, setUserId] = useState("");
   const [selectedUserId, setSelectedUserId] = useState<string>("");
+  const [currentVideo, setCurrentVideo] = useState<{
+    postId: string;
+    videoId: string;
+  } | null>(null);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -24,7 +28,10 @@ export default function Playlist() {
       <PlayListBanner />
       <div className="flex gap-[32px] w-full">
         <div className="flex flex-col gap-[32px] w-[58%]">
-          <MusicRecommender />
+          <MusicRecommender
+            setCurrentVideo={setCurrentVideo}
+            currentVideo={currentVideo}
+          />
           {userId === selectedUserId && (
             <UserPlaylistPreview setSelectedUserId={setSelectedUserId} />
           )}
@@ -32,11 +39,16 @@ export default function Playlist() {
             <OtherUserPlaylist
               selectedUserId={selectedUserId}
               setSelectedUserId={setSelectedUserId}
+              setCurrentVideo={setCurrentVideo}
+              currentVideo={currentVideo}
             />
           )}
         </div>
         <div className="w-[40%]">
-          <PlaylistPanel />
+          <PlaylistPanel
+            setCurrentVideo={setCurrentVideo}
+            currentVideo={currentVideo}
+          />
         </div>
       </div>
     </div>
