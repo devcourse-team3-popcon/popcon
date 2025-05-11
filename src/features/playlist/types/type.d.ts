@@ -90,3 +90,9 @@ interface PlaylistTracksProps {
   tracks: TrackInfo[];
   isLoading: boolean;
 }
+
+interface TrackDataForPlaylist {
+  name: string;
+  artist: string;
+  imgUrl: string;
+}

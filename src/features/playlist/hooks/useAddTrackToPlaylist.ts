@@ -7,14 +7,22 @@ export function useAddTrackToPlaylist(onSuccess?: () => void) {
   const tracks = usePlaylistStore((state) => state.tracks);
 
   const handleTrackClick = useCallback(
-    async (track: SpotifyTrack) => {
+    async (trackData: SpotifyTrack | TrackDataForPlaylist) => {
       try {
+        let trackInfo: TrackDataForPlaylist;
+        
+        if ('album' in trackData) {
+          trackInfo = {
+            name: trackData.name,
+            artist: trackData.artists[0]?.name || "Unknown",
+            imgUrl: trackData.album.images[0]?.url || "",
+          };
+        } else {
+          trackInfo = trackData;
+        }
+
         const savedTrack = await addTrackToPlayList({
-          title: {
-            name: track.name,
-            artist: track.artists[0]?.name || "Unknown",
-            imgUrl: track.album.images[0]?.url || "",
-          },
+          title: trackInfo,
         });
 
         const newSavedTrack = {
@@ -24,8 +32,8 @@ export function useAddTrackToPlaylist(onSuccess?: () => void) {
 
         const isAlreadyAdded = tracks.some(
           (t) =>
-            t.title.name === savedTrack.title.name &&
-            t.title.artist === savedTrack.title.artist
+            t.title.name === trackInfo.name &&
+            t.title.artist === trackInfo.artist
         );
 
         if (!isAlreadyAdded) {
