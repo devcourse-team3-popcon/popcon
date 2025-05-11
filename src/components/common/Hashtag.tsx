@@ -3,8 +3,9 @@ type HashtagProps = {
   variant: "filled" | "empty";
 };
 
-export default function Hashtag({text, variant}: HashtagProps) {
-  const baseStyle = "inline-flex items-center h-[35px] px-[24px] rounded-[50px] border";
+export default function Hashtag({ text, variant }: HashtagProps) {
+  const baseStyle =
+    "inline-flex items-center h-[35px] px-[24px] rounded-[50px] border ";
 
   const filledStyle = {
     backgroundColor: "var(--primary-300)",

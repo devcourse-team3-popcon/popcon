@@ -11,17 +11,20 @@ import DropdownMenu from "../../../components/common/DropdownMenu";
 import { deletePost } from "../../../utils/post";
 import { getCurrentUserId } from "../../../utils/auth";
 import { useNavigate } from "react-router";
+import { parseUserName } from "../../../utils/parseUserName";
 
 type BopCardProps = {
   post: Post;
   currentVideo: { postId: string; videoId: string } | null;
   setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
+  onDelete: (postId: string) => void;
 };
 
 export default function BopCard({
   post,
   currentVideo,
   setCurrentVideo,
+  onDelete,
 }: BopCardProps) {
   const [localPost, setLocalPost] = useState<Post>(post);
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -56,7 +59,12 @@ export default function BopCard({
   }, [localPost]);
 
   const deletePostHandler = async () => {
-    deletePost(localPost._id);
+    try {
+      await deletePost(localPost._id);
+      onDelete(localPost._id);
+    } catch (e) {
+      console.error("삭제 실패", e);
+    }
   };
 
   const toggleLike = async () => {
@@ -93,8 +101,10 @@ export default function BopCard({
   const isPlaying =
     currentVideo?.postId === localPost._id && currentVideo?.videoId === videoId;
   const parsedBopTitle = parseBopTitle(localPost.title);
+  const parsedUserName = parseUserName(localPost.author.fullName);
   const trackName = parsedBopTitle.track.name;
   const artistNames = parsedBopTitle.track.artists;
+  console.log(artistNames);
 
   const togglePlayTrack = async () => {
     if (isPlaying) {
@@ -114,11 +124,29 @@ export default function BopCard({
   return (
     <>
       <div className="relative w-fit">
-        <div className="w-[240px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7">
-          <img
-            className="w-full h-[208px] bg-[#c2c2c2] rounded-2xl"
-            src={parsedBopTitle.track.image}
-          />
+        <div className="w-[240px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7  shadow-lg shadow-[rgba(0,0,0,0.50)]">
+          <div className="relative w-full h-[208px] overflow-hidden rounded-2xl group">
+            <img
+              className="w-full h-full bg-[#c2c2c2] rounded-2xl shadow-lg shadow-[rgba(0,0,0,0.25)] object-cover"
+              src={parsedBopTitle.track.image}
+              alt="앨범 커버"
+            />
+            <div className="w-full h-full p-1 absolute inset-0  bg-black/60 flex flex-col justify-between  opacity-0 translate-y-full group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-in-out">
+              <div className="flex flex-col p-3 h-[80%] text-sm gap-2">
+                <span>Behind.</span>
+                <span className="text-white text-[12px] font-light mb-2 text-left">
+                  {parsedBopTitle.text}
+                </span>
+              </div>
+
+              <span className="w-full h-[10%] text-[10px] text-right px-1">
+                Recommended By.
+                <span className="text-[color:var(--primary-300)] ml-1">
+                  {parsedUserName.name}
+                </span>
+              </span>
+            </div>
+          </div>
 
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-2">
@@ -140,9 +168,7 @@ export default function BopCard({
                 </div>
               </div>
 
-              <span className="text-[12px] ">
-                {parsedBopTitle.track.artists}
-              </span>
+              <span className="text-[12px] ">{artistNames}</span>
             </div>
 
             <div className="flex justify-between">
@@ -162,7 +188,7 @@ export default function BopCard({
                 src={isPlaying ? stop : play}
                 onClick={togglePlayTrack}
                 alt="재생버튼"
-                className="w-6 h-6 cursor-pointer pb-1"
+                className="w-6 h-6 cursor-pointer pb-1 "
               />
             </div>
           </div>

@@ -19,5 +19,5 @@ export default function usePostsByChannel(channelId: string) {
     };
     fetchPosts();
   }, [channelId]);
-  return { posts, loading };
+  return { posts, setPosts, loading };
 }

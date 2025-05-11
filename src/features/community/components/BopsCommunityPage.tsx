@@ -17,7 +17,7 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
     videoId: string;
   } | null>(null);
 
-  const { posts, loading } = usePostsByChannel(`${channelId}`);
+  const { posts, setPosts, loading } = usePostsByChannel(`${channelId}`);
   if (loading) return <p>로딩 중...</p>;
   if (!channelId) return <p>채널을 찾을 수 없습니다.</p>;
 
@@ -54,6 +54,9 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
               post={post}
               currentVideo={currentVideo}
               setCurrentVideo={setCurrentVideo}
+              onDelete={(deletedId) =>
+                setPosts((prev) => prev.filter((p) => p._id !== deletedId))
+              }
             />
           ))}
         </div>
