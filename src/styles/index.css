@@ -52,6 +52,7 @@
   font-style: normal;
 }
 
+/* Pretendard-SemiBold로 지정되어 있어 수정했습니다 ! */
 @font-face {
   font-family: "Pretendard";
   font-weight: 300;
@@ -60,7 +61,7 @@
 
 @font-face {
   font-family: "MonumentExtended";
-  src: url("/src/assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+  src: url("/src/assets/fonts/MonumentExtended-Regular.otf") format("woff2");
 }
 
 body {
