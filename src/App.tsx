@@ -5,11 +5,13 @@ import Home from "./pages/home/Home";
 import BopsCommunity from "./features/community/components/BopsCommunity";
 import ConcertCommunity from "./features/community/components/ConcertCommunity";
 import OpenCommunity from "./features/community/components/OpenCommunity";
-import Community from "./features/community/components/Community";
+import Community from "./pages/Community";
 import AddBopPost from "./features/community/components/AddBopPost";
-import AddPost from "./features/community/components/AddPost";
+import AddCommunityPost from "./features/community/components/AddCommunityPost";
 import ProtectedRoute from "./components/common/ProtectedRoute";
-import PostDetail from "./features/community/components/PostDetail";
+import CommunityPostDetail from "./features/community/components/CommunityPostDetail";
+import EditCommunityPost from "./features/community/components/EditCommunityPost";
+import EditBopPost from "./features/community/components/EditBopPost";
 
 
 export default function App() {
@@ -19,22 +21,27 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path='/upcoming-concerts' element={<UpcomingConcerts />} />
         <Route path="/community" element={<Community />}>
-          <Route index element={<Navigate to="post-detail" replace />} />
+          <Route index element={<Navigate to="bops-community" replace />} />
 
-          <Route path="post-detail" element={<PostDetail />} />
           <Route path="bops-community" element={<BopsCommunity />} />
           <Route path="concert-community" element={<ConcertCommunity />} />
           <Route path="open-community" element={<OpenCommunity />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="bops-community/add" element={<AddBopPost />} />
+            <Route path="post/:postId" element={<CommunityPostDetail />} />
             <Route
-              path="concert-community/add"
-              element={<AddPost channelName="ConcertCommunity" />}
+              path="bops-community/add"
+              element={<AddBopPost channelName="BopsCommunity" />}
             />
             <Route
+              path="concert-community/add"
+              element={<AddCommunityPost channelName="ConcertCommunity" />}
+            />
+            <Route path="post/:postId/edit" element={<EditCommunityPost />} />
+            <Route path="post/:postId/editBop" element={<EditBopPost />} />
+            <Route
               path="open-community/add"
-              element={<AddPost channelName="OpenCommunity" />}
+              element={<AddCommunityPost channelName="OpenCommunity" />}
             />
           </Route>
         </Route>

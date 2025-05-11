@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Post } from "../types/Post";
+import { Post } from "../features/community/types/Post";
 import { axiosInstance } from "../apis/axiosInstance";
 
 export default function usePostsByChannel(channelId: string) {
@@ -19,5 +19,5 @@ export default function usePostsByChannel(channelId: string) {
     };
     fetchPosts();
   }, [channelId]);
-  return { posts, loading };
+  return { posts, setPosts, loading };
 }

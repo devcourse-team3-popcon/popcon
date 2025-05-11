@@ -24,8 +24,9 @@ export default function MainNav() {
         PLAYLIST
       </NavLink>
       <NavLink
-        to='/'
-        className={({isActive}) =>
+        to="/community"
+        className={({ isActive }) =>
+
           `text-[18px] ${
             isActive ? "text-[color:var(--primary-300)]" : "text-[color:var(--white)]"
           }`
