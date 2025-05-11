@@ -71,7 +71,7 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
   return (
     <dialog
       ref={dialogRef}
-      className="w-[464px] h-[672px] bg-[color:var(--bg-color)] rounded-[30px] border border-[#fbfbfb78] px-[48px] py-[32px] flex flex-col m-auto"
+      className="w-[464px] h-[672px] bg-[color:var(--bg-color)] rounded-[30px] border border-[#fbfbfb78] px-[48px] py-[32px] flex flex-col m-auto z-50"
     >
       <div className="flex justify-between items-center">
         <h2 className="text-[20px] font-bold text-[color:var(--white)]">
