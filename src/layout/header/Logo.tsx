@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import logo from "../../assets/images/logo-text.svg";
 
 export default function Logo() {
   const navigate = useNavigate();
@@ -14,7 +13,9 @@ export default function Logo() {
         className="flex h-[88px] items-center cursor-pointer"
         onClick={handleGoHome}
       >
-        <img src={logo} alt="로고" />
+        <p className="font-[MonumentExtended] text-[color:var(--primary-300)] text-[18px] lg:text-[28px]">
+          POPcon <span className="text-[color:var(--white)]">.</span>
+        </p>
       </div>
     </>
   );
