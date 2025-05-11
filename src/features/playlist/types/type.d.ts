@@ -45,6 +45,7 @@ interface PlaylistTrackItemProps {
   item?: TrackInfo;
   showEllipsis?: boolean;
   trackId: string;
+  other?: boolean;
 }
 
 interface PlaylistState {

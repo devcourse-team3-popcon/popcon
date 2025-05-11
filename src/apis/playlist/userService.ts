@@ -13,7 +13,7 @@ export const getUserById = async (id: string) => {
 
 export const getUserInfo = async () => {
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MWYxODVkYWM4OWRjMDhkMzUyYzc3YyIsImVtYWlsIjoicG9wY29uQGdtYWlsLmNvbSJ9LCJpYXQiOjE3NDY4NjkwMDF9._Jeznx782Dl0mMsncWL31ddHOu-5CauPIz7xoYBJLKI";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MWUzMWM4MDc2NGJhNzY0MWRjYzNlMyIsImVtYWlsIjoicGFya0BuYXZlci5jb20ifSwiaWF0IjoxNzQ2OTU0NDc1fQ.up1OMbZ6BC46LYtUFfIVwU_fUJCWGYve9_UbeZ6odnc";
   const res = await axiosInstance.get("/auth-user", {
     headers: {
       Authorization: `Bearer ${token}`,

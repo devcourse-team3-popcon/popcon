@@ -9,27 +9,19 @@ export default function OtherUserPlaylist({
   selectedUserId: string;
   setSelectedUserId: (id: string) => void;
 }) {
-  const { 
-    selectedUserName, 
-    parsedData, 
-    userPlaylist, 
-    myId, 
-    isLoading 
-  } = useOtherUserPlaylist(selectedUserId);
+  const { selectedUserName, parsedData, userPlaylist, myId, isLoading } =
+    useOtherUserPlaylist(selectedUserId);
 
   const displayName = parsedData ? parsedData.name : selectedUserName;
 
   return (
-    <section className="flex flex-col p-[48px] bg-[color:var(--grey-600)] w-full h-[408px] rounded-[30px] gap-[12px]">
+    <section className="flex flex-col pt-12 px-12 bg-[color:var(--grey-600)] w-full h-[408px] rounded-[30px] gap-[12px] overflow-hidden">
       <PlaylistHeader
         displayName={displayName}
         onBack={() => setSelectedUserId(myId)}
       />
-      
-      <PlaylistContent
-        userPlaylist={userPlaylist}
-        isLoading={isLoading}
-      />
+
+      <PlaylistContent userPlaylist={userPlaylist} isLoading={isLoading} />
     </section>
   );
 }

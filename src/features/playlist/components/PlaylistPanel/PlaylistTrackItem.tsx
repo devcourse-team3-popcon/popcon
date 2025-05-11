@@ -1,4 +1,4 @@
-import { Trash2 } from "lucide-react";
+import { ListMusic, Trash2 } from "lucide-react";
 import { usePlaylistStore } from "../../../../stores/playlistStore";
 import { deleteTrackFromPlaylist } from "../../../../apis/playlist/playlistService";
 
@@ -8,12 +8,13 @@ export default function PlaylistTrackItem({
   item,
   showEllipsis,
   trackId,
+  other,
 }: PlaylistTrackItemProps) {
   const { setTracks } = usePlaylistStore();
   const tracks = usePlaylistStore((state) => state.tracks);
 
   const deleteTrack = async (e: React.MouseEvent, trackId: string) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     await deleteTrackFromPlaylist(trackId);
     const updatedTracks = tracks.filter((track) => track._id !== trackId);
     setTracks(updatedTracks);
@@ -42,6 +43,14 @@ export default function PlaylistTrackItem({
       {showEllipsis && (
         <div className="ml-2 flex-shrink-0">
           <Trash2
+            className="cursor-pointer invisible group-hover:visible transition-all"
+            onClick={(e) => deleteTrack(e, trackId)}
+          />
+        </div>
+      )}
+      {other && (
+        <div className="ml-2 flex-shrink-0">
+          <ListMusic
             className="cursor-pointer invisible group-hover:visible transition-all"
             onClick={(e) => deleteTrack(e, trackId)}
           />
