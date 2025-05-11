@@ -1,38 +1,16 @@
-import { usePlaylistStore } from "../../../../stores/playlistStore";
 import { Plus } from "lucide-react";
-import { addTrackToPlayList } from "../../../../apis/playlist/playlistService";
 import TrackCardSkeleton from "./TrackCardSkeleton";
+import { useAddTrackToPlaylist } from "../../hooks/useAddTrackToPlaylist";
 
 export default function TrackCard({ track }: { track: SpotifyTrack }) {
-  const { setTracks } = usePlaylistStore();
-  const tracks = usePlaylistStore((state) => state.tracks);
+  const handleAddToPlaylist = useAddTrackToPlaylist();
 
   if (!track) {
     return <TrackCardSkeleton />;
   }
 
-  const handleAddToPlaylist = async () => {
-    const trackInfo = {
-      title: {
-        name: track.name,
-        artist: track.artists[0].name,
-        imgUrl: track.album.images[0]?.url || "",
-      },
-      _id: track.id,
-    };
-    const isAlreadyAdded = tracks.some(
-      (t) =>
-        t.title.name === trackInfo.title.name &&
-        t.title.artist === trackInfo.title.artist
-    );
-
-    if (!isAlreadyAdded) {
-      const data = await addTrackToPlayList(trackInfo);
-      const newTrackInfo = { ...trackInfo, _id: data._id };
-      setTracks([newTrackInfo, ...tracks]);
-    } else {
-      alert("이미 추가된 곡입니다");
-    }
+  const onAddClick = () => {
+    handleAddToPlaylist(track);
   };
 
   return (
@@ -63,7 +41,7 @@ export default function TrackCard({ track }: { track: SpotifyTrack }) {
 
         <div
           className="flex justify-center gap-[8px] items-center mt-[8px] group"
-          onClick={handleAddToPlaylist}
+          onClick={onAddClick}
         >
           <Plus className="w-4 h-4 text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)] cursor-pointer" />
           <p className="text-[14px] text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)] cursor-pointer">
