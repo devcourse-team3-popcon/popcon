@@ -9,26 +9,21 @@ type NotificationListProps = {
 };
 
 export default function NotificationList({closeNotifications}: NotificationListProps) {
-  const {notifications, setNotifications, loading} = useNotification();
+  const {notifications, setNotifications} = useNotification();
   const notificationListRef = useRef<HTMLDivElement | null>(null);
 
   // 알림 상태 업데이트
-  const updateNoti = async (notificationId: string) => {
+  const updateNoti = async () => {
     try {
       await readNotifications();
 
-      const updatedNotifications = notifications.map((noti) =>
-        noti._id === notificationId ? {...noti, seen: true} : noti
-      );
+      const updatedNotifications = notifications.map((noti) => ({...noti, seen: true}));
 
       setNotifications(updatedNotifications);
     } catch (error) {
       console.error("알림 읽음 처리 실패:", error);
     }
-  };
-
-  const deleteNotiHandler = (notificationId: string) => {
-    updateNoti(notificationId);
+    closeNotifications();
   };
 
   // 외부 클릭 시 알림창 닫기
@@ -58,10 +53,7 @@ export default function NotificationList({closeNotifications}: NotificationListP
       >
         <div className='flex justify-between items-center mb-4'>
           <h2 className='font-semibold text-[18px] h-[21px] pl-2'>Notification</h2>
-          <p
-            className='text-[var(--white-80)] cursor-pointer text-[12px]'
-            onClick={deleteNotiHandler}
-          >
+          <p className='text-[var(--white-80)] cursor-pointer text-[12px]' onClick={updateNoti}>
             전체 삭제
           </p>
         </div>

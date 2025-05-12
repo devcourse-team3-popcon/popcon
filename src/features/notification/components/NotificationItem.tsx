@@ -8,8 +8,6 @@ type Props = {
   closeNotifications: () => void;
 };
 
-type Post = {_id: string};
-
 export default function NotificationItem({noti, closeNotifications}: Props) {
   const navigate = useNavigate();
   const {author, comment, like, follow, message} = noti;
@@ -41,7 +39,6 @@ export default function NotificationItem({noti, closeNotifications}: Props) {
     e.preventDefault();
     e.stopPropagation();
     let currentPostId = null;
-    // postId 설정
     if (comment && comment.post && typeof comment.post === "object") {
       currentPostId = comment.post._id;
     } else if (like?.post) {
@@ -49,10 +46,7 @@ export default function NotificationItem({noti, closeNotifications}: Props) {
     }
 
     if (currentPostId) {
-      console.log("click!");
-      // navigate(`/community/post/${encodeURIComponent(currentPostId)}`);
-
-      window.location.href = `/community/post/${currentPostId}`;
+      navigate(`/community/post/${encodeURIComponent(currentPostId)}`);
     } else if (message) {
       navigate("/chat");
     } else {
