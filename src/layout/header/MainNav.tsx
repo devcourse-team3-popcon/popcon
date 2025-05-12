@@ -4,7 +4,7 @@ export default function MainNav() {
   return (
     <nav className="flex gap-12 items-center h-[88px]">
       <NavLink
-        to="/"
+        to="/upcoming-concerts"
         className={({ isActive }) =>
           `text-[18px] ${
             isActive
@@ -16,7 +16,7 @@ export default function MainNav() {
         UPCOMING CONCERTS
       </NavLink>
       <NavLink
-        to="/"
+        to="/playlist"
         className={({ isActive }) =>
           `text-[18px] ${
             isActive
@@ -28,7 +28,7 @@ export default function MainNav() {
         PLAYLIST
       </NavLink>
       <NavLink
-        to="/"
+        to="/community"
         className={({ isActive }) =>
           `text-[18px] ${
             isActive
