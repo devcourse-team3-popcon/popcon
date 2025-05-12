@@ -9,11 +9,11 @@ export default function UserList({
   keyword: string;
   onClick?: (userId: string) => void;
 }) {
-  const { userList, loading } = useSearchUsers(keyword);
+  const { userList } = useSearchUsers(keyword);
 
-  if (loading) return <p>loading...</p>;
+  // if (loading) return <p>loading...</p>;
 
-  console.log(userList);
+  // console.log(userList);
 
   return (
     <>

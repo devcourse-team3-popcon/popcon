@@ -1,6 +1,6 @@
 export interface UserInfo {
   id: string;
-  name: string;
+  userName: string;
   image: string;
   isOnline: boolean;
 }

@@ -23,7 +23,10 @@ export default function Conversations({
   const refreshConv = useRefreshStore((state) => state.refreshConversations);
   const refreshMsg = useRefreshStore((state) => state.refreshMessages);
 
-  // console.log("conversations: ", conversations);
+  const selectSearchHandler = (userId: string) => {
+    setSearchInput("");
+    onSelect?.(userId);
+  };
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString("ko-KR", {
@@ -44,7 +47,7 @@ export default function Conversations({
 
   return (
     <>
-      <div className="w-[25%] h-full pt-[53px] pb-[32px] px-[20px] rounded-[30px] border">
+      <div className="w-[25%] h-full pt-[53px] pb-[32px] px-[20px] rounded-[30px] border flex flex-col">
         <div className="font-bold text-[24px] mb-[32px] px-2 cursor-default flex justify-between items-center">
           Message
           <RotateCcw
@@ -60,11 +63,11 @@ export default function Conversations({
           className="w-full mb-[16px]"
         />
 
-        <div className="flex flex-col gap-[8px] w-full overflow-y-auto scrollbar-hide">
+        <div className="flex flex-col gap-[8px] w-full overflow-y-auto flex-1 scrollbar-hide">
           {/* {loading && <p>loading...</p>} */}
 
           {searchInput.trim().length > 0 ? (
-            <UserList keyword={searchInput} onClick={onSelect} />
+            <UserList keyword={searchInput} onClick={selectSearchHandler} />
           ) : (
             conversations &&
             conversations.map((conv) => {

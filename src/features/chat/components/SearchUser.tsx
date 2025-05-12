@@ -21,7 +21,7 @@ export default function SearchUser({
   //   isOnline: isOnline,
   // };
 
-  console.log("프로필: ", image);
+  // console.log("프로필: ", image);
 
   return (
     <>
@@ -40,8 +40,8 @@ export default function SearchUser({
           </div>
         </div>
 
-        <div className="flex flex-1 items-center justify-between p-0.5 gap-[8px]">
-          <div className="text-[16px] font-medium">{name}</div>
+        <div className="flex flex-1 items-center justify-between p-0.5 gap-[8px] w-[10%]">
+          <div className="text-[16px] font-medium truncate flex-1">{name}</div>
           <Send size={20} />
         </div>
       </div>
