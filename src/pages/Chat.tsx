@@ -17,7 +17,7 @@ export default function Chat() {
       <div className="flex flex-col gap-[24px] w-[90%] h-[85vh] items-start">
         <BackButton />
 
-        <div className="flex gap-[32px] w-full h-[92%] justify-center">
+        <div className="flex gap-[32px] w-full h-[90%] justify-center pb-[10px]">
           <Conversations
             onSelect={(user) => selectedIdHandler(user)}
             selectedId={selectedConversation}

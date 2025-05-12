@@ -30,7 +30,7 @@ export default function MessageList({ userId }: { userId: string }) {
     setRefreshMsg(refresh);
   }, [refresh, setRefreshMsg]);
 
-  console.log("유저 아이디: ", userId);
+  // console.log("유저 아이디: ", userId);
 
   return (
     <>
