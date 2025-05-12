@@ -1,6 +1,6 @@
-import {axiosInstance} from "../../apis/axiosInstance";
+import {axiosInstance} from "../../../apis/axiosInstance";
 
-export const updateNotifications = async (): Promise<void> => {
+export const readNotifications = async (): Promise<void> => {
   try {
     await axiosInstance.put(
       "/notifications/seen",

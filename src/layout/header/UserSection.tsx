@@ -2,7 +2,7 @@ import bell from "../../assets/images/icon-bell.svg";
 import chat from "../../assets/images/icon-chat.svg";
 import user from "../../assets/images/icon-user.svg";
 import NotificationList from "../../features/notification/components/NotificationList"; // NotificationList 임포트
-import {useNotificationModal} from "../../features/notification/useNotificationModal";
+import {useNotificationModal} from "../../features/notification/hooks/useNotificationModal";
 
 export default function UserSection() {
   // 커스텀 훅에서 반환된 값 사용

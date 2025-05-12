@@ -1,31 +1,25 @@
-import {useEffect, useState} from "react";
-import {useNotification} from "../useNotification";
+import {useNotification} from "../hooks/useNotification";
 import NotificationItem from "./NotificationItem";
-import {updateNotifications} from "../updateNotifications";
-import {Bell} from "lucide-react"; // Trash2 아이콘 임포트
+import {Bell} from "lucide-react";
+import {readNotifications} from "../apis/readNotifications";
 
 type NotificationListProps = {
   closeNotifications: () => void;
 };
 
 export default function NotificationList({closeNotifications}: NotificationListProps) {
-  const {notifications, loading} = useNotification();
-  const [updatedNotifications, setUpdatedNotifications] = useState(notifications);
-
-  useEffect(() => {
-    // notifications가 변경될 때마다 updatedNotifications만 갱신
-    setUpdatedNotifications(notifications);
-  }, [notifications]); // notifications가 변경될 때마다 updatedNotifications만 갱신
+  const {notifications, setNotifications, loading} = useNotification();
 
   const updateNoti = async (notificationId: string) => {
     try {
-      await updateNotifications();
+      await readNotifications();
 
-      setUpdatedNotifications((prevNoti) =>
-        prevNoti.map(
-          (noti) => (noti._id === notificationId ? {...noti, seen: true} : noti) // 해당 알림만 seen 상태 변경
-        )
+      // 알림 상태를 업데이트 (읽음 처리)
+      const updatedNotifications = notifications.map((noti) =>
+        noti._id === notificationId ? {...noti, seen: true} : noti
       );
+
+      setNotifications(updatedNotifications);
     } catch (error) {
       console.error("알림 읽음 처리 실패:", error);
     }
@@ -46,7 +40,6 @@ export default function NotificationList({closeNotifications}: NotificationListP
       >
         <div className='flex justify-between items-center mb-4'>
           <h2 className='font-semibold text-[18px]  h-[21px] pl-2'>Notification</h2>
-          {/* 알림 목록 상단에 Trash2 아이콘 배치 */}
           <p
             className='text-[var(--white-80)] cursor-pointer text-[12px] '
             onClick={() => handleDeleteNoti("")}
@@ -62,7 +55,7 @@ export default function NotificationList({closeNotifications}: NotificationListP
           </div>
         ) : (
           <ul className='space-y-2'>
-            {updatedNotifications.map((noti) => (
+            {notifications.map((noti) => (
               <NotificationItem key={noti._id} noti={noti} updateNotifications={updateNoti} />
             ))}
           </ul>

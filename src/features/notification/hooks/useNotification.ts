@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import {NotificationRes} from "./hooks/NotificationRes";
-import {getNotification} from "./apis/getNotification";
+import {getNotification} from "../apis/getNotification";
+import {NotificationRes} from "../types/NotificationRes";
 
 export function useNotification() {
   const [notifications, setNotifications] = useState<NotificationRes[]>([]);
@@ -22,5 +22,5 @@ export function useNotification() {
     fetchNotifications();
   }, []);
 
-  return {notifications, loading};
+  return {notifications, setNotifications, loading};
 }

@@ -1,5 +1,5 @@
 import {axiosInstance} from "../../../apis/axiosInstance";
-import {NotificationRes} from "../hooks/NotificationRes";
+import {NotificationRes} from "../types/NotificationRes";
 
 export const getNotification = async (): Promise<NotificationRes[]> => {
   try {
