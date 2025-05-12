@@ -27,12 +27,12 @@ export default function SideMenu({ isLoggedIn }: SideMenuProps) {
       {open ? (
         <X
           onClick={toggleMenu}
-          className="md:hidden fixed top-12 right-5 z-50 text-white"
+          className="md:hidden fixed top-12 right-5 z-50 text-white cursor-pointer"
         />
       ) : (
         <Menu
           onClick={toggleMenu}
-          className="md:hidden fixed top-12 right-5 z-50 text-white"
+          className="md:hidden fixed top-12 right-5 z-50 text-white cursor-pointer"
         />
       )}
 

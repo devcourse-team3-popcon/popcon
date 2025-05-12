@@ -14,13 +14,23 @@ export default function AuthButtons({
   return (
     <div className="mt-auto flex justify-center">
       {isLoggedIn ? (
-        <button className="text-[color:var(--white-80)] text-[12px] font-medium mb-16">
+        <button className="text-[color:var(--white-80)] text-[12px] font-medium mb-16 cursor-pointer">
           Log Out
         </button>
       ) : (
         <div className="flex gap-12 text-[color:var(--white-80)] text-[12px] font-medium mb-16">
-          <button onClick={() => handleNavigation("/login")}>Login</button>
-          <button onClick={() => handleNavigation("/signup")}>Sign Up</button>
+          <button
+            className="cursor-pointer"
+            onClick={() => handleNavigation("/login")}
+          >
+            Login
+          </button>
+          <button
+            className="cursor-pointer"
+            onClick={() => handleNavigation("/signup")}
+          >
+            Sign Up
+          </button>
         </div>
       )}
     </div>
