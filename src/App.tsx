@@ -51,6 +51,7 @@ export default function App() {
           </Route>
         </Route>
         <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
