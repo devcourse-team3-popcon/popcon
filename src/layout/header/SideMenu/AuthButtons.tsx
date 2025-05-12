@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router";
+import { useAuthStore } from "../../../stores/authStore";
 
 export default function AuthButtons({
   isLoggedIn,
   toggleMenu,
 }: AuthButtonsProps) {
   const navigate = useNavigate();
+  const logout = useAuthStore((state) => state.logout);
 
   const handleNavigation = (path: string) => {
     navigate(path);
@@ -12,7 +14,10 @@ export default function AuthButtons({
   };
 
   const handleLogout = () => {
+    logout();
     localStorage.removeItem("app_state");
+    navigate("/");
+    toggleMenu();
   };
 
   return (
