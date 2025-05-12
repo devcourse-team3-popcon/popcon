@@ -30,15 +30,15 @@ export default function AuthButtons({
           Log Out
         </button>
       ) : (
-        <div className="flex gap-12 text-[color:var(--white-80)] text-[12px] font-medium mb-16 hover:text-[color:var(--primary-300)]">
+        <div className="flex gap-12 text-[color:var(--white-80)] text-[12px] font-medium mb-16">
           <button
-            className="cursor-pointer"
+            className="cursor-pointer hover:text-[color:var(--primary-300)]"
             onClick={() => handleNavigation("/login")}
           >
             Login
           </button>
           <button
-            className="cursor-pointer"
+            className="cursor-pointer hover:text-[color:var(--primary-300)]"
             onClick={() => handleNavigation("/signup")}
           >
             Sign Up
