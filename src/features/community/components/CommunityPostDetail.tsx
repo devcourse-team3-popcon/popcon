@@ -4,6 +4,7 @@ import TextAreaField from "../../../components/common/TextAreaField";
 import { useParams } from "react-router";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import { Post } from "../types/Post";
+import BackButton from "../../../components/common/BackButton";
 
 export default function PostDetail() {
   const { postId } = useParams();
@@ -40,7 +41,8 @@ export default function PostDetail() {
 
   return (
     <>
-      <div className="flex flex-col gap-8">
+      <BackButton />
+      <div className="flex flex-col gap-8 p-4">
         <CommunityArticle post={post!} />
         <TextAreaField
           label="댓글 작성"

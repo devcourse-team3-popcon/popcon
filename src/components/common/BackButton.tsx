@@ -9,7 +9,7 @@ export default function BackButton() {
       onClick={() => navigate(-1)}
     >
       <ChevronLeft className="w-[24px] h-[24px] text-[color:var(--grey-300)] group-hover:text-[color:var(--primary-300)]" />
-      Back
+      BACK
     </button>
   );
 }

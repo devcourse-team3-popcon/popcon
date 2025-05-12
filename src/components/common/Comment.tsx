@@ -51,7 +51,7 @@ export default function Comment({ comment, onDelete }: CommentProps) {
           {currentUserId === comment.author._id && (
             <div className="relative">
               <Ellipsis
-                className="cursor-pointer"
+                className="cursor-pointer w-4 h-4"
                 onClick={() => setIsOpen(!isOpen)}
               />
               <DropdownMenu

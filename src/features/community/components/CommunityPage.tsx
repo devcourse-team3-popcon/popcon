@@ -39,7 +39,10 @@ export default function CommunityPage({
   const indexOfFirstPost = indexOfLastPost - cntPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
-  if (loading) return <p>로딩 중...</p>;
+  if (loading)
+    return (
+      <div className="w-full h-full flex justify-center items-center"></div>
+    );
 
   return (
     <>

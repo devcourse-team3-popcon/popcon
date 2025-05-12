@@ -18,6 +18,7 @@ interface ArticleProps {
 
 export default function Article({ post }: ArticleProps) {
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [likes, setLikes] = useState<Like[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [comments, setComments] = useState<CommentType[] | null>(null);
   const navigate = useNavigate();
@@ -36,41 +37,39 @@ export default function Article({ post }: ArticleProps) {
     await deletePost(post._id!);
   };
 
-  const checkLikeStatus = async () => {
-    try {
-      const userLike = post.likes.find(
-        (like: Like) => like.user === currentUserId
-      );
-      setIsLiked(!!userLike);
-    } catch (e) {
-      console.error("게시글 불러오기 실패", e);
-    }
+  const checkLikeStatus = () => {
+    const userLike = likes.find((like) => like.user === currentUserId);
+    setIsLiked(!!userLike);
   };
 
   useEffect(() => {
     if (!post) return;
-    checkLikeStatus();
+    setLikes(post.likes);
     setComments(post.comments);
   }, [post]);
 
+  useEffect(() => {
+    checkLikeStatus();
+  }, [likes]);
+
   const toggleLike = async () => {
     try {
-      if (!post) return;
-
-      const userLike = post.likes.find((like) => like.user === currentUserId);
+      const userLike = likes.find((like) => like.user === currentUserId);
 
       if (userLike) {
         await axiosInstance.delete(`/likes/delete`, {
           data: { id: userLike._id },
         });
+        setLikes((prev) => prev.filter((like) => like._id !== userLike._id));
       } else {
-        await axiosInstance.post(`/likes/create`, {
+        const res = await axiosInstance.post(`/likes/create`, {
           postId: post._id,
           userId: currentUserId,
         });
+        setLikes((prev) => [...prev, res.data]);
       }
 
-      await checkLikeStatus();
+      checkLikeStatus();
     } catch (e) {
       console.error("좋아요 실패 : ", e);
     }
@@ -99,7 +98,7 @@ export default function Article({ post }: ArticleProps) {
             <div className="relative">
               <Ellipsis
                 onClick={() => setIsOpen(!isOpen)}
-                className="cursor-pointer"
+                className="cursor-pointer w-4 h-4"
               />
               <DropdownMenu
                 isOpen={isOpen}
@@ -136,14 +135,14 @@ export default function Article({ post }: ArticleProps) {
               }`}
               fill={isLiked ? "var(--primary-300)" : "none"}
             />
-            {post.likes.length}
+            {likes.length}
           </div>
 
           <p className="text-[12px]">
             <span className="font-bold">{post.comments.length}</span>개의 댓글
           </p>
         </div>
-        <div className="mt-6  pt-4  border-t-1 border-[color:var(--white-80)]">
+        <div className="mt-3  pt-4  border-t-1 border-[color:var(--primary-300-50)]">
           {comments &&
             comments.map((comment) => (
               <Comment
