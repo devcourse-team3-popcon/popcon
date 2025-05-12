@@ -13,13 +13,13 @@ export default function NotFound() {
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <a
-            href="#"
-            className="rounded-md border border-[color:var(--primary-300)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            href="/"
+            className="rounded-md border border-[color:var(--primary-300)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:text-[color:var(--primary-300)]"
           >
             Go back home
           </a>
           <a
-            href="#"
+            href="https://github.com/devcourse-team3-popcon/popcon"
             className="text-sm font-semibold text-[color:var(--white)]"
           >
             Contact support <span aria-hidden="true">&rarr;</span>
