@@ -54,12 +54,31 @@
 
 /* Pretendard-SemiBold로 지정되어 있어 수정했습니다 ! */
 @font-face {
+  font-family: "Pretendard";
+  font-weight: 300;
+  src: url("/src/assets/fonts/Pretendard-Light.woff2") format("woff2");
+}
+
+@font-face {
   font-family: "MonumentExtended";
-  src: url("/src/assets/fonts/MonumentExtended-Regular.otf") format("woff2");
+  src: url("/src/assets/fonts/MonumentExtended-Regular.otf") format("opentype");
 }
 
 body {
   font-family: "Pretendard";
   background-color: var(--bg-color);
   color: var(--white);
+}
+
+@theme {
+  --font-monument: "MonumentExtended", sans-serif;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

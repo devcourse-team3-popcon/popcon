@@ -8,7 +8,8 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MWUzMTk5MDc2NGJhNzY0MWRjYzNkYyIsImVtYWlsIjoiZGRAbmF2ZXIuY29tIn0sImlhdCI6MTc0Njk4MTA4NH0.A1QSGDaNwC6-5ixxHVWw3MBy7ZqI5kNQRI10a8ArPU8";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MWUzMWM4MDc2NGJhNzY0MWRjYzNlMyIsImVtYWlsIjoicGFya0BuYXZlci5jb20ifSwiaWF0IjoxNzQ2OTU0NDc1fQ.up1OMbZ6BC46LYtUFfIVwU_fUJCWGYve9_UbeZ6odnc";
+
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
@@ -37,5 +38,18 @@ axiosInstance.interceptors.response.use(
         console.log(e);
       }
     }
+    if (error.response?.status === 400) {
+      console.error("Bad Request: 잘못된 요청입니다.");
+    }
+    if (error.response?.status === 401) {
+      console.error("Unathorized: 로그인이 필요합니다.");
+    }
+    if (error.response?.status === 404) {
+      console.error("Not Found: 요청한 리소스를 찾을 수 없습니다.");
+    }
+    if (error.response?.status === 500) {
+      console.error("Network Error: 네트워크 에러");
+    }
+    return Promise.reject(error);
   }
 );
