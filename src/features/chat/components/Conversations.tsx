@@ -74,10 +74,11 @@ export default function Conversations({
               const parsedSender = JSON.parse(conv.sender.fullName);
               const parsedReceiver = JSON.parse(conv.receiver.fullName);
 
+              console.log("대화: ", conv);
+
               return (
                 <ChatUser
-                  key={conv._id[1]}
-                  me={conv._id[0]}
+                  key={conv._id}
                   sender={parsedSender.name}
                   receiver={parsedReceiver.name}
                   senderId={conv.sender._id}
@@ -89,7 +90,8 @@ export default function Conversations({
                   message={conv.message}
                   time={formatTime(new Date(conv.createdAt))}
                   onClick={onSelect}
-                  isSelected={conv._id[1] === selectedId}
+                  // isSelected={conv._id[1] === selectedId}
+                  selectedId={selectedId}
                 />
               );
             })

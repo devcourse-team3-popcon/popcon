@@ -1,7 +1,6 @@
 // import { UserInfo } from "./UserInfo";
 
 export interface ConversationProps {
-  me: string;
   sender: string;
   receiver: string;
   senderId: string;
@@ -14,4 +13,5 @@ export interface ConversationProps {
   time: string;
   onClick?: (userId: string) => void;
   isSelected?: boolean;
+  selectedId?: string;
 }

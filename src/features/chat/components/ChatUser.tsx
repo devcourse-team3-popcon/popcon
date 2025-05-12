@@ -1,7 +1,7 @@
+import { getCurrentUserId } from "../../../utils/auth";
 import { ConversationProps } from "../types/ConversationProps";
 
 export default function ChatUser({
-  me,
   sender,
   receiver,
   senderId,
@@ -13,12 +13,17 @@ export default function ChatUser({
   message,
   time,
   onClick,
-  isSelected,
-}: ConversationProps) {
-  const userName = me === senderId ? receiver : sender;
-  const userId = me === senderId ? receiverId : senderId;
-  const userImage = me === senderId ? r_image : s_image;
-  const userIsOnline = me === senderId ? r_isOnline : s_isOnline;
+  selectedId,
+}: // isSelected,
+ConversationProps) {
+  const currentUserId = getCurrentUserId();
+
+  const userName = currentUserId === senderId ? receiver : sender;
+  const userId = currentUserId === senderId ? receiverId : senderId;
+  const userImage = currentUserId === senderId ? r_image : s_image;
+  const userIsOnline = currentUserId === senderId ? r_isOnline : s_isOnline;
+
+  const isSelected = userId === selectedId;
 
   // const user = {
   //   id: userId,
