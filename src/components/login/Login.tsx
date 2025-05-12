@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import loginGroup from "../../assets/images/login-group.svg";
 import logo from "../../assets/images/logo-no-period.svg";
 import logoPopcon from "../../assets/images/logo-login-popcon.svg";
@@ -15,6 +15,12 @@ import axios from "axios";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
 
@@ -52,7 +58,6 @@ export default function LoginPage() {
       );
       console.log("회원가입 성공:", result);
       await loginUser(kakaoEmail, kakaoPassword);
-      alert("회원가입 성공!");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 400) {
         console.warn("이미 가입된 사용자 → 로그인 시도");
@@ -74,10 +79,26 @@ export default function LoginPage() {
   };
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      alert("이메일과 비밀번호를 입력해주세요.");
-      return;
+    let valid = true;
+
+    if (!email.trim()) {
+      setEmailError("이메일을 입력해주세요.");
+      emailRef.current?.focus();
+      valid = false;
+    } else {
+      setEmailError("");
     }
+
+    if (!password.trim()) {
+      setPasswordError("비밀번호를 입력해주세요.");
+      if (valid) passwordRef.current?.focus();
+      valid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    if (!valid) return;
+
     try {
       const response = await loginUser(email, password);
       console.log("로그인 성공:", response);
@@ -94,7 +115,9 @@ export default function LoginPage() {
       navigate("/");
     } catch (error) {
       console.error("로그인 실패:", error);
-      alert("로그인에 실패했습니다. 이메일/비밀번호를 확인해주세요.");
+      setEmailError("이메일 또는 비밀번호가 올바르지 않습니다.");
+      setPasswordError(" ");
+      emailRef.current?.focus();
     }
   };
 
@@ -117,22 +140,50 @@ export default function LoginPage() {
       <div className="w-[50%] bg-[#333333] flex items-center justify-center">
         <div className="w-[80%] max-w-[700px]">
           <h2 className="text-white text-2xl font-bold mb-6">WELCOME BACK</h2>
-          <h2 className="text-white text-lg font-bold mb-2">팝콘 이메일</h2>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-white text-lg font-bold">팝콘 이메일</label>
+            {emailError && (
+              <p className="text-red-400 text-sm whitespace-nowrap">
+                {emailError}
+              </p>
+            )}
+          </div>
           <input
             type="email"
+            ref={emailRef}
             placeholder="user@email.com"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full mb-3 px-4 py-2 rounded-[10px] border border-white focus:border-[#8EF3BF] focus:outline-none"
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (e.target.value.trim()) setEmailError("");
+            }}
+            className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
+              emailError ? "border-red-400" : "border-white"
+            } focus:outline-none focus:border-[#8EF3BF]`}
           />
 
-          <h2 className="text-white text-lg font-bold mb-2">팝콘 비밀번호</h2>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-white text-lg font-bold">
+              팝콘 비밀번호
+            </label>
+            {passwordError && (
+              <p className="text-red-400 text-sm whitespace-nowrap">
+                {passwordError}
+              </p>
+            )}
+          </div>
           <input
             type="password"
+            ref={passwordRef}
             placeholder="Your password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full mb-3 px-4 py-2 rounded-[10px] border border-white focus:border-[#8EF3BF] focus:outline-none"
+            onChange={(e) => {
+              setPassword(e.target.value);
+              if (e.target.value.trim()) setPasswordError("");
+            }}
+            className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
+              passwordError ? "border-red-400" : "border-white"
+            } focus:outline-none focus:border-[#8EF3BF]`}
           />
 
           <button

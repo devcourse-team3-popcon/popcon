@@ -6,6 +6,7 @@ import { signupUser } from "../../apis/login/login";
 import { searchArtist } from "../../apis/spotify/spotifySearch";
 import { getSpotifyAccessToken } from "../../apis/spotify/getSpotifyAccessToken";
 import { Link, useNavigate } from "react-router";
+import axios from "axios";
 
 const genres = [
   "Country",
@@ -49,6 +50,13 @@ export default function SignupForm() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [shouldFocus, setShouldFocus] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -91,44 +99,78 @@ export default function SignupForm() {
     fetchArtistSuggestions();
   }, [debouncedArtist]);
 
-  const validateSignupForm = (
-    name: string,
-    email: string,
-    password: string,
-    confirmPassword: string
-  ): string | null => {
+  useEffect(() => {
+    if (isSubmitted) {
+      setShouldFocus(true);
+    }
+  }, [isSubmitted]);
+
+  useEffect(() => {
+    if (!isSubmitted || !shouldFocus) return;
+
+    const timer = setTimeout(() => {
+      if (nameError) nameRef.current?.focus();
+      else if (emailError) emailRef.current?.focus();
+      else if (passwordError) passwordRef.current?.focus();
+      else if (confirmPasswordError) confirmPasswordRef.current?.focus();
+
+      setShouldFocus(false);
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [
+    isSubmitted,
+    shouldFocus,
+    nameError,
+    emailError,
+    passwordError,
+    confirmPasswordError,
+  ]);
+
+  const validateSignupForm = (): boolean => {
+    let valid = true;
+
     if (!name.trim()) {
-      nameRef.current?.focus();
-      return "이름/닉네임을 입력해주세요.";
-    }
+      setNameError("이름/닉네임을 입력해주세요.");
+      valid = false;
+    } else setNameError("");
+
     if (!email.trim()) {
-      emailRef.current?.focus();
-      return "이메일을 입력해주세요.";
+      setEmailError("이메일을 입력해주세요.");
+      valid = false;
+    } else if (!allowedDomains.includes(email.split("@")[1])) {
+      setEmailError("gmail.com 또는 naver.com 이메일만 사용할 수 있습니다.");
+      valid = false;
+    } else if (!emailError) {
+      setEmailError("");
     }
-    const emailDomain = email.split("@")[1];
-    if (!allowedDomains.includes(emailDomain)) {
-      emailRef.current?.focus();
-      return "gmail.com 또는 naver.com 이메일만 사용할 수 있습니다.";
-    }
+
     if (!password) {
-      passwordRef.current?.focus();
-      return "비밀번호를 입력해주세요.";
-    }
+      setPasswordError("비밀번호를 입력해주세요.");
+      valid = false;
+    } else setPasswordError("");
+
     if (!confirmPassword) {
-      confirmPasswordRef.current?.focus();
-      return "비밀번호 확인을 입력해주세요.";
-    }
-    if (password !== confirmPassword) {
-      confirmPasswordRef.current?.focus();
-      return "비밀번호가 일치하지 않습니다.";
-    }
-    return null;
+      setConfirmPasswordError("비밀번호 확인을 입력해주세요.");
+      valid = false;
+    } else if (password !== confirmPassword) {
+      setConfirmPasswordError("비밀번호가 불일치 합니다.");
+      valid = false;
+    } else setConfirmPasswordError("");
+
+    return valid;
   };
 
   const handleSignup = async () => {
-    const error = validateSignupForm(name, email, password, confirmPassword);
-    if (error) {
-      alert(error);
+    const isValid = validateSignupForm();
+
+    setIsSubmitted(true);
+
+    if (!isValid) {
+      setShouldFocus(false);
+      setTimeout(() => {
+        setShouldFocus(true);
+      }, 0);
       return;
     }
 
@@ -141,11 +183,13 @@ export default function SignupForm() {
         favoriteArtist
       );
       console.log("회원가입 성공:", response);
-      alert("회원가입이 완료되었습니다!");
       navigate("/login");
     } catch (error) {
-      console.error("회원가입 오류:", error);
-      alert("회원가입 중 오류가 발생했습니다.");
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        setEmailError("중복된 메일 입니다.");
+      } else {
+        console.error("회원가입 오류:", error);
+      }
     }
   };
 
@@ -168,48 +212,86 @@ export default function SignupForm() {
         <div className="w-[80%] max-w-[700px]">
           <h2 className="text-white text-2xl font-bold mb-6">SIGN UP</h2>
 
-          <label className="text-white text-lg font-bold mb-2 block">
-            이름/닉네임
-          </label>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-white text-lg font-bold">이름/닉네임</label>
+            {isSubmitted && nameError && (
+              <p className="text-red-400 text-sm">{nameError}</p>
+            )}
+          </div>
           <input
             type="text"
             ref={nameRef}
             placeholder="popcon"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full mb-3 px-4 py-2 rounded-[10px] border border-white focus:border-[#8EF3BF] focus:outline-none"
+            onChange={(e) => {
+              setName(e.target.value);
+              if (e.target.value.trim()) {
+                setNameError("");
+              }
+            }}
+            className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
+              nameError ? "border-red-400" : "border-white"
+            } focus:outline-none focus:border-[#8EF3BF]`}
           />
 
-          <label className="text-white text-lg font-bold mb-2 block">
-            이메일
-          </label>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-white text-lg font-bold">이메일</label>
+            {isSubmitted && emailError && (
+              <p className="text-red-400 text-sm">{emailError}</p>
+            )}
+          </div>
           <input
             type="email"
             ref={emailRef}
             placeholder="user@email.com"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full mb-3 px-4 py-2 rounded-[10px] border border-white focus:border-[#8EF3BF] focus:outline-none"
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (e.target.value.trim() && emailError) {
+                setEmailError("");
+              }
+            }}
+            className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
+              emailError ? "border-red-400" : "border-white"
+            } focus:outline-none focus:border-[#8EF3BF]`}
           />
 
-          <label className="text-white text-lg font-bold mb-2 block">
-            비밀번호
-          </label>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-white text-lg font-bold">비밀번호</label>
+            {isSubmitted && passwordError && (
+              <p className="text-red-400 text-sm">{passwordError}</p>
+            )}
+          </div>
           <input
             type="password"
             ref={passwordRef}
             placeholder="Your password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full mb-3 px-4 py-2 rounded-[10px] border border-white focus:border-[#8EF3BF] focus:outline-none"
+            onChange={(e) => {
+              const value = e.target.value;
+              setPassword(value);
+              if (value.trim()) {
+                setPasswordError("");
+              }
+              if (confirmPassword) {
+                if (value === confirmPassword) {
+                  setConfirmPasswordError("");
+                } else {
+                  setConfirmPasswordError("비밀번호 불일치");
+                }
+              }
+            }}
+            className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
+              passwordError ? "border-red-400" : "border-white"
+            } focus:outline-none focus:border-[#8EF3BF]`}
           />
 
           <div className="flex items-center justify-between mb-2">
             <label className="text-white text-lg font-bold">
               비밀번호 확인
             </label>
-            {confirmPassword && password !== confirmPassword && (
-              <p className="text-red-400 text-sm">비밀번호 불일치</p>
+            {confirmPasswordError && (
+              <p className="text-red-400 text-sm">{confirmPasswordError}</p>
             )}
           </div>
           <input
@@ -217,8 +299,21 @@ export default function SignupForm() {
             ref={confirmPasswordRef}
             placeholder="Confirm password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full mb-3 px-4 py-2 rounded-[10px] border border-white focus:border-[#8EF3BF] focus:outline-none"
+            onChange={(e) => {
+              const value = e.target.value;
+              setConfirmPassword(value);
+
+              if (!value) {
+                setConfirmPasswordError("비밀번호 확인을 입력해주세요.");
+              } else if (value !== password) {
+                setConfirmPasswordError("비밀번호 불일치");
+              } else {
+                setConfirmPasswordError("");
+              }
+            }}
+            className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
+              confirmPasswordError ? "border-red-400" : "border-white"
+            } focus:outline-none focus:border-[#8EF3BF]`}
           />
 
           <div className="flex gap-2">
@@ -234,7 +329,7 @@ export default function SignupForm() {
                 className="w-full h-[48px] px-4 rounded-[10px] border border-white bg-[#333333] text-white focus:border-[#71EBBE] focus:outline-none"
               />
               {artistSuggestions.length > 0 && (
-                <ul className="absolute mt-1 bg-[#333333] border border-white text-white rounded-[10px] w-full max-h-[100px] overflow-y-auto">
+                <ul className="absolute mt-1 bg-[#333333] border border-[#71EBBE] text-white rounded-[10px] w-full max-h-[100px] overflow-y-auto">
                   {artistSuggestions.map((name, index) => (
                     <li
                       key={`${name}-${index}`}
