@@ -11,10 +11,17 @@ export default function AuthButtons({
     toggleMenu();
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("app_state");
+  };
+
   return (
     <div className="mt-auto flex justify-center">
       {isLoggedIn ? (
-        <button className="text-[color:var(--white-80)] text-[12px] font-medium mb-16 cursor-pointer hover:text-[color:var(--primary-300)]">
+        <button
+          onClick={handleLogout}
+          className="text-[color:var(--white-80)] text-[12px] font-medium mb-16 cursor-pointer hover:text-[color:var(--primary-300)]"
+        >
           Log Out
         </button>
       ) : (
