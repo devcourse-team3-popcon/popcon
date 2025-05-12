@@ -14,12 +14,18 @@ import CommunityPostDetail from "./features/community/components/CommunityPostDe
 import EditCommunityPost from "./features/community/components/EditCommunityPost";
 import EditBopPost from "./features/community/components/EditBopPost";
 import AboutUs from "./pages/AboutUs";
+import Login from "./components/login/Login";
+import SignupAgree from "./components/login/SignupAgree";
+import SignupForm from "./components/login/SignupForm";
 
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/SignupAgree" element={<SignupAgree />} />
+        <Route path="/SignupForm" element={<SignupForm />} />
         <Route path="/playlist" element={<Playlist />} />
         <Route path="/upcoming-concerts" element={<UpcomingConcerts />} />
         <Route path="/community" element={<Community />}>
