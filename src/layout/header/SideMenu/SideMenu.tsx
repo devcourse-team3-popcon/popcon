@@ -24,15 +24,11 @@ export default function SideMenu({ isLoggedIn }: SideMenuProps) {
 
   return (
     <>
-      {open ? (
-        <X
-          onClick={toggleMenu}
-          className="md:hidden fixed top-12 right-5 z-50 text-white cursor-pointer"
-        />
-      ) : (
+      {!open && (
         <Menu
           onClick={toggleMenu}
-          className="md:hidden fixed top-12 right-5 z-50 text-white cursor-pointer"
+          className="md:hidden fixed top-12 right-5 z-50 text-[color:var(--white)] cursor-pointer"
+          strokeWidth={1.5}
         />
       )}
 
@@ -41,6 +37,13 @@ export default function SideMenu({ isLoggedIn }: SideMenuProps) {
           open ? "translate-x-0" : "translate-x-full"
         } md:translate-x-0 md:static md:w-[20%] md:right-0`}
       >
+        <div className="relative md:hidden">
+          <X
+            onClick={toggleMenu}
+            strokeWidth={1.5}
+            className="absolute top-12 right-5 text-[color:var(--white)] cursor-pointer"
+          />
+        </div>
         <div className="flex flex-col h-full px-5 pt-23">
           {isLoggedIn ? (
             <UserProfile userInfo={userInfo} parsedData={parsedData} />

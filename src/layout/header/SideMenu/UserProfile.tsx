@@ -5,7 +5,7 @@ export default function UserProfile({
   parsedData,
 }: UserProfileProps) {
   return (
-    <div className="flex flex-col gap-4 pb-10 border-b border-[color:var(--white)]">
+    <div className="flex flex-col gap-4 pb-6 border-b border-[color:var(--white)]">
       {userInfo?.image ? (
         <img src={userInfo.image} alt="유저 프로필" className="w-[25px]" />
       ) : (
