@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import CommunityPostDetail from "./features/community/components/CommunityPostDetail";
 import EditCommunityPost from "./features/community/components/EditCommunityPost";
 import EditBopPost from "./features/community/components/EditBopPost";
+import AboutUs from "./pages/AboutUs";
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
             />
           </Route>
         </Route>
+        <Route path="/aboutus" element={<AboutUs />} />
       </Route>
     </Routes>
   );
