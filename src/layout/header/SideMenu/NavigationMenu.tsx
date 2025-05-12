@@ -5,6 +5,8 @@ import chat from "../../../assets/images/icon-chat.svg";
 export default function NavigationMenu({
   isLoggedIn,
   toggleMenu,
+  toggleNotifications,
+  unseenCount,
 }: NavigationMenuProps) {
   const navigate = useNavigate();
 
@@ -15,7 +17,13 @@ export default function NavigationMenu({
 
   return (
     <div className="flex flex-col gap-6 py-6">
-      {isLoggedIn && <UserNavItems handleNavigation={handleNavigation} />}
+      {isLoggedIn && (
+        <UserNavItems
+          handleNavigation={handleNavigation}
+          toggleNotifications={toggleNotifications}
+          unseenCount={unseenCount}
+        />
+      )}
 
       <h2 className="text-[14px] font-medium text-[color:var(--white)]">
         Menu
@@ -26,7 +34,11 @@ export default function NavigationMenu({
   );
 }
 
-function UserNavItems({ handleNavigation }: NavItemsProps) {
+function UserNavItems({
+  handleNavigation,
+  toggleNotifications,
+  unseenCount,
+}: NavItemsProps) {
   return (
     <nav className="flex flex-col gap-2 text-lg">
       <button
@@ -36,10 +48,20 @@ function UserNavItems({ handleNavigation }: NavItemsProps) {
         <img src={chat} alt="메시지" className="w-4" />
         <p className="text-[14px]">Chat</p>
       </button>
-      <button className="text-left flex gap-4 cursor-pointer hover:bg-[color:var(--grey-500)] py-1.5 px-3 rounded-lg items-center">
-        <Bell className="w-[18px]" strokeWidth={1.5} />
+
+      <button
+        className="text-left flex gap-4 cursor-pointer hover:bg-[color:var(--grey-500)] py-1.5 px-3 rounded-lg items-center relative"
+        onClick={toggleNotifications}
+      >
+        <div className="relative">
+          <Bell className="w-[18px]" strokeWidth={1.5} />
+          {unseenCount > 0 && (
+            <div className="absolute top-1 right-1 h-1 w-1 bg-[color:var(--red)] rounded-full"></div>
+          )}
+        </div>
         <p className="text-[14px]">Notification</p>
       </button>
+
       <button
         className="text-left flex gap-4 cursor-pointer hover:bg-[color:var(--grey-500)] py-1.5 px-3 rounded-lg items-center"
         onClick={() => handleNavigation("/mypage")}

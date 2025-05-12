@@ -4,13 +4,22 @@ import { getUserInfo } from "../../../apis/playlist/userService";
 import UserProfile from "./UserProfile";
 import WelcomeSection from "./WelcomeSection";
 import NavigationMenu from "./NavigationMenu";
+import NotificationPanel from "./NotificationPanel";
 import AuthButtons from "./AuthButtons";
 import { useAuthStore } from "../../../stores/authStore";
+import {
+  getNotifications,
+  markAllNotificationsAsSeen,
+} from "../../../apis/alert/notificationService";
 
 export default function SideMenu() {
   const [open, setOpen] = useState(false);
   const [userInfo, setUserInfo] = useState<UserType>();
   const [parsedData, setParsedData] = useState<ParsedDataType>();
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [isLoadingNotifications, setIsLoadingNotifications] = useState(false);
+
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const initAuth = useAuthStore((state) => state.initAuth);
 
@@ -20,18 +29,85 @@ export default function SideMenu() {
 
   useEffect(() => {
     const getUserData = async () => {
-      const data = await getUserInfo();
-      setUserInfo(data);
-      setParsedData(JSON.parse(data.fullName));
+      try {
+        const data = await getUserInfo();
+        setUserInfo(data);
+        if (data?.fullName) {
+          setParsedData(JSON.parse(data.fullName));
+        }
+      } catch (error) {
+        console.error("사용자 정보 가져오기 실패:", error);
+      }
     };
     getUserData();
   }, []);
 
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      if (!isLoggedIn) return;
+
+      try {
+        setIsLoadingNotifications(true);
+        const data = await getNotifications();
+        setNotifications(data);
+      } catch (error) {
+        console.error("알림 데이터 가져오기 실패:", error);
+      } finally {
+        setIsLoadingNotifications(false);
+      }
+    };
+
+    if (isLoggedIn) {
+      fetchNotifications();
+
+      const intervalId = setInterval(fetchNotifications, 60000);
+      return () => clearInterval(intervalId);
+    }
+  }, [isLoggedIn]);
+
   const toggleMenu = () => setOpen((prev) => !prev);
+
+  const toggleNotifications = () => {
+    setShowNotifications((prev) => !prev);
+
+    if (!showNotifications && isLoggedIn) {
+      const fetchNewNotifications = async () => {
+        try {
+          setIsLoadingNotifications(true);
+          const data = await getNotifications();
+          setNotifications(data);
+        } catch (error) {
+          console.error("알림 데이터 가져오기 실패:", error);
+        } finally {
+          setIsLoadingNotifications(false);
+        }
+      };
+
+      fetchNewNotifications();
+    }
+  };
+
+  const handleMarkAllAsSeen = async () => {
+    try {
+      const success = await markAllNotificationsAsSeen();
+      if (success) {
+        setNotifications((prevNotifications) =>
+          prevNotifications.map((notification) => ({
+            ...notification,
+            seen: true,
+          }))
+        );
+      }
+    } catch (error) {
+      console.error("알림 읽음 처리 실패:", error);
+    }
+  };
+
+  const unseenCount = notifications.filter((notif) => !notif.seen).length;
 
   return (
     <>
-      {!open && (
+      {!open && !showNotifications && (
         <Menu
           onClick={toggleMenu}
           className="md:hidden fixed top-12 right-5 z-50 text-[color:var(--white)] cursor-pointer"
@@ -45,22 +121,42 @@ export default function SideMenu() {
         } md:translate-x-0 md:static md:w-[20%] md:right-0`}
       >
         <div className="relative md:hidden">
-          <X
-            onClick={toggleMenu}
-            strokeWidth={1.5}
-            className="absolute top-12 right-5 text-[color:var(--white)] cursor-pointer"
-          />
-        </div>
-        <div className="flex flex-col h-full px-5 pt-23">
-          {isLoggedIn ? (
-            <UserProfile userInfo={userInfo} parsedData={parsedData} />
-          ) : (
-            <WelcomeSection />
+          {!showNotifications && (
+            <X
+              onClick={toggleMenu}
+              strokeWidth={1.5}
+              className="absolute top-12 right-5 text-[color:var(--white)] cursor-pointer"
+            />
           )}
+        </div>
 
-          <NavigationMenu isLoggedIn={isLoggedIn} toggleMenu={toggleMenu} />
+        <div className="flex flex-col h-full px-5 pt-23">
+          {showNotifications ? (
+            <NotificationPanel
+              notifications={notifications}
+              isLoading={isLoadingNotifications}
+              onClose={toggleNotifications}
+              onMarkAllAsSeen={handleMarkAllAsSeen}
+              unseenCount={unseenCount}
+            />
+          ) : (
+            <>
+              {isLoggedIn ? (
+                <UserProfile userInfo={userInfo} parsedData={parsedData} />
+              ) : (
+                <WelcomeSection />
+              )}
 
-          <AuthButtons isLoggedIn={isLoggedIn} toggleMenu={toggleMenu} />
+              <NavigationMenu
+                isLoggedIn={isLoggedIn}
+                toggleMenu={toggleMenu}
+                toggleNotifications={toggleNotifications}
+                unseenCount={unseenCount}
+              />
+
+              <AuthButtons isLoggedIn={isLoggedIn} toggleMenu={toggleMenu} />
+            </>
+          )}
         </div>
       </aside>
     </>
