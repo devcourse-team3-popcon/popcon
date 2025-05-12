@@ -50,21 +50,43 @@ export default function PlaylistTrackItem({
     }
   };
 
-  const isPlaying =
-    currentVideo?.postId === track?.id && currentVideo?.videoId === videoId;
+  let isPlaying = false;
+
+  if (item) {
+    isPlaying =
+      currentVideo?.postId === item?._id && currentVideo?.videoId === videoId;
+  } else if (track) {
+    isPlaying =
+      currentVideo?.postId === track.id && currentVideo?.videoId === videoId;
+  }
 
   const togglePlayTrack = async () => {
     if (isPlaying) {
       setCurrentVideo(null);
+      setVideoId(null);
       return;
     }
 
-    const query = `${track?.artists} - ${track?.name} official audio topic`;
+    let query = "";
+    let postId = "";
+
+    if (item) {
+      query = `${item.title.artist} - ${item.title.name} official audio topic`;
+      postId = item._id;
+    } else if (track) {
+      query = `${track.artists[0]?.name || track.artists} - ${track.name} official audio topic`;
+      postId = track.id;
+    }
+
+    if (!query || !postId) {
+      return;
+    }
+
     const foundVideoId = await searchYoutubeVideo(query);
 
     if (foundVideoId) {
       setVideoId(foundVideoId);
-      setCurrentVideo({ postId: track?.id as string, videoId: foundVideoId });
+      setCurrentVideo({ postId: postId as string, videoId: foundVideoId });
     }
   };
 
