@@ -5,11 +5,18 @@ import UserProfile from "./UserProfile";
 import WelcomeSection from "./WelcomeSection";
 import NavigationMenu from "./NavigationMenu";
 import AuthButtons from "./AuthButtons";
+import { useAuthStore } from "../../../stores/authStore";
 
-export default function SideMenu({ isLoggedIn }: SideMenuProps) {
+export default function SideMenu() {
   const [open, setOpen] = useState(false);
   const [userInfo, setUserInfo] = useState<UserType>();
   const [parsedData, setParsedData] = useState<ParsedDataType>();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const initAuth = useAuthStore((state) => state.initAuth);
+
+  useEffect(() => {
+    initAuth();
+  }, [initAuth]);
 
   useEffect(() => {
     const getUserData = async () => {
