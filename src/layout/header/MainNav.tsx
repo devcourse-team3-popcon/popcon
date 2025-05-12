@@ -40,7 +40,7 @@ export default function MainNav() {
         COMMUNITY
       </NavLink>
       <NavLink
-        to="/"
+        to="/aboutus"
         className={({ isActive }) =>
           `text-[18px] ${
             isActive
