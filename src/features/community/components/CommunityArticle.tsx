@@ -12,6 +12,7 @@ import { parseUserName } from "../../../utils/parseUserName";
 import { useNavigate } from "react-router";
 import { CommentType } from "../types/Comment";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import profileImg from "../../../assets/images/default-profile-logo.svg";
 
 interface ArticleProps {
   post: Post;
@@ -98,7 +99,11 @@ export default function Article({ post }: ArticleProps) {
       <div className="flex flex-col gap-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <div className="bg-amber-200 w-9 h-9 rounded-full mr-4"></div>
+            <img
+              className="w-9 h-9 rounded-full mr-4"
+              src={post.author.image || profileImg}
+              alt="작성자 프로필 이미지"
+            />
             <div className="flex flex-col">
               <span className="text-[18px]">{parsedUserName.name}</span>
               <span className="text-[13px] text-[color:var(--white-80)]">
