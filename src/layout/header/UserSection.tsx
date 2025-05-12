@@ -5,7 +5,6 @@ import NotificationList from "../../features/notification/components/Notificatio
 import {useNotificationModal} from "../../features/notification/hooks/useNotificationModal";
 
 export default function UserSection() {
-  // 커스텀 훅에서 반환된 값 사용
   const {isShowNotifications, showNotifications, closeNotifications} = useNotificationModal();
 
   return (

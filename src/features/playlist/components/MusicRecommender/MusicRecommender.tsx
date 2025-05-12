@@ -4,7 +4,10 @@ import { useRecommendations } from "../../hooks/useRecommendations";
 import MusicRecommenderHeader from "./MusicRecommenderHeader";
 import RecommendedTrackList from "./RecommendedTrackList";
 
-export default function MusicRecommender() {
+export default function MusicRecommender({
+  setCurrentVideo,
+  currentVideo,
+}: CurrentVideoProps) {
   const [user, setUser] = useState<UserType | null>(null);
   const { recommendations, isLoading } = useRecommendations(user);
 
@@ -23,6 +26,8 @@ export default function MusicRecommender() {
       <RecommendedTrackList
         recommendations={recommendations}
         isLoading={isLoading}
+        setCurrentVideo={setCurrentVideo}
+        currentVideo={currentVideo}
       />
     </section>
   );

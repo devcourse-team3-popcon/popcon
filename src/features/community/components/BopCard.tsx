@@ -6,12 +6,14 @@ import { parseBopTitle } from "../../../utils/parseBopTitle";
 import { Ellipsis, Heart } from "lucide-react";
 import play from "../../../assets/images/playbtn.svg";
 import stop from "../../../assets/images/stopbtn.svg";
-import { searchYoutubeVideo } from "../../../utils/searchYoutubeVideo";
 import DropdownMenu from "../../../components/common/DropdownMenu";
 import { deletePost } from "../../../utils/post";
 import { getCurrentUserId } from "../../../utils/auth";
 import { useNavigate } from "react-router";
 import { parseUserName } from "../../../utils/parseUserName";
+import { useAddTrackToPlaylist } from "../../playlist/hooks/useAddTrackToPlaylist";
+import { searchYoutubeVideo } from "../../../apis/youtube/youtubeSearch";
+import BopCardSkeleton from "./BopCardSkeleton";
 
 type BopCardProps = {
   post: Post;
@@ -32,23 +34,48 @@ export default function BopCard({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const currentUserId = getCurrentUserId();
   const navigate = useNavigate();
+  const addTrackToPlaylist = useAddTrackToPlaylist();
+  const parsedBopTitle = parseBopTitle(localPost.title);
+  const track = parsedBopTitle?.track;
 
   const myMenuItems = [
     {
       label: "게시물 수정",
       onClick: () =>
-        navigate(`/community/post/${localPost._id}/editBop`, {
+        navigate(`/community/bops-community/post/${localPost._id}/edit`, {
           state: { localPost },
         }),
     },
     {
       label: "플리에 추가",
-      onClick: () => alert("추가"),
+      onClick: () => {
+        if (!parsedBopTitle?.track) return;
+        addTrackToPlaylist({
+          name: track.name,
+          artist: Array.isArray(track.artists)
+            ? track.artists.join(", ")
+            : track.artists,
+          imgUrl: track.image,
+        });
+      },
     },
     { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
   ];
+
   const defaultMenuItems = [
-    { label: "플리에 추가", onClick: () => alert("플레이리스트 추가") },
+    {
+      label: "플리에 추가",
+      onClick: () => {
+        if (!parsedBopTitle?.track) return;
+        addTrackToPlaylist({
+          name: track.name,
+          artist: Array.isArray(track.artists)
+            ? track.artists.join(", ")
+            : track.artists,
+          imgUrl: track.image,
+        });
+      },
+    },
   ];
 
   useEffect(() => {
@@ -100,10 +127,11 @@ export default function BopCard({
 
   const isPlaying =
     currentVideo?.postId === localPost._id && currentVideo?.videoId === videoId;
-  const parsedBopTitle = parseBopTitle(localPost.title);
   const parsedUserName = parseUserName(localPost.author.fullName);
   const trackName = parsedBopTitle.track.name;
-  const artistNames = parsedBopTitle.track.artists.join(", ");
+  const artistNames = Array.isArray(parsedBopTitle.track.artists)
+    ? parsedBopTitle.track.artists.join(", ")
+    : parsedBopTitle.track.artists;
   console.log(artistNames);
 
   const togglePlayTrack = async () => {
@@ -121,13 +149,17 @@ export default function BopCard({
     }
   };
 
+  if (!post) {
+    return <BopCardSkeleton />;
+  }
+
   return (
     <>
       <div className="relative w-fit">
-        <div className="w-[240px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7  shadow-lg shadow-[rgba(0,0,0,0.50)]">
-          <div className="relative w-full h-[208px] overflow-hidden rounded-2xl group">
+        <div className="w-[240px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7  shadow-lg shadow-[rgba(0,0,0,0.50)] transition-transform duration-300 ease-in-out hover:-translate-y-4">
+          <div className="relative w-full h-[208px] overflow-hidden rounded-2xl group shadow-lg shadow-[rgba(0,0,0,0.25)] ">
             <img
-              className="w-full h-full bg-[#c2c2c2] rounded-2xl shadow-lg shadow-[rgba(0,0,0,0.25)] object-cover"
+              className="w-full h-full bg-[#c2c2c2] rounded-2xl object-cover"
               src={parsedBopTitle.track.image}
               alt="앨범 커버"
             />

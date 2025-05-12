@@ -6,6 +6,7 @@
   --bg-color: #1b1c1e;
   --grey-600: #333333;
   --grey-500: #555555;
+  --grey-500-20: #55555520;
   --grey-400: #8b8b8b;
   --grey-300: #a7afab;
   --grey-200: #c2c2c2;
@@ -68,6 +69,9 @@ body {
   font-family: "Pretendard";
   background-color: var(--bg-color);
   color: var(--white);
+}
+body::-webkit-scrollbar {
+  display: none;
 }
 
 @theme {

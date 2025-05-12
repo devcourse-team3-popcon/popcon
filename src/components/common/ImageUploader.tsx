@@ -58,7 +58,7 @@ export default function ImageUploader({
               type="button"
               className="absolute top-1 right-1 bg-[color:var(--bg-color)] bg-opacity-50 rounded-full p-1"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4 cursor-pointer" />
             </button>
           </div>
         )}

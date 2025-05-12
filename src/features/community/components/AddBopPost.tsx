@@ -45,28 +45,32 @@ export default function AddBopPost({ channelName }: ChannelName) {
   };
 
   return (
-    <>
-      <BackButton />
-      <div className="flex flex-col w-full h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
-        <span className="w-full text-center text-2xl">숨듣명 추가하기</span>
-        <BopPostForm
-          bopTrack={bopTrack}
-          bopText={bopText}
-          bopGenre={bopGenre}
-          setBopTrack={setBopTrack}
-          setBopText={setBopText}
-          setBopGenre={setBopGenre}
-        />
-        <div className="w-[100%] flex justify-center items-center">
-          <button
-            type="button"
-            className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold"
-            onClick={createBopHandler}
-          >
-            저장하기
-          </button>
+    <div className="w-full h-full flex flex-col gap-2">
+      <div className="flex w-full">
+        <BackButton />
+      </div>
+      <div className="w-full h-full px-4">
+        <div className="flex flex-col w-full h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
+          <span className="w-full text-center text-2xl">숨듣명 추가하기</span>
+          <BopPostForm
+            bopTrack={bopTrack}
+            bopText={bopText}
+            bopGenre={bopGenre}
+            setBopTrack={setBopTrack}
+            setBopText={setBopText}
+            setBopGenre={setBopGenre}
+          />
+          <div className="w-[100%] flex justify-center items-center">
+            <button
+              type="button"
+              className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold"
+              onClick={createBopHandler}
+            >
+              저장하기
+            </button>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

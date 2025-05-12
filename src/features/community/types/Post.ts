@@ -22,6 +22,7 @@ export interface Post {
     role: string;
     emailVerified: boolean;
     banned: boolean;
+    image: string;
     isOnline: boolean;
     posts: string[];
     likes: string[];
