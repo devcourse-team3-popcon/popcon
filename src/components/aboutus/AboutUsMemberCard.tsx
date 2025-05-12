@@ -19,15 +19,19 @@ export default function AboutUsMemberCard({
 }: AboutusMemberCardProps) {
   const icon = [icon1, icon2, icon3, icon4, icon5];
   return (
-    <div>
-      <img src={icon[index]} alt={`${korname} 팝콘 아이콘`} />
-      <div>
-        <div>
-          <p>{engname}</p>
-          <p>{korname}</p>
+    <div className="flex flex-col w-70 h-80 p-12 bg-[color:var(--grey-500-20)] items-center justify-center gap-8 rounded-[10px]">
+      <img src={icon[index]} alt={`${korname} 팝콘 아이콘`} className="w-12" />
+      <div className="flex flex-col justify-center items-center gap-6">
+        <div className="flex flex-col justify-center items-center gap-2">
+          <p className="font-semibold text-[15px]">{engname}</p>
+          <p className="text-[14px] font-light text-[color:var(--white)]">
+            {korname}
+          </p>
         </div>
-        <p>FRONTEND DEVELOPER</p>
-        <p>{contact}</p>
+        <p className="text-[color:var(--primary-300)] text-[14px] font-medium">
+          FRONTEND DEVELOPER
+        </p>
+        <p className="text-[12px] font-light">{contact}</p>
       </div>
     </div>
   );
