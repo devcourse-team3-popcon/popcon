@@ -6,19 +6,20 @@ export default function MainNav() {
       <NavLink
         to="/upcoming-concerts"
         className={({ isActive }) =>
-          `text-[18px] ${
+          `text-[14px] 2xl:text-[16px] ${
             isActive
               ? "text-[color:var(--primary-300)]"
               : "text-[color:var(--white)]"
           }`
         }
       >
-        UPCOMING CONCERTS
+        <span className="hidden xl:inline">UPCOMING CONCERTS</span>
+        <span className="xl:hidden">CONCERTS</span>
       </NavLink>
       <NavLink
         to="/playlist"
         className={({ isActive }) =>
-          `text-[18px] ${
+          `text-[14px] 2xl:text-[16px] ${
             isActive
               ? "text-[color:var(--primary-300)]"
               : "text-[color:var(--white)]"
@@ -28,9 +29,9 @@ export default function MainNav() {
         PLAYLIST
       </NavLink>
       <NavLink
-        to="/community"
+        to="/community/bops-community"
         className={({ isActive }) =>
-          `text-[18px] ${
+          `text-[14px] 2xl:text-[16px] ${
             isActive
               ? "text-[color:var(--primary-300)]"
               : "text-[color:var(--white)]"
@@ -40,9 +41,9 @@ export default function MainNav() {
         COMMUNITY
       </NavLink>
       <NavLink
-        to="/"
+        to="/aboutus"
         className={({ isActive }) =>
-          `text-[18px] ${
+          `text-[14px] 2xl:text-[16px] ${
             isActive
               ? "text-[color:var(--primary-300)]"
               : "text-[color:var(--white)]"

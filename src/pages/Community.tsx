@@ -1,21 +1,7 @@
 import { NavLink, Outlet } from "react-router";
 import { twMerge } from "tailwind-merge";
-import { useEffect } from "react";
-import { axiosInstance } from "../apis/axiosInstance";
-import { useAuthStore } from "../stores/authStore";
 
 export default function Community() {
-  const login = useAuthStore((state) => state.login);
-  useEffect(() => {
-    const loginHandler = async () => {
-      const { data } = await axiosInstance.post("/login", {
-        email: "popcon@gmail.com",
-        password: "1234",
-      });
-      login(data.accessToken);
-    };
-    loginHandler();
-  });
   return (
     <div className="w-[1080px]">
       <nav className="w-full grid grid-cols-3  mt-6 text-center  py-4">
