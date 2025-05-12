@@ -157,7 +157,7 @@ export default function Article({ post }: ArticleProps) {
           </div>
 
           <p className="text-[12px]">
-            <span className="font-bold">{post.comments.length}</span>개의 댓글
+            <span className="font-bold">{comments?.length ?? 0}</span>개의 댓글
           </p>
         </div>
         <div className="mt-3  pt-4  border-t-1 border-[color:var(--primary-300-50)]">
