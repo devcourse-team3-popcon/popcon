@@ -1,34 +1,70 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import LeftMessageBox from "./LeftMessageBox";
 import RightMessageBox from "./RightMessageBox";
 import TextBox from "./TextBox";
-import useGetMessages from "../../../hooks/useGetMessages";
 import DateSeparator from "./DateSeparator";
 import groupMessages, { GroupedMessage } from "../../../utils/groupMessages";
-import { UserInfo } from "../../../types/UserInfo";
+// import { UserInfo } from "../types/UserInfo";
+import useGetMessages from "../hooks/useGetMessages";
+import { useRefreshStore } from "../stores/refreshStore";
 
-export default function MessageList({ userInfo }: { userInfo: UserInfo }) {
+export default function MessageList({ userId }: { userId: string }) {
   const [chatInput, setChatInput] = useState("");
 
-  const { messages, loading } = useGetMessages(userInfo.id);
+  const { messages, loading, refresh } = useGetMessages(userId);
+  const setRefreshMsg = useRefreshStore((state) => state.setRefreshMessages);
   const groupedMessages: GroupedMessage[] = useMemo(() => {
     return groupMessages(messages);
   }, [messages]);
 
   console.log("messages: ", messages);
 
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "auto" });
+  }, [messages]);
+
+  useEffect(() => {
+    setRefreshMsg(refresh);
+  }, [refresh, setRefreshMsg]);
+
+  console.log({ userId });
+  console.log({ messages });
+
+  const user = useMemo(() => {
+    if (!messages.length) return null;
+
+    return userId === messages[0].r_id
+      ? {
+          image: messages[0].r_img,
+          name: messages[0].receiver.name,
+          isOnline: messages[0].r_isOnline,
+        }
+      : {
+          image: messages[0].s_img,
+          name: messages[0].sender.name,
+          isOnline: messages[0].s_isOnline,
+        };
+  }, [messages, userId]);
+
   return (
     <>
-      <div className="flex flex-col h-full">
-        <div className="w-[776px] h-[88px] p-[16px] mb-[24px] border-b border-[var(--grey-500)] flex gap-[16px] items-center">
-          <div className="size-[56px] rounded-[50px] bg-[var(--grey-200)]"></div>
-          <div className="text-[24px] font-medium">{userInfo.name}</div>
-          {userInfo.isOnline && (
-            <div className="rounded-[50px] size-[8px] bg-[var(--primary-300)]"></div>
-          )}
+      <div className="flex flex-col h-full w-full">
+        <div className="p-[12px] border-b border-[var(--grey-500)] flex gap-[16px] items-center pb-[24px] box-border">
+          <div
+            className={`relative size-[56px] rounded-[50px] bg-[var(--grey-200)] bg-center bg-no-repeat bg-cover`}
+            style={{ backgroundImage: `url(${user?.image})` }}
+          >
+            {user?.isOnline && (
+              <div className="absolute left-[43px] top-[43px] rounded-full size-[10px] bg-[var(--primary-300)]"></div>
+            )}
+          </div>
+
+          <div className="text-[24px] font-medium">{user?.name}</div>
         </div>
 
-        <div className="flex flex-col gap-[8px] flex-1 overflow-y-auto scrollbar-hide">
+        <div className="flex flex-col py-4 gap-[8px] overflow-y-auto scrollbar-hide flex-1">
           {loading && <p>loading...</p>}
 
           {groupedMessages.map((message, index) => {
@@ -57,7 +93,7 @@ export default function MessageList({ userInfo }: { userInfo: UserInfo }) {
                 {showDateSeparator && (
                   <DateSeparator date={message.groupDate} />
                 )}
-                {message.s_id === userInfo.id ? (
+                {message.s_id === userId ? (
                   <LeftMessageBox
                     text={message.message}
                     time={time}
@@ -73,23 +109,17 @@ export default function MessageList({ userInfo }: { userInfo: UserInfo }) {
               </React.Fragment>
             );
           })}
+
+          <div ref={bottomRef} />
         </div>
 
-        {/* <form className="flex items-center border w-[776px] h-[64px] px-[32px] rounded-[10px] justify-between"> */}
         <TextBox
           value={chatInput}
           onChange={(e) => setChatInput(e.target.value)}
-          className="w-[776px]"
+          onClear={() => setChatInput("")}
+          className=""
+          userId={userId}
         />
-        {/* <input
-            type="text"
-            placeholder="메세지를 작성해주세요"
-            className="text-[var(--grey-300)] text-[18px] font-medium w-full"
-          />
-          <button type="submit" className="cursor-pointer ml-[14px]">
-            <img src={send} alt="전송 아이콘" className="size-[24px]" />
-          </button>
-        </form> */}
       </div>
     </>
   );

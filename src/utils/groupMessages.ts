@@ -13,7 +13,14 @@ export type GroupedMessage = Message & {
 export default function groupMessages(messages: Message[]): GroupedMessage[] {
   return messages.map((message, index) => {
     const currentSender = message.s_id;
-    const currentDate = new Date(message.createdAt).toDateString();
+    const currentDate = new Date(message.createdAt).toLocaleDateString(
+      "ko-KR",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }
+    );
 
     const prev = messages[index - 1];
     const next = messages[index + 1];
@@ -21,8 +28,20 @@ export default function groupMessages(messages: Message[]): GroupedMessage[] {
     const prevSender = prev?.s_id;
     const nextSender = next?.s_id;
 
-    const prevDate = prev ? new Date(prev.createdAt).toDateString() : null;
-    const nextDate = next ? new Date(next.createdAt).toDateString() : null;
+    const prevDate = prev
+      ? new Date(prev.createdAt).toLocaleDateString("ko-KR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : null;
+    const nextDate = next
+      ? new Date(next.createdAt).toLocaleDateString("ko-KR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : null;
 
     const isSameAsPrev =
       prevSender === currentSender && prevDate === currentDate;

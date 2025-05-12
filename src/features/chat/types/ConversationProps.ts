@@ -1,4 +1,4 @@
-import { UserInfo } from "./UserInfo";
+// import { UserInfo } from "./UserInfo";
 
 export interface ConversationProps {
   me: string;
@@ -12,6 +12,6 @@ export interface ConversationProps {
   r_image: string;
   message: string;
   time: string;
-  onClick?: (user: UserInfo) => void;
+  onClick?: (userId: string) => void;
   isSelected?: boolean;
 }

@@ -2,13 +2,14 @@ import { useState } from "react";
 import BackButton from "../components/common/BackButton";
 import Conversations from "../features/chat/components/Conversations";
 import Messages from "../features/chat/components/Messages";
-import { UserInfo } from "../features/chat/types/UserInfo";
+// import { UserInfo } from "../features/chat/types/UserInfo";
 
 export default function Chat() {
-  const [selectedConversation, setSelectedConversation] = useState<UserInfo>();
+  const [selectedConversation, setSelectedConversation] = useState("");
+  // const [selectedConversation, setSelectedConversation] = useState<UserInfo>();
 
-  const selectedIdHandler = (user: UserInfo) => {
-    setSelectedConversation(user);
+  const selectedIdHandler = (userId: string) => {
+    setSelectedConversation(userId);
   };
 
   return (
@@ -19,7 +20,7 @@ export default function Chat() {
         <div className="flex gap-[32px] w-full h-[92%] justify-center">
           <Conversations
             onSelect={(user) => selectedIdHandler(user)}
-            selectedId={selectedConversation?.id}
+            selectedId={selectedConversation}
           />
           <Messages userInfo={selectedConversation} />
         </div>

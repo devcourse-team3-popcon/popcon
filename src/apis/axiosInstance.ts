@@ -8,7 +8,7 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MWMxYTA3ZmI0MDBiMzg1YTJkYzgyNSIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIn0sImlhdCI6MTc0Njc1MzQxMX0.0lffjLZxImM8GfwQRNDVkVBEmtUwC0QmiuoVAsxo4_Q";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MWVlYTFhMDc2NGJhNzY0MWRjZDUxNiIsImVtYWlsIjoieW9vanVuZ0BnbWFpbC5jb20ifSwiaWF0IjoxNzQ2OTc0ODc0fQ.o010ImT36KPaVNYRq4Pp2HUxMV9dOB67FY8YcKBpzc4";
   // useAuthStore.getState().accessToken;
   // console.log("token: ", token);
   if (token) {

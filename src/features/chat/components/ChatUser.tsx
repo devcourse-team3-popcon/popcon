@@ -20,39 +20,37 @@ export default function ChatUser({
   const userImage = me === senderId ? r_image : s_image;
   const userIsOnline = me === senderId ? r_isOnline : s_isOnline;
 
-  const user = {
-    id: userId,
-    name: userName,
-    image: userImage,
-    isOnline: userIsOnline,
-  };
+  // const user = {
+  //   id: userId,
+  //   name: userName,
+  //   image: userImage,
+  //   isOnline: userIsOnline,
+  // };
 
   return (
     <>
       <div
-        onClick={() => onClick?.(user)}
+        onClick={() => onClick?.(userId)}
         className={`w-full h-[64px] px-[9px] py-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer items-center ${
           isSelected && "bg-[var(--grey-500)]"
         }`}
       >
-        {userImage ? (
+        <div>
           <div
-            className={`size-[40px] rounded-[50px] bg-[url(${userImage})] bg-center bg-no-repeat`}
-          ></div>
-        ) : (
-          <div className="size-[40px] rounded-[50px] bg-[var(--grey-200)]"></div>
-        )}
-
-        <div className="flex flex-col flex-1 justify-between p-0.5">
-          <div className="flex gap-[16px] items-center">
-            <div className="text-[16px] font-medium">{userName}</div>
+            className={`relative size-[48px] rounded-[50px] bg-[var(--grey-200)] bg-center bg-no-repeat bg-cover`}
+            style={{ backgroundImage: `url(${userImage})` }}
+          >
             {userIsOnline && (
-              <div className="rounded-[50px] size-[8px] bg-[var(--primary-300)]"></div>
+              <div className="absolute left-[36px] top-[36px] rounded-full size-[10px] bg-[var(--primary-300)]"></div>
             )}
           </div>
+        </div>
 
-          <div className="flex items-center justify-between w-full">
-            <div className="text-[12px] font-regular text-[var(--white-80)] truncate max-w-[190px]">
+        <div className="flex flex-col flex-1 p-0.5 w-[50%]">
+          <div className="text-[16px] font-medium">{userName}</div>
+
+          <div className="flex items-center justify-between gap-[8px]">
+            <div className="text-[12px] font-regular text-[var(--white-80)] truncate flex-1">
               {message}
             </div>
             <div className="text-[12px] font-light text-[var(--white-80)]">
