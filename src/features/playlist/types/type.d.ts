@@ -132,3 +132,9 @@ interface PlaylistContentProps {
   setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
   currentVideo: { postId: string; videoId: string } | null;
 }
+
+interface TrackAddModalProps {
+  onClose: () => void;
+  setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
+  currentVideo: { postId: string; videoId: string } | null;
+}

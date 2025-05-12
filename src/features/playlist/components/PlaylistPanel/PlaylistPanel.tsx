@@ -19,7 +19,13 @@ export default function PlaylistPanel({
         currentVideo={currentVideo}
         setCurrentVideo={setCurrentVideo}
       />
-      {isModalOpen && <TrackAddModal onClose={toggleModal} />}
+      {isModalOpen && (
+        <TrackAddModal
+          onClose={toggleModal}
+          currentVideo={currentVideo}
+          setCurrentVideo={setCurrentVideo}
+        />
+      )}
     </section>
   );
 }
