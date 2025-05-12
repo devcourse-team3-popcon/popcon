@@ -46,7 +46,6 @@ export const getSpotifyAccessToken = async (): Promise<string> => {
       accessToken: res.data.access_token,
       expiresAt: now + expireTime - 60000,
     };
-
     return tokenCache.accessToken;
   } catch (error) {
     if (axios.isAxiosError(error)) {
