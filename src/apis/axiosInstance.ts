@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuthStore } from "../stores/authStore";
+import {useAuthStore} from "../stores/authStore";
 
 export const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_PROGRAMMERS}`,
@@ -8,7 +8,7 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MTYwMTUzZjk0MGI2NTE1YmY0ZTExZiIsImVtYWlsIjoidGVzdDEyIn0sImlhdCI6MTc0NjI3MjU5Nn0.Ctm6jGc9u4WI0CyxvMPsq3ojb7jn-X89krSuomKRDGY";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MWUzMTk5MDc2NGJhNzY0MWRjYzNkYyIsImVtYWlsIjoiZGRAbmF2ZXIuY29tIn0sImlhdCI6MTc0Njk4MTA4NH0.A1QSGDaNwC6-5ixxHVWw3MBy7ZqI5kNQRI10a8ArPU8";
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use(
       console.log("token 실패");
       retry = true;
       try {
-        const { data } = await axiosInstance.post("/token");
+        const {data} = await axiosInstance.post("/token");
         useAuthStore.setState({
           accessToken: data.accessToken,
           isLoggedIn: true,
