@@ -67,6 +67,7 @@ interface UserType {
   fullName: string;
   isOnline: boolean;
   _id: string;
+  image: string;
 }
 
 interface UserListItemProps {
@@ -82,6 +83,7 @@ interface ParsedDataType {
   name: string;
   coverImage?: string;
   favoriteArtist?: string;
+  favoriteGenre?: string;
   isOnline?: boolean;
   id: string;
 }

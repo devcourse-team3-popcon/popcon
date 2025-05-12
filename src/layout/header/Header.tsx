@@ -1,6 +1,6 @@
 import Logo from "./Logo";
 import MainNav from "./MainNav";
-import SideMenu from "./SideMenu";
+import SideMenu from "./SideMenu/SideMenu";
 import UserSection from "./UserSection";
 
 export default function Header() {
