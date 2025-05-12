@@ -63,3 +63,6 @@ body {
   background-color: var(--bg-color);
   color: var(--white);
 }
+body::-webkit-scrollbar {
+  display: none;
+}

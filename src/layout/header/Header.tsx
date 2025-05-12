@@ -9,7 +9,7 @@ export default function Header() {
       <div className="md:hidden">
         <div>
           <Logo />
-          <SideMenu />
+          <SideMenu isLoggedIn={false} />
         </div>
       </div>
 
