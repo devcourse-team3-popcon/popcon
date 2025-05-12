@@ -3,7 +3,6 @@ import loginGroup from "../../assets/images/login-group.svg";
 import logo from "../../assets/images/logo-no-period.svg";
 import logoPopcon from "../../assets/images/logo-login-popcon.svg";
 import logoKakao from "../../assets/images/logo-kakao.svg";
-import logoNaver from "../../assets/images/logo-naver.svg";
 import { Link, useNavigate } from "react-router";
 import { loginUser, signupUser } from "../../apis/login/login";
 import {
@@ -150,11 +149,6 @@ export default function LoginPage() {
           >
             <img src={logoKakao} alt="카카오로고" className="mr-2" />
             카카오 로그인
-          </button>
-
-          <button className="w-full bg-[#03C75A] text-white py-2 rounded-md font-semibold flex items-center justify-center border-2 border-[#03C75A] cursor-pointer">
-            <img src={logoNaver} alt="네이버로고" className="mr-2" />
-            네이버 로그인
           </button>
 
           <p className="text-sm text-gray-400 mt-6">
