@@ -17,7 +17,7 @@ export default function MainNav() {
         <span className="xl:hidden">CONCERTS</span>
       </NavLink>
       <NavLink
-        to="/"
+        to="/playlist"
         className={({ isActive }) =>
           `text-[14px] 2xl:text-[16px] ${
             isActive
@@ -29,7 +29,7 @@ export default function MainNav() {
         PLAYLIST
       </NavLink>
       <NavLink
-        to="/"
+        to="/community"
         className={({ isActive }) =>
           `text-[14px] 2xl:text-[16px] ${
             isActive
@@ -41,7 +41,7 @@ export default function MainNav() {
         COMMUNITY
       </NavLink>
       <NavLink
-        to="/"
+        to="/aboutus"
         className={({ isActive }) =>
           `text-[14px] 2xl:text-[16px] ${
             isActive
