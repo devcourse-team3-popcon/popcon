@@ -12,6 +12,7 @@ import { deletePost } from "../../../utils/post";
 import { getCurrentUserId } from "../../../utils/auth";
 import { useNavigate } from "react-router";
 import { parseUserName } from "../../../utils/parseUserName";
+import { useAddTrackToPlaylist } from "../../playlist/hooks/useAddTrackToPlaylist";
 
 type BopCardProps = {
   post: Post;
@@ -32,6 +33,9 @@ export default function BopCard({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const currentUserId = getCurrentUserId();
   const navigate = useNavigate();
+  const addTrackToPlaylist = useAddTrackToPlaylist();
+  const parsedBopTitle = parseBopTitle(localPost.title);
+  const track = parsedBopTitle?.track;
 
   const myMenuItems = [
     {
@@ -43,12 +47,30 @@ export default function BopCard({
     },
     {
       label: "플리에 추가",
-      onClick: () => alert("추가"),
+      onClick: () => {
+        if (!parsedBopTitle?.track) return;
+        addTrackToPlaylist({
+          name: track.name,
+          artist: track.artists.join(", "),
+          imgUrl: track.image,
+        });
+      },
     },
     { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
   ];
+
   const defaultMenuItems = [
-    { label: "플리에 추가", onClick: () => alert("플레이리스트 추가") },
+    {
+      label: "플리에 추가",
+      onClick: () => {
+        if (!parsedBopTitle?.track) return;
+        addTrackToPlaylist({
+          name: track.name,
+          artist: track.artists.join(", "),
+          imgUrl: track.image,
+        });
+      },
+    },
   ];
 
   useEffect(() => {
@@ -100,7 +122,6 @@ export default function BopCard({
 
   const isPlaying =
     currentVideo?.postId === localPost._id && currentVideo?.videoId === videoId;
-  const parsedBopTitle = parseBopTitle(localPost.title);
   const parsedUserName = parseUserName(localPost.author.fullName);
   const trackName = parsedBopTitle.track.name;
   const artistNames = parsedBopTitle.track.artists.join(", ");
