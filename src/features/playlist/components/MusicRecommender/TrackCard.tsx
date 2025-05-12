@@ -44,11 +44,11 @@ export default function TrackCard({
         <img
           src={track.album.images[0]?.url || ""}
           alt={`${track.name} 앨범 커버`}
-          className="w-full h-full object-contain cursor-pointer "
+          className="w-full h-full object-contain cursor-pointer"
           onClick={togglePlayTrack}
         />
         <div
-          className={`absolute flex justify-center items-center opacity-0 group-hover:opacity-100 group-hover:bg-black/50 w-full h-full z-10 ${
+          className={`absolute flex justify-center items-center cursor-pointer opacity-0 group-hover:opacity-100 group-hover:bg-black/50 w-full h-full z-10 ${
             isPlaying ? "opacity-100 bg-black/50" : ""
           }`}
         >
