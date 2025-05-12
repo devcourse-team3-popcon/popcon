@@ -32,7 +32,7 @@ export default function AboutUsContent() {
         />
         <AboutUsMemberCard
           index={4}
-          engname={"CHO JUNGWOO"}
+          engname={"CHO JEONG WOO "}
           korname={"조정우"}
           contact={"https://github.com/mafornp"}
         />
