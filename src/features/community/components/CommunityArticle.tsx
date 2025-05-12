@@ -38,7 +38,14 @@ export default function Article({ post }: ArticleProps) {
           { state: { post } }
         ),
     },
-    { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
+    {
+      label: "게시물 삭제",
+      onClick: () => {
+        deletePostHandler();
+        navigate(-1);
+      },
+      danger: true,
+    },
   ];
   const currentUserId = getCurrentUserId();
 

@@ -31,7 +31,7 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full ">
         <table className="w-full table-fixed">
           <thead className="border-b text-[color:var(--primary-300-50)] ">
             <tr>
