@@ -5,6 +5,8 @@ import frownicon from "../../../../assets/images/icon-frown.svg";
 export default function PlaylistTracks({
   tracks,
   isLoading,
+  currentVideo,
+  setCurrentVideo,
 }: PlaylistTracksProps) {
   if (isLoading) {
     return (
@@ -33,6 +35,8 @@ export default function PlaylistTracks({
           item={track}
           showEllipsis={true}
           trackId={track._id}
+          currentVideo={currentVideo}
+          setCurrentVideo={setCurrentVideo}
         />
       ))}
     </div>

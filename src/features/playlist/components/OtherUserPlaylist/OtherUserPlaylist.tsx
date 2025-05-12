@@ -5,10 +5,9 @@ import { PlaylistHeader } from "./PlaylistHeader";
 export default function OtherUserPlaylist({
   selectedUserId,
   setSelectedUserId,
-}: {
-  selectedUserId: string;
-  setSelectedUserId: (id: string) => void;
-}) {
+  currentVideo,
+  setCurrentVideo,
+}: OtherUserPlaylistProps) {
   const { selectedUserName, parsedData, userPlaylist, myId, isLoading } =
     useOtherUserPlaylist(selectedUserId);
 
@@ -21,7 +20,12 @@ export default function OtherUserPlaylist({
         onBack={() => setSelectedUserId(myId)}
       />
 
-      <PlaylistContent userPlaylist={userPlaylist} isLoading={isLoading} />
+      <PlaylistContent
+        userPlaylist={userPlaylist}
+        isLoading={isLoading}
+        currentVideo={currentVideo}
+        setCurrentVideo={setCurrentVideo}
+      />
     </section>
   );
 }
