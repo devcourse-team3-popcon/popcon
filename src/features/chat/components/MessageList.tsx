@@ -17,8 +17,6 @@ export default function MessageList({ userId }: { userId: string }) {
     return groupMessages(messages);
   }, [messages]);
 
-  console.log("messages: ", messages);
-
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -29,8 +27,7 @@ export default function MessageList({ userId }: { userId: string }) {
     setRefreshMsg(refresh);
   }, [refresh, setRefreshMsg]);
 
-  console.log({ userId });
-  console.log({ messages });
+  console.log("유저 아이디: ", userId);
 
   const user = useMemo(() => {
     if (!messages.length) return null;
@@ -47,6 +44,8 @@ export default function MessageList({ userId }: { userId: string }) {
           isOnline: messages[0].s_isOnline,
         };
   }, [messages, userId]);
+
+  console.log("상세 메세지 userInfo:", user);
 
   return (
     <>

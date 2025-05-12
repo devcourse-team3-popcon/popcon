@@ -60,7 +60,7 @@ export default function Conversations({
           className="w-full mb-[16px]"
         />
 
-        <div className="flex flex-col gap-[8px] w-full">
+        <div className="flex flex-col gap-[8px] w-full overflow-y-auto scrollbar-hide">
           {/* {loading && <p>loading...</p>} */}
 
           {searchInput.trim().length > 0 ? (
