@@ -2,6 +2,7 @@ import {useNotification} from "../hooks/useNotification";
 import NotificationItem from "./NotificationItem";
 import {Bell} from "lucide-react";
 import {readNotifications} from "../apis/readNotifications";
+import {useEffect, useRef} from "react";
 
 type NotificationListProps = {
   closeNotifications: () => void;
@@ -9,12 +10,13 @@ type NotificationListProps = {
 
 export default function NotificationList({closeNotifications}: NotificationListProps) {
   const {notifications, setNotifications, loading} = useNotification();
+  const notificationListRef = useRef<HTMLDivElement | null>(null);
 
+  // 알림 상태 업데이트
   const updateNoti = async (notificationId: string) => {
     try {
       await readNotifications();
 
-      // 알림 상태를 업데이트 (읽음 처리)
       const updatedNotifications = notifications.map((noti) =>
         noti._id === notificationId ? {...noti, seen: true} : noti
       );
@@ -25,24 +27,40 @@ export default function NotificationList({closeNotifications}: NotificationListP
     }
   };
 
-  const handleDeleteNoti = (notificationId: string) => {
+  const deleteNotiHandler = (notificationId: string) => {
     updateNoti(notificationId);
   };
 
+  // 외부 클릭 시 알림창 닫기
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (notificationListRef.current && !notificationListRef.current.contains(e.target as Node)) {
+        closeNotifications();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeNotifications]);
+
   return (
     <div
-      className='absolute flex justify-center items-center top-[100%] right-[5px] mt-[-5px] '
-      onClick={closeNotifications}
+      className='absolute flex justify-center items-center top-[100%] right-[5px] mt-[-5px]'
+      onClick={() => closeNotifications()}
     >
       <div
-        className='p-6 rounded-[20px] w-[360px] h-[350px] border border-[var(--white)] '
+        ref={notificationListRef}
+        className='p-6 rounded-[20px] w-[360px] h-[350px] bg-[var(--bg-color)] border border-[var(--white)]'
         onClick={(e) => e.stopPropagation()} // 알림창 내부 클릭 시 닫히지 않도록
       >
         <div className='flex justify-between items-center mb-4'>
-          <h2 className='font-semibold text-[18px]  h-[21px] pl-2'>Notification</h2>
+          <h2 className='font-semibold text-[18px] h-[21px] pl-2'>Notification</h2>
           <p
-            className='text-[var(--white-80)] cursor-pointer text-[12px] '
-            onClick={() => handleDeleteNoti("")}
+            className='text-[var(--white-80)] cursor-pointer text-[12px]'
+            onClick={deleteNotiHandler}
           >
             전체 삭제
           </p>
@@ -51,12 +69,17 @@ export default function NotificationList({closeNotifications}: NotificationListP
         {notifications.length === 0 ? (
           <div className='w-full h-full flex flex-col justify-center items-center mt-[-25px]'>
             <Bell />
-            <p className=' pt-[10px] text-center'>No Notification</p>
+            <p className='pt-[10px] text-center'>No Notification</p>
           </div>
         ) : (
           <ul className='space-y-2'>
             {notifications.map((noti) => (
-              <NotificationItem key={noti._id} noti={noti} updateNotifications={updateNoti} />
+              <NotificationItem
+                key={noti._id}
+                noti={noti}
+                updateNotifications={updateNoti}
+                closeNotifications={closeNotifications}
+              />
             ))}
           </ul>
         )}
