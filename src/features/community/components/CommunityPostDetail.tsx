@@ -40,9 +40,12 @@ export default function PostDetail() {
   };
 
   return (
-    <>
-      <BackButton />
-      <div className="flex flex-col gap-8 p-4">
+    <div className="w-full h-full flex flex-col gap-2">
+      <div className="flex w-full">
+        <BackButton />
+      </div>
+
+      <div className="flex flex-col gap-8 p-6">
         <CommunityArticle post={post!} />
         <TextAreaField
           label="댓글 작성"
@@ -57,7 +60,7 @@ export default function PostDetail() {
           }}
         />
       </div>
-      <div className="w-full flex justify-end">
+      <div className="w-full flex justify-end px-6">
         <button
           className="cursor-pointer text-[14px] px-6 py-2 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold  mt-2"
           onClick={handleCommentSubmit}
@@ -65,6 +68,6 @@ export default function PostDetail() {
           작성 완료
         </button>
       </div>
-    </>
+    </div>
   );
 }

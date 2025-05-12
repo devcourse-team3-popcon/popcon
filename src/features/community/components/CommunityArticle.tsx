@@ -11,6 +11,7 @@ import { getCurrentUserId } from "../../../utils/auth";
 import { parseUserName } from "../../../utils/parseUserName";
 import { useNavigate } from "react-router";
 import { CommentType } from "../types/Comment";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 interface ArticleProps {
   post: Post;
@@ -27,7 +28,14 @@ export default function Article({ post }: ArticleProps) {
     {
       label: "게시물 수정",
       onClick: () =>
-        navigate(`/community/post/${post._id}/edit`, { state: { post } }),
+        navigate(
+          `/community/${
+            post.channel._id === "681e2fdd7380bb759ecc636d"
+              ? "concert-community"
+              : "open-community"
+          }/post/${post._id}/edit`,
+          { state: { post } }
+        ),
     },
     { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
   ];
@@ -75,7 +83,12 @@ export default function Article({ post }: ArticleProps) {
     }
   };
 
-  if (!post) return <p>게시글을 불러오는 중...</p>;
+  if (!post)
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
 
   const parsedTitle = parseTitle(post.title);
   const parsedUserName = parseUserName(post.author.fullName);

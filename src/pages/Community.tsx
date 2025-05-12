@@ -23,9 +23,9 @@ export default function Community() {
           to="bops-community"
           className={({ isActive }) =>
             twMerge(
-              "border-b py-4 text-[color:var(--white)]",
+              "border-b py-4 text-[color:var(--white-80)] text-[14px]",
               isActive &&
-                "text-[color:var(--primary-300)] border-[color:var(--primary-300)]"
+                "text-[color:var(--primary-300)] border-[color:var(--primary-300)] text-[16px]"
             )
           }
         >
@@ -35,9 +35,9 @@ export default function Community() {
           to="concert-community"
           className={({ isActive }) =>
             twMerge(
-              "border-b py-4 text-[color:var(--white)]",
+              "border-b py-4 text-[color:var(--white-80)] text-[14px]",
               isActive &&
-                "text-[color:var(--primary-300)] border-[color:var(--primary-300)]"
+                "text-[color:var(--primary-300)] border-[color:var(--primary-300)] text-[16px]"
             )
           }
         >
@@ -47,9 +47,9 @@ export default function Community() {
           to="open-community"
           className={({ isActive }) =>
             twMerge(
-              "border-b py-4 text-[color:var(--white)]",
+              "border-b py-4 text-[color:var(--white-80)] text-[14px]",
               isActive &&
-                "text-[color:var(--primary-300)] border-[color:var(--primary-300)]"
+                "text-[color:var(--primary-300)] border-[color:var(--primary-300)] text-[16px]"
             )
           }
         >

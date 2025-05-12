@@ -42,7 +42,7 @@ export default function BopCard({
     {
       label: "게시물 수정",
       onClick: () =>
-        navigate(`/community/post/${localPost._id}/editBop`, {
+        navigate(`/community/bops-community/post/${localPost._id}/edit`, {
           state: { localPost },
         }),
     },
