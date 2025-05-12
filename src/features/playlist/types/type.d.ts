@@ -69,6 +69,7 @@ interface UserType {
   fullName: string;
   isOnline: boolean;
   _id: string;
+  image: string;
 }
 
 interface UserListItemProps {
@@ -84,6 +85,7 @@ interface ParsedDataType {
   name: string;
   coverImage?: string;
   favoriteArtist?: string;
+  favoriteGenre?: string;
   isOnline?: boolean;
   id: string;
 }
@@ -100,7 +102,6 @@ interface TrackDataForPlaylist {
   artist: string;
   imgUrl: string;
 }
-
 interface CurrentVideoProps {
   setCurrentVideo: (video: { postId: string; videoId: string } | null) => void;
   currentVideo: { postId: string; videoId: string } | null;
