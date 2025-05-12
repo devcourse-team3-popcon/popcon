@@ -12,7 +12,7 @@ export const signupUser = async (
   name: string,
   email: string,
   password: string,
-  favoriteGenre?: string,
+  favoriteGenre: string,
   favoriteArtist?: string
 ) => {
   try {

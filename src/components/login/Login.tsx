@@ -44,8 +44,13 @@ export default function LoginPage() {
       const name = nickname;
       kakaoEmail = fakeEmail;
       kakaoPassword = "kakao_dummy_password";
-
-      const result = await signupUser(name, kakaoEmail, kakaoPassword);
+      const favoriteGenre = "Hip-hop";
+      const result = await signupUser(
+        name,
+        kakaoEmail,
+        kakaoPassword,
+        favoriteGenre
+      );
       console.log("회원가입 성공:", result);
       await loginUser(kakaoEmail, kakaoPassword);
       alert("회원가입 성공!");
