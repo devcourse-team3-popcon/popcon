@@ -93,7 +93,7 @@ export default function Article({ post }: ArticleProps) {
 
   if (!post)
     return (
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-full min-h-screen flex justify-center items-center">
         <LoadingSpinner />
       </div>
     );

@@ -6,7 +6,7 @@ export default function BopsCommunity() {
   const { channelId, loading } = useChannelId("BopsCommunity");
   if (loading)
     return (
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-full min-h-screen flex justify-center items-center">
         <LoadingSpinner />
       </div>
     );

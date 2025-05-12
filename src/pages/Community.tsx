@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 
 export default function Community() {
   return (
-    <div className="w-[1080px]">
+    <div className="w-[1080px] min-h-screen">
       <nav className="w-full grid grid-cols-3  mt-6 text-center  py-4">
         <NavLink
           to="bops-community"
