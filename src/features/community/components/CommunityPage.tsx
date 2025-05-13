@@ -59,8 +59,8 @@ export default function CommunityPage({
     <>
       <div className="mb-24">
         <div className="flex w-full py-12 justify-between items-center text-[color:var(--white-80)]">
-          <div className="w-[70%] flex gap-4">
-            <div className="w-[15%]">
+          <div className="w-auto flex gap-4">
+            <div>
               <SelectBox
                 options={searchOptions}
                 value={
@@ -77,11 +77,14 @@ export default function CommunityPage({
               onChange={(e) => {
                 setSearchInput(e.target.value);
               }}
-              className="w-[70%]"
+              className="w-[280px]"
             />
           </div>
 
-          <Plus className="cursor-pointer" onClick={() => navigate("add")} />
+          <Plus
+            className="cursor-pointer mr-1"
+            onClick={() => navigate("add")}
+          />
         </div>
 
         {renderTable(currentPosts)}
