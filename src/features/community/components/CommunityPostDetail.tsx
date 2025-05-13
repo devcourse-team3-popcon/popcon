@@ -11,6 +11,7 @@ export default function PostDetail() {
   const { postId } = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [comment, setComment] = useState("");
+  const isFormInvalid = !comment;
 
   const fetchPost = async () => {
     try {
@@ -64,7 +65,12 @@ export default function PostDetail() {
       </div>
       <div className="w-full flex justify-end px-6">
         <button
-          className="cursor-pointer text-[14px] px-6 py-2 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold  mt-2"
+          disabled={isFormInvalid}
+          className={` text-[14px] px-6 py-2 w-fit rounded-4xl  transition ${
+            isFormInvalid
+              ? "border-1 border-[color:var(--primary-200)] text-[var(--white-80)]"
+              : "bg-[var(--primary-300)] text-[var(--bg-color)] cursor-pointer font-semibold"
+          }`}
           onClick={handleCommentSubmit}
         >
           작성 완료

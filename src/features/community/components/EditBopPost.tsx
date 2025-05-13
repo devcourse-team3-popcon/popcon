@@ -20,6 +20,7 @@ export default function EditBopPost() {
   const [bopText, setBopText] = useState("");
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const isFormInvalid = !bopTrack || !bopGenre || !bopText;
 
   useEffect(() => {
     async function fetchPost() {
@@ -101,7 +102,12 @@ export default function EditBopPost() {
         <div className="w-[100%] flex justify-center items-center">
           <button
             type="button"
-            className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold"
+            disabled={isFormInvalid}
+            className={` text-[14px] px-8 py-3 w-fit rounded-4xl  transition ${
+              isFormInvalid
+                ? "border-1 border-[color:var(--primary-200)] text-[var(--white-80)]"
+                : "bg-[var(--primary-300)] text-[var(--bg-color)] cursor-pointer font-semibold"
+            }`}
             onClick={updatePostHandler}
           >
             수정하기

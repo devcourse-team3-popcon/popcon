@@ -16,6 +16,7 @@ export default function EditCommunityPost() {
   const [titleInput, setTitleInput] = useState(parsedTitle.title);
   const [contentInput, setContentInput] = useState(parsedTitle.body);
   const [imageInput, setImageInput] = useState<File | null>(null);
+  const isFormInvalid = !titleInput || !contentInput;
   const existingImageUrl = post.image;
   const channelId = post.channel._id;
 
@@ -69,9 +70,13 @@ export default function EditCommunityPost() {
           />
           <div className="w-[100%] flex justify-center items-center">
             <button
-              className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold"
+              disabled={isFormInvalid}
+              className={` text-[14px] px-8 py-3 w-fit rounded-4xl  transition ${
+                isFormInvalid
+                  ? "border-1 border-[color:var(--primary-200)] text-[var(--white-80)]"
+                  : "bg-[var(--primary-300)] text-[var(--bg-color)] cursor-pointer font-semibold"
+              }`}
               onClick={updatePostHandler}
-              disabled={!titleInput || !contentInput}
             >
               수정하기
             </button>
