@@ -3,7 +3,7 @@ import { usePlaylistStore } from "../../../../stores/playlistStore";
 import { deleteTrackFromPlaylist } from "../../../../apis/playlist/playlistService";
 import { useAddTrackToPlaylist } from "../../hooks/useAddTrackToPlaylist";
 import { useState } from "react";
-import { searchYoutubeVideo } from "../../../../utils/searchYoutubeVideo";
+import { searchYoutubeVideo } from "../../../../apis/youtube/youtubeSearch";
 
 export default function PlaylistTrackItem({
   track,
@@ -99,7 +99,7 @@ export default function PlaylistTrackItem({
           <img
             src={imageUrl}
             alt={imageAlt}
-            className="w-15 h-15 flex-shrink-0"
+            className="w-10 h-10 md:w-15 md:h-15 flex-shrink-0"
             onClick={togglePlayTrack}
           />
           <div
@@ -126,10 +126,10 @@ export default function PlaylistTrackItem({
           className="overflow-hidden"
           onClick={() => onClick && track && onClick(track)}
         >
-          <p className="text-[18px] text-[color:var(--white)] font-bold truncate">
+          <p className="text-[12px] md:text-[18px] text-[color:var(--white)] font-bold truncate">
             {trackName}
           </p>
-          <p className="mt-2 text-[16px] text-[color:var(--grey-400)] truncate">
+          <p className="text-[10px] mt-2 md:text-[16px] text-[color:var(--grey-400)] truncate">
             {artistName}
           </p>
         </div>
