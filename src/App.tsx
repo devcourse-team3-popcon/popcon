@@ -17,12 +17,19 @@ import AboutUs from "./pages/AboutUs";
 import Login from "./components/login/Login";
 import SignupAgree from "./components/login/SignupAgree";
 import SignupForm from "./components/login/SignupForm";
+import MyPage from "./features/mypage/components/MyPage";
+import MyPostList from "./features/mypage/components/MyPostList";
+import UserDetail from "./features/mypage/components/UserDetail";
 
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypost-List" element={<MyPostList />} />
+        <Route path="/user-detail" element={<UserDetail />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/SignupAgree" element={<SignupAgree />} />
         <Route path="/SignupForm" element={<SignupForm />} />
