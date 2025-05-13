@@ -29,13 +29,17 @@ export default function UserSection() {
         </div>
       ) : (
         <div className="flex h-[88px] items-center gap-6">
-          <div className="w-4.5 h-4.5 2xl:w-5 2xl:h-5">
-            <img
-              src={chat}
-              alt="채팅"
-              className="w-full h-full cursor-pointer"
-            />
-          </div>
+          <NavLink to="/chat">
+            {({ isActive }) => (
+              <div className="w-4.5 h-4.5 2xl:w-5 2xl:h-5">
+                <img
+                  src={isActive ? chatActive : chat}
+                  alt="채팅"
+                  className="w-full h-full cursor-pointer fill-current"
+                />
+              </div>
+            )}
+          </NavLink>
           <div className="w-4.5 h-4.5 2xl:w-5 2xl:h-5">
             <img
               src={bell}
@@ -43,6 +47,7 @@ export default function UserSection() {
               className="w-full h-full cursor-pointer"
             />
           </div>
+
           <div className="w-5 h-5 2xl:w-[22px] 2xl:h-[22px]">
             <img
               src={user}
