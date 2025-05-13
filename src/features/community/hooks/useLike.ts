@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getCurrentUserId } from "../../../utils/auth";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import { Post } from "../types/Post";
+import { sendNotification } from "../../../utils/notification";
 
 export const useLike = (initialPost: Post | null) => {
   const [post, setPost] = useState<Post | null>(initialPost);
@@ -47,14 +48,24 @@ export const useLike = (initialPost: Post | null) => {
           postId: post._id,
           userId: currentUserId,
         });
+        const newLike = res.data;
         setPost((prev) =>
           prev
             ? {
                 ...prev,
-                likes: [...prev.likes, res.data],
+                likes: [...prev.likes, newLike],
               }
             : null
         );
+
+        if (post.author._id && post.author._id !== currentUserId) {
+          await sendNotification({
+            notificationType: "LIKE",
+            notificationTypeId: newLike._id,
+            userId: post.author._id,
+            postId: post._id,
+          });
+        }
       }
     } catch (e) {
       console.error("좋아요 처리 중 오류 발생:", e);

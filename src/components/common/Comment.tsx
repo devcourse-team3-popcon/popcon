@@ -4,8 +4,8 @@ import { getCurrentUserId } from "../../utils/auth";
 import { parseUserName } from "../../utils/parseUserName";
 import DropdownMenu from "./DropdownMenu";
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../../apis/axiosInstance";
 import profileImg from "../../assets/images/default-profile-logo.svg";
+import { deleteComment } from "../../utils/comment";
 
 type CommentProps = {
   comment: CommentType;
@@ -26,13 +26,9 @@ export default function Comment({ comment, onDelete }: CommentProps) {
   ];
 
   const deleteCommentHandler = async (commentId: string) => {
-    try {
-      await axiosInstance.delete(`/comments/delete`, {
-        data: { id: commentId },
-      });
+    const success = await deleteComment(commentId);
+    if (success) {
       onDelete(commentId);
-    } catch (e) {
-      console.error("댓글 삭제 실패", e);
     }
   };
 

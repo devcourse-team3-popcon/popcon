@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import { Post } from "../types/Post";
 import BackButton from "../../../components/common/BackButton";
+import { createComment } from "../../../utils/comment";
 
 export default function PostDetail() {
   const { postId } = useParams();
@@ -26,16 +27,17 @@ export default function PostDetail() {
   }, [postId]);
 
   const handleCommentSubmit = async () => {
-    if (!comment.trim() || !postId) return;
-    try {
-      await axiosInstance.post("/comments/create", {
-        comment: comment,
-        postId,
-      });
+    if (!postId || !post) return;
+
+    const success = await createComment({
+      comment,
+      postId,
+      postAuthorId: post.author._id,
+    });
+
+    if (success) {
       setComment("");
       fetchPost();
-    } catch (e) {
-      console.error("댓글 작성 실패", e);
     }
   };
 
