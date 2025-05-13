@@ -3,7 +3,7 @@ import { CommentType as CommentType } from "../../features/community/types/Comme
 import { getCurrentUserId } from "../../utils/auth";
 import { parseUserName } from "../../utils/parseUserName";
 import DropdownMenu from "./DropdownMenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { axiosInstance } from "../../apis/axiosInstance";
 import profileImg from "../../assets/images/default-profile-logo.svg";
 
@@ -13,7 +13,7 @@ type CommentProps = {
 };
 
 export default function Comment({ comment, onDelete }: CommentProps) {
-  const currentUserId = getCurrentUserId();
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const parsedUserName = parseUserName(comment.author.fullName);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -35,6 +35,15 @@ export default function Comment({ comment, onDelete }: CommentProps) {
       console.error("댓글 삭제 실패", e);
     }
   };
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const userId = await getCurrentUserId();
+      setCurrentUserId(userId);
+    };
+
+    fetchUserId();
+  }, []);
 
   return (
     <>

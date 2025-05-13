@@ -29,10 +29,10 @@ export default function BopCard({
   onDelete,
 }: BopCardProps) {
   const [localPost, setLocalPost] = useState<Post>(post);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoId, setVideoId] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const currentUserId = getCurrentUserId();
   const navigate = useNavigate();
   const addTrackToPlaylist = useAddTrackToPlaylist();
   const parsedBopTitle = parseBopTitle(localPost.title);
@@ -84,6 +84,15 @@ export default function BopCard({
     );
     setIsLiked(!!userLike);
   }, [localPost]);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const userId = await getCurrentUserId();
+      setCurrentUserId(userId);
+    };
+
+    fetchUserId();
+  }, []);
 
   const deletePostHandler = async () => {
     try {

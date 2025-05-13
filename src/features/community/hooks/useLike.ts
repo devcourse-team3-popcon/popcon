@@ -5,21 +5,27 @@ import { Post } from "../types/Post";
 
 export const useLike = (initialPost: Post | null) => {
   const [post, setPost] = useState<Post | null>(initialPost);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     if (!initialPost) return;
 
     setPost(initialPost);
-    setIsLiked(
-      initialPost.likes.some((like) => like.user === getCurrentUserId())
-    );
+    setIsLiked(initialPost.likes.some((like) => like.user === currentUserId));
   }, [initialPost]);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const userId = await getCurrentUserId();
+      setCurrentUserId(userId);
+    };
+
+    fetchUserId();
+  }, []);
 
   const toggleLike = async () => {
     if (!post) return;
-
-    const currentUserId = getCurrentUserId();
     const userLike = post.likes.find((like) => like.user === currentUserId);
 
     try {

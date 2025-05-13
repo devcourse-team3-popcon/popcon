@@ -19,6 +19,7 @@ interface ArticleProps {
 }
 
 export default function Article({ post }: ArticleProps) {
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likes, setLikes] = useState<Like[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -47,7 +48,6 @@ export default function Article({ post }: ArticleProps) {
       danger: true,
     },
   ];
-  const currentUserId = getCurrentUserId();
 
   const deletePostHandler = async () => {
     await deletePost(post._id!);
@@ -67,6 +67,15 @@ export default function Article({ post }: ArticleProps) {
   useEffect(() => {
     checkLikeStatus();
   }, [likes]);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const userId = await getCurrentUserId();
+      setCurrentUserId(userId);
+    };
+
+    fetchUserId();
+  }, []);
 
   const toggleLike = async () => {
     try {
