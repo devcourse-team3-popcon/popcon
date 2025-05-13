@@ -59,7 +59,7 @@ export default function CommunityPage({
     <>
       <div className="mb-24">
         <div className="flex w-full py-12 justify-between items-center text-[color:var(--white-80)]">
-          <div className="w-auto flex gap-4">
+          <div className="w-auto flex gap-4 items-center">
             <div>
               <SelectBox
                 options={searchOptions}
