@@ -71,7 +71,10 @@ export default function BopPostForm({
               <div className="flex px-4 items-center w-full justify-between">
                 <div className="flex gap-4 items-center">
                   <img className="h-10 w-10" src={bopTrack.image} />
-                  {bopTrack.name} - {bopTrack.artists}
+                  {bopTrack.name} -{" "}
+                  {Array.isArray(bopTrack.artists)
+                    ? bopTrack.artists.join(", ")
+                    : bopTrack.artists}
                 </div>
                 <X
                   className="w-5 h-5 cursor-pointer"
