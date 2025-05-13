@@ -43,7 +43,7 @@ export default function NotificationList({closeNotifications}: NotificationListP
 
   return (
     <div
-      className='absolute flex justify-center items-center top-[100%] right-[5px] mt-[-5px]'
+      className='absolute z-[9999] flex justify-center items-center top-[100%] right-[5px] mt-[-5px]'
       onClick={() => closeNotifications()}
     >
       <div

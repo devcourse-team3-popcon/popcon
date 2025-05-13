@@ -1,6 +1,8 @@
-import {Headphones} from "lucide-react";
 import {NotificationRes} from "../types/NotificationRes";
 import {useNavigate} from "react-router";
+import {useEffect, useState} from "react";
+import profile from "../../../assets/images/default-profile-logo.svg";
+import {axiosInstance} from "../../../apis/axiosInstance";
 
 type Props = {
   noti: NotificationRes;
@@ -11,6 +13,22 @@ type Props = {
 export default function NotificationItem({noti, closeNotifications}: Props) {
   const navigate = useNavigate();
   const {author, comment, like, follow, message} = noti;
+
+  const [authorImage, setAuthorImage] = useState(profile);
+
+  useEffect(() => {
+    const fetchAuthorImage = async () => {
+      try {
+        const res = await axiosInstance.get(`/users/${author._id}`);
+        const user = await res.data;
+        if (user.image) setAuthorImage(user.image);
+      } catch (err) {
+        console.warn("유저 이미지 불러오기 실패", err);
+      }
+    };
+
+    fetchAuthorImage();
+  }, [author._id]);
 
   let authorName = "알 수 없음";
 
@@ -38,15 +56,25 @@ export default function NotificationItem({noti, closeNotifications}: Props) {
   const clickHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    let currentPostId = null;
+
+    let post = null;
     if (comment && comment.post && typeof comment.post === "object") {
-      currentPostId = comment.post._id;
+      post = comment.post;
     } else if (like?.post) {
-      currentPostId = like.post._id;
+      post = like.post;
     }
 
-    if (currentPostId) {
-      navigate(`/community/post/${encodeURIComponent(currentPostId)}`);
+    if (post && post.channel) {
+      const channelId = post.channel;
+      const postId = post._id;
+
+      if (channelId === "681e2fbc7380bb759ecc6367") {
+        navigate("/community/bops-community");
+      } else {
+        const channelPath =
+          channelId === "681e2fdd7380bb759ecc636d" ? "concert-community" : "open-community";
+        navigate(`/community/${channelPath}/post/${encodeURIComponent(postId)}`);
+      }
     } else if (message) {
       navigate("/chat");
     } else {
@@ -61,8 +89,8 @@ export default function NotificationItem({noti, closeNotifications}: Props) {
       className='group text-[14px] w-[310px] py-2 pl-2 rounded-lg flex items-center cursor-pointer hover:bg-[color:var(--grey-500)]'
       onClick={clickHandler}
     >
-      <Headphones className='h-4 w-4' />
-      <p className='pl-2 w-[280px] h-auto'>{notificationMessage}</p>
+      <img src={authorImage} className='w-6 h-6 rounded-4xl' />
+      <p className='pl-3 w-[270px] h-auto'>{notificationMessage}</p>
     </li>
   );
 }
