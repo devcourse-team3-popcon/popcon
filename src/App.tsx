@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import CommunityPostDetail from "./features/community/components/CommunityPostDetail";
 import EditCommunityPost from "./features/community/components/EditCommunityPost";
 import EditBopPost from "./features/community/components/EditBopPost";
+import Chat from "./pages/Chat";
 import AboutUs from "./pages/AboutUs";
 import NotFound from "./pages/NotFound";
 import Login from "./components/login/Login";
@@ -75,6 +76,10 @@ export default function App() {
           </Route>
         </Route>
         <Route path="/aboutus" element={<AboutUs />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat/:userId" element={<Chat />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
