@@ -112,7 +112,7 @@ export default function SideMenu() {
       )}
 
       <aside
-        className={`fixed top-0 right-0 h-full w-[320px] bg-[color:var(--grey-600)] shadow-lg z-40 transition-transform duration-300 transform ${
+        className={`fixed top-0 right-0 h-full w-[320px] bg-[color:var(--grey-600)] shadow-lg z-50 transition-transform duration-300 transform ${
           open ? "translate-x-0" : "translate-x-full"
         } md:translate-x-0 md:static md:w-[20%] md:right-0`}
       >
