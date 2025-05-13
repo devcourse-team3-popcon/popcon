@@ -4,7 +4,6 @@ import { useAddTrackToPlaylist } from "../../hooks/useAddTrackToPlaylist";
 import { useState } from "react";
 import { searchYoutubeVideo } from "../../../../apis/youtube/youtubeSearch";
 
-
 export default function TrackCard({
   track,
   setCurrentVideo,
