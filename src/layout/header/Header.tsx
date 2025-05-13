@@ -6,10 +6,10 @@ import UserSection from "./UserSection";
 export default function Header() {
   return (
     <>
-      <div className="md:hidden">
+      <div className="bg-[color:var(--bg-color-80)] py-4 px-6 md:px-0 md:py-0  md:hidden fixed z-100 w-full">
         <div>
           <Logo />
-          <SideMenu isLoggedIn={true} />
+          <SideMenu />
         </div>
       </div>
 
