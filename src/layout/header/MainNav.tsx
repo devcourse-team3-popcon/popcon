@@ -2,7 +2,7 @@ import { NavLink } from "react-router";
 
 export default function MainNav() {
   return (
-    <nav className="flex gap-12 items-center h-[88px]">
+    <nav className="flex gap-12 items-center h-[68px]">
       <NavLink
         to="/upcoming-concerts"
         className={({ isActive }) =>
