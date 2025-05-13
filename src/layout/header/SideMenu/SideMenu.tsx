@@ -40,7 +40,7 @@ export default function SideMenu() {
       }
     };
     getUserData();
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -103,13 +103,11 @@ export default function SideMenu() {
 
   return (
     <>
-      {!open && !showNotifications && (
-        <Menu
-          onClick={toggleMenu}
-          className="md:hidden fixed top-12 right-5 z-50 text-[color:var(--white)] cursor-pointer"
-          strokeWidth={1.5}
-        />
-      )}
+      <Menu
+        onClick={toggleMenu}
+        className="md:hidden fixed top-12 right-5 z-50 text-[color:var(--white)] cursor-pointer"
+        strokeWidth={1.5}
+      />
 
       <aside
         className={`fixed top-0 right-0 h-full w-[320px] bg-[color:var(--grey-600)] shadow-lg z-50 transition-transform duration-300 transform ${

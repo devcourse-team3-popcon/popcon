@@ -16,13 +16,13 @@ export default function UserSection() {
         <div className="flex h-[88px] items-center gap-4">
           <button
             onClick={() => navigate("/SignupAgree")}
-            className="px-6 py-2 border border-[color:var(--primary-100)] rounded-[10px] text-[14px] 2xl:text-[16px] cursor-pointer"
+            className="px-5 py-1 border border-[color:var(--white)] hover:text-[color:var(--primary-100)] hover:border-[color:var(--primary-100)] rounded-[20px] text-[12px] 2xl:text-[14px] cursor-pointer"
           >
             회원가입
           </button>
           <button
             onClick={() => navigate("/login")}
-            className="px-6 py-2 border border-[color:var(--white)] rounded-[10px] text-[14px] 2xl:text-[16px] cursor-pointer"
+            className="px-5 py-1 border border-[color:var(--white)] hover:text-[color:var(--primary-100)] hover:border-[color:var(--primary-100)] rounded-[20px] w-[84px] text-[12px] 2xl:text-[14px] cursor-pointer 2xl:w-[90px]"
           >
             로그인
           </button>
@@ -31,7 +31,7 @@ export default function UserSection() {
         <div className="flex h-[88px] items-center gap-6">
           <NavLink to="/chat">
             {({ isActive }) => (
-              <div className="w-4.5 h-4.5 2xl:w-5 2xl:h-5">
+              <div className="w-4.5 h-4.5 2xl:w-6 2xl:h-6">
                 <img
                   src={isActive ? chatActive : chat}
                   alt="채팅"
@@ -40,7 +40,7 @@ export default function UserSection() {
               </div>
             )}
           </NavLink>
-          <div className="w-4.5 h-4.5 2xl:w-5 2xl:h-5">
+          <div className="w-5 h-5 2xl:w-6.5 2xl:h-6.5">
             <img
               src={bell}
               alt="알림함"
@@ -48,7 +48,7 @@ export default function UserSection() {
             />
           </div>
 
-          <div className="w-5 h-5 2xl:w-[22px] 2xl:h-[22px]">
+          <div className="w-5 h-5 2xl:w-[26px] 2xl:h-[26px]">
             <img
               src={user}
               alt="유저액션"

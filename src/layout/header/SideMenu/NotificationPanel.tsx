@@ -46,27 +46,27 @@ export default function NotificationPanel({
   const handleNavigate = (notification: Notification) => {
     if (notification.like) {
       if (notification.like?.post.channel === "681e2fbc7380bb759ecc6367") {
-        navigate(`/community/bops-community/post/${notification._id}`);
+        navigate(`/community/bops-community/post/${notification.post}`);
       } else if (
         notification.like?.post.channel === "681e2fdd7380bb759ecc636d"
       ) {
-        navigate(`/community/concert-community/post/${notification._id}`);
+        navigate(`/community/concert-community/post/${notification.post}`);
       } else if (
         notification.like?.post.channel === "681e2fee7380bb759ecc6371"
       ) {
-        navigate(`/community/open-community/post/${notification._id}`);
+        navigate(`/community/open-community/post/${notification.post}`);
       }
     } else if (notification.comment) {
       if (notification.comment?.post.channel === "681e2fbc7380bb759ecc6367") {
-        navigate(`/community/bops-community/post/${notification._id}`);
+        navigate(`/community/bops-community/post/${notification.post}`);
       } else if (
         notification.comment?.post.channel === "681e2fdd7380bb759ecc636d"
       ) {
-        navigate(`/community/concert-community/post/${notification._id}`);
+        navigate(`/community/concert-community/post/${notification.post}`);
       } else if (
         notification.comment?.post.channel === "681e2fee7380bb759ecc6371"
       ) {
-        navigate(`/community/open-community/post/${notification._id}`);
+        navigate(`/community/open-community/post/${notification.post}`);
       }
     } else {
       navigate(`/chat/${notification.author._id}`);
@@ -90,7 +90,7 @@ export default function NotificationPanel({
         {unseenCount > 0 && (
           <button
             onClick={onMarkAllAsSeen}
-            className="text-[color:var(--white-80)] text-[14px] font-light hover:text-[color:var(--primary-300)] cursor-pointer"
+            className="text-[color:var(--white-80)] text-[12px] font-light hover:text-[color:var(--primary-300)] cursor-pointer"
           >
             전체 삭제
           </button>
@@ -108,7 +108,7 @@ export default function NotificationPanel({
             .map((notification) => (
               <div
                 key={notification._id}
-                className="p-2 mb-2 rounded-[8px] bg-[color:var(--grey-500)] cursor-pointer"
+                className="p-2 mb-2 rounded-[8px] hover:bg-[color:var(--grey-500)] cursor-pointer"
                 onClick={() => handleNavigate(notification)}
               >
                 <div className="flex gap-4 justify-center items-center">
@@ -122,7 +122,7 @@ export default function NotificationPanel({
                     className="w-6 h-6 rounded-full"
                   />
                   <div className="flex-1">
-                    <p className="text-[color:var(--white)] text-[10px]">
+                    <p className="text-[color:var(--white)] text-[11px]">
                       {getNotificationMessage(notification)}
                     </p>
                   </div>
