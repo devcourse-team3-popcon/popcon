@@ -5,10 +5,32 @@ import chat from "../../assets/images/icon-chat.svg";
 import chatActive from "../../assets/images/icon-chat-active.svg";
 import user from "../../assets/images/icon-user.svg";
 import { useAuthStore } from "../../stores/authStore";
+import DropdownMenu from "../../components/common/DropdownMenu";
+import { useState } from "react";
 
 export default function UserSection() {
   const { isLoggedIn } = useAuthStore();
+  const { logout } = useAuthStore();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const menuItems = [
+    {
+      label: "마이페이지",
+      onClick: () => {
+        setIsOpen(false);
+        navigate("/mypage");
+      },
+    },
+    {
+      label: "로그아웃",
+      onClick: () => {
+        setIsOpen(false);
+        navigate("/");
+        logout();
+      },
+      danger: true,
+    },
+  ];
 
   return (
     <>
@@ -48,12 +70,24 @@ export default function UserSection() {
             />
           </div>
 
-          <div className="w-5.5 h-5.5 2xl:w-6 2xl:h-6">
-            <img
-              src={user}
-              alt="유저액션"
-              className="w-full h-full cursor-pointer"
-            />
+          <div
+            className="w-5.5 h-5.5 2xl:w-6 2xl:h-6"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <div className="relative">
+              <img
+                src={user}
+                alt="유저액션"
+                className="w-full h-full cursor-pointer"
+              />
+              <div className="mt-2">
+                <DropdownMenu
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                  menuItems={menuItems}
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}
