@@ -28,14 +28,56 @@ export default function Playlist() {
       <div className="hidden w-full md:block">
         <PlayListBanner />
       </div>
-      <div className="flex flex-col md:flex-row gap-[32px] w-full">
-        <div className="w-full md:hidden">
-          <PlaylistPanel
+      
+      {/* 모바일 및 태블릿(767px 이하) 레이아웃 */}
+      <div className="flex flex-col w-full md:hidden gap-[32px]">
+        <PlaylistPanel
+          setCurrentVideo={setCurrentVideo}
+          currentVideo={currentVideo}
+        />
+        <MusicRecommender
+          setCurrentVideo={setCurrentVideo}
+          currentVideo={currentVideo}
+        />
+        {userId === selectedUserId && (
+          <UserPlaylistPreview setSelectedUserId={setSelectedUserId} />
+        )}
+        {userId !== selectedUserId && (
+          <OtherUserPlaylist
+            selectedUserId={selectedUserId}
+            setSelectedUserId={setSelectedUserId}
             setCurrentVideo={setCurrentVideo}
             currentVideo={currentVideo}
           />
-        </div>
-        <div className="flex flex-col gap-[32px] w-full md:w-[58%]">
+        )}
+      </div>
+      
+      {/* 중간 화면(768px~1279px) 레이아웃 */}
+      <div className="hidden md:flex xl:hidden flex-col w-full gap-[32px]">
+        <PlaylistPanel
+          setCurrentVideo={setCurrentVideo}
+          currentVideo={currentVideo}
+        />
+        <MusicRecommender
+          setCurrentVideo={setCurrentVideo}
+          currentVideo={currentVideo}
+        />
+        {userId === selectedUserId && (
+          <UserPlaylistPreview setSelectedUserId={setSelectedUserId} />
+        )}
+        {userId !== selectedUserId && (
+          <OtherUserPlaylist
+            selectedUserId={selectedUserId}
+            setSelectedUserId={setSelectedUserId}
+            setCurrentVideo={setCurrentVideo}
+            currentVideo={currentVideo}
+          />
+        )}
+      </div>
+      
+      {/* 큰 화면(1280px 이상) 레이아웃 */}
+      <div className="hidden xl:flex flex-row gap-[32px] w-full">
+        <div className="flex flex-col gap-[32px] w-[58%]">
           <MusicRecommender
             setCurrentVideo={setCurrentVideo}
             currentVideo={currentVideo}
@@ -52,7 +94,7 @@ export default function Playlist() {
             />
           )}
         </div>
-        <div className="hidden md:block w-[40%]">
+        <div className="w-[40%]">
           <PlaylistPanel
             setCurrentVideo={setCurrentVideo}
             currentVideo={currentVideo}
