@@ -1,8 +1,6 @@
 import { Ellipsis, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../../../apis/axiosInstance";
 import { Post } from "../types/Post";
-import { Like } from "../types/Like";
 import Comment from "../../../components/common/Comment";
 import { parseTitle } from "../../../utils/parseTitle";
 import DropdownMenu from "../../../components/common/DropdownMenu";
@@ -13,6 +11,7 @@ import { useNavigate } from "react-router";
 import { CommentType } from "../types/Comment";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 import profileImg from "../../../assets/images/default-profile-logo.svg";
+import { useLike } from "../hooks/useLike";
 
 interface ArticleProps {
   post: Post;
@@ -20,8 +19,7 @@ interface ArticleProps {
 
 export default function Article({ post }: ArticleProps) {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
-  const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [likes, setLikes] = useState<Like[]>([]);
+  const { isLiked, toggleLike, likes } = useLike(post);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [comments, setComments] = useState<CommentType[] | null>(null);
   const navigate = useNavigate();
@@ -53,20 +51,10 @@ export default function Article({ post }: ArticleProps) {
     await deletePost(post._id!);
   };
 
-  const checkLikeStatus = () => {
-    const userLike = likes.find((like) => like.user === currentUserId);
-    setIsLiked(!!userLike);
-  };
-
   useEffect(() => {
     if (!post) return;
-    setLikes(post.likes);
     setComments(post.comments);
   }, [post]);
-
-  useEffect(() => {
-    checkLikeStatus();
-  }, [likes]);
 
   useEffect(() => {
     const fetchUserId = async () => {
@@ -76,29 +64,6 @@ export default function Article({ post }: ArticleProps) {
 
     fetchUserId();
   }, []);
-
-  const toggleLike = async () => {
-    try {
-      const userLike = likes.find((like) => like.user === currentUserId);
-
-      if (userLike) {
-        await axiosInstance.delete(`/likes/delete`, {
-          data: { id: userLike._id },
-        });
-        setLikes((prev) => prev.filter((like) => like._id !== userLike._id));
-      } else {
-        const res = await axiosInstance.post(`/likes/create`, {
-          postId: post._id,
-          userId: currentUserId,
-        });
-        setLikes((prev) => [...prev, res.data]);
-      }
-
-      checkLikeStatus();
-    } catch (e) {
-      console.error("좋아요 실패 : ", e);
-    }
-  };
 
   if (!post)
     return (

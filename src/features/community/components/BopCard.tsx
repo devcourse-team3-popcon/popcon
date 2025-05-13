@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../../../apis/axiosInstance";
 import { Post } from "../types/Post";
-import { Like } from "../types/Like";
 import { parseBopTitle } from "../../../utils/parseBopTitle";
 import { Ellipsis, Heart } from "lucide-react";
 import play from "../../../assets/images/playbtn.svg";
@@ -14,6 +12,7 @@ import { parseUserName } from "../../../utils/parseUserName";
 import { useAddTrackToPlaylist } from "../../playlist/hooks/useAddTrackToPlaylist";
 import { searchYoutubeVideo } from "../../../apis/youtube/youtubeSearch";
 import BopCardSkeleton from "./BopCardSkeleton";
+import { useLike } from "../hooks/useLike";
 
 type BopCardProps = {
   post: Post;
@@ -28,22 +27,21 @@ export default function BopCard({
   setCurrentVideo,
   onDelete,
 }: BopCardProps) {
-  const [localPost, setLocalPost] = useState<Post>(post);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
-  const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoId, setVideoId] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const addTrackToPlaylist = useAddTrackToPlaylist();
-  const parsedBopTitle = parseBopTitle(localPost.title);
+  const parsedBopTitle = parseBopTitle(post.title);
   const track = parsedBopTitle?.track;
+  const { isLiked, toggleLike, likes } = useLike(post);
 
   const myMenuItems = [
     {
       label: "게시물 수정",
       onClick: () =>
-        navigate(`/community/bops-community/post/${localPost._id}/edit`, {
-          state: { localPost },
+        navigate(`/community/bops-community/post/${post._id}/edit`, {
+          state: { post },
         }),
     },
     {
@@ -79,13 +77,6 @@ export default function BopCard({
   ];
 
   useEffect(() => {
-    const userLike = localPost.likes.find(
-      (like: Like) => like.user === currentUserId
-    );
-    setIsLiked(!!userLike);
-  }, [localPost]);
-
-  useEffect(() => {
     const fetchUserId = async () => {
       const userId = await getCurrentUserId();
       setCurrentUserId(userId);
@@ -96,47 +87,16 @@ export default function BopCard({
 
   const deletePostHandler = async () => {
     try {
-      await deletePost(localPost._id);
-      onDelete(localPost._id);
+      await deletePost(post._id);
+      onDelete(post._id);
     } catch (e) {
       console.error("삭제 실패", e);
     }
   };
 
-  const toggleLike = async () => {
-    try {
-      const userLike = localPost.likes.find(
-        (like: Like) => like.user === currentUserId
-      );
-
-      if (userLike) {
-        await axiosInstance.delete(`/likes/delete`, {
-          data: { id: userLike._id },
-        });
-
-        setLocalPost((prev) => ({
-          ...prev,
-          likes: prev.likes.filter((like) => like._id !== userLike._id),
-        }));
-      } else {
-        const res = await axiosInstance.post(`/likes/create`, {
-          postId: localPost._id,
-          userId: currentUserId,
-        });
-
-        setLocalPost((prev) => ({
-          ...prev,
-          likes: [...prev.likes, res.data],
-        }));
-      }
-    } catch (e) {
-      console.error("좋아요 실패 : ", e);
-    }
-  };
-
   const isPlaying =
-    currentVideo?.postId === localPost._id && currentVideo?.videoId === videoId;
-  const parsedUserName = parseUserName(localPost.author.fullName);
+    currentVideo?.postId === post._id && currentVideo?.videoId === videoId;
+  const parsedUserName = parseUserName(post.author.fullName);
   const trackName = parsedBopTitle.track.name;
   const artistNames = Array.isArray(parsedBopTitle.track.artists)
     ? parsedBopTitle.track.artists.join(", ")
@@ -154,7 +114,7 @@ export default function BopCard({
 
     if (foundVideoId) {
       setVideoId(foundVideoId);
-      setCurrentVideo({ postId: localPost._id, videoId: foundVideoId });
+      setCurrentVideo({ postId: post._id, videoId: foundVideoId });
     }
   };
 
@@ -223,7 +183,7 @@ export default function BopCard({
                   }`}
                   fill={isLiked ? "var(--primary-300)" : "none"}
                 />
-                <span className="text-[10px]">{localPost.likes.length}</span>
+                <span className="text-[10px]">{likes.length}</span>
               </div>
               <img
                 src={isPlaying ? stop : play}
@@ -250,7 +210,7 @@ export default function BopCard({
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               menuItems={
-                localPost.author._id === currentUserId
+                post.author._id === currentUserId
                   ? myMenuItems
                   : defaultMenuItems
               }

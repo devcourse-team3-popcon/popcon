@@ -6,31 +6,30 @@ import { Post } from "../types/Post";
 export const useLike = (initialPost: Post | null) => {
   const [post, setPost] = useState<Post | null>(initialPost);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
-  const [isLiked, setIsLiked] = useState(false);
-
-  useEffect(() => {
-    if (!initialPost) return;
-
-    setPost(initialPost);
-    setIsLiked(initialPost.likes.some((like) => like.user === currentUserId));
-  }, [initialPost]);
 
   useEffect(() => {
     const fetchUserId = async () => {
       const userId = await getCurrentUserId();
       setCurrentUserId(userId);
     };
-
     fetchUserId();
   }, []);
 
+  useEffect(() => {
+    setPost(initialPost);
+  }, [initialPost]);
+
+  const isLiked =
+    currentUserId && Array.isArray(post?.likes)
+      ? post.likes.some((like) => like.user === currentUserId)
+      : false;
+
   const toggleLike = async () => {
-    if (!post) return;
+    if (!post || !currentUserId) return;
     const userLike = post.likes.find((like) => like.user === currentUserId);
 
     try {
       if (userLike) {
-        // 좋아요 제거
         await axiosInstance.delete(`/likes/delete`, {
           data: { id: userLike._id },
         });
@@ -42,7 +41,6 @@ export const useLike = (initialPost: Post | null) => {
               }
             : null
         );
-        setIsLiked(false);
       } else {
         // 좋아요 추가
         const res = await axiosInstance.post(`/likes/create`, {
@@ -57,11 +55,10 @@ export const useLike = (initialPost: Post | null) => {
               }
             : null
         );
-        setIsLiked(true);
       }
     } catch (e) {
       console.error("좋아요 처리 중 오류 발생:", e);
     }
   };
-  return { post, isLiked, toggleLike, setPost };
+  return { isLiked, toggleLike, likes: post?.likes || [] };
 };
