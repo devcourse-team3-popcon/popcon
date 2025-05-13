@@ -215,7 +215,7 @@ export default function SignupForm() {
           <div className="flex items-center justify-between mb-2">
             <label className="text-white text-lg font-bold">이름/닉네임</label>
             {isSubmitted && nameError && (
-              <p className="text-red-400 text-sm">{nameError}</p>
+              <p className="text-[#E42F42] text-sm">{nameError}</p>
             )}
           </div>
           <input
@@ -230,14 +230,14 @@ export default function SignupForm() {
               }
             }}
             className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
-              nameError ? "border-red-400" : "border-white"
+              nameError ? "border-[#E42F42]" : "border-white"
             } focus:outline-none focus:border-[#8EF3BF]`}
           />
 
           <div className="flex items-center justify-between mb-2">
             <label className="text-white text-lg font-bold">이메일</label>
             {isSubmitted && emailError && (
-              <p className="text-red-400 text-sm">{emailError}</p>
+              <p className="text-[#E42F42] text-sm">{emailError}</p>
             )}
           </div>
           <input
@@ -252,14 +252,14 @@ export default function SignupForm() {
               }
             }}
             className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
-              emailError ? "border-red-400" : "border-white"
+              emailError ? "border-[#E42F42]" : "border-white"
             } focus:outline-none focus:border-[#8EF3BF]`}
           />
 
           <div className="flex items-center justify-between mb-2">
             <label className="text-white text-lg font-bold">비밀번호</label>
             {isSubmitted && passwordError && (
-              <p className="text-red-400 text-sm">{passwordError}</p>
+              <p className="text-[#E42F42] text-sm">{passwordError}</p>
             )}
           </div>
           <input
@@ -282,7 +282,7 @@ export default function SignupForm() {
               }
             }}
             className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
-              passwordError ? "border-red-400" : "border-white"
+              passwordError ? "border-[#E42F42]" : "border-white"
             } focus:outline-none focus:border-[#8EF3BF]`}
           />
 
@@ -291,7 +291,7 @@ export default function SignupForm() {
               비밀번호 확인
             </label>
             {confirmPasswordError && (
-              <p className="text-red-400 text-sm">{confirmPasswordError}</p>
+              <p className="text-[#E42F42] text-sm">{confirmPasswordError}</p>
             )}
           </div>
           <input
@@ -312,7 +312,7 @@ export default function SignupForm() {
               }
             }}
             className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
-              confirmPasswordError ? "border-red-400" : "border-white"
+              confirmPasswordError ? "border-[#E42F42]" : "border-white"
             } focus:outline-none focus:border-[#8EF3BF]`}
           />
 

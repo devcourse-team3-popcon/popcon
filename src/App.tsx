@@ -23,8 +23,8 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/SignupAgree" element={<SignupAgree />} />
-        <Route path="/SignupForm" element={<SignupForm />} />
+        <Route path="/signup-agree" element={<SignupAgree />} />
+        <Route path="/signup-form" element={<SignupForm />} />
         <Route path="/playlist" element={<Playlist />} />
         <Route path="/upcoming-concerts" element={<UpcomingConcerts />} />
         <Route path="/community" element={<Community />}>

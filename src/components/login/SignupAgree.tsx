@@ -8,7 +8,7 @@ export default function SignupAgree() {
   const navigate = useNavigate();
 
   const handleNext = () => {
-    if (checked) navigate("/signupform");
+    if (checked) navigate("/signup-form");
   };
   return (
     <div className="h-[calc(100vh-120px)] w-full flex overflow-hidden">
