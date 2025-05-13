@@ -27,7 +27,7 @@ export default function SearchUser({
     <>
       <div
         onClick={() => onClick?.(userId)}
-        className="w-full h-[64px] px-[9px] py-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer items-center"
+        className="w-full h-[64px] p-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer items-center"
       >
         <div>
           <div
@@ -41,7 +41,7 @@ export default function SearchUser({
         </div>
 
         <div className="flex flex-1 items-center justify-between p-0.5 gap-[8px] w-[10%]">
-          <div className="text-[16px] font-medium truncate flex-1">{name}</div>
+          <div className="text-base font-medium truncate flex-1">{name}</div>
           <Send size={20} />
         </div>
       </div>

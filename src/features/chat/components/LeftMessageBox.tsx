@@ -23,11 +23,11 @@ export default function LeftMessageBox({
     <>
       <div className="flex items-end gap-[16px]">
         <div
-          className={`flex items-center min-h-[48px] max-w-[400px] bg-[var(--grey-500)] ${rouned} text-[18px] font-regular px-[16px] py-[8px]`}
+          className={`flex items-center min-h-[48px] max-w-[400px] bg-[var(--grey-500)] ${rouned} text-lg font-regular px-[16px] py-[8px]`}
         >
           {text}
         </div>
-        <span className="text-[12px] text-[var(--grey-400)] font-regular">
+        <span className="text-[0.75rem] text-[var(--grey-400)] font-regular">
           {time}
         </span>
       </div>

@@ -36,7 +36,7 @@ ConversationProps) {
     <>
       <div
         onClick={() => onClick?.(userId)}
-        className={`w-full h-[64px] px-[9px] py-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer items-center ${
+        className={`w-full h-[64px] p-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer items-center ${
           isSelected && "bg-[var(--grey-500)]"
         }`}
       >
@@ -52,13 +52,13 @@ ConversationProps) {
         </div>
 
         <div className="flex flex-col flex-1 p-0.5 w-[50%]">
-          <div className="text-[16px] font-medium">{userName}</div>
+          <div className="text-base font-medium">{userName}</div>
 
           <div className="flex items-center justify-between gap-[8px]">
-            <div className="text-[12px] font-regular text-[var(--white-80)] truncate flex-1">
+            <div className="text-[0.75rem] font-regular text-[var(--white-80)] truncate flex-1">
               {message}
             </div>
-            <div className="text-[12px] font-light text-[var(--white-80)]">
+            <div className="text-[0.75rem] font-light text-[var(--white-80)]">
               {time}
             </div>
           </div>

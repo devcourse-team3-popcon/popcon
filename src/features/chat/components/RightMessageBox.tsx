@@ -22,11 +22,11 @@ export default function RightMessageBox({
   return (
     <>
       <div className="flex items-end gap-[16px] self-end">
-        <span className="text-[12px] text-[var(--grey-400)] font-regular">
+        <span className="text-[0.75rem] text-[var(--grey-400)] font-regular">
           {time}
         </span>
         <div
-          className={`flex items-center min-h-[48px] max-w-[400px] bg-[var(--primary-300)] ${rouned} text-[18px] text-black font-regular px-[16px] py-[8px]`}
+          className={`flex items-center min-h-[48px] max-w-[400px] bg-[var(--primary-300)] ${rouned} text-lg text-black font-regular px-[16px] py-[8px]`}
         >
           {text}
         </div>

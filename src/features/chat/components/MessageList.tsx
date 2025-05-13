@@ -35,7 +35,7 @@ export default function MessageList({ userId }: { userId: string }) {
   return (
     <>
       <div className="flex flex-col h-full w-full">
-        <div className="p-[12px] border-b border-[var(--grey-500)] flex gap-[16px] items-center pb-[24px] box-border">
+        <div className="px-[12px] border-b border-[var(--grey-500)] flex gap-[16px] items-center pb-[24px] box-border">
           <div
             className={`relative size-[56px] rounded-[50px] bg-[var(--grey-200)] bg-center bg-no-repeat bg-cover`}
             style={{ backgroundImage: `url(${userInfo?.image})` }}
@@ -45,7 +45,7 @@ export default function MessageList({ userId }: { userId: string }) {
             )}
           </div>
 
-          <div className="text-[24px] font-medium">{userInfo?.userName}</div>
+          <div className="text-2xl font-medium">{userInfo?.userName}</div>
         </div>
 
         <div className="flex flex-col py-4 gap-[8px] overflow-y-auto scrollbar-hide flex-1">

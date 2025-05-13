@@ -18,7 +18,7 @@ export default function UserList({
   return (
     <>
       {userList.length === 0 ? (
-        <div className="text-[18px] font-medium self-center">No Results</div>
+        <div className="text-lg font-medium self-center">No Results</div>
       ) : (
         userList.map((user) => (
           <SearchUser

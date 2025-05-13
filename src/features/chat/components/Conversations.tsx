@@ -47,8 +47,8 @@ export default function Conversations({
 
   return (
     <>
-      <div className="w-[25%] h-[100%] pt-[53px] pb-[32px] px-[20px] rounded-[30px] border flex flex-col">
-        <div className="font-bold text-[24px] mb-[32px] px-2 cursor-default flex justify-between items-center">
+      <div className="w-[25%] h-[100%] py-[32px] px-[20px] rounded-[30px] border flex flex-col">
+        <div className="font-bold text-2xl mb-[12px] cursor-default flex justify-between items-center">
           Message
           <RotateCcw
             size={18}
