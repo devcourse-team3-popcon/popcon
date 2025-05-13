@@ -9,7 +9,7 @@ export default function ProtectedRoute() {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate("/");
+      navigate("/login");
       return;
     }
     setIsShow(true);

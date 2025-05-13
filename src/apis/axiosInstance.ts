@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuthStore } from "../stores/authStore";
+import { getLoginStorage } from "./login/getLoginStorage";
 
 export const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_PROGRAMMERS}`,
@@ -7,8 +8,7 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY4MWVlYWNlMDc2NGJhNzY0MWRjZDUxYyIsImVtYWlsIjoiaHl1bmp1bmdAZ21haWwuY29tIn0sImlhdCI6MTc0NzA1NDYwMH0.USR_F181b2W_CaOe-gN9OWrs29cJ7rNoKaegDWEad9I";
+  const token = getLoginStorage();
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }

@@ -11,6 +11,8 @@ import { getCurrentUserId } from "../../../utils/auth";
 import { parseUserName } from "../../../utils/parseUserName";
 import { useNavigate } from "react-router";
 import { CommentType } from "../types/Comment";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import profileImg from "../../../assets/images/default-profile-logo.svg";
 
 interface ArticleProps {
   post: Post;
@@ -18,6 +20,7 @@ interface ArticleProps {
 
 export default function Article({ post }: ArticleProps) {
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [likes, setLikes] = useState<Like[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [comments, setComments] = useState<CommentType[] | null>(null);
   const navigate = useNavigate();
@@ -26,9 +29,23 @@ export default function Article({ post }: ArticleProps) {
     {
       label: "게시물 수정",
       onClick: () =>
-        navigate(`/community/post/${post._id}/edit`, { state: { post } }),
+        navigate(
+          `/community/${
+            post.channel._id === "681e2fdd7380bb759ecc636d"
+              ? "concert-community"
+              : "open-community"
+          }/post/${post._id}/edit`,
+          { state: { post } }
+        ),
     },
-    { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
+    {
+      label: "게시물 삭제",
+      onClick: () => {
+        deletePostHandler();
+        navigate(-1);
+      },
+      danger: true,
+    },
   ];
   const currentUserId = getCurrentUserId();
 
@@ -36,47 +53,50 @@ export default function Article({ post }: ArticleProps) {
     await deletePost(post._id!);
   };
 
-  const checkLikeStatus = async () => {
-    try {
-      const userLike = post.likes.find(
-        (like: Like) => like.user === currentUserId
-      );
-      setIsLiked(!!userLike);
-    } catch (e) {
-      console.error("게시글 불러오기 실패", e);
-    }
+  const checkLikeStatus = () => {
+    const userLike = likes.find((like) => like.user === currentUserId);
+    setIsLiked(!!userLike);
   };
 
   useEffect(() => {
     if (!post) return;
-    checkLikeStatus();
+    setLikes(post.likes);
     setComments(post.comments);
   }, [post]);
 
+  useEffect(() => {
+    checkLikeStatus();
+  }, [likes]);
+
   const toggleLike = async () => {
     try {
-      if (!post) return;
-
-      const userLike = post.likes.find((like) => like.user === currentUserId);
+      const userLike = likes.find((like) => like.user === currentUserId);
 
       if (userLike) {
         await axiosInstance.delete(`/likes/delete`, {
           data: { id: userLike._id },
         });
+        setLikes((prev) => prev.filter((like) => like._id !== userLike._id));
       } else {
-        await axiosInstance.post(`/likes/create`, {
+        const res = await axiosInstance.post(`/likes/create`, {
           postId: post._id,
           userId: currentUserId,
         });
+        setLikes((prev) => [...prev, res.data]);
       }
 
-      await checkLikeStatus();
+      checkLikeStatus();
     } catch (e) {
       console.error("좋아요 실패 : ", e);
     }
   };
 
-  if (!post) return <p>게시글을 불러오는 중...</p>;
+  if (!post)
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
 
   const parsedTitle = parseTitle(post.title);
   const parsedUserName = parseUserName(post.author.fullName);
@@ -86,7 +106,11 @@ export default function Article({ post }: ArticleProps) {
       <div className="flex flex-col gap-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <div className="bg-amber-200 w-9 h-9 rounded-full mr-4"></div>
+            <img
+              className="w-9 h-9 rounded-full mr-4"
+              src={post.author.image || profileImg}
+              alt="작성자 프로필 이미지"
+            />
             <div className="flex flex-col">
               <span className="text-[18px]">{parsedUserName.name}</span>
               <span className="text-[13px] text-[color:var(--white-80)]">
@@ -99,7 +123,7 @@ export default function Article({ post }: ArticleProps) {
             <div className="relative">
               <Ellipsis
                 onClick={() => setIsOpen(!isOpen)}
-                className="cursor-pointer"
+                className="cursor-pointer w-4 h-4"
               />
               <DropdownMenu
                 isOpen={isOpen}
@@ -136,14 +160,14 @@ export default function Article({ post }: ArticleProps) {
               }`}
               fill={isLiked ? "var(--primary-300)" : "none"}
             />
-            {post.likes.length}
+            {likes.length}
           </div>
 
           <p className="text-[12px]">
-            <span className="font-bold">{post.comments.length}</span>개의 댓글
+            <span className="font-bold">{comments?.length ?? 0}</span>개의 댓글
           </p>
         </div>
-        <div className="mt-6  pt-4  border-t-1 border-[color:var(--white-80)]">
+        <div className="mt-3  pt-4  border-t-1 border-[color:var(--primary-300-50)]">
           {comments &&
             comments.map((comment) => (
               <Comment

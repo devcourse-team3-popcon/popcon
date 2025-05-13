@@ -19,13 +19,19 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
     });
   };
 
-  const handleClick = (postId: string) => {
-    navigate(`/community/post/${postId}`);
+  const handleClick = (post: Post) => {
+    navigate(
+      `/community/${
+        post.channel._id === "681e2fdd7380bb759ecc636d"
+          ? "concert-community"
+          : "open-community"
+      }/post/${post._id}`
+    );
   };
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full ">
         <table className="w-full table-fixed">
           <thead className="border-b text-[color:var(--primary-300-50)] ">
             <tr>
@@ -74,7 +80,7 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
                   <tr
                     key={post._id}
                     className="cursor-pointer hover:text-[color:var(--primary-300)] text-[#fbfbfb95]"
-                    onClick={() => handleClick(post._id)}
+                    onClick={() => handleClick(post)}
                   >
                     <td className="text-left p-4 font-normal text-[16px]">
                       {parsedTitle.title}

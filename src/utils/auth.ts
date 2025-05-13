@@ -1,2 +1,11 @@
-//export const getCurrentUserId = () => "68160153f940b6515bf4e11f";
-export const getCurrentUserId = () => "681eeace0764ba7641dcd51c";
+import { getUserInfo } from "../apis/playlist/userService";
+
+export const getCurrentUserId = async () => {
+  try {
+    const data = await getUserInfo();
+    return data._id;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

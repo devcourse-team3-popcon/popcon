@@ -1,3 +1,4 @@
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 type Option = {
@@ -42,13 +43,20 @@ export default function SelectBox({
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className={`border px-4 py-2 rounded-[10px] w-full text-left cursor-pointer ${
+          className={`border   rounded-[10px] w-full text-left cursor-pointer ${
             isOpen
               ? "border-[color:var(--primary-200)]"
               : "border-[color:var(--white-80)]"
           }`}
         >
-          {value?.label || "선택하세요"}
+          <div className="flex py-2 w-full justify-between px-2">
+            <span className="pl-2">{value?.label || "선택하세요"}</span>
+            {isOpen ? (
+              <ChevronUp strokeWidth={1.5} />
+            ) : (
+              <ChevronDown strokeWidth={1.5} />
+            )}
+          </div>
         </button>
         {isOpen && (
           <ul className="absolute left-0 right-0 mt-1 border rounded-[10px] bg-[color:var(--bg-color)] shadow z-10 max-h-60 overflow-y-auto border-[color:var(--primary-200)]">

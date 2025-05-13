@@ -4,7 +4,7 @@ export const searchYoutubeVideo = async (
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
   try {
     const res = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=${encodeURIComponent(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&topicId=/m/04rlf&videoCategoryId=10&maxResults=1&q=${encodeURIComponent(
         query
       )}&key=${API_KEY}`
     );

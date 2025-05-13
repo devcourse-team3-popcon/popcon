@@ -2,6 +2,7 @@ import CommunityTable from "./CommunityTable";
 import CommunityPage from "./CommunityPage";
 import { useChannelId } from "../../../hooks/useChannelId";
 import Hashtag from "../../../components/common/Hashtag";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 export default function OpenCommunity() {
   const { channelId, loading } = useChannelId("OpenCommunity");
@@ -13,7 +14,12 @@ export default function OpenCommunity() {
     "느좋 팝송 🎧️",
   ];
 
-  if (loading) return <p>로딩 중...</p>;
+  if (loading)
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
   if (!channelId) return <p>채널을 찾을 수 없습니다.</p>;
 
   return (
