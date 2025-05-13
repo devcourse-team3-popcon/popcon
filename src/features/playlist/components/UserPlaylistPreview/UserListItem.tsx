@@ -37,10 +37,10 @@ export default function UserListItem({
         </p>
       </div>
       <div className="flex items-center">
-        <p className="w-full text-[10px] md:text-[14px] text-[color:var(--grey-200)] truncate">
+        <p className="text-[10px] md:text-[14px] text-[color:var(--grey-200)] truncate max-w-[150px] md:max-w-[200px] mr-2">
           {favoriteArtist ? `좋아하는 가수 : ${favoriteArtist}` : ""}
         </p>
-        <ChevronRight className="group-hover:text-[color:var(--primary-300)]" />
+        <ChevronRight className="group-hover:text-[color:var(--primary-300)] min-w-[24px]" />
       </div>
     </div>
   );
