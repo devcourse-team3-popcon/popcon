@@ -76,7 +76,7 @@ export default function NotificationItem({noti, closeNotifications}: Props) {
         navigate(`/community/${channelPath}/post/${encodeURIComponent(postId)}`);
       }
     } else if (message) {
-      navigate("/chat");
+      navigate(`/chat/${author._id}`);
     } else {
       console.log("기타 알림");
     }
@@ -86,11 +86,11 @@ export default function NotificationItem({noti, closeNotifications}: Props) {
 
   return (
     <li
-      className='group text-[12px] w-[288px] py-2 pl-2 rounded-lg flex items-center cursor-pointer hover:bg-[color:var(--grey-500)]'
+      className='group text-[12px] w-[288px] p-2 rounded-lg flex items-center cursor-pointer hover:bg-[color:var(--grey-500)]'
       onClick={clickHandler}
     >
       <img src={authorImage} className='w-6 h-6 rounded-4xl' />
-      <p className='pl-3 w-[270px] h-auto'>{notificationMessage}</p>
+      <p className='pl-3 w-[247px] h-auto'>{notificationMessage}</p>
     </li>
   );
 }

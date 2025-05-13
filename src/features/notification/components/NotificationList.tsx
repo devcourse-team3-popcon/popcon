@@ -42,18 +42,15 @@ export default function NotificationList({closeNotifications}: NotificationListP
   }, [closeNotifications]);
 
   return (
-    <div className='absolute z-[9999] flex justify-center items-center top-[100%] right-[5px] mt-[-5px]'>
+    <div className='absolute z-[9999] flex justify-center items-center top-[100%] right-[-3px] mt-[-5px]'>
       <div
         ref={notificationListRef}
-        className='p-4 rounded-[20px] w-[320px] h-[320px] bg-[var(--bg-color)] border border-[var(--white)]'
+        className='p-4 rounded-[20px] w-[320px] h-[320px] bg-[color:var(--grey-600)] shadow-md '
         onClick={(e) => e.stopPropagation()} // 알림창 내부 클릭 시 닫히지 않도록
       >
-        <div className='flex justify-between items-center my-3'>
-          <h2 className='font-semibold text-[18px] h-[21px] pl-1'>Notification</h2>
-          <p
-            className='text-[var(--white-80)] cursor-pointer text-[10px] pr-2'
-            onClick={updateNoti}
-          >
+        <div className='flex justify-between items-center mx-2 my-3'>
+          <h2 className='font-semibold text-[18px] h-[21px]'>Notification</h2>
+          <p className='text-[var(--white-80)] cursor-pointer text-[10px] ' onClick={updateNoti}>
             전체 삭제
           </p>
         </div>
