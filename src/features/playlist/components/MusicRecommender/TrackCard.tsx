@@ -40,8 +40,8 @@ export default function TrackCard({
   };
 
   return (
-    <div className="2xl:w-[160px] h-full overflow-hidden flex flex-col justify-center items-center gap-[2px] 2xl:gap-[25px] box-border">
-      <div className="flex w-15 h-15 2xl:w-[108px] 2xl:h-[108px] justify-center items-center rounded-full  relative group overflow-hidden">
+    <div className="md:w-[160px] h-full overflow-hidden flex flex-col justify-center items-center gap-[2px] md:gap-[25px] box-border">
+      <div className="flex w-15 h-15 md:w-[108px] md:h-[108px] justify-center items-center rounded-full  relative group overflow-hidden">
         <img
           src={track.album.images[0]?.url || ""}
           alt={`${track.name} 앨범 커버`}
@@ -86,7 +86,7 @@ export default function TrackCard({
         </div>
 
         <div
-          className="flex justify-center gap-[8px] items-center mt-[-8px] 2xl:mt-[8px] group"
+          className="flex justify-center gap-[8px] items-center mt-[-8px] md:mt-[8px] group"
           onClick={onAddClick}
         >
           <Plus className="w-4 h-4 text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)] cursor-pointer" />

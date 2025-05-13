@@ -16,7 +16,7 @@ export default function UserPlaylistPreview({
       <UserPlaylistHeader />
 
       <div>
-        <div className="flex flex-col w-full h-full md:h-[336px] items-center gap-[8px] 2xl:px-8">
+        <div className="flex flex-col w-full h-full md:h-[336px] items-center gap-[8px] md:px-8">
           <SearchBar
             value={inputValue}
             className="w-full"

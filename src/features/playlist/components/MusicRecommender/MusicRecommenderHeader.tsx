@@ -1,6 +1,6 @@
 export default function MusicRecommenderHeader() {
   return (
-    <header className="flex 2xl:px-8 gap-[16px] 2xl:text-[24px] font-bold justify-between items-center">
+    <header className="flex md:px-8 gap-[16px] md:text-[24px] font-bold justify-between items-center">
       <div className="hidden md:flex gap-4">
         <h2>POPcon 이 추천하는 음악</h2>
         <span role="img" aria-label="headphones">

@@ -12,15 +12,12 @@ export default function PlaylistHeader({
   return (
     <>
       <div className="justify-between items-center z-40 hidden md:flex">
-        <div className="gap-[16px] text-[24px] font-bold">
+        <div className="flex gap-[16px] text-[24px] font-bold">
           <h2 className="capitalize">
-            <span className="hidden 2xl:inline">
-              {userName}
-              님의{" "}
-            </span>
-            PlayList
+            {userName}
+            님의 PlayList
           </h2>
-          <span className="hidden 2xl:inline">🌱</span>
+          <span>🌱</span>
         </div>
         <Plus
           className="text-[color:var(--white-80)] cursor-pointer"
