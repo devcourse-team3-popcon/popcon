@@ -17,7 +17,26 @@ export default function useSendMessage() {
       if (status === 200) {
         console.log(data);
         console.log("Message sent successfully!");
-        return "";
+
+        try {
+          const { status } = await axiosInstance.post("/notifications/create", {
+            notificationType: "MESSAGE",
+            notificationTypeId: data._id,
+            userId: data.receiver._id,
+            postId: null,
+          });
+
+          if (status === 200) {
+            console.log("Message alert sent!");
+            return "";
+          } else {
+            console.log("Failed to send message alert");
+          }
+        } catch (error) {
+          console.log("Message alert sending error: ", error);
+        }
+
+        // return "";
       } else {
         console.log("Failed to send message");
       }
