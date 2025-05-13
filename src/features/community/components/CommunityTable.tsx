@@ -1,13 +1,15 @@
 import { Calendar, Heart, MessageSquare, Type, UserRound } from "lucide-react";
-import usePostsByChannel from "../../../hooks/usePostsByChannel";
+import { useNavigate } from "react-router";
+import { parseTitle } from "../../../utils/parseTitle";
+import { Post } from "../types/Post";
+import { parseUserName } from "../../../utils/parseUserName";
 
 type CommunityTableProps = {
-  channelId: string;
+  posts: Post[];
 };
 
-export default function CommunityTable({ channelId }: CommunityTableProps) {
-  const { posts: posts, loading } = usePostsByChannel(`${channelId}`);
-  if (loading) return <p>로딩 중...</p>;
+export default function CommunityTable({ posts }: CommunityTableProps) {
+  const navigate = useNavigate();
 
   const formatTime = (date: Date) => {
     return date.toLocaleDateString("ko-KR", {
@@ -17,9 +19,19 @@ export default function CommunityTable({ channelId }: CommunityTableProps) {
     });
   };
 
+  const handleClick = (post: Post) => {
+    navigate(
+      `/community/${
+        post.channel._id === "681e2fdd7380bb759ecc636d"
+          ? "concert-community"
+          : "open-community"
+      }/post/${post._id}`
+    );
+  };
+
   return (
     <>
-      <div className="w-full">
+      <div className="w-full ">
         <table className="w-full table-fixed">
           <thead className="border-b text-[color:var(--primary-300-50)] ">
             <tr>
@@ -61,22 +73,27 @@ export default function CommunityTable({ channelId }: CommunityTableProps) {
                 </td>
               </tr>
             ) : (
-              posts.map((post) => (
-                <tr
-                  key={post.title}
-                  className="cursor-pointer hover:text-[color:var(--primary-300)] text-[#fbfbfb95]"
-                >
-                  <td className="text-[color:var(--white)] hover:text-[color:var(--primary-300)] text-left p-4 font-normal text-[16px]">
-                    {post.title}
-                  </td>
-                  <td className="text-center p-4">{post.author.fullName}</td>
-                  <td className="text-center p-4">{post.comments.length}</td>
-                  <td className="text-center p-4">{post.likes.length}</td>
-                  <td className="text-center p-4">
-                    {formatTime(new Date(post.createdAt))}
-                  </td>
-                </tr>
-              ))
+              posts.map((post) => {
+                const parsedTitle = parseTitle(post.title);
+                const parsedUserName = parseUserName(post.author.fullName);
+                return (
+                  <tr
+                    key={post._id}
+                    className="cursor-pointer hover:text-[color:var(--primary-300)] text-[#fbfbfb95]"
+                    onClick={() => handleClick(post)}
+                  >
+                    <td className="text-left p-4 font-normal text-[16px]">
+                      {parsedTitle.title}
+                    </td>
+                    <td className="text-center p-4">{parsedUserName.name}</td>
+                    <td className="text-center p-4">{post.comments.length}</td>
+                    <td className="text-center p-4">{post.likes.length}</td>
+                    <td className="text-center p-4">
+                      {formatTime(new Date(post.createdAt))}
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>

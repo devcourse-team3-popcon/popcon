@@ -1,17 +1,50 @@
 import CommunityTable from "./CommunityTable";
 import CommunityPage from "./CommunityPage";
 import { useChannelId } from "../../../hooks/useChannelId";
+import Hashtag from "../../../components/common/Hashtag";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 export default function OpenCommunity() {
   const { channelId, loading } = useChannelId("OpenCommunity");
-  if (loading) return <p>로딩 중...</p>;
+
+  const hashtags = [
+    "내 가수 자랑 😎",
+    "이 노래 제목이 뭐죠? 🤔",
+    "신곡 추천 🎶",
+    "느좋 팝송 🎧️",
+  ];
+
+  if (loading)
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
   if (!channelId) return <p>채널을 찾을 수 없습니다.</p>;
 
   return (
     <>
+      <div className="flex flex-col gap-8 mt-10">
+        <p className="text-[30px] font-semibold">
+          당신의{" "}
+          <span className="text-[color:var(--primary-300)]">PlayList</span> 를
+          채워줄 곳 ✨
+        </p>
+        <div className="flex gap-4 flex-wrap">
+          {hashtags.map((tag, index) => (
+            <Hashtag
+              key={index}
+              text={tag}
+              variant={index % 2 ? "empty" : "filled"}
+            />
+          ))}
+        </div>
+      </div>
       <CommunityPage
-        title="Jay 님의 PlayList 를 채워줄 곳 ✨"
-        table={<CommunityTable channelId={channelId} />}
+        channelId={channelId}
+        renderTable={(filteredPosts) => (
+          <CommunityTable posts={filteredPosts} />
+        )}
       />
     </>
   );
