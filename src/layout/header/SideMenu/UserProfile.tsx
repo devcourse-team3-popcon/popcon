@@ -11,9 +11,9 @@ export default function UserProfile({
       ) : (
         <img src={defaultProfile} alt="기본 프로필" className="w-[25px]" />
       )}
-      <p className="text-2xl font-medium">Hi 👋🏻</p>
+      <p className="text-2xl font-medium cursor-default">Hi 👋🏻</p>
       {parsedData?.name && (
-        <p className="font-[MonumentExtended] text-[18px] text-[color:var(--primary-300)] uppercase">
+        <p className="font-[MonumentExtended] text-[18px] text-[color:var(--primary-300)] uppercase cursor-default">
           {parsedData.name}
         </p>
       )}
