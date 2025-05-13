@@ -1,8 +1,6 @@
 import { Ellipsis, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../../../apis/axiosInstance";
 import { Post } from "../types/Post";
-import { Like } from "../types/Like";
 import Comment from "../../../components/common/Comment";
 import { parseTitle } from "../../../utils/parseTitle";
 import DropdownMenu from "../../../components/common/DropdownMenu";
@@ -13,17 +11,24 @@ import { useNavigate } from "react-router";
 import { CommentType } from "../types/Comment";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 import profileImg from "../../../assets/images/default-profile-logo.svg";
+import { useLike } from "../hooks/useLike";
+import ActionModal from "../../../components/common/ActionModal";
 
 interface ArticleProps {
   post: Post;
 }
 
 export default function Article({ post }: ArticleProps) {
-  const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [likes, setLikes] = useState<Like[]>([]);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const { isLiked, toggleLike, likes } = useLike(post);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [comments, setComments] = useState<CommentType[] | null>(null);
   const navigate = useNavigate();
+
+  const [showModal, setShowModal] = useState(false);
+  const cancelHandler = () => {
+    setShowModal(false);
+  };
 
   const menuItems = [
     {
@@ -41,59 +46,35 @@ export default function Article({ post }: ArticleProps) {
     {
       label: "게시물 삭제",
       onClick: () => {
-        deletePostHandler();
-        navigate(-1);
+        setShowModal(true);
       },
       danger: true,
     },
   ];
-  const currentUserId = getCurrentUserId();
 
   const deletePostHandler = async () => {
     await deletePost(post._id!);
-  };
-
-  const checkLikeStatus = () => {
-    const userLike = likes.find((like) => like.user === currentUserId);
-    setIsLiked(!!userLike);
+    setShowModal(false);
+    navigate(-1);
   };
 
   useEffect(() => {
     if (!post) return;
-    setLikes(post.likes);
     setComments(post.comments);
   }, [post]);
 
   useEffect(() => {
-    checkLikeStatus();
-  }, [likes]);
+    const fetchUserId = async () => {
+      const userId = await getCurrentUserId();
+      setCurrentUserId(userId);
+    };
 
-  const toggleLike = async () => {
-    try {
-      const userLike = likes.find((like) => like.user === currentUserId);
-
-      if (userLike) {
-        await axiosInstance.delete(`/likes/delete`, {
-          data: { id: userLike._id },
-        });
-        setLikes((prev) => prev.filter((like) => like._id !== userLike._id));
-      } else {
-        const res = await axiosInstance.post(`/likes/create`, {
-          postId: post._id,
-          userId: currentUserId,
-        });
-        setLikes((prev) => [...prev, res.data]);
-      }
-
-      checkLikeStatus();
-    } catch (e) {
-      console.error("좋아요 실패 : ", e);
-    }
-  };
+    fetchUserId();
+  }, []);
 
   if (!post)
     return (
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-full min-h-screen flex justify-center items-center">
         <LoadingSpinner />
       </div>
     );
@@ -182,6 +163,15 @@ export default function Article({ post }: ArticleProps) {
             ))}
         </div>
       </div>
+
+      {showModal && (
+        <ActionModal
+          modalMessage="게시물을 삭제하시겠습니까?"
+          onCancel={cancelHandler}
+          onConfirmAction={deletePostHandler}
+          confirmButtonText="삭제하기"
+        />
+      )}
     </>
   );
 }

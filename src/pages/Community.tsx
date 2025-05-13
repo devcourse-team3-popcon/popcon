@@ -3,15 +3,16 @@ import { twMerge } from "tailwind-merge";
 
 export default function Community() {
   return (
-    <div className="w-[1080px]">
+    <div className="w-[1080px] min-h-screen">
       <nav className="w-full grid grid-cols-3  mt-6 text-center  py-4">
         <NavLink
           to="bops-community"
           className={({ isActive }) =>
             twMerge(
-              "border-b py-4 text-[color:var(--white-80)] text-[14px]",
-              isActive &&
-                "text-[color:var(--primary-300)] border-[color:var(--primary-300)] text-[16px]"
+              "nav-underline py-4 text-[14px]",
+              isActive
+                ? "active text-[color:var(--primary-300)] text-[16px]"
+                : "text-[color:var(--white-80)]"
             )
           }
         >
@@ -21,9 +22,10 @@ export default function Community() {
           to="concert-community"
           className={({ isActive }) =>
             twMerge(
-              "border-b py-4 text-[color:var(--white-80)] text-[14px]",
-              isActive &&
-                "text-[color:var(--primary-300)] border-[color:var(--primary-300)] text-[16px]"
+              "nav-underline py-4 text-[14px]",
+              isActive
+                ? "active text-[color:var(--primary-300)] text-[16px]"
+                : "text-[color:var(--white-80)]"
             )
           }
         >
@@ -33,9 +35,10 @@ export default function Community() {
           to="open-community"
           className={({ isActive }) =>
             twMerge(
-              "border-b py-4 text-[color:var(--white-80)] text-[14px]",
-              isActive &&
-                "text-[color:var(--primary-300)] border-[color:var(--primary-300)] text-[16px]"
+              "nav-underline py-4 text-[14px]",
+              isActive
+                ? "active text-[color:var(--primary-300)] text-[16px]"
+                : "text-[color:var(--white-80)]"
             )
           }
         >
