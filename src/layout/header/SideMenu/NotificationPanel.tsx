@@ -83,7 +83,7 @@ export default function NotificationPanel({
       />
       <div className="flex justify-between items-center mt-[32px] mb-6">
         <div className="flex items-center">
-          <h2 className="text-[color:var(--white)] text-[18px] font-medium">
+          <h2 className="text-[color:var(--white)] text-[18px] font-medium cursor-default">
             Notifications
           </h2>
         </div>
