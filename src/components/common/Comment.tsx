@@ -6,6 +6,7 @@ import DropdownMenu from "./DropdownMenu";
 import { useEffect, useState } from "react";
 import profileImg from "../../assets/images/default-profile-logo.svg";
 import { deleteComment } from "../../utils/comment";
+import ActionModal from "./ActionModal";
 
 type CommentProps = {
   comment: CommentType;
@@ -17,10 +18,15 @@ export default function Comment({ comment, onDelete }: CommentProps) {
   const parsedUserName = parseUserName(comment.author.fullName);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const [showModal, setShowModal] = useState(false);
+  const cancelHandler = () => {
+    setShowModal(false);
+  };
+
   const menuItems = [
     {
       label: "댓글 삭제",
-      onClick: () => deleteCommentHandler(comment._id),
+      onClick: () => setShowModal(true),
       danger: true,
     },
   ];
@@ -75,6 +81,14 @@ export default function Comment({ comment, onDelete }: CommentProps) {
 
         <p className="ml-1 mt-3 text-[13px]">{comment.comment}</p>
       </div>
+      {showModal && (
+        <ActionModal
+          modalMessage="댓글을 삭제하시겠습니까?"
+          onCancel={cancelHandler}
+          onConfirmAction={() => deleteCommentHandler(comment._id)}
+          confirmButtonText="삭제하기"
+        />
+      )}
     </>
   );
 }

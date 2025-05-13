@@ -13,6 +13,8 @@ import { useAddTrackToPlaylist } from "../../playlist/hooks/useAddTrackToPlaylis
 import { searchYoutubeVideo } from "../../../apis/youtube/youtubeSearch";
 import BopCardSkeleton from "./BopCardSkeleton";
 import { useLike } from "../hooks/useLike";
+import ActionModal from "../../../components/common/ActionModal";
+import StatusModal from "../../../components/common/StatusModal";
 
 type BopCardProps = {
   post: Post;
@@ -31,10 +33,18 @@ export default function BopCard({
   const [videoId, setVideoId] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
-  const addTrackToPlaylist = useAddTrackToPlaylist();
   const parsedBopTitle = parseBopTitle(post.title);
   const track = parsedBopTitle?.track;
   const { isLiked, toggleLike, likes } = useLike(post);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const cancelHandler = () => {
+    setShowDeleteModal(false);
+  };
+
+  const [showCompletedModal, setShowCompletedModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const myMenuItems = [
     {
@@ -47,17 +57,14 @@ export default function BopCard({
     {
       label: "플리에 추가",
       onClick: () => {
-        if (!parsedBopTitle?.track) return;
-        addTrackToPlaylist({
-          name: track.name,
-          artist: Array.isArray(track.artists)
-            ? track.artists.join(", ")
-            : track.artists,
-          imgUrl: track.image,
-        });
+        addPlaylistHandler();
       },
     },
-    { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
+    {
+      label: "게시물 삭제",
+      onClick: () => setShowDeleteModal(true),
+      danger: true,
+    },
   ];
 
   const defaultMenuItems = [
@@ -85,9 +92,29 @@ export default function BopCard({
     fetchUserId();
   }, []);
 
+  const addTrackToPlaylist = useAddTrackToPlaylist(
+    () => setShowCompletedModal(true),
+    (message) => {
+      setErrorMessage(message);
+      setShowErrorModal(true);
+    }
+  );
+
+  const addPlaylistHandler = () => {
+    if (!parsedBopTitle?.track) return;
+    addTrackToPlaylist({
+      name: track.name,
+      artist: Array.isArray(track.artists)
+        ? track.artists.join(", ")
+        : track.artists,
+      imgUrl: track.image,
+    });
+  };
+
   const deletePostHandler = async () => {
     try {
       await deletePost(post._id);
+      setShowDeleteModal(false);
       onDelete(post._id);
     } catch (e) {
       console.error("삭제 실패", e);
@@ -169,7 +196,9 @@ export default function BopCard({
                 </div>
               </div>
 
-              <span className="text-[12px] ">{artistNames}</span>
+              <span className="text-[12px] whitespace-nowrap overflow-hidden text-ellipsis">
+                {artistNames}
+              </span>
             </div>
 
             <div className="flex justify-between">
@@ -218,6 +247,30 @@ export default function BopCard({
           </div>
         )}
       </div>
+
+      {showDeleteModal && (
+        <ActionModal
+          modalMessage="노래를 삭제하시겠습니까?"
+          onCancel={cancelHandler}
+          onConfirmAction={deletePostHandler}
+          confirmButtonText="삭제하기"
+        />
+      )}
+
+      {showCompletedModal && (
+        <StatusModal
+          message="플레이리스트에 추가되었습니다!"
+          onClose={() => setShowCompletedModal(false)}
+        />
+      )}
+
+      {showErrorModal && (
+        <StatusModal
+          message={errorMessage}
+          onClose={() => setShowErrorModal(false)}
+          type="error"
+        />
+      )}
     </>
   );
 }

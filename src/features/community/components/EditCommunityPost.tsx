@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Post } from "../types/Post";
 import { parseTitle } from "../../../utils/parseTitle";
 import { updatePost } from "../../../utils/post";
+import StatusModal from "../../../components/common/StatusModal";
 
 export default function EditCommunityPost() {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ export default function EditCommunityPost() {
   const [imageInput, setImageInput] = useState<File | null>(null);
   const existingImageUrl = post.image;
   const channelId = post.channel._id;
+
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const updatePostHandler = async () => {
     const jsonTitle = {
@@ -35,12 +38,18 @@ export default function EditCommunityPost() {
         imageToDeletePublicId: imageToDeletePublicId,
       });
       if (response.status === 201 || response.status === 200) {
-        navigate(-1);
+        setShowSuccessModal(true);
       }
     } catch (e) {
       console.error("게시물 수정 실패:", e);
     }
   };
+
+  const closeModalHandler = () => {
+    setShowSuccessModal(false);
+    navigate(-1);
+  };
+
   return (
     <div className="w-full h-full flex flex-col gap-2">
       <div className="flex w-full">
@@ -69,6 +78,9 @@ export default function EditCommunityPost() {
           </div>
         </div>
       </div>
+      {showSuccessModal && (
+        <StatusModal message="수정 완료었습니다!" onClose={closeModalHandler} />
+      )}
     </div>
   );
 }

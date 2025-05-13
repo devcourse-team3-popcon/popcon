@@ -12,6 +12,7 @@ import { CommentType } from "../types/Comment";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 import profileImg from "../../../assets/images/default-profile-logo.svg";
 import { useLike } from "../hooks/useLike";
+import ActionModal from "../../../components/common/ActionModal";
 
 interface ArticleProps {
   post: Post;
@@ -23,6 +24,11 @@ export default function Article({ post }: ArticleProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [comments, setComments] = useState<CommentType[] | null>(null);
   const navigate = useNavigate();
+
+  const [showModal, setShowModal] = useState(false);
+  const cancelHandler = () => {
+    setShowModal(false);
+  };
 
   const menuItems = [
     {
@@ -40,8 +46,7 @@ export default function Article({ post }: ArticleProps) {
     {
       label: "게시물 삭제",
       onClick: () => {
-        deletePostHandler();
-        navigate(-1);
+        setShowModal(true);
       },
       danger: true,
     },
@@ -49,6 +54,8 @@ export default function Article({ post }: ArticleProps) {
 
   const deletePostHandler = async () => {
     await deletePost(post._id!);
+    setShowModal(false);
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -156,6 +163,15 @@ export default function Article({ post }: ArticleProps) {
             ))}
         </div>
       </div>
+
+      {showModal && (
+        <ActionModal
+          modalMessage="게시물을 삭제하시겠습니까?"
+          onCancel={cancelHandler}
+          onConfirmAction={deletePostHandler}
+          confirmButtonText="삭제하기"
+        />
+      )}
     </>
   );
 }
