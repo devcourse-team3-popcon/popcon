@@ -64,8 +64,10 @@ export default function DropdownMenu({
               item.onClick();
               setIsOpen(false);
             }}
-            className={`w-full px-4 py-3 text-left cursor-pointer hover:text-[color:var(--white)] ${
-              item.danger ? "text-[color:var(--red)]" : ""
+            className={`w-full px-4 py-3 text-left cursor-pointer ${
+              item.danger
+                ? "text-[color:var(--red)] hover:text-[color:var(--red)] hover:font-bold"
+                : "hover:text-[color:var(--white)]"
             }`}
           >
             <div className="flex items-center">

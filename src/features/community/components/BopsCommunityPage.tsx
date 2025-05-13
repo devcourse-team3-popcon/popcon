@@ -4,6 +4,7 @@ import BopCard from "./BopCard";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import Hashtag from "../../../components/common/Hashtag";
 import { useState } from "react";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 type BopsCommunityProps = {
   channelId: string;
@@ -18,12 +19,17 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
   } | null>(null);
 
   const { posts, setPosts, loading } = usePostsByChannel(`${channelId}`);
-  if (loading) return <p>로딩 중...</p>;
+  if (loading)
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
   if (!channelId) return <p>채널을 찾을 수 없습니다.</p>;
 
   return (
     <>
-      <div className="flex flex-col gap-8 w-full">
+      <div className="flex flex-col gap-8 w-full pb-20">
         <div className="flex w-full justify-between items-center">
           <div className="flex flex-col gap-8 mt-10 w-full">
             <p className="text-[30px] font-semibold">
@@ -33,7 +39,7 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
               </span>
               들의 성지 🔮
             </p>
-            <div className="w-full flex justify-between items-center">
+            <div className="w-full flex justify-between items-center pr-6">
               <div className="flex gap-4 flex-wrap">
                 {hashtags.map((tag, index) => (
                   <Hashtag

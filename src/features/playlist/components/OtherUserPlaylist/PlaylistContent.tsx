@@ -5,10 +5,9 @@ import LoadingSpinner from "../../../../components/common/LoadingSpinner";
 export const PlaylistContent = ({
   userPlaylist,
   isLoading,
-}: {
-  userPlaylist: TrackInfo[] | null;
-  isLoading: boolean;
-}) => (
+  setCurrentVideo,
+  currentVideo,
+}: PlaylistContentProps) => (
   <div className="flex w-full h-full gap-[8px]">
     <div className="flex flex-col overflow-auto h-full w-full scrollbar-hide">
       {isLoading ? (
@@ -22,6 +21,8 @@ export const PlaylistContent = ({
             item={track}
             trackId={track._id}
             other={true}
+            setCurrentVideo={setCurrentVideo}
+            currentVideo={currentVideo}
           />
         ))
       ) : (

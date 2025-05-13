@@ -1,23 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackButton from "../../../components/common/BackButton";
 import BopPostForm from "./BopPostForm";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Post } from "../types/Post";
 import { parseBopTitle } from "../../../utils/parseBopTitle";
-import { updatePost } from "../../../utils/post";
+import { getPost, updatePost } from "../../../utils/post";
 import { BopTrack } from "../types/BopTrack";
+import StatusModal from "../../../components/common/StatusModal";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 export default function EditBopPost() {
+  const { postId } = useParams();
+  const [post, setPost] = useState<Post | null>(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const post = state?.localPost as Post;
 
-  const parsedBopTitle = parseBopTitle(post.title);
-  const [bopTrack, setBopTrack] = useState<BopTrack | null>(
-    parsedBopTitle.track
-  );
-  const [bopGenre, setBopGenre] = useState(parsedBopTitle.genre);
-  const [bopText, setBopText] = useState(parsedBopTitle.text);
+  const [bopTrack, setBopTrack] = useState<BopTrack | null>(null);
+  const [bopGenre, setBopGenre] = useState("");
+  const [bopText, setBopText] = useState("");
+
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const isFormInvalid = !bopTrack || !bopGenre || !bopText;
+
+  useEffect(() => {
+    async function fetchPost() {
+      try {
+        if (!postId) return;
+        const data = await getPost(postId);
+        setPost(data);
+      } catch (e) {
+        console.error("게시물 정보를 불러오지 못했습니다.", e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchPost();
+  }, [postId]);
+
+  useEffect(() => {
+    if (post) {
+      const parsedBopTitle = parseBopTitle(post.title);
+      setBopTrack(parsedBopTitle.track);
+      setBopGenre(parsedBopTitle.genre);
+      setBopText(parsedBopTitle.text);
+    }
+  }, [post]);
+
+  if (loading)
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
+  if (!post)
+    return (
+      <div className="w-full min-h-screen flex justify-center items-center">
+        게시물 정보를 찾을 수 없습니다.
+      </div>
+    );
 
   const channelId = post.channel._id;
 
@@ -34,11 +74,16 @@ export default function EditBopPost() {
         channelId: channelId!,
       });
       if (response.status === 201 || response.status === 200) {
-        navigate(-1);
+        setShowSuccessModal(true);
       }
     } catch (e) {
       console.error("게시물 수정 실패", e);
     }
+  };
+
+  const closeModalHandler = () => {
+    setShowSuccessModal(false);
+    navigate(-1);
   };
 
   return (
@@ -57,13 +102,22 @@ export default function EditBopPost() {
         <div className="w-[100%] flex justify-center items-center">
           <button
             type="button"
-            className="cursor-pointer text-[14px] px-8 py-3 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold"
+            disabled={isFormInvalid}
+            className={` text-[14px] px-8 py-3 w-fit rounded-4xl  transition ${
+              isFormInvalid
+                ? "border-1 border-[color:var(--primary-200)] text-[var(--white-80)]"
+                : "bg-[var(--primary-300)] text-[var(--bg-color)] cursor-pointer font-semibold"
+            }`}
             onClick={updatePostHandler}
           >
             수정하기
           </button>
         </div>
       </div>
+
+      {showSuccessModal && (
+        <StatusModal message="수정 완료었습니다!" onClose={closeModalHandler} />
+      )}
     </>
   );
 }

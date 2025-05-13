@@ -1,14 +1,11 @@
 import TrackCard from "./TrackCard";
 import TrackCardSkeleton from "./TrackCardSkeleton";
 
-interface RecommendedTrackListProps {
-  recommendations: SpotifyTrack[];
-  isLoading: boolean;
-}
-
 export default function RecommendedTrackList({
   recommendations,
   isLoading,
+  setCurrentVideo,
+  currentVideo,
 }: RecommendedTrackListProps) {
   const SKELETON_COUNT = 4;
 
@@ -19,7 +16,12 @@ export default function RecommendedTrackList({
             <TrackCardSkeleton key={index} />
           ))
         : recommendations.map((track) => (
-            <TrackCard key={track.id} track={track} />
+            <TrackCard
+              key={track.id}
+              track={track}
+              setCurrentVideo={setCurrentVideo}
+              currentVideo={currentVideo}
+            />
           ))}
     </div>
   );

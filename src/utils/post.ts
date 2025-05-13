@@ -35,6 +35,16 @@ export const createPost = async ({
   }
 };
 
+export const getPost = async (postId: string) => {
+  try {
+    const res = await axiosInstance.get(`/posts/${postId}`);
+    return res.data;
+  } catch (e) {
+    console.error("게시물 가져오기 실패 : ", e);
+    throw e;
+  }
+};
+
 export const deletePost = async (postId: string) => {
   try {
     await axiosInstance.delete(`/posts/delete`, {

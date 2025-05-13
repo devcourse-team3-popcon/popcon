@@ -13,7 +13,9 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import CommunityPostDetail from "./features/community/components/CommunityPostDetail";
 import EditCommunityPost from "./features/community/components/EditCommunityPost";
 import EditBopPost from "./features/community/components/EditBopPost";
+import Chat from "./pages/Chat";
 import AboutUs from "./pages/AboutUs";
+import NotFound from "./pages/NotFound";
 import Login from "./components/login/Login";
 import SignupAgree from "./components/login/SignupAgree";
 import SignupForm from "./components/login/SignupForm";
@@ -35,6 +37,7 @@ export default function App() {
         <Route path="/SignupForm" element={<SignupForm />} />
         <Route path="/playlist" element={<Playlist />} />
         <Route path="/upcoming-concerts" element={<UpcomingConcerts />} />
+
         <Route path="/community" element={<Community />}>
           <Route index element={<Navigate to="bops-community" replace />} />
 
@@ -43,24 +46,48 @@ export default function App() {
           <Route path="open-community" element={<OpenCommunity />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="post/:postId" element={<CommunityPostDetail />} />
             <Route
               path="bops-community/add"
               element={<AddBopPost channelName="BopsCommunity" />}
             />
             <Route
+              path="bops-community/post/:postId/edit"
+              element={<EditBopPost />}
+            />
+
+            <Route
               path="concert-community/add"
               element={<AddCommunityPost channelName="ConcertCommunity" />}
             />
-            <Route path="post/:postId/edit" element={<EditCommunityPost />} />
-            <Route path="post/:postId/editBop" element={<EditBopPost />} />
+            <Route
+              path="concert-community/post/:postId/edit"
+              element={<EditCommunityPost />}
+            />
+            <Route
+              path="concert-community/post/:postId"
+              element={<CommunityPostDetail />}
+            />
+
             <Route
               path="open-community/add"
               element={<AddCommunityPost channelName="OpenCommunity" />}
             />
+            <Route
+              path="open-community/post/:postId/edit"
+              element={<EditCommunityPost />}
+            />
+            <Route
+              path="open-community/post/:postId"
+              element={<CommunityPostDetail />}
+            />
           </Route>
         </Route>
         <Route path="/aboutus" element={<AboutUs />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat/:userId" element={<Chat />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
