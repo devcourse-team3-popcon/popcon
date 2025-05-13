@@ -1,6 +1,7 @@
-import { ChevronLeft } from "lucide-react";
+import { Bell, ChevronLeft, Frown } from "lucide-react";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 import { useNavigate } from "react-router";
+import defaultProfile from "../../../assets/images/defaultProfile.svg";
 
 export default function NotificationPanel({
   notifications,
@@ -77,7 +78,7 @@ export default function NotificationPanel({
         <div className="flex h-full items-center justify-center">
           <LoadingSpinner />
         </div>
-      ) : notifications.length > 0 ? (
+      ) : notifications.filter((noti) => !noti.seen).length > 0 ? (
         <div className="flex flex-col overflow-y-auto scrollbar-hide ">
           {notifications
             .filter((noti) => !noti.seen)
@@ -89,7 +90,11 @@ export default function NotificationPanel({
               >
                 <div className="flex gap-4 justify-center items-center">
                   <img
-                    src={notification.author.image}
+                    src={
+                      notification.author.image
+                        ? notification.author.image
+                        : defaultProfile
+                    }
                     alt=""
                     className="w-6 h-6 rounded-full"
                   />
@@ -103,8 +108,9 @@ export default function NotificationPanel({
             ))}
         </div>
       ) : (
-        <div className="flex-1 flex items-center justify-center">
-          <p className="text-[color:var(--white-60)]">알림이 없습니다</p>
+        <div className="flex flex-col h-full items-center justify-start pt-24 gap-[10px] ">
+          <Bell />
+          <p className="text-[color:var(--white-80)]">No notifications.</p>
         </div>
       )}
     </div>
