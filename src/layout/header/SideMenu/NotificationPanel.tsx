@@ -1,4 +1,4 @@
-import { Bell, ChevronLeft, Frown } from "lucide-react";
+import { Bell, ChevronLeft } from "lucide-react";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 import { useNavigate } from "react-router";
 import defaultProfile from "../../../assets/images/defaultProfile.svg";
@@ -27,12 +27,11 @@ export default function NotificationPanel({
 
   const getNotificationMessage = (notification: Notification) => {
     const authorName = getAuthorName(notification);
-    console.log(notification);
     if (notification.like) {
       return `${authorName}님이 내 게시물을 좋아합니다.`;
     }
 
-    if (notification.comment) {
+    if (notification.post) {
       return `${authorName}님이 내 게시물에 댓글을 남겼습니다.`;
     }
 
@@ -44,10 +43,10 @@ export default function NotificationPanel({
   };
 
   const handleNavigate = (notification: Notification) => {
-    if (notification.like || notification.comment) {
+    if (notification.like || notification.post) {
       navigate(`/community/post/${notification._id}`);
     } else {
-      navigate("/chat");
+      navigate(`/chat/${notification._id}`);
     }
   };
 
