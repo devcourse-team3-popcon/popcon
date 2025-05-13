@@ -10,12 +10,11 @@ export const getNotifications = async (): Promise<Notification[]> => {
   }
 };
 
-export const markAllNotificationsAsSeen = async (): Promise<boolean> => {
+export const markAllNotificationsAsSeen = async () => {
   try {
-    await axiosInstance.post("/notifications/seen");
-    return true;
+    const res = await axiosInstance.put("/notifications/seen");
+    return res;
   } catch (error) {
     console.error("알림 읽음 처리 실패:", error);
-    return false;
   }
 };

@@ -91,19 +91,15 @@ export default function SideMenu() {
     try {
       const success = await markAllNotificationsAsSeen();
       if (success) {
-        setNotifications((prevNotifications) =>
-          prevNotifications.map((notification) => ({
-            ...notification,
-            seen: true,
-          }))
-        );
+        const updated = await getNotifications();
+        setNotifications(updated.filter((noti) => !noti.seen));
       }
     } catch (error) {
       console.error("알림 읽음 처리 실패:", error);
     }
   };
 
-  const unseenCount = notifications.filter((notif) => !notif.seen).length;
+  const unseenCount = notifications.filter((noti) => !noti.seen).length;
 
   return (
     <>
