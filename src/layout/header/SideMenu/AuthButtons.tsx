@@ -39,7 +39,7 @@ export default function AuthButtons({
           </button>
           <button
             className="cursor-pointer hover:text-[color:var(--primary-300)]"
-            onClick={() => handleNavigation("/signup")}
+            onClick={() => handleNavigation("/SignupAgree")}
           >
             Sign Up
           </button>
