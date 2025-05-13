@@ -2,6 +2,8 @@ import { useNavigate, useParams } from "react-router";
 import { getCurrentUserId } from "../../../utils/auth";
 import { ConversationProps } from "../types/ConversationProps";
 import { useEffect, useState } from "react";
+import defaultProfile from "../../../assets/images/defaultProfile.svg";
+import onlineIcon from "../../../assets/images/icon_online.svg";
 
 export default function ChatUser({
   sender,
@@ -44,12 +46,18 @@ export default function ChatUser({
         }`}
       >
         <div>
-          <div
-            className={`relative size-[48px] rounded-[50px] bg-[var(--grey-200)] bg-center bg-no-repeat bg-cover`}
-            style={{ backgroundImage: `url(${userImage})` }}
-          >
+          <div className="relative">
+            <img
+              src={userImage ? userImage : defaultProfile}
+              alt={`${userName} 유저 프로필`}
+              className="rounded-full size-[48px]"
+            />
             {userIsOnline && (
-              <div className="absolute left-[36px] top-[36px] rounded-full size-[10px] bg-[var(--primary-300)]"></div>
+              <img
+                src={onlineIcon}
+                alt="온라인 표시"
+                className="absolute right-0.5 bottom-0.5"
+              />
             )}
           </div>
         </div>

@@ -8,6 +8,8 @@ import useGetMessages from "../hooks/useGetMessages";
 import { useRefreshStore } from "../stores/refreshStore";
 import useGetUser from "../hooks/useGetUser";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import defaultProfile from "../../../assets/images/defaultProfile.svg";
+import onlineIcon from "../../../assets/images/icon_online.svg";
 
 export default function MessageList({ userId }: { userId: string }) {
   const [chatInput, setChatInput] = useState("");
@@ -36,12 +38,18 @@ export default function MessageList({ userId }: { userId: string }) {
     <>
       <div className="flex flex-col h-full w-full">
         <div className="px-[12px] border-b border-[var(--grey-500)] flex gap-[16px] items-center pb-[24px] box-border">
-          <div
-            className={`relative size-[56px] rounded-[50px] bg-[var(--grey-200)] bg-center bg-no-repeat bg-cover`}
-            style={{ backgroundImage: `url(${userInfo?.image})` }}
-          >
+          <div className="relative">
+            <img
+              src={userInfo?.image ? userInfo?.image : defaultProfile}
+              alt={`${userInfo?.userName} 유저 프로필`}
+              className="rounded-full size-[56px]"
+            />
             {userInfo?.isOnline && (
-              <div className="absolute left-[43px] top-[43px] rounded-full size-[10px] bg-[var(--primary-300)]"></div>
+              <img
+                src={onlineIcon}
+                alt="온라인 표시"
+                className="absolute right-0.5 bottom-0.5"
+              />
             )}
           </div>
 

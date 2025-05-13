@@ -1,5 +1,7 @@
 import { Send } from "lucide-react";
 import { useNavigate } from "react-router";
+import defaultProfile from "../../../assets/images/defaultProfile.svg";
+import onlineIcon from "../../../assets/images/icon_online.svg";
 
 export default function SearchUser({
   name,
@@ -26,12 +28,18 @@ export default function SearchUser({
         className="w-full h-[64px] p-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer items-center"
       >
         <div>
-          <div
-            className={`relative size-[48px] rounded-[50px] bg-[var(--grey-200)] bg-center bg-no-repeat bg-cover`}
-            style={{ backgroundImage: `url(${image})` }}
-          >
+          <div className="relative">
+            <img
+              src={image ? image : defaultProfile}
+              alt={`${name} 유저 프로필`}
+              className="rounded-full size-[48px]"
+            />
             {isOnline && (
-              <div className="absolute left-[36px] top-[36px] rounded-full size-[10px] bg-[var(--primary-300)]"></div>
+              <img
+                src={onlineIcon}
+                alt="온라인 표시"
+                className="absolute right-0.5 bottom-0.5"
+              />
             )}
           </div>
         </div>
