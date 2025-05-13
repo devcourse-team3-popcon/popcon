@@ -1,5 +1,4 @@
 import useSearchUsers from "../hooks/useSearchUsers";
-// import { UserInfo } from "../types/UserInfo";
 import SearchUser from "./SearchUser";
 
 export default function UserList({
@@ -10,10 +9,6 @@ export default function UserList({
   clear?: () => void;
 }) {
   const { userList } = useSearchUsers(keyword);
-
-  // if (loading) return <p>loading...</p>;
-
-  // console.log(userList);
 
   return (
     <>

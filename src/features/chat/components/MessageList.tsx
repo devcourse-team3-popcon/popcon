@@ -8,10 +8,13 @@ import useGetMessages from "../hooks/useGetMessages";
 import { useRefreshStore } from "../stores/refreshStore";
 import useGetUser from "../hooks/useGetUser";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
-import defaultProfile from "../../../assets/images/defaultProfile.svg";
+import defaultProfile from "../../../assets/images/default-profile-logo.svg";
 import onlineIcon from "../../../assets/images/icon_online.svg";
+import { ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router";
 
 export default function MessageList({ userId }: { userId: string }) {
+  const navigate = useNavigate();
   const [chatInput, setChatInput] = useState("");
 
   const { messages, loading, refresh } = useGetMessages(userId);
@@ -32,17 +35,21 @@ export default function MessageList({ userId }: { userId: string }) {
     setRefreshMsg(refresh);
   }, [refresh, setRefreshMsg]);
 
-  // console.log("유저 아이디: ", userId);
-
   return (
     <>
       <div className="flex flex-col h-full w-full">
-        <div className="px-[12px] border-b border-[var(--grey-500)] flex gap-[16px] items-center pb-[24px] box-border">
+        <div className="px-3 md:pb-6 pb-2 border-b border-[var(--grey-500)] flex gap-4 items-center box-border">
+          <button
+            className="md:hidden cursor-pointer"
+            onClick={() => navigate(-1)}
+          >
+            <ChevronLeft />
+          </button>
           <div className="relative">
             <img
               src={userInfo?.image ? userInfo?.image : defaultProfile}
               alt={`${userInfo?.userName} 유저 프로필`}
-              className="rounded-full size-[56px]"
+              className="rounded-full md:size-[56px] size-[46px]"
             />
             {userInfo?.isOnline && (
               <img
@@ -53,10 +60,12 @@ export default function MessageList({ userId }: { userId: string }) {
             )}
           </div>
 
-          <div className="text-2xl font-medium">{userInfo?.userName}</div>
+          <div className="md:text-2xl text-xl font-medium">
+            {userInfo?.userName}
+          </div>
         </div>
 
-        <div className="flex flex-col py-4 gap-[8px] overflow-y-auto scrollbar-hide flex-1">
+        <div className="flex flex-col py-4 gap-2 overflow-y-auto scrollbar-hide flex-1">
           {loading ? (
             <div className="w-full h-full flex justify-center items-center">
               <LoadingSpinner />
