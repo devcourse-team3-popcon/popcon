@@ -3,7 +3,7 @@ import { usePlaylistStore } from "../../../../stores/playlistStore";
 import { deleteTrackFromPlaylist } from "../../../../apis/playlist/playlistService";
 import { useAddTrackToPlaylist } from "../../hooks/useAddTrackToPlaylist";
 import { useState } from "react";
-import { searchYoutubeVideo } from "../../../../utils/searchYoutubeVideo";
+import { searchYoutubeVideo } from "../../../../apis/youtube/youtubeSearch";
 
 export default function PlaylistTrackItem({
   track,
