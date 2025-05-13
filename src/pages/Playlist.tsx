@@ -28,15 +28,14 @@ export default function Playlist() {
       <div className="hidden w-full md:block">
         <PlayListBanner />
       </div>
-      <div className="flex flex-col xl:flex-row gap-[32px] w-full">
-        <div className="w-full xl:hidden">
+      <div className="flex flex-col md:flex-row gap-[32px] w-full">
+        <div className="w-full md:hidden">
           <PlaylistPanel
             setCurrentVideo={setCurrentVideo}
             currentVideo={currentVideo}
           />
         </div>
-        
-        <div className="flex flex-col gap-[32px] w-full xl:w-[58%]">
+        <div className="flex flex-col gap-[32px] w-full md:w-[58%]">
           <MusicRecommender
             setCurrentVideo={setCurrentVideo}
             currentVideo={currentVideo}
@@ -53,7 +52,7 @@ export default function Playlist() {
             />
           )}
         </div>
-        <div className="hidden xl:block w-[40%]">
+        <div className="hidden md:block w-[40%]">
           <PlaylistPanel
             setCurrentVideo={setCurrentVideo}
             currentVideo={currentVideo}

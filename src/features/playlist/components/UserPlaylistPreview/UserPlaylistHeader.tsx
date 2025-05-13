@@ -1,10 +1,10 @@
 export default function UserPlaylistHeader() {
   return (
     <>
-      <div className="hidden md:flex gap-[16px] text-[16px] md:text-[24px] font-bold md:px-[32px]">
+      <div className="hidden md:flex gap-[16px] text-[16px] 2xl:text-[24px] font-bold 2xl:px-[32px]">
         <h2>
           다른 유저들의 PlayList{" "}
-          <span className="hidden xl:inline">보러가기</span>
+          <span className="hidden 2xl:inline">보러가기</span>
         </h2>
         <span role="img" aria-label="eyes">
           👀
