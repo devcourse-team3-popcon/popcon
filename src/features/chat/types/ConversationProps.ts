@@ -11,7 +11,4 @@ export interface ConversationProps {
   r_image: string;
   message: string;
   time: string;
-  onClick?: (userId: string) => void;
-  isSelected?: boolean;
-  selectedId?: string;
 }

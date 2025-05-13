@@ -4,10 +4,10 @@ import SearchUser from "./SearchUser";
 
 export default function UserList({
   keyword,
-  onClick,
+  clear,
 }: {
   keyword: string;
-  onClick?: (userId: string) => void;
+  clear?: () => void;
 }) {
   const { userList } = useSearchUsers(keyword);
 
@@ -27,7 +27,7 @@ export default function UserList({
             name={user.fullName.name}
             isOnline={user.isOnline}
             image={user.image}
-            onClick={onClick}
+            clear={clear}
           />
         ))
       )}

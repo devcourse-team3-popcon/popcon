@@ -7,13 +7,7 @@ import UserList from "./UserList";
 import { RotateCcw } from "lucide-react";
 import { useRefreshStore } from "../stores/refreshStore";
 
-export default function Conversations({
-  onSelect,
-  selectedId,
-}: {
-  onSelect?: (userId: string) => void;
-  selectedId?: string;
-}) {
+export default function Conversations() {
   const [searchInput, setSearchInput] = useState("");
   const { conversations, refresh } = useGetConversation();
   const setRefreshConv = useRefreshStore(
@@ -22,11 +16,6 @@ export default function Conversations({
 
   const refreshConv = useRefreshStore((state) => state.refreshConversations);
   const refreshMsg = useRefreshStore((state) => state.refreshMessages);
-
-  const selectSearchHandler = (userId: string) => {
-    setSearchInput("");
-    onSelect?.(userId);
-  };
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString("ko-KR", {
@@ -67,7 +56,7 @@ export default function Conversations({
           {/* {loading && <p>loading...</p>} */}
 
           {searchInput.trim().length > 0 ? (
-            <UserList keyword={searchInput} onClick={selectSearchHandler} />
+            <UserList keyword={searchInput} clear={() => setSearchInput("")} />
           ) : (
             conversations &&
             conversations.map((conv) => {
@@ -89,9 +78,6 @@ export default function Conversations({
                   r_image={conv.receiver.image}
                   message={conv.message}
                   time={formatTime(new Date(conv.createdAt))}
-                  onClick={onSelect}
-                  // isSelected={conv._id[1] === selectedId}
-                  selectedId={selectedId}
                 />
               );
             })

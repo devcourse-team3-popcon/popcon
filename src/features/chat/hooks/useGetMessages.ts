@@ -37,8 +37,6 @@ export default function useGetMessages(userId: string) {
         params: { userId: userId },
       });
 
-      console.log(data);
-
       const msgData = data.map((msg: Message) => ({
         id: msg._id,
         message: msg.message,
@@ -55,7 +53,7 @@ export default function useGetMessages(userId: string) {
 
       setMessages(msgData);
 
-      console.log("message fetch!!!");
+      console.log("fetch messages");
     } catch (error) {
       console.log("Failed to Fetch Messages", error);
     } finally {

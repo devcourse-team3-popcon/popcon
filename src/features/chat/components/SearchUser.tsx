@@ -1,32 +1,28 @@
 import { Send } from "lucide-react";
-// import { UserInfo } from "../types/UserInfo";
+import { useNavigate } from "react-router";
 
 export default function SearchUser({
   name,
   userId,
   isOnline,
   image,
-  onClick,
+  clear,
 }: {
   name: string;
   userId: string;
   isOnline: boolean;
   image: string;
-  onClick?: (userId: string) => void;
+  clear?: () => void;
 }) {
-  // const user = {
-  //   id: userId,
-  //   name: name,
-  //   image: image,
-  //   isOnline: isOnline,
-  // };
-
-  // console.log("프로필: ", image);
+  const navigate = useNavigate();
 
   return (
     <>
       <div
-        onClick={() => onClick?.(userId)}
+        onClick={() => {
+          navigate(`/chat/${userId}`);
+          clear?.();
+        }}
         className="w-full h-[64px] p-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer items-center"
       >
         <div>

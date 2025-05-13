@@ -1,5 +1,7 @@
+import { useNavigate, useParams } from "react-router";
 import { getCurrentUserId } from "../../../utils/auth";
 import { ConversationProps } from "../types/ConversationProps";
+import { useEffect, useState } from "react";
 
 export default function ChatUser({
   sender,
@@ -12,30 +14,31 @@ export default function ChatUser({
   r_image,
   message,
   time,
-  onClick,
-  selectedId,
-}: // isSelected,
-ConversationProps) {
-  const currentUserId = getCurrentUserId();
+}: ConversationProps) {
+  const navigate = useNavigate();
+  const { userId } = useParams();
+  const [loginId, setLoginId] = useState();
 
-  const userName = currentUserId === senderId ? receiver : sender;
-  const userId = currentUserId === senderId ? receiverId : senderId;
-  const userImage = currentUserId === senderId ? r_image : s_image;
-  const userIsOnline = currentUserId === senderId ? r_isOnline : s_isOnline;
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const id = await getCurrentUserId();
+      setLoginId(id);
+    };
 
-  const isSelected = userId === selectedId;
+    fetchUserId();
+  }, []);
 
-  // const user = {
-  //   id: userId,
-  //   name: userName,
-  //   image: userImage,
-  //   isOnline: userIsOnline,
-  // };
+  const userName = loginId === senderId ? receiver : sender;
+  const otherUserId = loginId === senderId ? receiverId : senderId;
+  const userImage = loginId === senderId ? r_image : s_image;
+  const userIsOnline = loginId === senderId ? r_isOnline : s_isOnline;
+
+  const isSelected = userId === otherUserId;
 
   return (
     <>
       <div
-        onClick={() => onClick?.(userId)}
+        onClick={() => navigate(`/chat/${otherUserId}`)}
         className={`w-full h-[64px] p-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer items-center ${
           isSelected && "bg-[var(--grey-500)]"
         }`}
