@@ -3,6 +3,7 @@ export type CommentType = {
   author: {
     fullName: string;
     _id: string;
+    image: string;
   };
   comment: string;
   createdAt: string;

@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
+import { NavLink } from "react-router";
 import bell from "../../assets/images/icon-bell.svg";
 import chat from "../../assets/images/icon-chat.svg";
+import chatActive from "../../assets/images/icon-chat-active.svg";
 import user from "../../assets/images/icon-user.svg";
 import { useAuthStore } from "../../stores/authStore";
 

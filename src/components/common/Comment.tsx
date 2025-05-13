@@ -5,6 +5,7 @@ import { parseUserName } from "../../utils/parseUserName";
 import DropdownMenu from "./DropdownMenu";
 import { useState } from "react";
 import { axiosInstance } from "../../apis/axiosInstance";
+import profileImg from "../../assets/images/default-profile-logo.svg";
 
 type CommentProps = {
   comment: CommentType;
@@ -40,7 +41,11 @@ export default function Comment({ comment, onDelete }: CommentProps) {
       <div className="flex flex-col px-2 py-4 border-b border-white/20">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <div className="bg-amber-400 w-7 h-7 rounded-full mr-4"></div>
+            <img
+              className="w-7 h-7 rounded-full mr-4"
+              src={comment.author.image || profileImg}
+              alt="댓글 작성자 프로필 이미지"
+            />
             <div className="flex flex-col">
               <span className="text-[14px]">{parsedUserName.name}</span>
               <span className="text-[12px] text-[color:var(--white-80)]">
@@ -51,7 +56,7 @@ export default function Comment({ comment, onDelete }: CommentProps) {
           {currentUserId === comment.author._id && (
             <div className="relative">
               <Ellipsis
-                className="cursor-pointer"
+                className="cursor-pointer w-4 h-4"
                 onClick={() => setIsOpen(!isOpen)}
               />
               <DropdownMenu
