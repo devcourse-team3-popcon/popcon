@@ -52,17 +52,20 @@ interface MenuItemsProps {
 interface NotificationAuthor {
   fullName: string;
   image: string;
+  _id: string;
 }
 
 interface NotificationLike {
   post: {
     _id: string;
+    channel: string;
   };
 }
 
 interface NotificationComment {
   post: {
     _id: string;
+    channel: string;
   };
 }
 
@@ -71,6 +74,9 @@ interface NotificationMessage {
   to: string;
   content: string;
   createdAt: string;
+  author: {
+    _id: string;
+  };
 }
 
 interface Notification {
@@ -90,4 +96,5 @@ interface NotificationPanelProps {
   onClose: () => void;
   onMarkAllAsSeen: () => void;
   unseenCount: number;
+  toggleMenu: () => void;
 }

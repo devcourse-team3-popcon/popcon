@@ -134,6 +134,7 @@ export default function SideMenu() {
               onClose={toggleNotifications}
               onMarkAllAsSeen={handleMarkAllAsSeen}
               unseenCount={unseenCount}
+              toggleMenu={toggleMenu}
             />
           ) : (
             <>

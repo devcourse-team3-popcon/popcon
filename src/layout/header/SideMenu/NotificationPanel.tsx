@@ -9,6 +9,7 @@ export default function NotificationPanel({
   onClose,
   onMarkAllAsSeen,
   unseenCount,
+  toggleMenu,
 }: NotificationPanelProps) {
   const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ export default function NotificationPanel({
       return `${authorName}님이 내 게시물을 좋아합니다.`;
     }
 
-    if (notification.post) {
+    if (notification.comment) {
       return `${authorName}님이 내 게시물에 댓글을 남겼습니다.`;
     }
 
@@ -43,11 +44,34 @@ export default function NotificationPanel({
   };
 
   const handleNavigate = (notification: Notification) => {
-    if (notification.like || notification.post) {
-      navigate(`/community/post/${notification._id}`);
+    if (notification.like) {
+      if (notification.like?.post.channel === "681e2fbc7380bb759ecc6367") {
+        navigate(`/community/bops-community/post/${notification._id}`);
+      } else if (
+        notification.like?.post.channel === "681e2fdd7380bb759ecc636d"
+      ) {
+        navigate(`/community/concert-community/post/${notification._id}`);
+      } else if (
+        notification.like?.post.channel === "681e2fee7380bb759ecc6371"
+      ) {
+        navigate(`/community/open-community/post/${notification._id}`);
+      }
+    } else if (notification.comment) {
+      if (notification.comment?.post.channel === "681e2fbc7380bb759ecc6367") {
+        navigate(`/community/bops-community/post/${notification._id}`);
+      } else if (
+        notification.comment?.post.channel === "681e2fdd7380bb759ecc636d"
+      ) {
+        navigate(`/community/concert-community/post/${notification._id}`);
+      } else if (
+        notification.comment?.post.channel === "681e2fee7380bb759ecc6371"
+      ) {
+        navigate(`/community/open-community/post/${notification._id}`);
+      }
     } else {
-      navigate(`/chat/${notification._id}`);
+      navigate(`/chat/${notification.author._id}`);
     }
+    toggleMenu();
   };
 
   return (
@@ -84,7 +108,7 @@ export default function NotificationPanel({
             .map((notification) => (
               <div
                 key={notification._id}
-                className="p-2 mb-2 rounded-[8px] bg-[color:var(--grey-500)]"
+                className="p-2 mb-2 rounded-[8px] bg-[color:var(--grey-500)] cursor-pointer"
                 onClick={() => handleNavigate(notification)}
               >
                 <div className="flex gap-4 justify-center items-center">
