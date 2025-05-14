@@ -3,6 +3,7 @@ import NotificationItem from "./NotificationItem";
 import {Bell} from "lucide-react";
 import {readNotifications} from "../apis/readNotifications";
 import {useEffect, useRef} from "react";
+import {getNotification} from "../apis/getNotification";
 
 type NotificationListProps = {
   closeNotifications: () => void;
@@ -11,19 +12,18 @@ type NotificationListProps = {
 export default function NotificationList({closeNotifications}: NotificationListProps) {
   const {notifications, setNotifications} = useNotification();
   const notificationListRef = useRef<HTMLDivElement | null>(null);
+  const unseenCount = notifications.filter((noti) => !noti.seen).length;
 
   // 알림 상태 업데이트
   const updateNoti = async () => {
     try {
       await readNotifications();
-
-      const updatedNotifications = notifications.map((noti) => ({...noti, seen: true}));
-
-      setNotifications(updatedNotifications);
+      const updated = await getNotification();
+      const unseenOnly = updated.filter((noti) => !noti.seen);
+      setNotifications(unseenOnly);
     } catch (error) {
       console.error("알림 읽음 처리 실패:", error);
     }
-    closeNotifications();
   };
 
   // 외부 클릭 시 알림창 닫기
@@ -50,15 +50,19 @@ export default function NotificationList({closeNotifications}: NotificationListP
       >
         <div className='flex justify-between items-center mx-2 my-3'>
           <h2 className='font-semibold text-[18px] h-[21px]'>Notification</h2>
-          <p className='text-[var(--white-80)] cursor-pointer text-[10px] ' onClick={updateNoti}>
-            전체 삭제
-          </p>
+          {unseenCount > 0 && (
+            <p className='text-[var(--white-80)] cursor-pointer text-[10px] ' onClick={updateNoti}>
+              전체 삭제
+            </p>
+          )}
         </div>
 
         {notifications.length === 0 ? (
           <div className='w-full h-full flex flex-col justify-center items-center mt-[-25px]'>
-            <Bell />
-            <p className='pt-[10px] text-center'>No Notification</p>
+            <Bell strokeWidth={1.5} className='text-[color:var(--white-80)]' />
+            <p className='pt-[10px] text-xs text-center text-[color:var(--white-80)]'>
+              No Notification
+            </p>
           </div>
         ) : (
           <ul className='space-y-2'>
