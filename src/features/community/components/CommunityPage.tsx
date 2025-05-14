@@ -6,8 +6,8 @@ import { Post } from "../types/Post";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import Pagination from "../../../components/common/Pagination";
 import { usePagination } from "../../../hooks/usePagination";
-import SelectBox from "../../../components/common/SelectBox";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import NoneBorderSelectBox from "../../../components/common/NoneBorderSelectBox";
 
 interface ComunityPageProps {
   renderTable: (posts: Post[]) => ReactNode;
@@ -64,7 +64,7 @@ export default function CommunityPage({
         <div className="flex w-full py-12 justify-between items-center text-[color:var(--white-80)]">
           <div className="w-auto flex gap-4 items-center">
             <div className="w-[94px]">
-              <SelectBox
+              <NoneBorderSelectBox
                 options={searchOptions}
                 value={
                   searchOptions.find((opt) => opt.value === searchType) ?? null

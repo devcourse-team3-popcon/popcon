@@ -35,7 +35,7 @@ export default function PostInputForm({
           onChange={(e) => {
             setTitleInput(e.target.value);
           }}
-          className="w-[100%]"
+          className="w-[100%] py-4"
         />
 
         <div className="flex gap-4 w-full">

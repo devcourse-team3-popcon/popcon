@@ -68,7 +68,7 @@ export default function BopPostForm({
           />
           <div className="relative w-full">
             {bopTrack && (
-              <div className="flex px-4 items-center w-full justify-between">
+              <div className="flex px-4 items-center w-full justify-between border rounded-[10px] py-2 border-[color:var(--primary-300)]">
                 <div className="flex gap-4 items-center">
                   <img className="h-10 w-10" src={bopTrack.image} />
                   {bopTrack.name} -{" "}
@@ -124,6 +124,7 @@ export default function BopPostForm({
 
         <div className="flex flex-col gap-4">
           <InputField
+            className="py-4"
             label="숨듣명 선정 이유 *"
             type="text"
             //maxLength="40"
