@@ -43,6 +43,7 @@ export default function Conversations() {
           </div>
           <RotateCcw
             size={18}
+            color="var(--white-80)"
             className="cursor-pointer"
             onClick={refreshHandler}
           />
