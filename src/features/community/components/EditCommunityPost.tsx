@@ -16,6 +16,7 @@ export default function EditCommunityPost() {
   const [titleInput, setTitleInput] = useState(parsedTitle.title);
   const [contentInput, setContentInput] = useState(parsedTitle.body);
   const [imageInput, setImageInput] = useState<File | null>(null);
+  const [isImageDeleted, setIsImageDeleted] = useState(false);
   const isFormInvalid = !titleInput || !contentInput;
   const existingImageUrl = post.image;
   const channelId = post.channel._id;
@@ -27,8 +28,7 @@ export default function EditCommunityPost() {
       title: titleInput,
       body: contentInput,
     };
-    const imageToDeletePublicId =
-      !imageInput && existingImageUrl ? post.imagePublicId : "";
+    const imageToDeletePublicId = isImageDeleted ? post.imagePublicId : "";
 
     try {
       const response = await updatePost({
@@ -67,6 +67,7 @@ export default function EditCommunityPost() {
             setContentInput={setContentInput}
             setImageInput={setImageInput}
             existingImageUrl={existingImageUrl}
+            setIsImageDeleted={setIsImageDeleted}
           />
           <div className="w-[100%] flex justify-center items-center">
             <button
