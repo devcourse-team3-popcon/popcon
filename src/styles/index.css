@@ -221,3 +221,12 @@ body::-webkit-scrollbar {
   transform-origin: bottom left;
   transition: none;
 }
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}

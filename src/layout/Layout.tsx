@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import Header from "./header/Header";
+import { ToastContainer } from "react-toastify";
 
 export default function Layout() {
   return (
@@ -8,6 +9,13 @@ export default function Layout() {
       <div className="py-25 md:py-[0] flex justify-center items-center h-auto">
         <Outlet />
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        pauseOnHover
+        draggable
+      />
     </div>
   );
 }
