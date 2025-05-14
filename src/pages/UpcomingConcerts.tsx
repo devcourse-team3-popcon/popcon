@@ -8,9 +8,10 @@ export default function UpcomingConcerts() {
   const {concerts, loading} = useConcerts(channelId);
 
   return (
-    <div className='flex flex-col w-[95%] justify-center items-center'>
+    <div className='grid justify-center items-center'>
       <ConcertBanner />
-      <div className='flex w-full mt-9 md:mt-16'>
+
+      <div className='mt-9 md:mt-16'>
         {loading ? <ConcertListSkeleton /> : <ConcertList concerts={concerts} />}
       </div>
     </div>

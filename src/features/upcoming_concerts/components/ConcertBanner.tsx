@@ -1,6 +1,6 @@
 export default function ConcertBanner() {
   return (
-    <div className='flex items-center w-full max-w-[1712px] h-12 md:h-[130px] mt-2.5 md:mt-12 px-13 pt'>
+    <div className='flex items-center w-full max-w-7xl h-12 md:h-[130px] mt-2.5 md:mt-12 '>
       <div className='font-[MonumentExtended] text-xl md:text-5xl leading-tight'>
         <p>UPCOMING</p>
         <p>
