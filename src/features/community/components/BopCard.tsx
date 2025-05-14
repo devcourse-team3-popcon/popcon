@@ -228,7 +228,7 @@ export default function BopCard({
         </div>
 
         {isOpen && (
-          <div className="absolute left-full top-66 ml-41">
+          <div className="absolute left-full top-75 ">
             <DropdownMenu
               isOpen={isOpen}
               setIsOpen={setIsOpen}
