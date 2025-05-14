@@ -15,6 +15,7 @@ import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessTok
 import { searchArtist } from "../../../apis/spotify/spotifySearch";
 import CheckPassword from "./CheckPassword";
 import ActionModal from "../../../components/common/ActionModal";
+import { useAuthStore } from "../../../stores/authStore";
 
 export default function MyPage() {
   const genres = [
@@ -72,6 +73,10 @@ export default function MyPage() {
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
   const [showModal, setShowModal] = useState(false);
+
+  const logout = useAuthStore.getState().logout;
+
+  const [showImageDropdown, setShowImageDropdown] = useState(false);
 
   useEffect(() => {
     const fetchArtistSuggestions = async () => {
@@ -138,6 +143,8 @@ export default function MyPage() {
     try {
       await myPageUserInfoUpdate(username, favoriteGenre, favoriteArtist);
 
+      setMainProfileName(username);
+
       setEditMode(false);
       setInitialUserData({
         username,
@@ -164,6 +171,7 @@ export default function MyPage() {
 
   const handleLogout = async () => {
     await logoutUser();
+    logout();
     navigate("/login");
   };
 
@@ -208,14 +216,39 @@ export default function MyPage() {
           <img
             src={imageUrl || defaultProfileLogo}
             alt="프로필 사진"
-            className="w-full h-full rounded-full object-cover"
+            className="w-full h-full max-h-[240px] rounded-full object-cover"
           />
           {editMode && (
-            <div
-              onClick={() => fileInputRef.current?.click()}
-              className="absolute bottom-0 right-0 w-[56px] h-[56px] bg-[#8EF3BF] rounded-full flex items-center justify-center cursor-pointer"
-            >
-              <img src={cameraIcon} alt="카메라 아이콘" />
+            <div className="absolute bottom-0 right-0">
+              <div
+                onClick={() => setShowImageDropdown((prev) => !prev)}
+                className="w-[56px] h-[56px] bg-[#8EF3BF] rounded-full flex items-center justify-center cursor-pointer relative z-10"
+              >
+                <img src={cameraIcon} alt="카메라 아이콘" />
+              </div>
+
+              {showImageDropdown && (
+                <ul className="absolute bottom-[-100px] right-0 w-[160px] bg-[#2C2C2C] text-white rounded-[10px] shadow z-20 text-sm">
+                  <li
+                    className="px-4 py-2 hover:bg-[#444] cursor-pointer"
+                    onClick={() => {
+                      setImageUrl("");
+                      setShowImageDropdown(false);
+                    }}
+                  >
+                    기본 이미지로 변경
+                  </li>
+                  <li
+                    className="px-4 py-2 hover:bg-[#444] cursor-pointer"
+                    onClick={() => {
+                      fileInputRef.current?.click();
+                      setShowImageDropdown(false);
+                    }}
+                  >
+                    사진 업로드
+                  </li>
+                </ul>
+              )}
             </div>
           )}
         </div>
@@ -224,11 +257,11 @@ export default function MyPage() {
         </p>
       </div>
 
-      <div className="mt-[40px] w-full max-w-[1049px] bg-[#333333]/[0.35] rounded-[30px] pt-[80px] px-4 md:px-[120px] flex flex-col">
+      <div className="mt-[40px] w-full max-w-[1049px] mx-auto bg-[#333333]/[0.35] rounded-[30px] pt-[80px] px-4 md:px-[120px] flex flex-col">
         {checkPassword === "view" ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 mb-[48px]">
-              <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-[48px]">
+              <div className="flex flex-col gap-4 ">
                 <div className="flex justify-between items-center">
                   <label htmlFor="username" className="font-semibold">
                     사용자 이름
@@ -268,7 +301,7 @@ export default function MyPage() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 mb-[48px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-[48px]">
               <div
                 className="relative flex flex-col gap-4 w-full"
                 ref={suggestionsRef}

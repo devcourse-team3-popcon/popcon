@@ -3,6 +3,7 @@ import InputField from "../../../components/common/InputField";
 import { loginUser } from "../../../apis/login/login";
 import { useNavigate } from "react-router";
 import { logoutUser, updateUserPassword } from "../../../apis/mypage/myPage";
+import { useAuthStore } from "../../../stores/authStore";
 
 type Props = {
   onCheckPassword: () => void;
@@ -26,6 +27,8 @@ export default function CheckPassword({ email, onCheckPassword }: Props) {
   const currentPwRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
+
+  const logout = useAuthStore.getState().logout;
 
   const handleCheckPassword = async () => {
     if (!currentPw.trim()) {
@@ -68,6 +71,7 @@ export default function CheckPassword({ email, onCheckPassword }: Props) {
     try {
       await updateUserPassword(newPw);
       await logoutUser();
+      logout();
       navigate("/login");
     } catch (err) {
       console.log(err);
