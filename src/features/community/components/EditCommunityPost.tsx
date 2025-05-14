@@ -53,7 +53,7 @@ export default function EditCommunityPost() {
 
   return (
     <div className="w-full h-full flex flex-col gap-2">
-      <div className="flex w-full">
+      <div className="flex w-full my-4">
         <BackButton />
       </div>
       <div className="w-full h-full px-4">

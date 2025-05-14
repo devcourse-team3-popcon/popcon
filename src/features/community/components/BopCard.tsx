@@ -146,7 +146,7 @@ export default function BopCard({
   return (
     <>
       <div className="relative w-fit">
-        <div className="w-[240px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7  shadow-lg shadow-[rgba(0,0,0,0.50)] transition-transform duration-300 ease-in-out hover:-translate-y-4">
+        <div className="w-[224px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7  shadow-lg shadow-[rgba(0,0,0,0.50)] transition-transform duration-300 ease-in-out hover:-translate-y-4">
           <div className="relative w-full h-[208px] overflow-hidden rounded-2xl group shadow-lg shadow-[rgba(0,0,0,0.25)] ">
             <img
               className="w-full h-full bg-[#c2c2c2] rounded-2xl object-cover"

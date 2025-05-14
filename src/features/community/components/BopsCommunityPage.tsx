@@ -29,7 +29,7 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
 
   return (
     <>
-      <div className="flex flex-col gap-8 w-full pb-20">
+      <div className="flex flex-col gap-8 w-full pb-20 px-5">
         <div className="flex w-full justify-between items-center">
           <div className="flex flex-col gap-8 mt-10 w-full">
             <p className="text-[30px] font-semibold">
@@ -57,7 +57,7 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
           </div>
         </div>
 
-        <div className="flex gap-8 flex-wrap w-full ">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl min-w-1xl mx-auto w-full">
           {posts?.map((post) => (
             <BopCard
               key={post._id}
