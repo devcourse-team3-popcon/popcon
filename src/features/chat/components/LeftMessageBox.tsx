@@ -1,4 +1,6 @@
-export default function LeftMessageBox({
+import React from "react";
+
+export default React.memo(function LeftMessageBox({
   text,
   time,
   className,
@@ -13,7 +15,6 @@ export default function LeftMessageBox({
     case "rounded-t":
       rounded = "rounded-tl-[20px]";
       break;
-
     case "rounded-b":
       rounded = "rounded-bl-[20px]";
       break;
@@ -33,4 +34,4 @@ export default function LeftMessageBox({
       </div>
     </>
   );
-}
+});

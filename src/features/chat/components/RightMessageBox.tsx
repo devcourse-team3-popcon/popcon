@@ -1,4 +1,6 @@
-export default function RightMessageBox({
+import React from "react";
+
+export default React.memo(function RightMessageBox({
   text,
   time,
   className,
@@ -33,4 +35,4 @@ export default function RightMessageBox({
       </div>
     </>
   );
-}
+});

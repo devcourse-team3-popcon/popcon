@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import LeftMessageBox from "./LeftMessageBox";
 import RightMessageBox from "./RightMessageBox";
 import TextBox from "./TextBox";
@@ -27,8 +33,17 @@ export default function MessageList({ userId }: { userId: string }) {
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "auto" });
+  useLayoutEffect(() => {
+    const container = bottomRef.current?.parentElement;
+    if (!container) return;
+    const isOverflowing = container.scrollHeight > container.clientHeight;
+    // console.log("container.scrollHeight: ", container.scrollHeight);
+    // console.log("container.clientHeight: ", container.clientHeight);
+    // console.log("isOverflowing: ", isOverflowing);
+
+    if (isOverflowing) {
+      bottomRef.current?.scrollIntoView({ behavior: "auto" });
+    }
   }, [messages]);
 
   useEffect(() => {
