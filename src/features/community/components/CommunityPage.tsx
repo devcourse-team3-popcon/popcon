@@ -7,6 +7,7 @@ import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import Pagination from "../../../components/common/Pagination";
 import { usePagination } from "../../../hooks/usePagination";
 import SelectBox from "../../../components/common/SelectBox";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 interface ComunityPageProps {
   renderTable: (posts: Post[]) => ReactNode;
@@ -52,7 +53,9 @@ export default function CommunityPage({
 
   if (loading)
     return (
-      <div className="w-full h-full flex justify-center items-center"></div>
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
     );
 
   return (
