@@ -137,7 +137,6 @@ export default function MessageList({ userId }: { userId: string }) {
           value={chatInput}
           onChange={(e) => setChatInput(e.target.value)}
           onClear={() => setChatInput("")}
-          className=""
           userId={userId}
         />
       </div>

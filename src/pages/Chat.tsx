@@ -2,10 +2,12 @@ import { useParams } from "react-router";
 import BackButton from "../components/common/BackButton";
 import Conversations from "../features/chat/components/Conversations";
 import Messages from "../features/chat/components/Messages";
+import { useMsgVersionStore } from "../features/chat/stores/msgVersionStore";
 // import { UserInfo } from "../features/chat/types/UserInfo";
 
 export default function Chat() {
   const { userId } = useParams();
+  const version = useMsgVersionStore((state) => state.c_version);
 
   return (
     <>
@@ -24,7 +26,7 @@ export default function Chat() {
             <BackButton />
           </div>
           <div className="h-[93%] w-full">
-            <Conversations />
+            <Conversations key={`${userId}-${version}`} />
           </div>
         </div>
 

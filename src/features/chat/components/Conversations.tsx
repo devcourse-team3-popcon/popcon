@@ -5,6 +5,7 @@ import useGetConversation from "../hooks/useGetConversation";
 import UserList from "./UserList";
 import { RotateCcw } from "lucide-react";
 import { useRefreshStore } from "../stores/refreshStore";
+import { useMsgVersionStore } from "../stores/msgVersionStore";
 
 export default function Conversations() {
   const [searchInput, setSearchInput] = useState("");
@@ -13,8 +14,11 @@ export default function Conversations() {
     (state) => state.setRefreshConversations
   );
 
-  const refreshConv = useRefreshStore((state) => state.refreshConversations);
-  const refreshMsg = useRefreshStore((state) => state.refreshMessages);
+  // const refreshConv = useRefreshStore((state) => state.refreshConversations);
+  // const refreshMsg = useRefreshStore((state) => state.refreshMessages);
+
+  const updateCversion = useMsgVersionStore((state) => state.c_increment);
+  const updateMVersion = useMsgVersionStore((state) => state.m_increment);
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString("ko-KR", {
@@ -29,8 +33,11 @@ export default function Conversations() {
   }, [refresh, setRefreshConv]);
 
   const refreshHandler = () => {
-    refreshConv?.();
-    refreshMsg?.();
+    // refreshConv?.();
+    // refreshMsg?.();
+
+    updateCversion();
+    updateMVersion();
   };
 
   return (
