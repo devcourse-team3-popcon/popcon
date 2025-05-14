@@ -47,21 +47,23 @@ export default function CommunityPage({
 
   useEffect(() => {
     if (searchInput.trim() !== "" || searchType !== "all") {
-      const newParams = new URLSearchParams(searchParams);
-      newParams.set("page", "1");
-
-      const newUrl = window.location.pathname + "?" + newParams.toString();
-      window.history.pushState({}, "", newUrl);
+      setSearchParams(prev => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set("page", "1");
+        return newParams;
+      });
     }
-  }, [searchInput, searchType, searchParams]);
+  }, [searchInput, searchType, setSearchParams]);
 
-  const setPagination = (newCntPage: number) => {
+  const setPagination = (newCntPage: number, totalCnt: number, page: number) => {
     if (newCntPage !== cntPage) {
       setCntPage(newCntPage);
-
-      const newParams = new URLSearchParams(searchParams);
-      newParams.set("page", "1");
-      setSearchParams(newParams);
+      
+      setSearchParams(prev => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set("page", "1");
+        return newParams;
+      });
     }
   };
 
