@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import loginGroup from "../../../assets/images/defaultProfile.svg";
+import defaultProfileLogo from "../../../assets/images/default-profile-logo.svg";
 import cameraIcon from "../../../assets/images/camera-icon.png";
 import InputField from "../../../components/common/InputField";
 import BackButton from "../../../components/common/BackButton";
 import {
+  deleteUser,
   logoutUser,
   myPageUpdatePhoto,
   myPageUserInfo,
   myPageUserInfoUpdate,
-} from "../../../apis/mypage/mypage";
+} from "../../../apis/mypage/myPage";
 import { useNavigate } from "react-router";
 import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessToken";
 import { searchArtist } from "../../../apis/spotify/spotifySearch";
 import CheckPassword from "./CheckPassword";
+import ActionModal from "../../../components/common/ActionModal";
 
 export default function MyPage() {
   const genres = [
@@ -37,6 +39,7 @@ export default function MyPage() {
   const [favoriteArtist, setFavoriteArtist] = useState("");
   const [favoriteGenre, setFavoriteGenre] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [storedUserId, setStoredUserId] = useState("");
 
   const [initialUserData, setInitialUserData] = useState({
     username: "",
@@ -67,6 +70,8 @@ export default function MyPage() {
   const isSelectingRef = useRef(false);
   const [artistSuggestions, setArtistSuggestions] = useState<string[]>([]);
   const suggestionsRef = useRef<HTMLDivElement>(null);
+
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchArtistSuggestions = async () => {
@@ -108,6 +113,8 @@ export default function MyPage() {
         setFavoriteGenre(parsed.favoriteGenre);
         setFavoriteArtist(parsed.favoriteArtist);
         setEmail(user.email);
+
+        setStoredUserId(user._id);
 
         if (user.image) {
           setImageUrl(user.image);
@@ -159,12 +166,30 @@ export default function MyPage() {
     await logoutUser();
     navigate("/login");
   };
+
+  const handleDelete = async () => {
+    try {
+      await deleteUser(storedUserId);
+      setShowModal(false);
+      localStorage.removeItem("app_state");
+      navigate("/login");
+    } catch (error) {
+      console.error("탈퇴 중 오류 발생:", error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#1B1C1E] text-white flex flex-col items-center py-10 px-4">
       <div className="w-full flex justify-between items-center mb-4">
         <BackButton />
         <button
-          onClick={() => navigate("/MyPostList")}
+          onClick={() =>
+            navigate("/postsbyuser", {
+              state: {
+                authorId: storedUserId,
+              },
+            })
+          }
           className="text-[color:var(--grey-300)] text-sm px-4 py-2 border border-[color:var(--white-80)] rounded-[10px] h-10 hover:border-[color:var(--primary-200)] hover:text-[color:var(--primary-200)]"
         >
           작성한 게시글 보기
@@ -181,7 +206,7 @@ export default function MyPage() {
       <div className="flex flex-col items-center w-full max-w-[240px]">
         <div className="relative w-full aspect-square mt-[32px]">
           <img
-            src={imageUrl || loginGroup}
+            src={imageUrl || defaultProfileLogo}
             alt="프로필 사진"
             className="w-full h-full rounded-full object-cover"
           />
@@ -388,9 +413,21 @@ export default function MyPage() {
           로그아웃
         </button>
         <span className="px-3 text-[#EFEFEF]">|</span>
-        <button className="hover:underline cursor-pointer text-[#E42F42]">
+        <button
+          onClick={() => setShowModal(true)}
+          className="hover:underline cursor-pointer text-[#E42F42]"
+        >
           회원 탈퇴
         </button>
+        {showModal && (
+          <ActionModal
+            modalMessage="정말로 회원 탈퇴하시겠습니까?
+            이 작업은 되돌릴 수 없습니다."
+            onCancel={() => setShowModal(false)}
+            onConfirmAction={handleDelete}
+            confirmButtonText="탈퇴하기"
+          />
+        )}
       </div>
     </div>
   );

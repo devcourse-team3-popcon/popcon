@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-import loginGroup from "../../../assets/images/defaultProfile.svg";
+import { useParams } from "react-router";
+import defaultProfileLogo from "../../../assets/images/default-profile-logo.svg";
 import InputField from "../../../components/common/InputField";
 import BackButton from "../../../components/common/BackButton";
 import { getUserDetail } from "../../../apis/mypage/userDetail";
+import { useNavigate } from "react-router";
 
 export default function UserDetailPage() {
-  const userId = "68239d62f791b728ce718042";
-  // const { userId } = useParams();
-
+  const { userId } = useParams();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [favoriteArtist, setFavoriteArtist] = useState("");
@@ -19,6 +19,11 @@ export default function UserDetailPage() {
     const fetchUserDetail = async () => {
       try {
         const user = await getUserDetail(userId!);
+        if (!user || !user.email) {
+          navigate("/404-not-found");
+          return;
+        }
+
         const parsed = JSON.parse(user.fullName);
 
         setUsername(parsed.name);
@@ -31,9 +36,7 @@ export default function UserDetailPage() {
       }
     };
 
-    if (userId) {
-      fetchUserDetail();
-    }
+    fetchUserDetail();
   }, [userId]);
 
   return (
@@ -41,7 +44,14 @@ export default function UserDetailPage() {
       <div className="w-full flex justify-between items-center mb-4">
         <BackButton />
         <button
-          //onClick={() => navigate("/MyPostList")}
+          onClick={() =>
+            navigate("/postsbyuser", {
+              state: {
+                authorId: userId,
+                username: username,
+              },
+            })
+          }
           className="text-[color:var(--grey-300)] text-sm px-4 py-2 border border-[color:var(--white-80)] rounded-[10px] h-10 hover:border-[color:var(--primary-200)] hover:text-[color:var(--primary-200)]"
         >
           작성한 게시글 보기
@@ -51,7 +61,7 @@ export default function UserDetailPage() {
       <div className="flex flex-col items-center w-full max-w-[240px]">
         <div className="relative w-full aspect-square mt-[32px]">
           <img
-            src={imageUrl || loginGroup}
+            src={imageUrl || defaultProfileLogo}
             alt="프로필 사진"
             className="w-full h-full rounded-full object-cover"
           />

@@ -111,3 +111,25 @@ export const updateUserPassword = async (newPassword: string) => {
     console.error("비밀번호 변경 실패:", error);
   }
 };
+
+export const deleteUser = async (userId: string) => {
+  const token = getLoginStorage();
+  console.log("token", token);
+  try {
+    const res = await axios.delete(
+      "http://13.125.208.179:5007/users/delete-user",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          id: userId,
+        },
+      }
+    );
+
+    return res.data;
+  } catch (err) {
+    console.error("회원 탈퇴 실패:", err);
+  }
+};

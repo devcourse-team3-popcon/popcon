@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import InputField from "../../../components/common/InputField";
 import { loginUser } from "../../../apis/login/login";
 import { useNavigate } from "react-router";
-import { logoutUser, updateUserPassword } from "../../../apis/mypage/mypage";
+import { logoutUser, updateUserPassword } from "../../../apis/mypage/myPage";
 
 type Props = {
   onCheckPassword: () => void;
