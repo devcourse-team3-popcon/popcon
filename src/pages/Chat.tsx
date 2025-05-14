@@ -31,7 +31,7 @@ export default function Chat() {
         <Messages />
       </div>
 
-      <div className="md:hidden w-full flex flex-col gap-[20px] h-150">
+      <div className="md:hidden w-full flex flex-col gap-[20px] h-150 px-6">
         {userId ? <Messages /> : <Conversations />}
       </div>
     </>
