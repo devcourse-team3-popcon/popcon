@@ -3,11 +3,17 @@ import BackButton from "../components/common/BackButton";
 import Conversations from "../features/chat/components/Conversations";
 import Messages from "../features/chat/components/Messages";
 import { useMsgVersionStore } from "../features/chat/stores/msgVersionStore";
+import { useEffect } from "react";
 // import { UserInfo } from "../features/chat/types/UserInfo";
 
 export default function Chat() {
   const { userId } = useParams();
   const version = useMsgVersionStore((state) => state.c_version);
+  const reset = useMsgVersionStore((state) => state.reset);
+
+  useEffect(() => {
+    reset();
+  }, [userId, reset]);
 
   return (
     <>
