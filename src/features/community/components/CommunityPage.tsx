@@ -1,27 +1,30 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router";
 import SearchBar from "../../../components/common/SearchBar";
 import { Plus } from "lucide-react";
 import { Post } from "../types/Post";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import Pagination from "../../../components/common/Pagination";
-import { usePagination } from "../../../hooks/usePagination";
 import SelectBox from "../../../components/common/SelectBox";
+import { useNavigate, useSearchParams } from "react-router";
 
 interface ComunityPageProps {
   renderTable: (posts: Post[]) => ReactNode;
   channelId: string;
 }
+
 export default function CommunityPage({
   renderTable,
   channelId,
 }: ComunityPageProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+
   const [searchInput, setSearchInput] = useState("");
   const [searchType, setSearchType] = useState<"all" | "title" | "writer">(
     "all"
   );
   const navigate = useNavigate();
-  const { page, cntPage, setPagination } = usePagination();
+  const [cntPage, setCntPage] = useState(10);
   const { posts, loading } = usePostsByChannel(channelId);
   const searchOptions = [
     { value: "all", label: "전체" },
@@ -43,10 +46,28 @@ export default function CommunityPage({
   }, [posts, searchInput, searchType]);
 
   useEffect(() => {
-    setPagination(cntPage, filteredPosts.length, 1);
-  }, [searchInput, searchType, cntPage]);
+    if (searchInput.trim() !== "" || searchType !== "all") {
+      setSearchParams(prev => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set("page", "1");
+        return newParams;
+      });
+    }
+  }, [searchInput, searchType, setSearchParams]);
 
-  const indexOfLastPost = page * cntPage;
+  const setPagination = (newCntPage: number, totalCnt: number, page: number) => {
+    if (newCntPage !== cntPage) {
+      setCntPage(newCntPage);
+      
+      setSearchParams(prev => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set("page", "1");
+        return newParams;
+      });
+    }
+  };
+
+  const indexOfLastPost = currentPage * cntPage;
   const indexOfFirstPost = indexOfLastPost - cntPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
@@ -91,7 +112,6 @@ export default function CommunityPage({
 
         <div className="mt-8 flex justify-center">
           <Pagination
-            page={page}
             cntPage={cntPage}
             totalCnt={filteredPosts.length}
             setPagination={setPagination}

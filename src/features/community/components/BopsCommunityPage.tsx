@@ -1,10 +1,11 @@
 import { Plus } from "lucide-react";
-import { useNavigate } from "react-router";
 import BopCard from "./BopCard";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import Hashtag from "../../../components/common/Hashtag";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import Pagination from "../../../components/common/Pagination";
+import { useNavigate, useSearchParams } from "react-router";
 
 type BopsCommunityProps = {
   channelId: string;
@@ -18,7 +19,29 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
     videoId: string;
   } | null>(null);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const [cntPage, setCntPage] = useState(12);
+
   const { posts, setPosts, loading } = usePostsByChannel(`${channelId}`);
+
+  const currentPosts = useMemo(() => {
+    if (!posts) return [];
+    const indexOfLastPost = currentPage * cntPage;
+    const indexOfFirstPost = indexOfLastPost - cntPage;
+    return posts.slice(indexOfFirstPost, indexOfLastPost);
+  }, [posts, currentPage, cntPage]);
+
+  const setPagination = (newCntPage: number) => {
+    if (newCntPage !== cntPage) {
+      setCntPage(newCntPage);
+
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set("page", "1");
+      setSearchParams(newParams);
+    }
+  };
+
   if (loading)
     return (
       <div className="w-full min-h-screen flex justify-center items-center">
@@ -58,7 +81,7 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
         </div>
 
         <div className="flex gap-8 flex-wrap w-full ">
-          {posts?.map((post) => (
+          {currentPosts.map((post) => (
             <BopCard
               key={post._id}
               post={post}
@@ -70,6 +93,16 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
             />
           ))}
         </div>
+
+        {posts && posts.length > 0 && (
+          <div className="mt-8 flex justify-center">
+            <Pagination
+              cntPage={cntPage}
+              totalCnt={posts.length}
+              setPagination={setPagination}
+            />
+          </div>
+        )}
       </div>
     </>
   );
