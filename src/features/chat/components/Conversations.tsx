@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import SearchBar from "../../../components/common/SearchBar";
 import ChatUser from "./ChatUser";
-// import { UserInfo } from "../types/UserInfo";
 import useGetConversation from "../hooks/useGetConversation";
 import UserList from "./UserList";
 import { RotateCcw } from "lucide-react";
@@ -36,25 +35,28 @@ export default function Conversations() {
 
   return (
     <>
-      <div className="w-[25%] h-[100%] py-[32px] px-[20px] rounded-[30px] border flex flex-col">
-        <div className="font-bold text-2xl mb-[12px] cursor-default flex justify-between items-center">
-          Message
+      <div className="md:w-full h-full md:py-8 md:px-5 rounded-4xl md:border flex flex-col ">
+        <div className="md:font-bold text-2xl mb-3 cursor-default flex justify-between items-center">
+          <div className="hidden md:block">Message</div>
+          <div className="md:hidden font-[MonumentExtended] text-[var(--primary-300)] text-xl">
+            CHAT
+          </div>
           <RotateCcw
             size={18}
+            color="var(--white-80)"
             className="cursor-pointer"
             onClick={refreshHandler}
           />
         </div>
 
         <SearchBar
+          placeholder="사용자 검색"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="w-full mb-[16px]"
+          className="w-full"
         />
 
-        <div className="flex flex-col gap-[8px] w-full overflow-y-auto flex-1 scrollbar-hide">
-          {/* {loading && <p>loading...</p>} */}
-
+        <div className="flex flex-col gap-2 w-full overflow-y-auto flex-1 scrollbar-hide md:mt-4 mt-3">
           {searchInput.trim().length > 0 ? (
             <UserList keyword={searchInput} clear={() => setSearchInput("")} />
           ) : (
@@ -62,8 +64,6 @@ export default function Conversations() {
             conversations.map((conv) => {
               const parsedSender = JSON.parse(conv.sender.fullName);
               const parsedReceiver = JSON.parse(conv.receiver.fullName);
-
-              // console.log("conv: ", conv);
 
               return (
                 <ChatUser

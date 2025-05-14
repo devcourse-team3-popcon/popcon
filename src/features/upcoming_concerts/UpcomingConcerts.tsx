@@ -1,8 +1,8 @@
-import ConcertCard from "../../components/upcoming_concerts/ConcertCard";
-import useConcerts from "../../hooks/useConcerts";
 import { useMemo, useState } from "react";
 import Pagination from "../../components/common/Pagination";
 import { useSearchParams } from "react-router";
+import useConcerts from "./hooks/useConcerts";
+import ConcertCard from "./components/ConcertCard";
 
 export default function UpcomingConcerts() {
   const channelId = "681728150949dd30548aa760"; // Upcoming Concerts channel
