@@ -1,4 +1,4 @@
-import { useEffect, useState, useOptimistic } from "react";
+import { useEffect, useState, useOptimistic, startTransition } from "react";
 import { getCurrentUserId } from "../../../utils/auth";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import { Post } from "../types/Post";
@@ -26,7 +26,7 @@ export const useLike = (initialPost: Post | null) => {
               _id: id,
               user: action.userId,
               post: currentPost._id,
-              createdAt: id,
+              createdAt: "aaa",
               updatedAt: id,
             },
           ],
@@ -60,67 +60,67 @@ export const useLike = (initialPost: Post | null) => {
   const toggleLike = async () => {
     if (!optimisticPost || !currentUserId) return;
 
-    const userLike = optimisticPost.likes.find(
-      (like) => like.user === currentUserId
-    );
+    startTransition(async () => {
+      const userLike = optimisticPost.likes.find(
+        (like) => like.user === currentUserId
+      );
 
-    if (userLike) {
-      setOptimisticPost({
-        type: "remove",
-        userId: currentUserId,
-        likeId: userLike._id,
-      });
-
-      try {
-        await axiosInstance.delete("/likes/delete", {
-          data: { id: userLike._id },
+      if (userLike) {
+        setOptimisticPost({
+          type: "remove",
+          userId: currentUserId,
+          likeId: userLike._id,
         });
 
-        if (post) {
-          setPost({
-            ...post,
-            likes: post.likes.filter((like) => like._id !== userLike._id),
+        try {
+          await axiosInstance.delete("/likes/delete", {
+            data: { id: userLike._id },
           });
-        }
-      } catch (e) {
-        console.error("좋아요 삭제 실패:", e);
-      }
-    } else {
-      setOptimisticPost({
-        type: "add",
-        userId: currentUserId,
-      });
 
-      try {
-        const res = await axiosInstance.post("/likes/create", {
-          postId: optimisticPost._id,
+          if (post) {
+            setPost((post) => ({
+              ...post!,
+              likes: post!.likes.filter((like) => like._id !== userLike._id),
+            }));
+          }
+        } catch (e) {
+          console.error("좋아요 삭제 실패:", e);
+        }
+      } else {
+        setOptimisticPost({
+          type: "add",
           userId: currentUserId,
         });
 
-        const newLike = res.data;
-
-        if (post) {
-          setPost({
-            ...post,
-            likes: [...post.likes, newLike],
-          });
-        }
-
-        if (
-          optimisticPost.author._id &&
-          optimisticPost.author._id !== currentUserId
-        ) {
-          await sendNotification({
-            notificationType: "LIKE",
-            notificationTypeId: newLike._id,
-            userId: optimisticPost.author._id,
+        try {
+          const res = await axiosInstance.post("/likes/create", {
             postId: optimisticPost._id,
+            userId: currentUserId,
           });
+
+          const newLike = res.data;
+
+          if (
+            optimisticPost.author._id &&
+            optimisticPost.author._id !== currentUserId
+          ) {
+            await sendNotification({
+              notificationType: "LIKE",
+              notificationTypeId: newLike._id,
+              userId: optimisticPost.author._id,
+              postId: optimisticPost._id,
+            });
+          }
+
+          setPost((post) => ({
+            ...post!,
+            likes: [...post!.likes, newLike],
+          }));
+        } catch (e) {
+          console.error("좋아요 추가 실패:", e);
         }
-      } catch (e) {
-        console.error("좋아요 추가 실패:", e);
       }
-    }
+    });
   };
 
   return {
