@@ -1,5 +1,5 @@
-import ConcertCard from "../../components/upcoming_concerts/ConcertCard";
-import useConcerts from "../../hooks/useConcerts";
+import ConcertCard from "./components/ConcertCard";
+import useConcerts from "./hooks/useConcerts";
 
 export default function UpcomingConcerts() {
   const channelId = "681728150949dd30548aa760"; // Upcoming Concerts channel

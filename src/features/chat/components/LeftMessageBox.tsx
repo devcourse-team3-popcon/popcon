@@ -1,4 +1,6 @@
-export default function LeftMessageBox({
+import React from "react";
+
+export default React.memo(function LeftMessageBox({
   text,
   time,
   className,
@@ -7,23 +9,22 @@ export default function LeftMessageBox({
   time: string;
   className?: string;
 }) {
-  let rouned = "rounded-tr-[20px] rounded-br-[20px]";
+  let rounded = "";
 
   switch (className) {
     case "rounded-t":
-      rouned = "rounded-tl-[20px] rounded-tr-[20px] rounded-br-[20px]";
+      rounded = "rounded-tl-[20px]";
       break;
-
     case "rounded-b":
-      rouned = "rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px]";
+      rounded = "rounded-bl-[20px]";
       break;
   }
 
   return (
     <>
-      <div className="flex items-end gap-[16px]">
+      <div className="flex items-end md:gap-4 gap-2">
         <div
-          className={`flex items-center min-h-[48px] max-w-[400px] bg-[var(--grey-500)] ${rouned} text-lg font-regular px-[16px] py-[8px]`}
+          className={`flex items-center md:min-h-[48px] max-w-[400px] bg-[var(--grey-500)] rounded-tr-[20px] rounded-br-[20px] ${rounded} md:text-lg font-regular px-4 py-2`}
         >
           {text}
         </div>
@@ -33,4 +34,4 @@ export default function LeftMessageBox({
       </div>
     </>
   );
-}
+});

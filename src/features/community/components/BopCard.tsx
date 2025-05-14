@@ -92,13 +92,7 @@ export default function BopCard({
     fetchUserId();
   }, []);
 
-  const addTrackToPlaylist = useAddTrackToPlaylist(
-    () => setShowCompletedModal(true),
-    (message) => {
-      setErrorMessage(message);
-      setShowErrorModal(true);
-    }
-  );
+  const addTrackToPlaylist = useAddTrackToPlaylist();
 
   const addPlaylistHandler = () => {
     if (!parsedBopTitle?.track) return;
