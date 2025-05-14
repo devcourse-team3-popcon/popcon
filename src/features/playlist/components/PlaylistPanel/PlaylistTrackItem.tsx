@@ -74,7 +74,9 @@ export default function PlaylistTrackItem({
       query = `${item.title.artist} - ${item.title.name} official audio topic`;
       postId = item._id;
     } else if (track) {
-      query = `${track.artists[0]?.name || track.artists} - ${track.name} official audio topic`;
+      query = `${track.artists[0]?.name || track.artists} - ${
+        track.name
+      } official audio topic`;
       postId = track.id;
     }
 
@@ -89,7 +91,7 @@ export default function PlaylistTrackItem({
   };
 
   return (
-    <div className="flex h-auto p-[18px] justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer">
+    <div className="flex h-auto p-2 md:p-[18px] justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer">
       <div className="flex gap-[24px] items-center flex-1 overflow-hidden">
         <div className="flex rounded-[10px] justify-center items-center relative group overflow-hidden">
           <img

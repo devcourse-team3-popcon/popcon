@@ -20,7 +20,7 @@ export default function MusicRecommender({
   }, []);
 
   return (
-    <section className="flex flex-col py-13 md:px-12 md:py-10 md:bg-[color:var(--grey-600)] rounded-[30px] gap-[16px] 2xl:gap-[32px] w-full h-full md:h-[360px]">
+    <section className="flex flex-col py-13 md:px-12 md:py-10 md:bg-[color:var(--grey-600)] rounded-[30px] gap-[35px] xl:py-6 xl:gap-[32px] 2xl:py-12 2xl:px-10  w-full h-full md:h-[360px] xl:h-70 2xl:h-90">
       <MusicRecommenderHeader />
 
       <RecommendedTrackList

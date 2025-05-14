@@ -13,13 +13,7 @@ export default function PlaylistHeader({
     <>
       <div className="justify-between items-center z-40 hidden md:flex">
         <div className="flex gap-[16px] text-[24px] font-bold">
-          <h2 className="capitalize">
-            <span className="hidden md:inline">
-              {userName}
-              님의
-            </span>
-            PlayList
-          </h2>
+          <h2 className="capitalize">{userName} 님의 PlayList</h2>
           <span className="hidden md:inline">🌱</span>
         </div>
         <Plus

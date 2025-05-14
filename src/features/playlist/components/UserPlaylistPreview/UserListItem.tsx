@@ -32,15 +32,15 @@ export default function UserListItem({
             />
           )}
         </div>
-        <p className="w-[140px] text-[12px] 2xl:text-[18px] font-bold">
+        <p className="w-[140px] text-[12px] md:text-[18px] font-bold">
           {fullName}
         </p>
       </div>
-      <div className="flex items-center">
-        <p className="w-full text-[10px] 2xl:text-[14px] text-[color:var(--grey-200)] truncate">
+      <div className="flex items-center gap-2">
+        <p className="w-full text-[10px] md:text-[14px] text-[color:var(--grey-200)] truncate">
           {favoriteArtist ? `좋아하는 가수 : ${favoriteArtist}` : ""}
         </p>
-        <ChevronRight className="group-hover:text-[color:var(--primary-300)] min-w-[24px]" />
+        <ChevronRight className="group-hover:text-[color:var(--primary-300)] min-w-4 md:min-w-6" />
       </div>
     </div>
   );
