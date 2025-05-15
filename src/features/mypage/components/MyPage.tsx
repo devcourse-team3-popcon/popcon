@@ -6,6 +6,7 @@ import BackButton from "../../../components/common/BackButton";
 import {
   deleteUser,
   logoutUser,
+  myPageDeletePhoto,
   myPageUpdatePhoto,
   myPageUserInfo,
   myPageUserInfoUpdate,
@@ -186,8 +187,19 @@ export default function MyPage() {
     }
   };
 
+  const handleResetProfileImage = async () => {
+    try {
+      await myPageDeletePhoto();
+      setImageUrl("");
+    } catch (e) {
+      console.error("기본 이미지 변경 실패:", e);
+    } finally {
+      setShowImageDropdown(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#1B1C1E] text-white flex flex-col items-center py-10 px-4">
+    <div className="min-h-screen bg-[#1B1C1E] text-white flex flex-col items-center py-10 px-4 h-[calc(100vh-120px)] w-full ">
       <div className="w-full flex justify-between items-center mb-4">
         <BackButton />
         <button
@@ -232,7 +244,7 @@ export default function MyPage() {
                   <li
                     className="px-4 py-2 hover:bg-[#444] cursor-pointer"
                     onClick={() => {
-                      setImageUrl("");
+                      handleResetProfileImage();
                       setShowImageDropdown(false);
                     }}
                   >

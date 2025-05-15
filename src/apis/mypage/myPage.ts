@@ -114,7 +114,7 @@ export const updateUserPassword = async (newPassword: string) => {
 
 export const deleteUser = async (userId: string) => {
   const token = getLoginStorage();
-  console.log("token", token);
+
   try {
     const res = await axios.delete(
       "http://13.125.208.179:5007/users/delete-user",
@@ -131,5 +131,25 @@ export const deleteUser = async (userId: string) => {
     return res.data;
   } catch (err) {
     console.error("회원 탈퇴 실패:", err);
+  }
+};
+
+export const myPageDeletePhoto = async () => {
+  const token = getLoginStorage();
+  try {
+    const res = await axios.delete(
+      "http://13.125.208.179:5007/users/delete-photo",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          isCover: false,
+        },
+      }
+    );
+    return res.data;
+  } catch (err) {
+    console.error("프로필 이미지 삭제 실패:", err);
   }
 };
