@@ -1,5 +1,6 @@
 import { ListMusic, LogOut, Pencil, Trash2, User } from "lucide-react";
 import { useEffect, useRef } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 type MenuItem = {
   label: string;
@@ -11,6 +12,7 @@ type DropdownMenuProps = {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
   menuItems: MenuItem[];
+  isToggle?: boolean;
 };
 
 const getIconByLabel = (label: string) => {
@@ -36,15 +38,25 @@ export default function DropdownMenu({
   isOpen,
   setIsOpen,
   menuItems,
+  isToggle,
 }: DropdownMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const outsideClickHandler = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      const themeToggleWrapper = document.getElementById(
+        "theme-toggle-wrapper"
+      );
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        themeToggleWrapper &&
+        !themeToggleWrapper.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
+
     document.addEventListener("mousedown", outsideClickHandler);
     return () => document.removeEventListener("mousedown", outsideClickHandler);
   }, [setIsOpen]);
@@ -76,6 +88,14 @@ export default function DropdownMenu({
             </div>
           </button>
         ))}
+        {isToggle && (
+          <div
+            id="theme-toggle-wrapper"
+            className="flex w-full justify-center mb-2"
+          >
+            <ThemeToggle />
+          </div>
+        )}
       </div>
     </>
   );
