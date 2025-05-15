@@ -1,5 +1,5 @@
-import { useLocation, useMatch, useNavigate, NavLink } from "react-router";
-
+import { useNavigate, NavLink } from "react-router";
+import { useEffect, useState } from "react";
 import bell from "../../assets/images/icon-bell.svg";
 import bellLight from "../../assets/images/icon-bell-light.svg";
 import bellActive from "../../assets/images/icon-bell-active.svg";
@@ -9,7 +9,6 @@ import chatLight from "../../assets/images/icon-chat-light.svg";
 import user from "../../assets/images/icon-user.svg";
 import { useAuthStore } from "../../stores/authStore";
 import DropdownMenu from "../../components/common/DropdownMenu";
-import { useState } from "react";
 import { useNotificationModal } from "../../features/notification/hooks/useNotificationModal";
 import NotificationList from "../../features/notification/components/NotificationList";
 import { getCurrentTheme } from "../../utils/theme";
@@ -20,11 +19,39 @@ export default function UserSection() {
   const { isLoggedIn } = useAuthStore();
   const { logout } = useAuthStore();
   const navigate = useNavigate();
-  const location = useLocation();
-  const matchChat = useMatch("/chat");
-  const matchChatUser = useMatch("/chat/:userId");
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const theme = getCurrentTheme();
+
+  const [theme, setTheme] = useState(getCurrentTheme());
+
+  useEffect(() => {
+    const handleThemeChange = () => {
+      setTheme(getCurrentTheme());
+    };
+
+    document.addEventListener("themeChanged", handleThemeChange);
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class"
+        ) {
+          setTheme(getCurrentTheme());
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => {
+      document.removeEventListener("themeChanged", handleThemeChange);
+      observer.disconnect();
+    };
+  }, []);
+
   const menuItems = [
     {
       label: "마이페이지",
@@ -43,8 +70,6 @@ export default function UserSection() {
       danger: true,
     },
   ];
-
-  const isActive = Boolean(matchChat || matchChatUser);
 
   const getImageSrc = (
     darkImage: string,
