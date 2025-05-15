@@ -31,7 +31,9 @@ export default function AboutUsMemberCard({
         <p className="text-[color:var(--primary-300)] text-[14px] font-medium">
           FRONTEND DEVELOPER
         </p>
-        <p className="text-[12px] font-light">{contact}</p>
+        <a href={contact} className="text-[12px] font-light">
+          {contact}
+        </a>
       </div>
     </div>
   );
