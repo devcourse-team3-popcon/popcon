@@ -1,4 +1,6 @@
-export default function RightMessageBox({
+import React from "react";
+
+export default React.memo(function RightMessageBox({
   text,
   time,
   className,
@@ -7,30 +9,30 @@ export default function RightMessageBox({
   time: string;
   className?: string;
 }) {
-  let rouned = "rounded-tl-[20px] rounded-bl-[20px]";
+  let rounded = "";
 
   switch (className) {
     case "rounded-t":
-      rouned = "rounded-tl-[20px] rounded-tr-[20px] rounded-bl-[20px]";
+      rounded = "rounded-tr-[20px]";
       break;
 
     case "rounded-b":
-      rouned = "rounded-tl-[20px] rounded-bl-[20px] rounded-br-[20px]";
+      rounded = "rounded-br-[20px]";
       break;
   }
 
   return (
     <>
-      <div className="flex items-end gap-[16px] self-end">
+      <div className="flex items-end md:gap-4 gap-2 self-end">
         <span className="text-[0.75rem] text-[var(--grey-400)] font-regular">
           {time}
         </span>
         <div
-          className={`flex items-center min-h-[48px] max-w-[400px] bg-[var(--primary-300)] ${rouned} text-lg text-black font-regular px-[16px] py-[8px]`}
+          className={`flex items-center md:min-h-[48px] max-w-[400px] bg-[var(--primary-300)] rounded-tl-[20px] rounded-bl-[20px] ${rounded} md:text-lg text-black font-regular px-4 py-2`}
         >
           {text}
         </div>
       </div>
     </>
   );
-}
+});

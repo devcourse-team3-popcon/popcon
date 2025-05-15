@@ -8,7 +8,7 @@ export default function Messages() {
 
   return (
     <>
-      <div className="w-[55%] h-[100%] p-[32px] rounded-[30px] border border-[var(--primary-300)] flex justify-center items-center">
+      <div className="md:w-[55%] h-[93%] md:p-8 rounded-4xl md:border border-[var(--primary-300)] flex justify-center items-center">
         {userId ? <MessageList userId={userId} /> : <NoMessages />}
       </div>
     </>

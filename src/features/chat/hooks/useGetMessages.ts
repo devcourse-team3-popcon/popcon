@@ -62,6 +62,8 @@ export default function useGetMessages(userId: string) {
   }, [userId]);
 
   useEffect(() => {
+    setMessages([]);
+    setLoading(true);
     getMessages();
   }, [getMessages]);
 
