@@ -26,7 +26,7 @@ const items: Item[] = [
   },
   {
     id: 3,
-    imgSrc: "/src/assets/images/mvp3.png",
+    imgSrc: "/src/assets/images/mvp3.png",
     title: "title",
     content: "content",
   },
