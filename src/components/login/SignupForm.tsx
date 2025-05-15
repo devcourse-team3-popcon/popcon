@@ -194,22 +194,23 @@ export default function SignupForm() {
   };
 
   return (
-    <div className="h-[calc(100vh-120px)] w-full flex overflow-visible">
-      <div className="w-[50%] bg-[#1B1C1E] relative">
-        <div className="flex items-center justify-center h-full">
+    <div className="h-[calc(100vh-120px)] w-full flex flex-col md:flex-row overflow-visible md:overflow-hidden">
+      <div className="w-full md:w-[50%] bg-[#1B1C1E] relative">
+        <div className="flex items-center justify-center h-full pb-8 md:pb-0">
           <img
             src={loginGroup}
             alt="캐릭터"
             className="w-[70%] max-w-[500px] object-contain"
           />
         </div>
-        <div className="absolute bottom-[5%] right-[10%]">
+
+        <div className="absolute bottom-[5%] right-[10%] hidden md:block">
           <img src={logo} alt="POPcon 로고" className="w-[200px] h-auto" />
         </div>
       </div>
 
-      <div className="w-[50%] bg-[#333333] flex items-center justify-center">
-        <div className="w-[80%] max-w-[700px]">
+      <div className="w-full md:w-[50%] bg-[#333333] flex items-center justify-center">
+        <div className="w-[80%] max-w-[700px] mt-6 md:mt-0">
           <h2 className="text-white text-2xl font-bold mb-6">SIGN UP</h2>
 
           <div className="flex items-center justify-between mb-2">
@@ -237,7 +238,7 @@ export default function SignupForm() {
           <div className="flex items-center justify-between mb-2">
             <label className="text-white text-lg font-bold">이메일</label>
             {isSubmitted && emailError && (
-              <p className="text-[#E42F42] text-sm">{emailError}</p>
+              <p className="text-[#E42F42]">{emailError}</p>
             )}
           </div>
           <input
@@ -316,8 +317,8 @@ export default function SignupForm() {
             } focus:outline-none focus:border-[#8EF3BF]`}
           />
 
-          <div className="flex gap-2">
-            <div className="w-1/2 relative" ref={suggestionsRef}>
+          <div className="flex flex-col gap-4 md:flex-row md:gap-2">
+            <div className="w-full md:w-1/2 relative" ref={suggestionsRef}>
               <label className="block mb-1 text-white">
                 좋아하는 가수 (선택)
               </label>
@@ -347,7 +348,7 @@ export default function SignupForm() {
               )}
             </div>
 
-            <div className="w-1/2 relative" ref={genreSelectRef}>
+            <div className="w-full md:w-1/2 relative" ref={genreSelectRef}>
               <label className="block mb-1 text-white">좋아하는 장르</label>
               <div
                 role="button"
@@ -391,7 +392,7 @@ export default function SignupForm() {
             팝콘 회원가입
           </button>
 
-          <p className="text-sm text-gray-400 mt-6">
+          <p className="text-sm text-[#FFFFFF] mt-8 mb-6">
             Already have an account?{" "}
             <Link to="/Login" className="text-[#71EBBE] underline">
               Log in

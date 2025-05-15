@@ -126,9 +126,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="h-[calc(100vh-120px)] w-full flex overflow-hidden">
-      <div className="w-[50%] bg-[#1B1C1E] relative">
-        <div className="flex items-center justify-center h-full">
+    <div className="h-[calc(100vh-120px)] w-full flex flex-col md:flex-row overflow-hidden">
+      <div className="w-full md:w-[50%] bg-[#1B1C1E] relative">
+        <div className="flex items-center justify-center h-full pb-8 md:pb-0">
           <img
             src={loginGroup}
             alt="캐릭터"
@@ -136,13 +136,13 @@ export default function LoginPage() {
           />
         </div>
 
-        <div className="absolute bottom-[5%] right-[10%]">
+        <div className="absolute bottom-[5%] right-[10%] hidden md:block">
           <img src={logo} alt="POPcon 로고" className="w-[200px] h-auto" />
         </div>
       </div>
 
-      <div className="w-[50%] bg-[#333333] flex items-center justify-center">
-        <div className="w-[80%] max-w-[700px]">
+      <div className="w-full md:w-[50%] bg-[#333333] flex items-center justify-center">
+        <div className="w-[80%] max-w-[700px] mt-6 md:mt-0">
           <h2 className="text-white text-2xl font-bold mb-6">WELCOME BACK</h2>
           <div className="flex items-center justify-between mb-2">
             <label className="text-white text-lg font-bold">팝콘 이메일</label>
@@ -206,9 +206,9 @@ export default function LoginPage() {
             카카오 로그인
           </button>
 
-          <p className="text-sm text-gray-400 mt-6">
+          <p className="text-sm text-[#FFFFFF] mt-8 mb-6">
             Do not have an account yet?{" "}
-            <Link to="/signup-agree" className="text-[#71EBBE] underline">
+            <Link to="/SignupAgree" className="text-[#71EBBE] underline">
               Sign up.
             </Link>
           </p>
