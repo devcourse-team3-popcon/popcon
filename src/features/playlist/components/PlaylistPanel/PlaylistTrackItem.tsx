@@ -91,7 +91,7 @@ export default function PlaylistTrackItem({
   };
 
   return (
-    <div className="flex h-auto p-2 md:p-[18px] justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer">
+    <div className="flex h-auto p-2 justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer">
       <div
         className="flex gap-[24px] items-center flex-1 overflow-hidden"
         onClick={togglePlayTrack}
@@ -100,7 +100,7 @@ export default function PlaylistTrackItem({
           <img
             src={imageUrl}
             alt={imageAlt}
-            className="w-10 h-10 md:w-15 md:h-15 flex-shrink-0"
+            className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0"
           />
           <div
             className={`absolute flex justify-center items-center opacity-0 group-hover:opacity-100 group-hover:bg-black/50 w-full h-full z-10 ${
@@ -126,10 +126,10 @@ export default function PlaylistTrackItem({
           className="overflow-hidden"
           onClick={() => onClick && track && onClick(track)}
         >
-          <p className="text-[12px] md:text-[18px] text-[color:var(--white)] font-bold truncate">
+          <p className="text-[12px] md:text-[16px] text-[color:var(--white)] font-semibold truncate">
             {trackName}
           </p>
-          <p className="text-[10px] mt-2 md:text-[16px] text-[color:var(--grey-400)] truncate">
+          <p className="text-[10px] mt-2 md:text-[14px] text-[color:var(--grey-400)] truncate">
             {artistName}
           </p>
         </div>
@@ -137,14 +137,14 @@ export default function PlaylistTrackItem({
       {showEllipsis && (
         <div className="ml-2 flex-shrink-0">
           <Trash2
-            className="cursor-pointer invisible group-hover:visible transition-all"
+            className="cursor-pointer opacity-0 group-hover:opacity-100 text-[color:var(--white-80)] w-5 h-5 mr-2"
             onClick={(e) => deleteTrack(e, trackId)}
           />
         </div>
       )}
       {other && (
         <div className="ml-2 flex-shrink-0" onClick={handleListMusicClick}>
-          <ListMusic className="cursor-pointer invisible group-hover:visible transition-all" />
+          <ListMusic className="cursor-pointer opacity-0 group-hover:opacity-100 " />
         </div>
       )}
     </div>
