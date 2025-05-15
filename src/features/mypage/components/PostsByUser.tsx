@@ -175,15 +175,18 @@ export default function MyPostList() {
             )}
           </tbody>
         </table>
-
-        <div className="mt-10 flex justify-center">
-          <Pagination
-            page={page}
-            cntPage={limit}
-            totalCnt={allPosts.length}
-            setPagination={(_, __, newPage) => setPage(newPage)}
-          />
-        </div>
+        {pagedPosts.length > 0 && (
+          <div className="mt-10 flex justify-center">
+            <Pagination
+              page={page}
+              cntPage={limit}
+              totalCnt={allPosts.length}
+              setPagination={(_, __, newPage) => {
+                setPage(newPage);
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
