@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router";
 import { NavLink } from "react-router";
 import bell from "../../assets/images/icon-bell.svg";
+import bellLight from "../../assets/images/icon-bell-light.svg";
 import bellActive from "../../assets/images/icon-bell-active.svg";
 import chat from "../../assets/images/icon-chat.svg";
 import chatActive from "../../assets/images/icon-chat-active.svg";
+import chatLight from "../../assets/images/icon-chat-light.svg";
 import user from "../../assets/images/icon-user.svg";
 import { useAuthStore } from "../../stores/authStore";
 import DropdownMenu from "../../components/common/DropdownMenu";
@@ -11,7 +13,6 @@ import { useState } from "react";
 import { useNotificationModal } from "../../features/notification/hooks/useNotificationModal";
 import NotificationList from "../../features/notification/components/NotificationList";
 import { getCurrentTheme } from "../../utils/theme";
-import ThemeToggle from "../../components/common/ThemeToggle";
 
 export default function UserSection() {
   const { isShowNotifications, showNotifications, closeNotifications } =
@@ -40,6 +41,16 @@ export default function UserSection() {
     },
   ];
 
+  const getImageSrc = (
+    darkImage: string,
+    lightImage: string,
+    activeImage: string,
+    isActive: boolean
+  ) => {
+    if (isActive) return activeImage;
+    return theme === "light" ? lightImage : darkImage;
+  };
+
   return (
     <>
       {!isLoggedIn ? (
@@ -64,11 +75,9 @@ export default function UserSection() {
             {({ isActive }) => (
               <div className="w-4.5 h-4.5 2xl:w-5 2xl:h-5">
                 <img
-                  src={isActive ? chatActive : chat}
+                  src={getImageSrc(chat, chatLight, chatActive, isActive)}
                   alt="채팅"
-                  className={`w-full h-full cursor-pointer ${
-                    theme === "light" ? "invert" : ""
-                  }`}
+                  className="w-full h-full cursor-pointer"
                 />
               </div>
             )}
@@ -85,11 +94,14 @@ export default function UserSection() {
             }}
           >
             <img
-              src={isShowNotifications ? bellActive : bell}
+              src={getImageSrc(
+                bell,
+                bellLight,
+                bellActive,
+                isShowNotifications
+              )}
               alt="알림함"
-              className={`w-6 h-6 cursor-pointer light:invert ${
-                theme === "light" ? "invert" : ""
-              }`}
+              className="w-6 h-6 cursor-pointer"
             />
             {isShowNotifications && (
               <NotificationList closeNotifications={closeNotifications} />
