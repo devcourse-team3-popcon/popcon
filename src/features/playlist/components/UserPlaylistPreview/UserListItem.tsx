@@ -22,7 +22,7 @@ export default function UserListItem({
           <img
             src={coverImage ? coverImage : defaultProfile}
             alt={`${fullName} 유저 프로필`}
-            className="w-6 md:w-full"
+            className="w-6 2xl:w-full"
           />
           {isOnline && (
             <img
@@ -36,11 +36,11 @@ export default function UserListItem({
           {fullName}
         </p>
       </div>
-      <div className="flex items-center">
-        <p className="text-[10px] md:text-[14px] text-[color:var(--grey-200)] truncate max-w-[150px] md:max-w-[200px] mr-2">
+      <div className="flex items-center gap-2">
+        <p className="w-full text-[10px] md:text-[14px] text-[color:var(--grey-200)] truncate">
           {favoriteArtist ? `좋아하는 가수 : ${favoriteArtist}` : ""}
         </p>
-        <ChevronRight className="group-hover:text-[color:var(--primary-300)] min-w-[24px]" />
+        <ChevronRight className="group-hover:text-[color:var(--primary-300)] min-w-4 md:min-w-6" />
       </div>
     </div>
   );
