@@ -71,8 +71,8 @@ export default function UserDetailPage() {
         </p>
       </div>
 
-      <div className="mt-[40px] w-full max-w-[1049px] bg-[#333333]/[0.35] rounded-[30px] pt-[80px] px-4 md:px-[120px] flex flex-col">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 mb-[48px]">
+      <div className="mt-[40px] w-full max-w-[1049px] mx-auto bg-[#333333]/[0.35] rounded-[30px] pt-[40px] md:pt-[80px] px-4 md:px-[120px] flex flex-col">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-[48px]">
           <div className="flex flex-col gap-4">
             <label htmlFor="username" className="font-semibold">
               사용자 이름
@@ -98,7 +98,7 @@ export default function UserDetailPage() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 mb-[48px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-[48px]">
           <div className="flex flex-col gap-4">
             <label htmlFor="favoriteArtist" className="text-[16px]">
               좋아하는 가수 (선택)

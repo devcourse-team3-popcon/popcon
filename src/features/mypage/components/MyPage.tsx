@@ -269,7 +269,7 @@ export default function MyPage() {
         </p>
       </div>
 
-      <div className="mt-[40px] w-full max-w-[1049px] mx-auto bg-[#333333]/[0.35] rounded-[30px] pt-[80px] px-4 md:px-[120px] flex flex-col">
+      <div className="mt-[40px] w-full max-w-[1049px] mx-auto bg-[#333333]/[0.35] rounded-[30px] pt-[40px] md:pt-[80px] px-4 md:px-[120px] flex flex-col">
         {checkPassword === "view" ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-[48px]">
@@ -444,13 +444,17 @@ export default function MyPage() {
       </div>
 
       <div className="mt-[80px] w-[324px] h-[21px] flex items-center justify-center text-[18px] text-[#EFEFEF]">
-        <button
-          onClick={() => setCheckPassword("check-password")}
-          className="hover:underline cursor-pointer"
-        >
-          비밀번호 변경
-        </button>
-        <span className="px-3 text-[#EFEFEF]">|</span>
+        {!email.includes("@kakao.com") && (
+          <>
+            <button
+              onClick={() => setCheckPassword("check-password")}
+              className="hover:underline cursor-pointer"
+            >
+              비밀번호 변경
+            </button>
+            <span className="px-3 text-[#EFEFEF]">|</span>
+          </>
+        )}
         <button
           onClick={handleLogout}
           className="hover:underline cursor-pointer"
