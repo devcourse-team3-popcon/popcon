@@ -8,12 +8,14 @@ import chat from "../../assets/images/icon-chat.svg";
 import chatActive from "../../assets/images/icon-chat-active.svg";
 import chatActiveLight from "../../assets/images/icon-chat-active-light.svg";
 import chatLight from "../../assets/images/icon-chat-light.svg";
-import user from "../../assets/images/icon-user.svg";
 import { useAuthStore } from "../../stores/authStore";
 import DropdownMenu from "../../components/common/DropdownMenu";
 import { useNotificationModal } from "../../features/notification/hooks/useNotificationModal";
 import NotificationList from "../../features/notification/components/NotificationList";
 import { getCurrentTheme } from "../../utils/theme";
+import { getUserInfo } from "../../apis/playlist/userService";
+import popcon from "../../assets/images/icon_popcon1.svg";
+import popconLight from "../../assets/images/icon_popcon6.svg";
 
 export default function UserSection() {
   const { isShowNotifications, showNotifications, closeNotifications } =
@@ -22,8 +24,17 @@ export default function UserSection() {
   const { logout } = useAuthStore();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
   const [theme, setTheme] = useState(getCurrentTheme());
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const data = await getUserInfo();
+      console.log(data.image);
+      setUser(data.image);
+    };
+    getUserData();
+  }, [isLoggedIn]);
 
   useEffect(() => {
     const handleThemeChange = () => {
@@ -170,9 +181,9 @@ export default function UserSection() {
           >
             <div className="relative w-full">
               <img
-                src={user}
+                src={user ? user : theme === "dark" ? popcon : popconLight}
                 alt="유저액션"
-                className="w-full h-full cursor-pointer border border-black rounded-full"
+                className="w-6 h-6 cursor-pointer rounded-full"
               />
 
               <div className="mt-2">
