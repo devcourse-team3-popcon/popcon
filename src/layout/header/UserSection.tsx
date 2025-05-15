@@ -1,18 +1,21 @@
-import { useLocation, useMatch, useNavigate } from "react-router";
-
+import { useNavigate, NavLink } from "react-router";
+import { useEffect, useState } from "react";
 import bell from "../../assets/images/icon-bell.svg";
 import bellLight from "../../assets/images/icon-bell-light.svg";
 import bellActive from "../../assets/images/icon-bell-active.svg";
+import bellActiveLight from "../../assets/images/icon-bell-active-light.svg";
 import chat from "../../assets/images/icon-chat.svg";
 import chatActive from "../../assets/images/icon-chat-active.svg";
+import chatActiveLight from "../../assets/images/icon-chat-active-light.svg";
 import chatLight from "../../assets/images/icon-chat-light.svg";
-import user from "../../assets/images/icon-user.svg";
 import { useAuthStore } from "../../stores/authStore";
 import DropdownMenu from "../../components/common/DropdownMenu";
-import { useState } from "react";
 import { useNotificationModal } from "../../features/notification/hooks/useNotificationModal";
 import NotificationList from "../../features/notification/components/NotificationList";
 import { getCurrentTheme } from "../../utils/theme";
+import { getUserInfo } from "../../apis/playlist/userService";
+import popcon from "../../assets/images/icon_popcon1.svg";
+import popconLight from "../../assets/images/icon_popcon6.svg";
 
 export default function UserSection() {
   const { isShowNotifications, showNotifications, closeNotifications } =
@@ -20,11 +23,48 @@ export default function UserSection() {
   const { isLoggedIn } = useAuthStore();
   const { logout } = useAuthStore();
   const navigate = useNavigate();
-  const location = useLocation();
-  const matchChat = useMatch("/chat");
-  const matchChatUser = useMatch("/chat/:userId");
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const theme = getCurrentTheme();
+  const [theme, setTheme] = useState(getCurrentTheme());
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const data = await getUserInfo();
+      console.log(data.image);
+      setUser(data.image);
+    };
+    getUserData();
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const handleThemeChange = () => {
+      setTheme(getCurrentTheme());
+    };
+
+    document.addEventListener("themeChanged", handleThemeChange);
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "class"
+        ) {
+          setTheme(getCurrentTheme());
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => {
+      document.removeEventListener("themeChanged", handleThemeChange);
+      observer.disconnect();
+    };
+  }, []);
+
   const menuItems = [
     {
       label: "마이페이지",
@@ -44,15 +84,15 @@ export default function UserSection() {
     },
   ];
 
-  const isActive = Boolean(matchChat || matchChatUser);
-
   const getImageSrc = (
     darkImage: string,
     lightImage: string,
     activeImage: string,
+    activeLightImage: string,
     isActive: boolean
   ) => {
-    if (isActive) return activeImage;
+    if (isActive && theme === "light") return activeLightImage;
+    else if (isActive && theme === "dark") return activeImage;
     return theme === "light" ? lightImage : darkImage;
   };
 
@@ -76,18 +116,37 @@ export default function UserSection() {
       ) : (
         // relative 지우면 알림창이 안보입니다..!! 머지할 때 꼭 살려주세요
         <div className="relative flex h-[68px] items-center gap-6">
-          <div
+          {/* <div
             className="w-4.5 h-4.5 2xl:w-5 2xl:h-5"
             onClick={() =>
               navigate("/chat", { state: { from: location.pathname } })
             }
           >
             <img
-              src={getImageSrc(chat, chatLight, chatActive, isActive)}
+              src={isActive ? chatActive : cha
+                t}
               alt="채팅"
               className="w-full h-full cursor-pointer fill-current"
             />
-          </div>
+          </div>  */}
+
+          <NavLink to="/chat">
+            {({ isActive }) => (
+              <div className="w-4.5 h-4.5 2xl:w-5 2xl:h-5">
+                <img
+                  src={getImageSrc(
+                    chat,
+                    chatLight,
+                    chatActive,
+                    chatActiveLight,
+                    isActive
+                  )}
+                  alt="채팅"
+                  className="w-full h-full cursor-pointer"
+                />
+              </div>
+            )}
+          </NavLink>
 
           <div
             className="w-4.5 h-4.5 2xl:w-5 2xl:h-5"
@@ -105,6 +164,7 @@ export default function UserSection() {
                 bell,
                 bellLight,
                 bellActive,
+                bellActiveLight,
                 isShowNotifications
               )}
               alt="알림함"
@@ -119,14 +179,13 @@ export default function UserSection() {
             className="w-5.5 h-5.5 2xl:w-6 2xl:h-6"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <div className="relative">
+            <div className="relative w-full">
               <img
-                src={user}
+                src={user ? user : theme === "dark" ? popcon : popconLight}
                 alt="유저액션"
-                className={`w-full h-full cursor-pointer ${
-                  theme === "light" ? "invert" : ""
-                }`}
+                className="w-6 h-6 cursor-pointer rounded-full"
               />
+
               <div className="mt-2">
                 <DropdownMenu
                   isOpen={isOpen}
