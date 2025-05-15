@@ -114,7 +114,6 @@ export default function EditBopPost() {
           </button>
         </div>
       </div>
-
       {showSuccessModal && (
         <StatusModal message="수정 완료었습니다!" onClose={closeModalHandler} />
       )}
