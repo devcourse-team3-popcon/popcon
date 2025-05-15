@@ -48,10 +48,10 @@ export default function Conversations({
 
   return (
     <>
-      <div className="md:w-full h-full md:py-8 md:px-5 rounded-4xl md:border md:border-[color:var(--grey-100-90)] flex flex-col md:min-w-45 lg:min-w-59">
-        <div className="md:font-bold text-2xl mb-3 cursor-default flex justify-between items-center">
-          <div className="hidden md:block">Message</div>
-          <div className="md:hidden font-[MonumentExtended] text-[var(--primary-300)] text-xl">
+      <div className="w-full h-full md:py-8 md:px-5 rounded-4xl md:border md:border-[color:var(--grey-100-90)] flex flex-col md:min-w-50">
+        <div className="md:font-bold text-2xl mb-4 cursor-default flex justify-between items-center">
+          <div className="hidden md:block my-3 px-2">Message</div>
+          <div className="md:hidden font-[MonumentExtended] text-[var(--primary-300)] text-xl pt-2 pb-4">
             CHAT
           </div>
           <RotateCcw
@@ -69,7 +69,7 @@ export default function Conversations({
           className="w-full"
         />
 
-        <div className="flex flex-col gap-2 w-full overflow-y-auto flex-1 scrollbar-hide md:mt-4 mt-3">
+        <div className="flex flex-col gap-2 w-full overflow-y-auto flex-1 scrollbar-hide md:mt-4 mt-3 h-full">
           {searchInput.trim().length > 0 ? (
             <UserList keyword={searchInput} clear={() => setSearchInput("")} />
           ) : (

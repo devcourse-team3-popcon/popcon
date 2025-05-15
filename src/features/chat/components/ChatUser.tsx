@@ -52,7 +52,7 @@ export default function ChatUser({
           <img
             src={userImage ? userImage : defaultProfile}
             alt={`${userName} 유저 프로필`}
-            className="rounded-full size-[48px]"
+            className="rounded-full size-[32px]"
           />
           {userIsOnline && (
             <img
