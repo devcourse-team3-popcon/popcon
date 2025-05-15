@@ -4,11 +4,14 @@ import TextAreaField from "../../../components/common/TextAreaField";
 import { useParams } from "react-router";
 import { axiosInstance } from "../../../apis/axiosInstance";
 import { Post } from "../types/Post";
+import BackButton from "../../../components/common/BackButton";
+import { createComment } from "../../../utils/comment";
 
 export default function PostDetail() {
   const { postId } = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [comment, setComment] = useState("");
+  const isFormInvalid = !comment;
 
   const fetchPost = async () => {
     try {
@@ -25,22 +28,27 @@ export default function PostDetail() {
   }, [postId]);
 
   const handleCommentSubmit = async () => {
-    if (!comment.trim() || !postId) return;
-    try {
-      await axiosInstance.post("/comments/create", {
-        comment: comment,
-        postId,
-      });
+    if (!postId || !post) return;
+
+    const success = await createComment({
+      comment,
+      postId,
+      postAuthorId: post.author._id,
+    });
+
+    if (success) {
       setComment("");
       fetchPost();
-    } catch (e) {
-      console.error("댓글 작성 실패", e);
     }
   };
 
   return (
-    <>
-      <div className="flex flex-col gap-8">
+    <div className="w-full h-full flex flex-col gap-2">
+      <div className="flex w-full">
+        <BackButton />
+      </div>
+
+      <div className="flex flex-col gap-8 p-6">
         <CommunityArticle post={post!} />
         <TextAreaField
           label="댓글 작성"
@@ -55,14 +63,19 @@ export default function PostDetail() {
           }}
         />
       </div>
-      <div className="w-full flex justify-end">
+      <div className="w-full flex justify-end px-6">
         <button
-          className="cursor-pointer text-[14px] px-6 py-2 bg-(--primary-300)  text-(--bg-color) w-fit rounded-4xl font-semibold  mt-2"
+          disabled={isFormInvalid}
+          className={` text-[14px] px-6 py-2 w-fit rounded-4xl  transition ${
+            isFormInvalid
+              ? "border-1 border-[color:var(--primary-200)] text-[var(--white-80)]"
+              : "bg-[var(--primary-300)] text-[var(--bg-color)] cursor-pointer font-semibold"
+          }`}
           onClick={handleCommentSubmit}
         >
           작성 완료
         </button>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,20 +1,37 @@
-export default function LeftMessageBox({
+import React from "react";
+
+export default React.memo(function LeftMessageBox({
   text,
   time,
+  className,
 }: {
   text: string;
   time: string;
+  className?: string;
 }) {
+  let rounded = "";
+
+  switch (className) {
+    case "rounded-t":
+      rounded = "rounded-tl-[20px]";
+      break;
+    case "rounded-b":
+      rounded = "rounded-bl-[20px]";
+      break;
+  }
+
   return (
     <>
-      <div className="flex items-end gap-[16px]">
-        <div className="flex items-center min-h-[48px] min-w-[400px] bg-[var(--grey-500)] rounded-tl-[20px] rounded-tr-[20px] rounded-br-[20px] text-[18px] font-medium px-[16px] py-[8px]">
+      <div className="flex items-end md:gap-4 gap-2">
+        <div
+          className={`flex items-center md:min-h-[48px] max-w-[400px] bg-[var(--grey-500)] rounded-tr-[20px] rounded-br-[20px] ${rounded} md:text-lg font-regular px-4 py-2`}
+        >
           {text}
         </div>
-        <span className="text-[12px] text-[var(--grey-400)] font-medium">
+        <span className="text-[0.75rem] text-[var(--grey-400)] font-regular">
           {time}
         </span>
       </div>
     </>
   );
-}
+});

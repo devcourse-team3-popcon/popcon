@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../../../apis/axiosInstance";
 import { Post } from "../types/Post";
-import { Like } from "../types/Like";
 import { parseBopTitle } from "../../../utils/parseBopTitle";
 import { Ellipsis, Heart } from "lucide-react";
 import play from "../../../assets/images/playbtn.svg";
 import stop from "../../../assets/images/stopbtn.svg";
-import { searchYoutubeVideo } from "../../../utils/searchYoutubeVideo";
 import DropdownMenu from "../../../components/common/DropdownMenu";
 import { deletePost } from "../../../utils/post";
 import { getCurrentUserId } from "../../../utils/auth";
 import { useNavigate } from "react-router";
 import { parseUserName } from "../../../utils/parseUserName";
+import { useAddTrackToPlaylist } from "../../playlist/hooks/useAddTrackToPlaylist";
+import { searchYoutubeVideo } from "../../../apis/youtube/youtubeSearch";
+import BopCardSkeleton from "./BopCardSkeleton";
+import { useLike } from "../hooks/useLike";
+import ActionModal from "../../../components/common/ActionModal";
+import StatusModal from "../../../components/common/StatusModal";
 
 type BopCardProps = {
   post: Post;
@@ -26,84 +29,99 @@ export default function BopCard({
   setCurrentVideo,
   onDelete,
 }: BopCardProps) {
-  const [localPost, setLocalPost] = useState<Post>(post);
-  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [videoId, setVideoId] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const currentUserId = getCurrentUserId();
   const navigate = useNavigate();
+  const parsedBopTitle = parseBopTitle(post.title);
+  const track = parsedBopTitle?.track;
+  const { isLiked, toggleLike, likes } = useLike(post);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const cancelHandler = () => {
+    setShowDeleteModal(false);
+  };
+
+  const [showCompletedModal, setShowCompletedModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const myMenuItems = [
     {
       label: "게시물 수정",
       onClick: () =>
-        navigate(`/community/post/${localPost._id}/editBop`, {
-          state: { localPost },
+        navigate(`/community/bops-community/post/${post._id}/edit`, {
+          state: { post },
         }),
     },
     {
       label: "플리에 추가",
-      onClick: () => alert("추가"),
+      onClick: () => {
+        addPlaylistHandler();
+      },
     },
-    { label: "게시물 삭제", onClick: () => deletePostHandler(), danger: true },
+    {
+      label: "게시물 삭제",
+      onClick: () => setShowDeleteModal(true),
+      danger: true,
+    },
   ];
+
   const defaultMenuItems = [
-    { label: "플리에 추가", onClick: () => alert("플레이리스트 추가") },
+    {
+      label: "플리에 추가",
+      onClick: () => {
+        if (!parsedBopTitle?.track) return;
+        addTrackToPlaylist({
+          name: track.name,
+          artist: Array.isArray(track.artists)
+            ? track.artists.join(", ")
+            : track.artists,
+          imgUrl: track.image,
+        });
+      },
+    },
   ];
 
   useEffect(() => {
-    const userLike = localPost.likes.find(
-      (like: Like) => like.user === currentUserId
-    );
-    setIsLiked(!!userLike);
-  }, [localPost]);
+    const fetchUserId = async () => {
+      const userId = await getCurrentUserId();
+      setCurrentUserId(userId);
+    };
+
+    fetchUserId();
+  }, []);
+
+  const addTrackToPlaylist = useAddTrackToPlaylist();
+
+  const addPlaylistHandler = () => {
+    if (!parsedBopTitle?.track) return;
+    addTrackToPlaylist({
+      name: track.name,
+      artist: Array.isArray(track.artists)
+        ? track.artists.join(", ")
+        : track.artists,
+      imgUrl: track.image,
+    });
+  };
 
   const deletePostHandler = async () => {
     try {
-      await deletePost(localPost._id);
-      onDelete(localPost._id);
+      await deletePost(post._id);
+      setShowDeleteModal(false);
+      onDelete(post._id);
     } catch (e) {
       console.error("삭제 실패", e);
     }
   };
 
-  const toggleLike = async () => {
-    try {
-      const userLike = localPost.likes.find(
-        (like: Like) => like.user === currentUserId
-      );
-
-      if (userLike) {
-        await axiosInstance.delete(`/likes/delete`, {
-          data: { id: userLike._id },
-        });
-
-        setLocalPost((prev) => ({
-          ...prev,
-          likes: prev.likes.filter((like) => like._id !== userLike._id),
-        }));
-      } else {
-        const res = await axiosInstance.post(`/likes/create`, {
-          postId: localPost._id,
-          userId: currentUserId,
-        });
-
-        setLocalPost((prev) => ({
-          ...prev,
-          likes: [...prev.likes, res.data],
-        }));
-      }
-    } catch (e) {
-      console.error("좋아요 실패 : ", e);
-    }
-  };
-
   const isPlaying =
-    currentVideo?.postId === localPost._id && currentVideo?.videoId === videoId;
-  const parsedBopTitle = parseBopTitle(localPost.title);
-  const parsedUserName = parseUserName(localPost.author.fullName);
+    currentVideo?.postId === post._id && currentVideo?.videoId === videoId;
+  const parsedUserName = parseUserName(post.author.fullName);
   const trackName = parsedBopTitle.track.name;
-  const artistNames = parsedBopTitle.track.artists.join(", ");
+  const artistNames = Array.isArray(parsedBopTitle.track.artists)
+    ? parsedBopTitle.track.artists.join(", ")
+    : parsedBopTitle.track.artists;
   console.log(artistNames);
 
   const togglePlayTrack = async () => {
@@ -117,17 +135,21 @@ export default function BopCard({
 
     if (foundVideoId) {
       setVideoId(foundVideoId);
-      setCurrentVideo({ postId: localPost._id, videoId: foundVideoId });
+      setCurrentVideo({ postId: post._id, videoId: foundVideoId });
     }
   };
+
+  if (!post) {
+    return <BopCardSkeleton />;
+  }
 
   return (
     <>
       <div className="relative w-fit">
-        <div className="w-[240px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7  shadow-lg shadow-[rgba(0,0,0,0.50)]">
-          <div className="relative w-full h-[208px] overflow-hidden rounded-2xl group">
+        <div className="w-[240px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7  shadow-lg shadow-[rgba(0,0,0,0.50)] transition-transform duration-300 ease-in-out hover:-translate-y-4">
+          <div className="relative w-full h-[208px] overflow-hidden rounded-2xl group shadow-lg shadow-[rgba(0,0,0,0.25)] ">
             <img
-              className="w-full h-full bg-[#c2c2c2] rounded-2xl shadow-lg shadow-[rgba(0,0,0,0.25)] object-cover"
+              className="w-full h-full bg-[#c2c2c2] rounded-2xl object-cover"
               src={parsedBopTitle.track.image}
               alt="앨범 커버"
             />
@@ -168,7 +190,9 @@ export default function BopCard({
                 </div>
               </div>
 
-              <span className="text-[12px] ">{artistNames}</span>
+              <span className="text-[12px] whitespace-nowrap overflow-hidden text-ellipsis">
+                {artistNames}
+              </span>
             </div>
 
             <div className="flex justify-between">
@@ -182,7 +206,7 @@ export default function BopCard({
                   }`}
                   fill={isLiked ? "var(--primary-300)" : "none"}
                 />
-                <span className="text-[10px]">{localPost.likes.length}</span>
+                <span className="text-[10px]">{likes.length}</span>
               </div>
               <img
                 src={isPlaying ? stop : play}
@@ -209,7 +233,7 @@ export default function BopCard({
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               menuItems={
-                localPost.author._id === currentUserId
+                post.author._id === currentUserId
                   ? myMenuItems
                   : defaultMenuItems
               }
@@ -217,6 +241,30 @@ export default function BopCard({
           </div>
         )}
       </div>
+
+      {showDeleteModal && (
+        <ActionModal
+          modalMessage="노래를 삭제하시겠습니까?"
+          onCancel={cancelHandler}
+          onConfirmAction={deletePostHandler}
+          confirmButtonText="삭제하기"
+        />
+      )}
+
+      {showCompletedModal && (
+        <StatusModal
+          message="플레이리스트에 추가되었습니다!"
+          onClose={() => setShowCompletedModal(false)}
+        />
+      )}
+
+      {showErrorModal && (
+        <StatusModal
+          message={errorMessage}
+          onClose={() => setShowErrorModal(false)}
+          type="error"
+        />
+      )}
     </>
   );
 }

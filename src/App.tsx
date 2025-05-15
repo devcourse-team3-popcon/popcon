@@ -1,5 +1,5 @@
-import UpcomingConcerts from "./features/upcoming_concerts/UpcomingConcerts";
-import { Route, Routes, Navigate } from "react-router";
+import UpcomingConcerts from "./pages/UpcomingConcerts";
+import {Route, Routes, Navigate} from "react-router";
 import Layout from "./layout/Layout";
 import Home from "./pages/home/Home";
 import Playlist from "./pages/Playlist";
@@ -13,6 +13,9 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import CommunityPostDetail from "./features/community/components/CommunityPostDetail";
 import EditCommunityPost from "./features/community/components/EditCommunityPost";
 import EditBopPost from "./features/community/components/EditBopPost";
+import Chat from "./pages/Chat";
+import AboutUs from "./pages/AboutUs";
+import NotFound from "./pages/NotFound";
 import Login from "./components/login/Login";
 import SignupAgree from "./components/login/SignupAgree";
 import SignupForm from "./components/login/SignupForm";
@@ -21,37 +24,45 @@ export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup-agree" element={<SignupAgree />} />
-        <Route path="/signup-form" element={<SignupForm />} />
-        <Route path="/playlist" element={<Playlist />} />
-        <Route path="/upcoming-concerts" element={<UpcomingConcerts />} />
-        <Route path="/community" element={<Community />}>
-          <Route index element={<Navigate to="bops-community" replace />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/SignupAgree' element={<SignupAgree />} />
+        <Route path='/SignupForm' element={<SignupForm />} />
+        <Route path='/playlist' element={<Playlist />} />
+        <Route path='/upcoming-concerts' element={<UpcomingConcerts />} />
 
-          <Route path="bops-community" element={<BopsCommunity />} />
-          <Route path="concert-community" element={<ConcertCommunity />} />
-          <Route path="open-community" element={<OpenCommunity />} />
+        <Route path='/community' element={<Community />}>
+          <Route index element={<Navigate to='bops-community' replace />} />
+
+          <Route path='bops-community' element={<BopsCommunity />} />
+          <Route path='concert-community' element={<ConcertCommunity />} />
+          <Route path='open-community' element={<OpenCommunity />} />
 
           <Route element={<ProtectedRoute />}>
-            <Route path="post/:postId" element={<CommunityPostDetail />} />
+            <Route path='bops-community/add' element={<AddBopPost channelName='BopsCommunity' />} />
+            <Route path='bops-community/post/:postId/edit' element={<EditBopPost />} />
+
             <Route
-              path="bops-community/add"
-              element={<AddBopPost channelName="BopsCommunity" />}
+              path='concert-community/add'
+              element={<AddCommunityPost channelName='ConcertCommunity' />}
             />
+            <Route path='concert-community/post/:postId/edit' element={<EditCommunityPost />} />
+            <Route path='concert-community/post/:postId' element={<CommunityPostDetail />} />
+
             <Route
-              path="concert-community/add"
-              element={<AddCommunityPost channelName="ConcertCommunity" />}
+              path='open-community/add'
+              element={<AddCommunityPost channelName='OpenCommunity' />}
             />
-            <Route path="post/:postId/edit" element={<EditCommunityPost />} />
-            <Route path="post/:postId/editBop" element={<EditBopPost />} />
-            <Route
-              path="open-community/add"
-              element={<AddCommunityPost channelName="OpenCommunity" />}
-            />
+            <Route path='open-community/post/:postId/edit' element={<EditCommunityPost />} />
+            <Route path='open-community/post/:postId' element={<CommunityPostDetail />} />
           </Route>
         </Route>
+        <Route path='/aboutus' element={<AboutUs />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path='/chat' element={<Chat />} />
+          <Route path='/chat/:userId' element={<Chat />} />
+        </Route>
+        <Route path='*' element={<NotFound />} />
       </Route>
     </Routes>
   );

@@ -1,21 +1,19 @@
 import { axiosInstance } from "../axiosInstance";
+import { getUserInfo } from "./userService";
 
 export const getTrackToPlaylist = async () => {
-  const res = await axiosInstance.get(
-    "/posts/author/681e31c80764ba7641dcc3e3",
-    {
-      params: {
-        offset: 0,
-        limit: 100,
-      },
-    }
-  );
+  const userData = await getUserInfo();
+  const res = await axiosInstance.get(`/posts/author/${userData._id}`, {
+    params: {
+      offset: 0,
+      limit: 100,
+    },
+  });
   return res.data.filter(
     (data: { channel: { _id: string } }) =>
       data.channel._id === "681e46160764ba7641dcd157"
   );
 };
-
 
 export const addTrackToPlayList = async ({ title }: { title: Track }) => {
   const res = await axiosInstance.post("/posts/create", {
@@ -45,7 +43,6 @@ export const getOtherUserTrackToPlaylist = async (id: string) => {
       data.channel._id === "681e46160764ba7641dcd157"
   );
 };
-
 
 export const getUserPlaylist = async (searchQuery: string) => {
   try {

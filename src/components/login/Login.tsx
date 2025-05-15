@@ -11,6 +11,7 @@ import {
   loginWithKakao,
 } from "../../apis/login/socialLogin";
 import axios from "axios";
+import { useAuthStore } from "../../stores/authStore";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -112,6 +113,8 @@ export default function LoginPage() {
           login_session: encoded,
         })
       );
+
+      useAuthStore.getState().login(response.token);
       navigate("/");
     } catch (error) {
       console.error("로그인 실패:", error);

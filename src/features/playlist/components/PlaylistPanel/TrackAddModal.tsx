@@ -6,8 +6,13 @@ import PlaylistTrackItem from "./PlaylistTrackItem";
 import { useAddTrackToPlaylist } from "../../hooks/useAddTrackToPlaylist";
 import PlaylistTrackItemSkeleton from "./PlaylistTrackItemSkeleton";
 import SearchBar from "../../../../components/common/SearchBar";
+import frownIcon from "../../../../assets/images/icon-frown.svg";
 
-export default function TrackAddModal({ onClose }: { onClose: () => void }) {
+export default function TrackAddModal({
+  onClose,
+  setCurrentVideo,
+  currentVideo,
+}: TrackAddModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [inputValue, setInputValue] = useState("");
   const [trackList, setTrackList] = useState<SpotifyTrack[]>([]);
@@ -94,12 +99,15 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
       </div>
       <div className="overflow-auto flex-1 mt-4 scrollbar-hide">
         {isSearching ? (
-          <PlaylistTrackItemSkeleton />
+          Array.from({ length: 5 }).map((_, index) => (
+            <PlaylistTrackItemSkeleton key={index} />
+          ))
         ) : inputValue.trim() === "" ? (
           ""
         ) : trackList.length === 0 ? (
-          <div className="flex justify-center items-center h-20 text-[color:var(--white)]">
-            검색 결과가 없습니다
+          <div className="flex flex-col w-full h-full justify-center items-center text-[color:var(--grey-300)]">
+            <img src={frownIcon} alt="No results icon" />
+            <p>No results found</p>
           </div>
         ) : (
           trackList.map((track, index) => (
@@ -108,6 +116,8 @@ export default function TrackAddModal({ onClose }: { onClose: () => void }) {
               track={track}
               trackId={track.id}
               onClick={handleTrackClick}
+              currentVideo={currentVideo}
+              setCurrentVideo={setCurrentVideo}
             />
           ))
         )}

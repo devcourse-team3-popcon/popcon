@@ -1,35 +1,87 @@
-import search from "../../../assets/images/icon-search.svg";
+import { useEffect, useState } from "react";
+import SearchBar from "../../../components/common/SearchBar";
 import ChatUser from "./ChatUser";
+import useGetConversation from "../hooks/useGetConversation";
+import UserList from "./UserList";
+import { RotateCcw } from "lucide-react";
+import { useRefreshStore } from "../stores/refreshStore";
 
 export default function Conversations() {
+  const [searchInput, setSearchInput] = useState("");
+  const { conversations, refresh } = useGetConversation();
+  const setRefreshConv = useRefreshStore(
+    (state) => state.setRefreshConversations
+  );
+
+  const refreshConv = useRefreshStore((state) => state.refreshConversations);
+  const refreshMsg = useRefreshStore((state) => state.refreshMessages);
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString("ko-KR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+  };
+
+  useEffect(() => {
+    setRefreshConv(refresh);
+  }, [refresh, setRefreshConv]);
+
+  const refreshHandler = () => {
+    refreshConv?.();
+    refreshMsg?.();
+  };
+
   return (
     <>
-      <div className="w-[360px] h-[744px] pt-[53px] pb-[32px] px-[16px] rounded-[30px] border">
-        <div className="font-bold text-[24px] mb-[32px] cursor-default">
-          Message
+      <div className="md:w-full h-full md:py-8 md:px-5 rounded-4xl md:border flex flex-col ">
+        <div className="md:font-bold text-2xl mb-3 cursor-default flex justify-between items-center">
+          <div className="hidden md:block">Message</div>
+          <div className="md:hidden font-[MonumentExtended] text-[var(--primary-300)] text-xl">
+            CHAT
+          </div>
+          <RotateCcw
+            size={18}
+            color="var(--white-80)"
+            className="cursor-pointer"
+            onClick={refreshHandler}
+          />
         </div>
 
-        <form className="flex items-center border w-[320px] h-[51px] p-[16px] rounded-[10px] mb-[16px]">
-          <button className="cursor-pointer">
-            <img
-              src={search}
-              alt="검색 아이콘"
-              className="size-[18px] opacity-50 mr-[14px]"
-            />
-          </button>
+        <SearchBar
+          placeholder="사용자 검색"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          className="w-full"
+        />
 
-          <input
-            type="text"
-            placeholder="검색어 입력"
-            className="text-[var(--grey-300)] text-[16px] font-medium"
-          />
-        </form>
+        <div className="flex flex-col gap-2 w-full overflow-y-auto flex-1 scrollbar-hide md:mt-4 mt-3">
+          {searchInput.trim().length > 0 ? (
+            <UserList keyword={searchInput} clear={() => setSearchInput("")} />
+          ) : (
+            conversations &&
+            conversations.map((conv) => {
+              const parsedSender = JSON.parse(conv.sender.fullName);
+              const parsedReceiver = JSON.parse(conv.receiver.fullName);
 
-        <div className="flex flex-col gap-[8px]">
-          <ChatUser />
-          <ChatUser />
-          <ChatUser />
-          <ChatUser />
+              return (
+                <ChatUser
+                  key={conv._id}
+                  sender={parsedSender.name}
+                  receiver={parsedReceiver.name}
+                  senderId={conv.sender._id}
+                  receiverId={conv.receiver._id}
+                  s_isOnline={conv.sender.isOnline}
+                  r_isOnline={conv.receiver.isOnline}
+                  s_image={conv.sender.image}
+                  r_image={conv.receiver.image}
+                  message={conv.message}
+                  time={formatTime(new Date(conv.createdAt))}
+                />
+              );
+            })
+          )}
         </div>
       </div>
     </>
