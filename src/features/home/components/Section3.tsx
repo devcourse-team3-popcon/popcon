@@ -67,11 +67,23 @@ export default function Section3() {
             </div>
           </div>
 
-          <div className="flex gap-10 justify-center text-left font-light items-center">
+          <div className="flex gap-10 justify-center text-left font-light items-center text-lg">
             <p className="w-[30%] p-6 ">
               지루한 플레이리스트에서 벗어나고 싶었던 당신에게, 취향에 딱 맞는
-              음악 추천, 다른 사람들의 숨은 띵곡 공유, 그리고 해외 아티스트 내한
-              공연 정보까지 한곳에서 모두 즐길 수 있는 공간을 만들어드립니다.
+              <span className="text-[color:var(--primary-300)]">
+                {" "}
+                음악 추천
+              </span>
+              , 다른 사람들의{" "}
+              <span className="text-[color:var(--primary-300)]">
+                숨은 명곡{" "}
+              </span>
+              공유, 그리고 해외 아티스트{" "}
+              <span className="text-[color:var(--primary-300)]">
+                {" "}
+                내한 공연
+              </span>{" "}
+              정보까지 한곳에서 모두 즐길 수 있는 공간을 만들어드립니다.
             </p>
             <p className="w-[30%] p-6 ">
               POPCON offers a space where you can enjoy personalized music
