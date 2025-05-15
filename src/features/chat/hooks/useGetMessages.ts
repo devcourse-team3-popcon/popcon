@@ -51,7 +51,7 @@ export default function useGetMessages(userId: string) {
         createdAt: formatTime(new Date(msg.createdAt)),
       }));
 
-      setMessages(msgData);
+      setMessages([...msgData]);
 
       console.log("fetch messages");
     } catch (error) {

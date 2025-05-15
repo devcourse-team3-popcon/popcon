@@ -1,6 +1,7 @@
 import { Bell, Calendar, Globe, Headphones, User, Users } from "lucide-react";
-import { useNavigate } from "react-router";
+import { NavigateOptions, useLocation, useNavigate } from "react-router";
 import chat from "../../../assets/images/icon-chat.svg";
+import { getCurrentTheme } from "../../../utils/theme";
 
 export default function NavigationMenu({
   isLoggedIn,
@@ -10,8 +11,9 @@ export default function NavigationMenu({
 }: NavigationMenuProps) {
   const navigate = useNavigate();
 
-  const handleNavigation = (path: string) => {
-    navigate(path);
+  const handleNavigation = (path: string, state?: { from: string }) => {
+    const options: NavigateOptions | undefined = state ? { state } : undefined;
+    navigate(path, options);
     toggleMenu();
   };
 
@@ -39,13 +41,21 @@ function UserNavItems({
   toggleNotifications,
   unseenCount,
 }: NavItemsProps) {
+
+  const location = useLocation();
+  const theme = getCurrentTheme();
+
   return (
     <nav className="flex flex-col gap-2 text-lg">
       <button
         className="text-left flex gap-4 cursor-pointer hover:bg-[color:var(--grey-500)] py-1.5 px-3 rounded-lg items-center"
-        onClick={() => handleNavigation("/chat")}
+        onClick={() => handleNavigation("/chat", { from: location.pathname })}
       >
-        <img src={chat} alt="메시지" className="w-4" />
+        <img
+          src={chat}
+          alt="메시지"
+          className={`w-4 ${theme === "light" ? "invert" : ""}`}
+        />
         <p className="text-[14px]">Chat</p>
       </button>
 

@@ -16,6 +16,7 @@ export default function EditCommunityPost() {
   const [titleInput, setTitleInput] = useState(parsedTitle.title);
   const [contentInput, setContentInput] = useState(parsedTitle.body);
   const [imageInput, setImageInput] = useState<File | null>(null);
+  const [isImageDeleted, setIsImageDeleted] = useState(false);
   const isFormInvalid = !titleInput || !contentInput;
   const existingImageUrl = post.image;
   const channelId = post.channel._id;
@@ -27,8 +28,7 @@ export default function EditCommunityPost() {
       title: titleInput,
       body: contentInput,
     };
-    const imageToDeletePublicId =
-      !imageInput && existingImageUrl ? post.imagePublicId : "";
+    const imageToDeletePublicId = isImageDeleted ? post.imagePublicId : "";
 
     try {
       const response = await updatePost({
@@ -53,11 +53,11 @@ export default function EditCommunityPost() {
 
   return (
     <div className="w-full h-full flex flex-col gap-2">
-      <div className="flex w-full">
+      <div className="flex w-full my-4">
         <BackButton />
       </div>
       <div className="w-full h-full px-4">
-        <div className="flex flex-col w-full h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
+        <div className="flex flex-col w-full h-auto border border-(--white-80) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
           <span className="w-full text-center text-2xl">게시물 수정하기</span>
 
           <PostInputForm
@@ -67,6 +67,7 @@ export default function EditCommunityPost() {
             setContentInput={setContentInput}
             setImageInput={setImageInput}
             existingImageUrl={existingImageUrl}
+            setIsImageDeleted={setIsImageDeleted}
           />
           <div className="w-[100%] flex justify-center items-center">
             <button

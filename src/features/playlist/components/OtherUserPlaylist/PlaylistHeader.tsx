@@ -13,7 +13,7 @@ export const PlaylistHeader = ({
       onClick={onBack}
       aria-label="뒤로 가기"
     />
-    <div className="flex gap-4 text-[24px] font-bold px-4">
+    <div className="flex gap-4 text-[14px] md:text-[24px] font-bold px-4">
       <h2>{displayName} 님의 PlayList</h2>
       <span role="img" aria-label="eyes">
         👀

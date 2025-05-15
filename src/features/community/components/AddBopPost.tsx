@@ -54,12 +54,12 @@ export default function AddBopPost({ channelName }: ChannelName) {
   };
 
   return (
-    <div className="w-full h-full flex flex-col gap-2">
-      <div className="flex w-full">
+    <div className="w-full h-[80vh] flex flex-col gap-2 ">
+      <div className="flex w-full my-4">
         <BackButton />
       </div>
       <div className="w-full h-full px-4">
-        <div className="flex flex-col w-full h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
+        <div className="flex flex-col w-full h-auto border border-(--white-80) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
           <span className="w-full text-center text-2xl">숨듣명 추가하기</span>
           <BopPostForm
             bopTrack={bopTrack}

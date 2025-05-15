@@ -43,14 +43,20 @@ export default function SelectBox({
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className={` rounded-[10px] w-full text-left cursor-pointer ${
-            isOpen
-              ? "border-[color:var(--primary-200)]"
+          className={`rounded-[10px] w-full text-left cursor-pointer border px-2 py-2 ${
+            isOpen || value
+              ? "border-[color:var(--primary-200)] text-[color:var(--white)]"
               : "border-[color:var(--white-80)]"
           }`}
         >
-          <div className="flex py-2 w-full justify-between px-2">
-            <span className="pl-2 mr-1">{value?.label || "선택하세요"}</span>
+          <div
+            className={`flex py-2 w-full justify-between px-2 ${
+              value
+                ? "text-[color:var(--white)]"
+                : "text-[color:var(--white-80)]"
+            }`}
+          >
+            <span className="pl-1 mr-1">{value?.label || "선택하세요"}</span>
             {isOpen ? (
               <ChevronUp strokeWidth={1.5} />
             ) : (

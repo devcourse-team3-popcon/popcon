@@ -31,9 +31,9 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
 
   return (
     <>
-      <div className="w-full ">
+      <div className="w-full">
         <table className="w-full table-fixed">
-          <thead className="border-b text-[color:var(--primary-300-50)] ">
+          <thead className="border-b text-[color:var(--primary-300-50)] border-[color:var(--primary-300-50)]">
             <tr>
               <th className="p-4 w-[50%] text-left">
                 <div className="flex items-center">
@@ -79,16 +79,22 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
                 return (
                   <tr
                     key={post._id}
-                    className="cursor-pointer hover:text-[color:var(--primary-300)] text-[#fbfbfb95]"
+                    className="cursor-pointer hover:text-[color:var(--primary-300)] text-[color:var(--white-95)]"
                     onClick={() => handleClick(post)}
                   >
-                    <td className="text-left p-4 font-normal text-[16px]">
+                    <td className="text-left sm:p-2 md:p-4 font-normal text-[14px] sm:text-[15px] md:text-[16px]">
                       {parsedTitle.title}
                     </td>
-                    <td className="text-center p-4">{parsedUserName.name}</td>
-                    <td className="text-center p-4">{post.comments.length}</td>
-                    <td className="text-center p-4">{post.likes.length}</td>
-                    <td className="text-center p-4">
+                    <td className="text-center p-2 md:p-4 sm:text-[14px] md:text-[15px]">
+                      {parsedUserName.name}
+                    </td>
+                    <td className="text-center p-2 md:p-4 sm:text-[14px] md:text-[15px]">
+                      {post.comments.length}
+                    </td>
+                    <td className="text-center p-2 md:p-4 sm:text-[14px] md:text-[15px]">
+                      {post.likes.length}
+                    </td>
+                    <td className="text-center p-2 md:p-4 text-[10px] sm:text-[12px] md:text-[14px]">
                       {formatTime(new Date(post.createdAt))}
                     </td>
                   </tr>

@@ -10,6 +10,7 @@ type InputFieldProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   maxLength?: number;
+  disabled?: boolean;
 };
 
 export default function InputField({
@@ -23,6 +24,7 @@ export default function InputField({
   onChange,
   className = "",
   maxLength,
+  disabled,
 }: InputFieldProps) {
   return (
     <>
@@ -39,8 +41,12 @@ export default function InputField({
           maxLength={maxLength}
           className={twMerge(
             className,
-            "border border-[color:var(--white-80)] px-4 rounded-[10px] text-[16px] h-10 focus:outline-none focus:border-[color:var(--primary-200)] w-full"
+            "border px-4 rounded-[10px] text-[16px] focus:outline-none w-full",
+            value
+              ? "border-[color:var(--primary-200)]"
+              : "border-[color:var(--white-80)] focus:border-[color:var(--primary-200)]"
           )}
+          disabled={disabled}
         />
       </div>
     </>
