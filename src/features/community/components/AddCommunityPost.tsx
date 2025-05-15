@@ -49,7 +49,7 @@ export default function AddPost({ channelName }: ChannelName) {
         <BackButton />
       </div>
       <div className="w-full h-full px-4">
-        <div className="flex flex-col w-full h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
+        <div className="flex flex-col w-full h-auto border border-(--white-80) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
           <span className="w-full text-center text-2xl">게시물 추가하기</span>
 
           <PostInputForm

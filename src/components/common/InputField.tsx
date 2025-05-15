@@ -10,6 +10,7 @@ type InputFieldProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   maxLength?: number;
+  disabled?: boolean;
 };
 
 export default function InputField({
@@ -23,6 +24,7 @@ export default function InputField({
   onChange,
   className = "",
   maxLength,
+  disabled,
 }: InputFieldProps) {
   return (
     <>
@@ -44,6 +46,7 @@ export default function InputField({
               ? "border-[color:var(--primary-200)]"
               : "border-[color:var(--white-80)] focus:border-[color:var(--primary-200)]"
           )}
+          disabled={disabled}
         />
       </div>
     </>

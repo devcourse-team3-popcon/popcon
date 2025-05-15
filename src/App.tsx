@@ -1,7 +1,7 @@
 import UpcomingConcerts from "./pages/UpcomingConcerts";
 import {Route, Routes, Navigate} from "react-router";
 import Layout from "./layout/Layout";
-import Home from "./pages/home/Home";
+import Home from "./pages/Home";
 import Playlist from "./pages/Playlist";
 import BopsCommunity from "./features/community/components/BopsCommunity";
 import ConcertCommunity from "./features/community/components/ConcertCommunity";
@@ -19,17 +19,25 @@ import NotFound from "./pages/NotFound";
 import Login from "./components/login/Login";
 import SignupAgree from "./components/login/SignupAgree";
 import SignupForm from "./components/login/SignupForm";
+import MyPage from "./features/mypage/components/MyPage";
+import PostsByUser from "./features/mypage/components/PostsByUser";
+import UserDetail from "./features/mypage/components/UserDetail";
 
 export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/SignupAgree' element={<SignupAgree />} />
-        <Route path='/SignupForm' element={<SignupForm />} />
-        <Route path='/playlist' element={<Playlist />} />
-        <Route path='/upcoming-concerts' element={<UpcomingConcerts />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/postsbyuser" element={<PostsByUser />} />
+        <Route path="/userdetail/:userId" element={<UserDetail />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/SignupAgree" element={<SignupAgree />} />
+        <Route path="/SignupForm" element={<SignupForm />} />
+        <Route path="/playlist" element={<Playlist />} />
+        <Route path="/upcoming-concerts" element={<UpcomingConcerts />} />
+
 
         <Route path='/community' element={<Community />}>
           <Route index element={<Navigate to='bops-community' replace />} />
