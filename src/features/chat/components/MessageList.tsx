@@ -56,7 +56,7 @@ export default function MessageList({ userId }: { userId: string }) {
         <div className="px-3 md:pb-6 pb-2 border-b border-[var(--grey-500)] flex gap-4 items-center box-border">
           <button
             className="md:hidden cursor-pointer"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/chat")}
           >
             <ChevronLeft />
           </button>

@@ -7,7 +7,13 @@ import { RotateCcw } from "lucide-react";
 import { useRefreshStore } from "../stores/refreshStore";
 import { useMsgVersionStore } from "../stores/msgVersionStore";
 
-export default function Conversations() {
+export default function Conversations({
+  loginId,
+  from,
+}: {
+  loginId: string;
+  from: string;
+}) {
   const [searchInput, setSearchInput] = useState("");
   const { conversations, refresh } = useGetConversation();
   const setRefreshConv = useRefreshStore(
@@ -75,6 +81,7 @@ export default function Conversations() {
               return (
                 <ChatUser
                   key={conv._id}
+                  loginId={loginId}
                   sender={parsedSender.name}
                   receiver={parsedReceiver.name}
                   senderId={conv.sender._id}
@@ -85,6 +92,7 @@ export default function Conversations() {
                   r_image={conv.receiver.image}
                   message={conv.message}
                   time={formatTime(new Date(conv.createdAt))}
+                  from={from}
                 />
               );
             })
