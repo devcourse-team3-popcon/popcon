@@ -79,7 +79,7 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
                 return (
                   <tr
                     key={post._id}
-                    className="cursor-pointer hover:text-[color:var(--primary-300)] text-[#fbfbfb95]"
+                    className="cursor-pointer hover:text-[color:var(--primary-300)] text-[color:var(--white-95)]"
                     onClick={() => handleClick(post)}
                   >
                     <td className="text-left p-4 font-normal text-[16px]">
