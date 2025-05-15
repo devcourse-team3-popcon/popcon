@@ -76,20 +76,19 @@ export default function UserSection() {
       ) : (
         // relative 지우면 알림창이 안보입니다..!! 머지할 때 꼭 살려주세요
         <div className="relative flex h-[68px] items-center gap-6">
-
-<!--           <div
+          {/* <div
             className="w-4.5 h-4.5 2xl:w-5 2xl:h-5"
             onClick={() =>
               navigate("/chat", { state: { from: location.pathname } })
             }
           >
             <img
-              src={isActive ? chatActive : chat}
+              src={isActive ? chatActive : cha
+                t}
               alt="채팅"
               className="w-full h-full cursor-pointer fill-current"
             />
-          </div> -->
-
+          </div>  */}
 
           <NavLink to="/chat">
             {({ isActive }) => (
@@ -140,7 +139,6 @@ export default function UserSection() {
                 className={`w-full h-full cursor-pointer ${
                   theme === "light" ? "invert" : ""
                 }`}
-
               />
               <div className="mt-2">
                 <DropdownMenu
