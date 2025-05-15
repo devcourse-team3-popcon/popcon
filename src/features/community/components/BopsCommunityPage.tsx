@@ -13,7 +13,7 @@ type BopsCommunityProps = {
 
 export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
   const navigate = useNavigate();
-  const hashtags = ["숨듣명 🎵", "30초 미리듣기 👂🏻", "띵곡 추천 🖤"];
+  const hashtags = ["숨듣명 🎵", "비트에 몸을 맡겨 🔥", "띵곡 추천 🖤"];
   const [currentVideo, setCurrentVideo] = useState<{
     postId: string;
     videoId: string;
@@ -52,7 +52,7 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
 
   return (
     <>
-      <div className="flex flex-col gap-8 w-full pb-20">
+      <div className="flex flex-col gap-8 w-full pb-20 px-5">
         <div className="flex w-full justify-between items-center">
           <div className="flex flex-col gap-8 mt-10 w-full">
             <p className="text-[30px] font-semibold">
@@ -80,8 +80,9 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
           </div>
         </div>
 
-        <div className="flex gap-8 flex-wrap w-full ">
-          {currentPosts.map((post) => (
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl min-w-1xl mx-auto w-full">
+          {posts?.map((post) => (
             <BopCard
               key={post._id}
               post={post}
