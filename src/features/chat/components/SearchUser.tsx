@@ -27,22 +27,22 @@ export default function SearchUser({
         }}
         className="w-full h-auto p-2 flex gap-4 rounded-xl hover:bg-[var(--grey-500)] cursor-pointer items-center"
       >
-        <div className="lg:block hidden">
-          <div className="relative">
+        {/* <div className="lg:block hidden"> */}
+        <div className="relative">
+          <img
+            src={image ? image : defaultProfile}
+            alt={`${name} 유저 프로필`}
+            className="rounded-full size-[48px]"
+          />
+          {isOnline && (
             <img
-              src={image ? image : defaultProfile}
-              alt={`${name} 유저 프로필`}
-              className="rounded-full size-[48px]"
+              src={onlineIcon}
+              alt="온라인 표시"
+              className="absolute right-0.5 bottom-0.5"
             />
-            {isOnline && (
-              <img
-                src={onlineIcon}
-                alt="온라인 표시"
-                className="absolute right-0.5 bottom-0.5"
-              />
-            )}
-          </div>
+          )}
         </div>
+        {/* </div> */}
 
         <div className="flex flex-1 items-center justify-between p-0.5 gap-2 w-[10%]">
           <div className="flex gap-2 items-center">
