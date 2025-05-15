@@ -72,6 +72,7 @@ export default function LoginPage() {
             login_session: encoded,
           })
         );
+        useAuthStore.getState().login(response.token);
         navigate("/");
       } else {
         console.error("회원가입 실패:", error);
