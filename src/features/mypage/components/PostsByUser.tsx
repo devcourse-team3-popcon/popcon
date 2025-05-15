@@ -71,9 +71,9 @@ export default function MyPostList() {
   }, [authorId]);
 
   return (
-    <div className="min-h-screen bg-[#1B1C1E] text-white flex flex-col items-center py-10 px-4 ">
+    <div className="min-h-screen text-white flex flex-col items-center py-10 px-4 ">
       <div className="w-full max-w-[1049px] px-4 md:px-[100px] flex mb-4">
-        <BackButton />
+        <BackButton from={-1} />
       </div>
 
       <div className="w-full px-4 md:px-[120px] max-w-[1049px] mt-4 flex flex-col gap-8">
@@ -178,7 +178,7 @@ export default function MyPostList() {
         {pagedPosts.length > 0 && (
           <div className="mt-10 flex justify-center">
             <Pagination
-              page={page}
+              // page={page}
               cntPage={limit}
               totalCnt={allPosts.length}
               setPagination={(_, __, newPage) => {

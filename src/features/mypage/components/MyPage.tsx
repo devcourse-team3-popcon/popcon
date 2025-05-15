@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import defaultProfileLogo from "../../../assets/images/default-profile-logo.svg";
 import cameraIcon from "../../../assets/images/camera-icon.png";
-import InputField from "../../../components/common/InputField";
 import BackButton from "../../../components/common/BackButton";
 import {
   deleteUser,
@@ -199,9 +198,9 @@ export default function MyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1B1C1E] text-white flex flex-col items-center py-10 px-4 h-[calc(100vh-120px)] w-full ">
+    <div className="min-h-screen text-[color:var(--white)] flex flex-col items-center py-10 px-4 h-[calc(100vh-120px)] w-full ">
       <div className="w-full flex justify-between items-center mb-4">
-        <BackButton />
+        <BackButton from={-1} />
         <button
           onClick={() =>
             navigate("/postsbyuser", {
@@ -298,33 +297,41 @@ export default function MyPage() {
                     userNameError
                       ? "border-[#E42F42] focus:border-[#E42F42]"
                       : "border-[color:var(--white-80)] focus:border-[color:var(--primary-200)]"
-                  } bg-transparent text-white focus:outline-none`}
+                  } bg-transparent focus:outline-none`}
                 />
               </div>
 
-              <InputField
-                label="이메일"
-                id="email"
-                name="email"
-                type="email"
-                disabled
-                value={email}
-                placeholder="user@email.com"
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className="flex flex-col gap-4 ">
+                <div className="flex justify-between items-center">
+                  <label htmlFor="username" className="font-semibold">
+                    이메일
+                  </label>
+                </div>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={email}
+                  disabled
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-2 rounded-[10px] border border-[color:var(--white-80)] bg-transparent text-[16px] cursor-not-allowed"
+                />
+              </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-[48px]">
               <div
                 className="relative flex flex-col gap-4 w-full"
                 ref={suggestionsRef}
               >
-                <label htmlFor="favoriteArtist" className="text-[16px]">
+                <label
+                  htmlFor="favoriteArtist"
+                  className="text-[16px] font-semibold"
+                >
                   좋아하는 가수 (선택)
                 </label>
                 <input
                   type="text"
                   id="favoriteArtist"
-                  placeholder="Lauv"
                   value={favoriteArtist}
                   onChange={(e) => setFavoriteArtist(e.target.value)}
                   disabled={!editMode}
@@ -361,7 +368,10 @@ export default function MyPage() {
                 className="flex flex-col gap-4 relative"
                 ref={genreSelectRef}
               >
-                <label htmlFor="favoriteGenre" className="text-[16px]">
+                <label
+                  htmlFor="favoriteGenre"
+                  className="text-[16px] font-semibold"
+                >
                   좋아하는 장르 (선택)
                 </label>
                 <div
@@ -443,7 +453,7 @@ export default function MyPage() {
         )}
       </div>
 
-      <div className="mt-[80px] w-[324px] h-[21px] flex items-center justify-center text-[18px] text-[#EFEFEF]">
+      <div className="mt-[80px] w-[324px] h-[21px] flex items-center justify-center text-[18px]">
         {!email.includes("@kakao.com") && (
           <>
             <button
@@ -452,7 +462,7 @@ export default function MyPage() {
             >
               비밀번호 변경
             </button>
-            <span className="px-3 text-[#EFEFEF]">|</span>
+            <span className="px-3">|</span>
           </>
         )}
         <button
@@ -461,7 +471,7 @@ export default function MyPage() {
         >
           로그아웃
         </button>
-        <span className="px-3 text-[#EFEFEF]">|</span>
+        <span className="px-3">|</span>
         <button
           onClick={() => setShowModal(true)}
           className="hover:underline cursor-pointer text-[#E42F42]"
