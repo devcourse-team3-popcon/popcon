@@ -20,7 +20,7 @@ const items: Item[] = [
   },
   {
     id: 2,
-    imgSrc: "/src/assets/images/mvp1.png",
+    imgSrc: "/src/assets/images/mvp2.png",
     title: "title",
     content: "content",
   },
@@ -70,23 +70,13 @@ export default function Section4() {
             trigger: imgBox,
             containerAnimation: scrollTween,
             start: "center right",
-            end: "center center",
-            scrub: true,
-          },
-        })
-        .to(imgBox, { scale: 1, ease: "none", duration: 1 }, 0);
-
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: imgBox,
-            containerAnimation: scrollTween,
-            start: "center center",
             end: "center left",
             scrub: true,
+            // markers: true,
           },
         })
-        .to(imgBox, { scale: 0.5, ease: "none", duration: 1 }, 0);
+        .fromTo(imgBox, { scale: 0.5 }, { scale: 1, ease: "none" })
+        .to(imgBox, { scale: 0.5, ease: "none" });
     });
 
     textBoxes.forEach((textBox) => {
@@ -126,17 +116,20 @@ export default function Section4() {
   return (
     <>
       <section ref={sectionRef} className="h-screen relative">
-        <ul className="flex py-[3%] px-[30%] box-border">
+        <ul className="flex py-[3%] px-[30%] box-border items-center">
           {items.map((item) => (
             <li
               key={item.id}
               className="work-li w-[720px] pr-[100px] box-border flex-shrink-0 ml-20 "
             >
-              <div className="imgBox relative " style={{ scale: 0.5 }}>
+              <div
+                className="imgBox relative flex justify-center items-center"
+                style={{ scale: 0.5 }}
+              >
                 <img
                   src={item.imgSrc}
                   alt={`Image ${item.id}`}
-                  className="w-full"
+                  className="h-200"
                 />
               </div>
               <div
