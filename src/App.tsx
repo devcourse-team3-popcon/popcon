@@ -1,7 +1,7 @@
 import UpcomingConcerts from "./pages/UpcomingConcerts";
 import {Route, Routes, Navigate} from "react-router";
 import Layout from "./layout/Layout";
-import Home from "./pages/home/Home";
+import Home from "./pages/Home";
 import Playlist from "./pages/Playlist";
 import BopsCommunity from "./features/community/components/BopsCommunity";
 import ConcertCommunity from "./features/community/components/ConcertCommunity";
