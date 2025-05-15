@@ -119,7 +119,7 @@ export default function LoginPage() {
       navigate("/");
     } catch (error) {
       console.error("로그인 실패:", error);
-      setEmailError("이메일 또는 비밀번호가 올바르지 않습니다.");
+      setEmailError("이메일/비밀번호가 틀렸습니다.");
       setPasswordError(" ");
       emailRef.current?.focus();
     }

@@ -139,7 +139,7 @@ export default function SignupForm() {
       setEmailError("이메일을 입력해주세요.");
       valid = false;
     } else if (!allowedDomains.includes(email.split("@")[1])) {
-      setEmailError("gmail.com 또는 naver.com 이메일만 사용할 수 있습니다.");
+      setEmailError("도메인을 확인해 주세요.");
       valid = false;
     } else if (!emailError) {
       setEmailError("");
@@ -151,7 +151,7 @@ export default function SignupForm() {
     } else setPasswordError("");
 
     if (!confirmPassword) {
-      setConfirmPasswordError("비밀번호 확인을 입력해주세요.");
+      setConfirmPasswordError("확인란을 입력해주세요.");
       valid = false;
     } else if (password !== confirmPassword) {
       setConfirmPasswordError("비밀번호가 불일치 합니다.");
