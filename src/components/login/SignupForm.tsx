@@ -330,7 +330,7 @@ export default function SignupForm() {
                 className="w-full h-[48px] px-4 rounded-[10px] border border-white bg-[#333333] text-white focus:border-[#71EBBE] focus:outline-none"
               />
               {artistSuggestions.length > 0 && (
-                <ul className="absolute mt-1 bg-[#333333] border border-[#71EBBE] text-white rounded-[10px] w-full max-h-[100px] overflow-y-auto">
+                <ul className="absolute mt-1 bg-[#333333] border border-[#71EBBE] text-white rounded-[10px] w-full max-h-[100px] overflow-y-auto z-30">
                   {artistSuggestions.map((name, index) => (
                     <li
                       key={`${name}-${index}`}
