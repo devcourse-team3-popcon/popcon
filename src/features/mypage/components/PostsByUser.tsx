@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { getPostsByUser } from "../../../apis/mypage/postsByUser";
 import Pagination from "../../../components/common/Pagination";
 
-export default function MyPostList() {
+export default function PostsByUser() {
   const hashtags = ["티켓팅 꿀팁 🎫", "콘서트 후기 ✍️"];
 
   const location = useLocation();
@@ -71,7 +71,7 @@ export default function MyPostList() {
   }, [authorId]);
 
   return (
-    <div className="min-h-screen text-white flex flex-col items-center py-10 px-4 ">
+    <div className="min-h-screen text-[color:var(--white)] flex flex-col items-center py-10 px-4 ">
       <div className="w-full max-w-[1049px] px-4 md:px-[100px] flex mb-4">
         <BackButton from={-1} />
       </div>
@@ -138,7 +138,7 @@ export default function MyPostList() {
               pagedPosts.map((post) => (
                 <tr
                   key={post._id}
-                  className="cursor-pointer hover:text-[color:var(--primary-300)] text-[#fbfbfb95]"
+                  className="cursor-pointer hover:text-[color:var(--primary-300)] text-[color:var(--white-95)]"
                   onClick={() =>
                     navigate(
                       `/community/${getChannelPath(post.channel.name)}/post/${
