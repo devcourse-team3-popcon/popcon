@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { applyTheme } from "../../utils/theme";
+import { Moon, Sun } from "lucide-react";
 
 const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(true);
@@ -17,15 +18,26 @@ const ThemeToggle = () => {
     <button
       onClick={toggleTheme}
       aria-label="Toggle theme"
-      className={`w-10 h-[18px] flex items-center rounded-full px-[2px] transition-colors duration-300 ${
-        isDark ? "bg-[color:var(--bg-color)]" : "bg-[color:var(--bg-color)] ]"
+      className={`relative flex items-center justify-between w-[37px] h-[19px] rounded-full px-2 py-2 transition-colors duration-300 ${
+        isDark ? "bg-[color:var(--bg-color)]" : "bg-[color:var(--bg-color)]"
       }`}
     >
+      <Moon
+        className={`w-2 h-2 text-[color:var(--white)] absolute left-[4px] transition-opacity duration-300 ${
+          isDark ? "opacity-100" : "opacity-0"
+        }`}
+        fill="white"
+      />
+      <Sun
+        className={`w-[10px] h-[10px] text-[color:var(--white)] absolute right-[4px] transition-opacity duration-300 ${
+          !isDark ? "opacity-100" : "opacity-0"
+        }`}
+      />
       <div
-        className={`w-[14px] h-[14px] rounded-full shadow-sm transform transition-transform duration-300 ${
+        className={`absolute w-[11px] h-[11px] rounded-full transform transition-transform duration-300 ${
           isDark
-            ? "translate-x-5 bg-[color:var(--white)]"
-            : "translate-x-0 bg-[color:var(--white)]"
+            ? "translate-x-[12px] bg-[color:var(--white)]"
+            : "translate-x-[-2px] bg-[color:var(--white)]"
         }`}
       />
     </button>
