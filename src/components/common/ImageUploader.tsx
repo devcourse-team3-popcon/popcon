@@ -4,11 +4,13 @@ import { useEffect, useRef, useState } from "react";
 interface ImageUploaderProps {
   onImageChange: (file: File | null) => void;
   initialImageUrl?: string;
+  onImageDelete?: () => void;
 }
 
 export default function ImageUploader({
   onImageChange,
   initialImageUrl,
+  onImageDelete,
 }: ImageUploaderProps) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -31,6 +33,7 @@ export default function ImageUploader({
     setImagePreview(null);
     onImageChange(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
+    if (onImageDelete) onImageDelete();
   };
   return (
     <>

@@ -12,7 +12,7 @@ type SelectBoxProps = {
   onChange: (selected: Option) => void;
 };
 
-export default function SelectBox({
+export default function NoneBorderSelectBox({
   options,
   value,
   onChange,
@@ -43,10 +43,10 @@ export default function SelectBox({
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className={`rounded-[10px] w-full text-left cursor-pointer border px-2 py-2 ${
+          className={`w-28 text-left cursor-pointer px-2 py-2 ${
             isOpen || value
-              ? "border-[color:var(--primary-200)] text-[color:var(--white)]"
-              : "border-[color:var(--white-80)]"
+              ? "text-[color:var(--white)]"
+              : "text-[color:var(--white-80)]"
           }`}
         >
           <div
