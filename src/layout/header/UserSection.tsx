@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import bell from "../../assets/images/icon-bell.svg";
 import bellLight from "../../assets/images/icon-bell-light.svg";
 import bellActive from "../../assets/images/icon-bell-active.svg";
+import bellActiveLight from "../../assets/images/icon-bell-active-light.svg";
 import chat from "../../assets/images/icon-chat.svg";
 import chatActive from "../../assets/images/icon-chat-active.svg";
+import chatActiveLight from "../../assets/images/icon-chat-active-light.svg";
 import chatLight from "../../assets/images/icon-chat-light.svg";
 import user from "../../assets/images/icon-user.svg";
 import { useAuthStore } from "../../stores/authStore";
@@ -75,9 +77,11 @@ export default function UserSection() {
     darkImage: string,
     lightImage: string,
     activeImage: string,
+    activeLightImage: string,
     isActive: boolean
   ) => {
-    if (isActive) return activeImage;
+    if (isActive && theme === "light") return activeLightImage;
+    else if (isActive && theme === "dark") return activeImage;
     return theme === "light" ? lightImage : darkImage;
   };
 
@@ -119,7 +123,13 @@ export default function UserSection() {
             {({ isActive }) => (
               <div className="w-4.5 h-4.5 2xl:w-5 2xl:h-5">
                 <img
-                  src={getImageSrc(chat, chatLight, chatActive, isActive)}
+                  src={getImageSrc(
+                    chat,
+                    chatLight,
+                    chatActive,
+                    chatActiveLight,
+                    isActive
+                  )}
                   alt="채팅"
                   className="w-full h-full cursor-pointer"
                 />
@@ -143,6 +153,7 @@ export default function UserSection() {
                 bell,
                 bellLight,
                 bellActive,
+                bellActiveLight,
                 isShowNotifications
               )}
               alt="알림함"
@@ -157,14 +168,13 @@ export default function UserSection() {
             className="w-5.5 h-5.5 2xl:w-6 2xl:h-6"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <div className="relative">
+            <div className="relative w-full">
               <img
                 src={user}
                 alt="유저액션"
-                className={`w-full h-full cursor-pointer ${
-                  theme === "light" ? "invert" : ""
-                }`}
+                className="w-full h-full cursor-pointer border border-black rounded-full"
               />
+
               <div className="mt-2">
                 <DropdownMenu
                   isOpen={isOpen}
