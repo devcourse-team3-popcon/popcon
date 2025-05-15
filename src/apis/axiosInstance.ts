@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useAuthStore } from "../stores/authStore";
-import { getLoginStorage } from "./login/getLoginStorage";
+
+import {useAuthStore} from "../stores/authStore";
+import {getLoginStorage} from "./login/getLoginStorage";
 
 export const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_PROGRAMMERS}`,
@@ -9,6 +10,7 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const token = getLoginStorage();
+
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
@@ -25,7 +27,7 @@ axiosInstance.interceptors.response.use(
       console.log("token 실패");
       retry = true;
       try {
-        const { data } = await axiosInstance.post("/token");
+        const {data} = await axiosInstance.post("/token");
         useAuthStore.setState({
           accessToken: data.accessToken,
           isLoggedIn: true,

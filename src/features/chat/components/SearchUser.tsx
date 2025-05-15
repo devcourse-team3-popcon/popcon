@@ -1,6 +1,6 @@
 import { Send } from "lucide-react";
 import { useNavigate } from "react-router";
-import defaultProfile from "../../../assets/images/defaultProfile.svg";
+import defaultProfile from "../../../assets/images/default-profile-logo.svg";
 import onlineIcon from "../../../assets/images/icon_online.svg";
 
 export default function SearchUser({
@@ -25,7 +25,7 @@ export default function SearchUser({
           navigate(`/chat/${userId}`);
           clear?.();
         }}
-        className="w-full h-[64px] p-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer items-center"
+        className="w-full h-auto p-2 flex gap-4 rounded-xl hover:bg-[var(--grey-500)] cursor-pointer items-center"
       >
         <div>
           <div className="relative">
@@ -44,7 +44,7 @@ export default function SearchUser({
           </div>
         </div>
 
-        <div className="flex flex-1 items-center justify-between p-0.5 gap-[8px] w-[10%]">
+        <div className="flex flex-1 items-center justify-between p-0.5 gap-2 w-[10%]">
           <div className="text-base font-medium truncate flex-1">{name}</div>
           <Send size={20} />
         </div>

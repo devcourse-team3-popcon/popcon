@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router";
 import { getCurrentUserId } from "../../../utils/auth";
 import { ConversationProps } from "../types/ConversationProps";
 import { useEffect, useState } from "react";
-import defaultProfile from "../../../assets/images/defaultProfile.svg";
+import defaultProfile from "../../../assets/images/default-profile-logo.svg";
 import onlineIcon from "../../../assets/images/icon_online.svg";
 
 export default function ChatUser({
@@ -41,7 +41,7 @@ export default function ChatUser({
     <>
       <div
         onClick={() => navigate(`/chat/${otherUserId}`)}
-        className={`w-full h-[64px] p-[8px] flex gap-[16px] rounded-[10px] hover:bg-[var(--grey-500)] cursor-pointer items-center ${
+        className={`w-full h-auto p-2 flex gap-4 rounded-xl hover:bg-[var(--grey-500)] cursor-pointer items-center ${
           isSelected && "bg-[var(--grey-500)]"
         }`}
       >
@@ -65,7 +65,7 @@ export default function ChatUser({
         <div className="flex flex-col flex-1 p-0.5 w-[50%]">
           <div className="text-base font-medium">{userName}</div>
 
-          <div className="flex items-center justify-between gap-[8px]">
+          <div className="flex items-center justify-between gap-2">
             <div className="text-[0.75rem] font-regular text-[var(--white-80)] truncate flex-1">
               {message}
             </div>
