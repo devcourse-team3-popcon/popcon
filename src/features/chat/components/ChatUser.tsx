@@ -58,7 +58,7 @@ export default function ChatUser({
             <img
               src={onlineIcon}
               alt="온라인 표시"
-              className="absolute right-0.5 bottom-0.5"
+              className="absolute left-6 bottom-0"
             />
           )}
         </div>
