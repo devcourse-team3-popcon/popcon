@@ -242,7 +242,7 @@ export default function MyPage() {
               {showImageDropdown && (
                 <ul className="absolute bottom-[-100px] right-0 w-[160px] bg-[#2C2C2C] text-white rounded-[10px] shadow z-20 text-sm">
                   <li
-                    className="px-4 py-2 hover:bg-[#444] cursor-pointer"
+                    className="px-4 py-2 hover:bg-[#444] cursor-pointer rounded-tl-[10px] rounded-tr-[10px]"
                     onClick={() => {
                       handleResetProfileImage();
                       setShowImageDropdown(false);
@@ -251,7 +251,7 @@ export default function MyPage() {
                     기본 이미지로 변경
                   </li>
                   <li
-                    className="px-4 py-2 hover:bg-[#444] cursor-pointer"
+                    className="px-4 py-2 hover:bg-[#444] cursor-pointer rounded-bl-[10px] rounded-br-[10px]"
                     onClick={() => {
                       fileInputRef.current?.click();
                       setShowImageDropdown(false);
