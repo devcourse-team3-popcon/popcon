@@ -67,31 +67,35 @@ export default function DropdownMenu({
     <>
       <div
         ref={menuRef}
-        className={`absolute right-0 mt-2 w-40 bg-[color:var(--grey-600)] shadow-md rounded-md z-50 text-[14px] text-[color:var(--white-80)]`}
+        className={`absolute right-0 ${
+          menuItems.length === 1 ? "py-3" : "py-5"
+        } w-40 bg-[color:var(--grey-600)] shadow-md rounded-md z-50 text-[14px] text-[color:var(--white-80)]`}
       >
-        {menuItems.map((item, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              item.onClick();
-              setIsOpen(false);
-            }}
-            className={`w-full px-4 py-3 text-left cursor-pointer ${
-              item.danger
-                ? "text-[color:var(--red)] hover:text-[color:var(--red)] hover:font-bold"
-                : "hover:text-[color:var(--white)]"
-            }`}
-          >
-            <div className="flex items-center">
-              {getIconByLabel(item.label)}
-              {item.label}
-            </div>
-          </button>
-        ))}
+        <div className="flex flex-col gap-4">
+          {menuItems.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                item.onClick();
+                setIsOpen(false);
+              }}
+              className={`w-full px-4 text-left cursor-pointer ${
+                item.danger
+                  ? "text-[color:var(--red)] hover:text-[color:var(--red)] hover:font-bold"
+                  : "hover:text-[color:var(--white)]"
+              }`}
+            >
+              <div className="flex items-center">
+                {getIconByLabel(item.label)}
+                {item.label}
+              </div>
+            </button>
+          ))}
+        </div>
         {isToggle && (
           <div
             id="theme-toggle-wrapper"
-            className="flex w-full justify-center mb-2"
+            className="flex w-full justify-center mt-4"
           >
             <ThemeToggle />
           </div>

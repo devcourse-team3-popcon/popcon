@@ -35,7 +35,7 @@ export default function Conversations() {
 
   return (
     <>
-      <div className="md:w-full h-full md:py-8 md:px-5 rounded-4xl md:border flex flex-col ">
+      <div className="md:w-full h-full md:py-8 md:px-5 rounded-4xl md:border md:border-[color:var(--grey-100-90)] flex flex-col ">
         <div className="md:font-bold text-2xl mb-3 cursor-default flex justify-between items-center">
           <div className="hidden md:block">Message</div>
           <div className="md:hidden font-[MonumentExtended] text-[var(--primary-300)] text-xl">
