@@ -5,16 +5,26 @@ import useGetConversation from "../hooks/useGetConversation";
 import UserList from "./UserList";
 import { RotateCcw } from "lucide-react";
 import { useRefreshStore } from "../stores/refreshStore";
+import { useMsgVersionStore } from "../stores/msgVersionStore";
 
-export default function Conversations() {
+export default function Conversations({
+  loginId,
+  from,
+}: {
+  loginId: string;
+  from: string;
+}) {
   const [searchInput, setSearchInput] = useState("");
   const { conversations, refresh } = useGetConversation();
   const setRefreshConv = useRefreshStore(
     (state) => state.setRefreshConversations
   );
 
-  const refreshConv = useRefreshStore((state) => state.refreshConversations);
-  const refreshMsg = useRefreshStore((state) => state.refreshMessages);
+  // const refreshConv = useRefreshStore((state) => state.refreshConversations);
+  // const refreshMsg = useRefreshStore((state) => state.refreshMessages);
+
+  const updateCversion = useMsgVersionStore((state) => state.c_increment);
+  const updateMVersion = useMsgVersionStore((state) => state.m_increment);
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString("ko-KR", {
@@ -29,13 +39,16 @@ export default function Conversations() {
   }, [refresh, setRefreshConv]);
 
   const refreshHandler = () => {
-    refreshConv?.();
-    refreshMsg?.();
+    // refreshConv?.();
+    // refreshMsg?.();
+
+    updateCversion();
+    updateMVersion();
   };
 
   return (
     <>
-      <div className="md:w-full h-full md:py-8 md:px-5 rounded-4xl md:border md:border-[color:var(--grey-100-90)] flex flex-col ">
+      <div className="md:w-full h-full md:py-8 md:px-5 rounded-4xl md:border md:border-[color:var(--grey-100-90)] flex flex-col md:min-w-45 lg:min-w-59">
         <div className="md:font-bold text-2xl mb-3 cursor-default flex justify-between items-center">
           <div className="hidden md:block">Message</div>
           <div className="md:hidden font-[MonumentExtended] text-[var(--primary-300)] text-xl">
@@ -68,6 +81,7 @@ export default function Conversations() {
               return (
                 <ChatUser
                   key={conv._id}
+                  loginId={loginId}
                   sender={parsedSender.name}
                   receiver={parsedReceiver.name}
                   senderId={conv.sender._id}
@@ -78,6 +92,7 @@ export default function Conversations() {
                   r_image={conv.receiver.image}
                   message={conv.message}
                   time={formatTime(new Date(conv.createdAt))}
+                  from={from}
                 />
               );
             })

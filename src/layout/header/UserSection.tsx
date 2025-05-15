@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router";
-import { NavLink } from "react-router";
+import { useLocation, useMatch, useNavigate, NavLink } from "react-router";
+
 import bell from "../../assets/images/icon-bell.svg";
 import bellLight from "../../assets/images/icon-bell-light.svg";
 import bellActive from "../../assets/images/icon-bell-active.svg";
@@ -20,6 +20,9 @@ export default function UserSection() {
   const { isLoggedIn } = useAuthStore();
   const { logout } = useAuthStore();
   const navigate = useNavigate();
+  const location = useLocation();
+  const matchChat = useMatch("/chat");
+  const matchChatUser = useMatch("/chat/:userId");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const theme = getCurrentTheme();
   const menuItems = [
@@ -40,6 +43,8 @@ export default function UserSection() {
       danger: true,
     },
   ];
+
+  const isActive = Boolean(matchChat || matchChatUser);
 
   const getImageSrc = (
     darkImage: string,
@@ -71,6 +76,21 @@ export default function UserSection() {
       ) : (
         // relative 지우면 알림창이 안보입니다..!! 머지할 때 꼭 살려주세요
         <div className="relative flex h-[68px] items-center gap-6">
+
+<!--           <div
+            className="w-4.5 h-4.5 2xl:w-5 2xl:h-5"
+            onClick={() =>
+              navigate("/chat", { state: { from: location.pathname } })
+            }
+          >
+            <img
+              src={isActive ? chatActive : chat}
+              alt="채팅"
+              className="w-full h-full cursor-pointer fill-current"
+            />
+          </div> -->
+
+
           <NavLink to="/chat">
             {({ isActive }) => (
               <div className="w-4.5 h-4.5 2xl:w-5 2xl:h-5">
@@ -82,6 +102,7 @@ export default function UserSection() {
               </div>
             )}
           </NavLink>
+
           <div
             className="w-4.5 h-4.5 2xl:w-5 2xl:h-5"
             onClick={(e) => {
@@ -119,6 +140,7 @@ export default function UserSection() {
                 className={`w-full h-full cursor-pointer ${
                   theme === "light" ? "invert" : ""
                 }`}
+
               />
               <div className="mt-2">
                 <DropdownMenu

@@ -9,12 +9,12 @@ interface NavigationMenuProps {
 }
 
 interface NavItemsProps {
-  handleNavigation: (path: string) => void;
+  handleNavigation: (path: string, state?: { from: string }) => void;
 }
 
 interface MenuItemsProps {
   isLoggedIn: boolean;
-  handleNavigation: (path: string) => void;
+  handleNavigation: (path: string, state?: { from: string }) => void;
 }
 
 interface SideMenuProps {
@@ -40,14 +40,14 @@ interface NavigationMenuProps {
 }
 
 interface NavItemsProps {
-  handleNavigation: (path: string) => void;
+  handleNavigation: (path: string, state?: { from: string }) => void;
   toggleNotifications: () => void;
   unseenCount: number;
 }
 
 interface MenuItemsProps {
   isLoggedIn: boolean;
-  handleNavigation: (path: string) => void;
+  handleNavigation: (path: string, state?: { from: string }) => void;
 }
 interface NotificationAuthor {
   fullName: string;

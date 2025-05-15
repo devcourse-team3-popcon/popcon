@@ -1,8 +1,8 @@
-import {NotificationRes} from "../types/NotificationRes";
-import {useNavigate} from "react-router";
-import {useEffect, useState} from "react";
+import { NotificationRes } from "../types/NotificationRes";
+import { useLocation, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 import profile from "../../../assets/images/default-profile-logo.svg";
-import {axiosInstance} from "../../../apis/axiosInstance";
+import { axiosInstance } from "../../../apis/axiosInstance";
 
 type Props = {
   noti: NotificationRes;
@@ -10,9 +10,10 @@ type Props = {
   closeNotifications: () => void;
 };
 
-export default function NotificationItem({noti, closeNotifications}: Props) {
+export default function NotificationItem({ noti, closeNotifications }: Props) {
   const navigate = useNavigate();
-  const {author, comment, like, follow, message} = noti;
+  const location = useLocation();
+  const { author, comment, like, follow, message } = noti;
 
   const [authorImage, setAuthorImage] = useState(profile);
 
@@ -72,11 +73,15 @@ export default function NotificationItem({noti, closeNotifications}: Props) {
         navigate("/community/bops-community");
       } else {
         const channelPath =
-          channelId === "681e2fdd7380bb759ecc636d" ? "concert-community" : "open-community";
-        navigate(`/community/${channelPath}/post/${encodeURIComponent(postId)}`);
+          channelId === "681e2fdd7380bb759ecc636d"
+            ? "concert-community"
+            : "open-community";
+        navigate(
+          `/community/${channelPath}/post/${encodeURIComponent(postId)}`
+        );
       }
     } else if (message) {
-      navigate(`/chat/${author._id}`);
+      navigate(`/chat/${author._id}`, { state: { from: location.pathname } });
     } else {
       console.log("기타 알림");
     }
@@ -86,11 +91,11 @@ export default function NotificationItem({noti, closeNotifications}: Props) {
 
   return (
     <li
-      className='group text-[12px] w-[288px] p-2 rounded-lg flex items-center cursor-pointer hover:bg-[color:var(--grey-500)]'
+      className="group text-[12px] w-[288px] p-2 rounded-lg flex items-center cursor-pointer hover:bg-[color:var(--grey-500)]"
       onClick={clickHandler}
     >
-      <img src={authorImage} className='w-6 h-6 rounded-4xl' />
-      <p className='pl-3 w-[247px] h-auto'>{notificationMessage}</p>
+      <img src={authorImage} className="w-6 h-6 rounded-4xl" />
+      <p className="pl-3 w-[247px] h-auto">{notificationMessage}</p>
     </li>
   );
 }
