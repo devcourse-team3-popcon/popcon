@@ -69,12 +69,12 @@ export default function Section4() {
           scrollTrigger: {
             trigger: imgBox,
             containerAnimation: scrollTween,
-            start: "center right", // 이미지 중앙이 뷰포트 오른쪽에 닿을 때 시작
-            end: "center center", // 이미지 중앙이 뷰포트 왼쪽에 닿을 때 끝
+            start: "center right",
+            end: "center center",
             scrub: true,
           },
         })
-        .to(imgBox, { clipPath: "inset(0%)", ease: "none", duration: 1 }, 0);
+        .to(imgBox, { scale: 1, ease: "none", duration: 1 }, 0);
 
       gsap
         .timeline({
@@ -86,7 +86,7 @@ export default function Section4() {
             scrub: true,
           },
         })
-        .to(imgBox, { clipPath: "inset(30%)", ease: "none", duration: 1 }, 0);
+        .to(imgBox, { scale: 0.5, ease: "none", duration: 1 }, 0);
     });
 
     textBoxes.forEach((textBox) => {
@@ -130,12 +130,9 @@ export default function Section4() {
           {items.map((item) => (
             <li
               key={item.id}
-              className="work-li w-[700px] pr-[100px] box-border flex-shrink-0"
+              className="work-li w-[720px] pr-[100px] box-border flex-shrink-0 ml-20 "
             >
-              <div
-                className="imgBox relative "
-                style={{ clipPath: "inset(30%)" }}
-              >
+              <div className="imgBox relative " style={{ scale: 0.5 }}>
                 <img
                   src={item.imgSrc}
                   alt={`Image ${item.id}`}
