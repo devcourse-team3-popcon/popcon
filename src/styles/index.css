@@ -230,3 +230,25 @@ body::-webkit-scrollbar {
     width: 0%;
   }
 }
+
+.row-underline {
+  position: relative;
+  display: table-row;
+}
+.row-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background-color: var(--primary-300);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s ease-out;
+}
+
+.row-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}

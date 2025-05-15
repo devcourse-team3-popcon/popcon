@@ -4,6 +4,9 @@ import { Plus } from "lucide-react";
 import { Post } from "../types/Post";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import Pagination from "../../../components/common/Pagination";
+import { usePagination } from "../../../hooks/usePagination";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import NoneBorderSelectBox from "../../../components/common/NoneBorderSelectBox";
 import SelectBox from "../../../components/common/SelectBox";
 import { useNavigate, useSearchParams } from "react-router";
 
@@ -73,7 +76,9 @@ export default function CommunityPage({
 
   if (loading)
     return (
-      <div className="w-full h-full flex justify-center items-center"></div>
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
     );
 
   return (
@@ -81,8 +86,8 @@ export default function CommunityPage({
       <div className="mb-24">
         <div className="flex w-full py-12 justify-between items-center text-[color:var(--white-80)]">
           <div className="w-auto flex gap-4 items-center">
-            <div>
-              <SelectBox
+            <div className="w-[94px]">
+              <NoneBorderSelectBox
                 options={searchOptions}
                 value={
                   searchOptions.find((opt) => opt.value === searchType) ?? null
