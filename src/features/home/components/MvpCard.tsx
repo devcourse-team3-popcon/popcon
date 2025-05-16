@@ -29,7 +29,7 @@ export default function MvpCard({title, text, imageSrc, theme}: MvpCardProps) {
       <img src={imageSrc} alt='' className='max-h-[200px] ' />
     </div>
 
-    /* 
+    /* 사용하실 때 그대로 복사하시면 됩니다!
       <MvpCard
         theme='green'
         title='숨겨진 명곡 탐색'
