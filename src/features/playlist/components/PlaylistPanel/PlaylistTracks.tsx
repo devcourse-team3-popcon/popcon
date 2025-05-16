@@ -20,9 +20,12 @@ export default function PlaylistTracks({
 
   if (tracks.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-full text-[color:var(--grey-400)] translate-y-[-70px] gap-6">
+      <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-[color:var(--grey-400)]  gap-6 xl:mt-20 ">
         <img src={frownicon} alt="frownicon" />
-        <p>Your Playlist is empty. Add some tracks to get start</p>
+        <p className="text-center">
+          Your Playlist is empty.
+          <br /> Add some tracks to get start
+        </p>
       </div>
     );
   }

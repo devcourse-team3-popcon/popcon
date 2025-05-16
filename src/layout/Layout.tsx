@@ -11,7 +11,7 @@ export default function Layout() {
   return (
     <div className="md:py-4 ">
       <Header />
-      <div className="py-25 md:py-[0] flex justify-center items-center h-auto">
+      <div className="py-[0] flex justify-center items-center h-auto">
         <Outlet />
       </div>
       <ToastContainer

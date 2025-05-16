@@ -11,7 +11,7 @@ export default function PlaylistHeader({
 }: PlaylistHeaderProps) {
   return (
     <>
-      <div className="justify-between items-center z-40 hidden md:flex">
+      <div className="justify-between items-center z-40 flex">
         <div className="flex gap-[16px] text-[20px] font-bold">
           <h2 className="capitalize">
             {" "}
@@ -20,17 +20,8 @@ export default function PlaylistHeader({
             </span>{" "}
             님의 PlayList
           </h2>
-          <span className="hidden md:inline">🌱</span>
+          <span className="inline">🌱</span>
         </div>
-        <Plus
-          className="text-[color:var(--white-80)] cursor-pointer"
-          onClick={onAddClick}
-        />
-      </div>
-      <div className="md:hidden flex justify-between">
-        <p className="font-[MonumentExtended] text-[20px]">
-          PLAY<span className="text-[color:var(--primary-300)]">LIST</span>
-        </p>
         <Plus
           className="text-[color:var(--white-80)] cursor-pointer"
           onClick={onAddClick}
