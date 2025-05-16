@@ -170,7 +170,7 @@ export default function BopCard({
                 <span
                   className="text-[color:var(--primary-300)] ml-1 cursor-pointer"
                   onClick={() => {
-                    navigate(`/mypage/${post.author._id}`);
+                    navigate(`/userdetail/${post.author._id}`);
                   }}
                 >
                   {parsedUserName.name}

@@ -88,9 +88,10 @@ export default function Article({ post }: ArticleProps) {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <img
-              className="w-9 h-9 rounded-full mr-4"
+              className="w-9 h-9 rounded-full mr-4 cursor-pointer"
               src={post.author.image || profileImg}
               alt="작성자 프로필 이미지"
+              onClick={() => navigate(`userdetail/${post.author._id}`)}
             />
             <div className="flex flex-col">
               <span className="text-[18px]">{parsedUserName.name}</span>
