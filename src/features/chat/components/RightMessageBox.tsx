@@ -28,7 +28,7 @@ export default React.memo(function RightMessageBox({
           {time}
         </span>
         <div
-          className={`flex items-center md:min-h-[48px] max-w-[400px] bg-[var(--primary-300)] rounded-tl-[20px] rounded-bl-[20px] ${rounded} md:text-lg text-black font-regular px-4 py-2`}
+          className={`flex items-center md:min-h-[44px] max-w-[400px] bg-[var(--primary-300)] rounded-tl-[20px] rounded-bl-[20px] ${rounded} text-sm md:text-sm lg:text-base text-black font-regular px-4 py-2`}
         >
           {text}
         </div>

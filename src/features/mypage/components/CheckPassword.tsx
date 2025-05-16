@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import InputField from "../../../components/common/InputField";
 import { loginUser } from "../../../apis/login/login";
 import { useNavigate } from "react-router";
 import { logoutUser, updateUserPassword } from "../../../apis/mypage/myPage";
@@ -43,7 +42,7 @@ export default function CheckPassword({ email, onCheckPassword }: Props) {
       setError("");
       setStep("change");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError("비밀번호가 일치하지 않습니다.");
       currentPwRef.current?.focus();
     }
@@ -74,7 +73,7 @@ export default function CheckPassword({ email, onCheckPassword }: Props) {
       logout();
       navigate("/login");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setNewPwError("비밀번호 변경에 실패했습니다.");
     }
   };
@@ -82,16 +81,19 @@ export default function CheckPassword({ email, onCheckPassword }: Props) {
   return (
     <div className="flex flex-col gap-[48px] text-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12">
-        <div className="md:col-span-2 flex flex-col gap-4">
-          <InputField
-            label="이메일"
+        <div className="md:col-span-2 flex flex-col gap-2">
+          <div className="flex justify-between items-center">
+            <label htmlFor="currentPw" className="text-[16px]">
+              이메일
+            </label>
+          </div>
+          <input
             id="email"
             name="email"
             type="email"
-            disabled
             value={email}
-            placeholder="user@email.com"
-            onChange={() => {}}
+            disabled
+            className="w-full px-4 py-2 rounded-[10px] border border-[color:var(--white-80)] bg-transparent text-white text-[16px] cursor-not-allowed"
           />
         </div>
       </div>

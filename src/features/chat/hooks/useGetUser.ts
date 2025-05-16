@@ -18,10 +18,9 @@ export default function useGetUser(userId: string) {
           isOnline: data.isOnline,
         };
 
-        // console.log("유저데이터", userData);
         setUserInfo(userData);
-      } catch (error) {
-        console.log("Failed to get userinfo", error);
+      } catch {
+        throw new Error();
       } finally {
         setLoading(false);
       }

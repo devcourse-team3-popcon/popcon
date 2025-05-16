@@ -32,13 +32,13 @@ export default function useSearchUsers(keyword: string) {
                 fullName: parsedFullName,
               };
             } catch (error) {
-              console.log("Data parsing error", error);
+              console.error("Data parsing error", error);
             }
           });
 
         setUserList(parsed);
       } catch (error) {
-        console.log("Failed to search users", error);
+        console.error("Failed to search users", error);
       } finally {
         setLoading(false);
       }

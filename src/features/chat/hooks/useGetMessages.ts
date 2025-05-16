@@ -52,10 +52,8 @@ export default function useGetMessages(userId: string) {
       }));
 
       setMessages([...msgData]);
-
-      console.log("fetch messages");
-    } catch (error) {
-      console.log("Failed to Fetch Messages", error);
+    } catch {
+      throw new Error();
     } finally {
       setLoading(false);
     }
