@@ -53,7 +53,7 @@ export default function MessageList({ userId }: { userId: string }) {
   return (
     <>
       <div className="flex flex-col h-full w-full">
-        <div className="px-3 md:pb-6 pb-4 border-b border-[var(---white-80)] flex gap-4 items-center box-border">
+        <div className="px-3 pb-4 border-b border-[var(---white-80)] flex gap-4 items-center box-border">
           <button
             className="md:hidden cursor-pointer"
             onClick={() => navigate("/chat")}
@@ -70,12 +70,12 @@ export default function MessageList({ userId }: { userId: string }) {
               <img
                 src={onlineIcon}
                 alt="온라인 표시"
-                className="absolute right-0.5 bottom-0.5"
+                className="absolute left-6 bottom-0"
               />
             )}
           </div>
 
-          <div className="md:text-lg lg:text-2xl text-base font-medium">
+          <div className="md:text-lg lg:text-xl text-base font-medium">
             {userInfo?.userName}
           </div>
         </div>
