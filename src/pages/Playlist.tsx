@@ -24,10 +24,10 @@ export default function Playlist() {
   }, []);
 
   return (
-    <div className="mt-6 md:mt-20 flex flex-col scrollbar-hide w-[90%] md:w-[1080px] justify-center items-center h-[70vh]">
+    <div className="mt-20 md:mt-0 lg:mt-20 flex flex-col scrollbar-hide w-[80%] lg:w-[800px] xl:w-[1080px] justify-center items-center h-auto lg:h-[70vh] pb-20">
       <PlayListBanner />
       <div className="flex flex-col xl:flex-row gap-[32px] w-full h-[70vh]">
-        <div className="flex flex-col gap-[32px] w-full xl:w-[58%] order-last xl:order-none">
+        <div className="flex flex-col gap-[32px] w-full xl:w-[58%] order-last xl:order-none h-full mt-15">
           <MusicRecommender
             setCurrentVideo={setCurrentVideo}
             currentVideo={currentVideo}

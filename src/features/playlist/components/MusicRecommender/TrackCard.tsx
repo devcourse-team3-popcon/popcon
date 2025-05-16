@@ -40,12 +40,12 @@ export default function TrackCard({
   };
 
   return (
-    <div className=" md:w-[160px] xl:w-[112px] 2xl:w-[120px] h-[90%] overflow-hidden flex flex-col justify-center items-center gap-4 box-border">
-      <div className="flex h-[35%] justify-center items-center rounded-full relative group overflow-hidden">
+    <div className=" md:w-[160px] xl:w-[112px] 2xl:w-[120px] h-[90%] overflow-hidden flex flex-col justify-center items-center gap-4 box-border min-h-40">
+      <div className="flex h-[35%] justify-center items-center rounded-full relative group overflow-hidden  min-w-15  min-h-15">
         <img
           src={track.album.images[0]?.url || ""}
           alt={`${track.name} 앨범 커버`}
-          className="w-full h-full object-cover cursor-pointer"
+          className="w-full h-full object-cover cursor-pointer "
           onClick={togglePlayTrack}
         />
         <div
