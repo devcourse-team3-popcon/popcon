@@ -42,10 +42,6 @@ export default function BopCard({
     setShowDeleteModal(false);
   };
 
-  useEffect(() => {
-    console.log(post);
-  });
-
   const [showCompletedModal, setShowCompletedModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");

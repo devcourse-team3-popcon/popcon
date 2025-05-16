@@ -3,7 +3,6 @@ import { axiosInstance } from "../axiosInstance";
 export const getNotifications = async (): Promise<Notification[]> => {
   try {
     const response = await axiosInstance.get("/notifications");
-    console.log(response);
     return response.data;
   } catch (error) {
     console.error("알림 가져오기 실패:", error);
