@@ -1,7 +1,7 @@
 import { Calendar, Heart, MessageSquare, Newspaper, Type } from "lucide-react";
 import BackButton from "../../../components/common/BackButton";
 import Hashtag from "../../../components/common/Hashtag";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import { getPostsByUser } from "../../../apis/mypage/postsByUser";
 import Pagination from "../../../components/common/Pagination";
@@ -13,6 +13,10 @@ export default function PostsByUser() {
   const navigate = useNavigate();
   const authorId = location.state?.authorId;
   const userName = location.state?.username;
+
+  const [searchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const limit = 10;
 
   interface Post {
     _id: string;
@@ -41,14 +45,12 @@ export default function PostsByUser() {
   };
 
   const [allPosts, setAllPosts] = useState<Post[]>([]);
-  const [page, setPage] = useState(1);
-  const limit = 10;
 
   const pagedPosts = useMemo(() => {
-    const start = (page - 1) * limit;
+    const start = (currentPage - 1) * limit;
     const end = start + limit;
     return allPosts.slice(start, end);
-  }, [allPosts, page]);
+  }, [allPosts, currentPage, limit]);
 
   useEffect(() => {
     if (!authorId) return;
@@ -69,6 +71,7 @@ export default function PostsByUser() {
 
     fetchPosts();
   }, [authorId]);
+
 
   return (
     <div className="min-h-screen text-[color:var(--white)] flex flex-col items-center py-10 px-4 ">
@@ -175,15 +178,11 @@ export default function PostsByUser() {
             )}
           </tbody>
         </table>
-        {pagedPosts.length > 0 && (
+        {allPosts.length > 0 && (
           <div className="mt-10 flex justify-center">
             <Pagination
-              // page={page}
               cntPage={limit}
               totalCnt={allPosts.length}
-              setPagination={(_, __, newPage) => {
-                setPage(newPage);
-              }}
             />
           </div>
         )}
