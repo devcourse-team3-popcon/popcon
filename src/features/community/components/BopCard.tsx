@@ -42,6 +42,10 @@ export default function BopCard({
     setShowDeleteModal(false);
   };
 
+  useEffect(() => {
+    console.log(post);
+  });
+
   const [showCompletedModal, setShowCompletedModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -163,7 +167,12 @@ export default function BopCard({
 
               <span className="w-full h-[10%] text-[10px] text-right px-1">
                 Recommended By.
-                <span className="text-[color:var(--primary-300)] ml-1">
+                <span
+                  className="text-[color:var(--primary-300)] ml-1 cursor-pointer"
+                  onClick={() => {
+                    navigate(`/mypage/${post.author._id}`);
+                  }}
+                >
                   {parsedUserName.name}
                 </span>
               </span>
