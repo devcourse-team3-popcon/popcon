@@ -22,7 +22,6 @@ export default function AddPost({ channelName }: ChannelName) {
       title: titleInput,
       body: contentInput,
     };
-    console.log(jsonTitle);
 
     try {
       const response = await createPost({
@@ -34,7 +33,7 @@ export default function AddPost({ channelName }: ChannelName) {
         setShowSuccessModal(true);
       }
     } catch (e) {
-      console.log("Error during post creation:", e);
+      console.error("Error during post creation:", e);
     }
   };
 

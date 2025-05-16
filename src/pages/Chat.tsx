@@ -37,8 +37,6 @@ export default function Chat() {
     fetchUserId();
   }, []);
 
-  console.log(from);
-
   return (
     <>
       {loginId === undefined ? (

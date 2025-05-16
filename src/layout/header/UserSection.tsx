@@ -30,7 +30,6 @@ export default function UserSection() {
   useEffect(() => {
     const getUserData = async () => {
       const data = await getUserInfo();
-      console.log(data.image);
       setUser(data.image);
     };
     getUserData();

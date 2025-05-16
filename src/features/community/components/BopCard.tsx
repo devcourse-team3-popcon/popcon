@@ -122,7 +122,6 @@ export default function BopCard({
   const artistNames = Array.isArray(parsedBopTitle.track.artists)
     ? parsedBopTitle.track.artists.join(", ")
     : parsedBopTitle.track.artists;
-  console.log(artistNames);
 
   const togglePlayTrack = async () => {
     if (isPlaying) {

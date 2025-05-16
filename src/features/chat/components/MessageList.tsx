@@ -37,9 +37,6 @@ export default function MessageList({ userId }: { userId: string }) {
     const container = bottomRef.current?.parentElement;
     if (!container) return;
     const isOverflowing = container.scrollHeight > container.clientHeight;
-    // console.log("container.scrollHeight: ", container.scrollHeight);
-    // console.log("container.clientHeight: ", container.clientHeight);
-    // console.log("isOverflowing: ", isOverflowing);
 
     if (isOverflowing) {
       bottomRef.current?.scrollIntoView({ behavior: "auto" });

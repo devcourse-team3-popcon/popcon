@@ -51,13 +51,7 @@ export default function LoginPage() {
       kakaoEmail = fakeEmail;
       kakaoPassword = "kakao_dummy_password";
       const favoriteGenre = "Hip-hop";
-      const result = await signupUser(
-        name,
-        kakaoEmail,
-        kakaoPassword,
-        favoriteGenre
-      );
-      console.log("회원가입 성공:", result);
+      await signupUser(name, kakaoEmail, kakaoPassword, favoriteGenre);
       await loginUser(kakaoEmail, kakaoPassword);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 400) {
@@ -103,8 +97,6 @@ export default function LoginPage() {
 
     try {
       const response = await loginUser(email, password);
-      console.log("로그인 성공:", response);
-
       const encoded = btoa(btoa(response.token));
       localStorage.setItem(
         "app_state",

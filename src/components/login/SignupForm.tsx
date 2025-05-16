@@ -175,14 +175,7 @@ export default function SignupForm() {
     }
 
     try {
-      const response = await signupUser(
-        name,
-        email,
-        password,
-        favoriteGenre,
-        favoriteArtist
-      );
-      console.log("회원가입 성공:", response);
+      await signupUser(name, email, password, favoriteGenre, favoriteArtist);
       navigate("/login");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 400) {

@@ -36,7 +36,7 @@ export default function NotificationItem({ noti, closeNotifications }: Props) {
   try {
     const parsedFullName = JSON.parse(author.fullName);
     authorName = parsedFullName?.name?.trim() || "알 수 없음";
-  } catch (e) {
+  } catch {
     console.warn("fullName 파싱 실패", author.fullName);
   }
 
@@ -82,8 +82,6 @@ export default function NotificationItem({ noti, closeNotifications }: Props) {
       }
     } else if (message) {
       navigate(`/chat/${author._id}`, { state: { from: location.pathname } });
-    } else {
-      console.log("기타 알림");
     }
 
     closeNotifications();

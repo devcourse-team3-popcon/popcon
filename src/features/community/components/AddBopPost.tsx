@@ -44,7 +44,7 @@ export default function AddBopPost({ channelName }: ChannelName) {
         setShowSuccessModal(true);
       }
     } catch (e) {
-      console.log("Error during Bop Post creation:", e);
+      console.error("Error during Bop Post creation:", e);
     }
   };
 

@@ -42,7 +42,7 @@ export default function CheckPassword({ email, onCheckPassword }: Props) {
       setError("");
       setStep("change");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError("비밀번호가 일치하지 않습니다.");
       currentPwRef.current?.focus();
     }
@@ -73,7 +73,7 @@ export default function CheckPassword({ email, onCheckPassword }: Props) {
       logout();
       navigate("/login");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setNewPwError("비밀번호 변경에 실패했습니다.");
     }
   };
