@@ -11,7 +11,7 @@ export default function PlaylistPanel({
     usePlaylistPanel();
 
   return (
-    <section className="flex flex-col gap-9 h-auto lg:h-[724px] 2xl:h-[800px] md:bg-[color:var(--grey-600)] rounded-[30px] md:py-10 md:px-12 2xl:p-[48px]">
+    <section className="flex flex-col gap-5 h-full md:bg-[color:var(--grey-600)] pt-10 rounded-[30px] md:pt-10 md:px-12">
       <PlaylistHeader userName={userName} onAddClick={toggleModal} />
       <PlaylistTracks
         tracks={tracks}
