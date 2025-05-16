@@ -22,7 +22,6 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const [cntPage, setCntPage] = useState(12);
-
   const { posts, setPosts, loading } = usePostsByChannel(`${channelId}`);
 
   const currentPosts = useMemo(() => {
@@ -80,9 +79,8 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
           </div>
         </div>
 
-
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl min-w-1xl mx-auto w-full">
-          {posts?.map((post) => (
+          {currentPosts.map((post) => (
             <BopCard
               key={post._id}
               post={post}
