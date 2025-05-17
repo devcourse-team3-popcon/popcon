@@ -43,7 +43,7 @@ export default function ChatUser({
     <>
       <div
         onClick={() => navigate(`/chat/${otherUserId}`, { state: { from } })}
-        className={`w-full h-auto p-2 flex gap-4 rounded-xl hover:bg-[var(--grey-500)] cursor-pointer items-center ${
+        className={`w-full h-auto p-2 flex gap-4 rounded-xl hover:bg-[var(--grey-500)] cursor-pointer items-center my-2 md:my-0 ${
           isSelected && "bg-[var(--grey-500)]"
         }`}
       >

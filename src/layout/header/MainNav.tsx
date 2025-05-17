@@ -1,6 +1,10 @@
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 
 export default function MainNav() {
+  const location = useLocation();
+
+  const isCommunityActive = location.pathname.startsWith("/community");
+
   return (
     <nav className="flex gap-12 items-center h-[68px]">
       <NavLink
@@ -30,9 +34,9 @@ export default function MainNav() {
       </NavLink>
       <NavLink
         to="/community/bops-community"
-        className={({ isActive }) =>
+        className={() =>
           `text-[14px] 2xl:text-[16px] ${
-            isActive
+            isCommunityActive
               ? "text-[color:var(--primary-300)]"
               : "text-[color:var(--white)]"
           }`

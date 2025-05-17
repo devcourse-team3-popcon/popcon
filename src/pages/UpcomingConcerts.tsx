@@ -12,9 +12,9 @@ export default function UpcomingConcerts() {
     usePaginatedConcerts(concerts);
 
   return (
-    <div className="grid justify-center items-center w-[1080px]">
+    <div className="grid justify-center items-center w-[80%] lg:w-[800px] xl:w-[1080px] pb-20">
       <ConcertBanner />
-      <div className="mt-9 md:mt-16">
+      <div className="mt-8">
         {loading ? (
           <ConcertListSkeleton />
         ) : (
