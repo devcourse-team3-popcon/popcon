@@ -37,7 +37,7 @@ export default function Chat() {
         </div>
       ) : (
         <>
-          <div className="md:flex flex-col md:w-[720px] lg:w-[960px] xl:x-[1080px] h-[88vh] hidden py-4 gap-4">
+          <div className="md:flex flex-col md:w-[720px] lg:w-[960px] xl:x-[1080px] h-[88vh] hidden py-10 gap-4 ">
             <div className="w-full">
               <BackButton from={from} />
             </div>
@@ -51,7 +51,7 @@ export default function Chat() {
             </div>
           </div>
 
-          <div className="md:hidden w-full flex flex-col gap-[20px] h-[78vh] px-12">
+          <div className="md:hidden w-full flex flex-col gap-[20px] h-[78vh] px-12 mt-24">
             {userId ? (
               <Messages />
             ) : (
