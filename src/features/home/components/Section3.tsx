@@ -6,9 +6,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Section3() {
   const boxRef = useRef<HTMLDivElement | null>(null);
+  const detailRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!boxRef.current) return;
+    if (!boxRef.current || !detailRef) return;
+
+    gsap.fromTo(
+      detailRef.current,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: detailRef.current,
+          start: "top 85%",
+          end: "top 50%",
+          scrub: 1,
+        },
+      }
+    );
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -67,7 +84,10 @@ export default function Section3() {
             </div>
           </div>
 
-          <div className="flex gap-10 justify-center text-left font-light items-center text-md text-[color:var(--white-80)]">
+          <div
+            className="flex gap-10 justify-center text-left font-light items-center text-md text-[color:var(--white-80)] "
+            ref={detailRef}
+          >
             <p className="w-[30%] p-6 ">
               지루한 플레이리스트에서 벗어나고 싶었던 당신에게, 취향에 딱 맞는
               <span className="text-[color:var(--primary-300-50)]">
