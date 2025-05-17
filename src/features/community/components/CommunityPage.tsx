@@ -4,10 +4,8 @@ import { Plus } from "lucide-react";
 import { Post } from "../types/Post";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import Pagination from "../../../components/common/Pagination";
-import { usePagination } from "../../../hooks/usePagination";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 import NoneBorderSelectBox from "../../../components/common/NoneBorderSelectBox";
-import SelectBox from "../../../components/common/SelectBox";
 import { useNavigate, useSearchParams } from "react-router";
 
 interface ComunityPageProps {
@@ -50,7 +48,7 @@ export default function CommunityPage({
 
   useEffect(() => {
     if (searchInput.trim() !== "" || searchType !== "all") {
-      setSearchParams(prev => {
+      setSearchParams((prev) => {
         const newParams = new URLSearchParams(prev);
         newParams.set("page", "1");
         return newParams;
@@ -58,11 +56,11 @@ export default function CommunityPage({
     }
   }, [searchInput, searchType, setSearchParams]);
 
-  const setPagination = (newCntPage: number, totalCnt: number, page: number) => {
+  const setPagination = (newCntPage: number) => {
     if (newCntPage !== cntPage) {
       setCntPage(newCntPage);
-      
-      setSearchParams(prev => {
+
+      setSearchParams((prev) => {
         const newParams = new URLSearchParams(prev);
         newParams.set("page", "1");
         return newParams;

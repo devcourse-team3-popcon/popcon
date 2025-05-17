@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router";
 interface PaginationProps {
   cntPage: number;
   totalCnt: number;
-  setPagination: (cntPage: number, totalCnt: number, page: number) => void;
+  setPagination?: (cntPage: number, totalCnt: number, page: number) => void;
 }
 
 export default function Pagination({
@@ -19,7 +19,7 @@ export default function Pagination({
   const maxPage = Math.max(1, Math.ceil(totalCnt / cntPage));
 
   useEffect(() => {
-    setPagination(cntPage, totalCnt, currentPage);
+    if (setPagination) setPagination(cntPage, totalCnt, currentPage);
 
     const newPageState = Math.floor((currentPage - 1) / 5) * 5 + 1;
     setPageState(newPageState);
@@ -35,7 +35,7 @@ export default function Pagination({
 
   const selectPageNum = useCallback(
     (value: number) => {
-      if (value === currentPage) return; 
+      if (value === currentPage) return;
 
       setSearchParams((prev) => {
         const newParams = new URLSearchParams(prev);
@@ -59,7 +59,7 @@ export default function Pagination({
             : Math.max(currentPage - 5, 1);
       }
 
-      if (newPage === currentPage) return; 
+      if (newPage === currentPage) return;
 
       setSearchParams((prev) => {
         const newParams = new URLSearchParams(prev);
@@ -72,10 +72,7 @@ export default function Pagination({
 
   return (
     <div className="flex items-center gap-3">
-      <button
-        disabled={currentPage === 1} 
-        onClick={() => goToJumpPage("prev")}
-      >
+      <button disabled={currentPage === 1} onClick={() => goToJumpPage("prev")}>
         <Pause className="cursor-pointer" fill="var(--red)" strokeWidth={0} />
       </button>
 
@@ -92,7 +89,7 @@ export default function Pagination({
         </button>
       ))}
       <button
-        disabled={currentPage === maxPage} 
+        disabled={currentPage === maxPage}
         onClick={() => goToJumpPage("next")}
       >
         <Play

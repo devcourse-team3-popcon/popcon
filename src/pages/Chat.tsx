@@ -6,7 +6,6 @@ import { useMsgVersionStore } from "../features/chat/stores/msgVersionStore";
 import { useEffect, useState } from "react";
 import { getCurrentUserId } from "../utils/auth";
 import LoadingSpinner from "../components/common/LoadingSpinner";
-// import { UserInfo } from "../features/chat/types/UserInfo";
 
 export default function Chat() {
   const { userId } = useParams();
@@ -15,14 +14,7 @@ export default function Chat() {
   const reset = useMsgVersionStore((state) => state.reset);
   const [loginId, setLoginId] = useState();
 
-  // const [from, setFrom] = useState(() => location.state?.from || "/");
   const [from] = useState(() => location.state?.from || "/");
-
-  // useEffect(() => {
-  //   if (location.state?.from && !from) {
-  //     setFrom(location.state.from);
-  //   }
-  // }, [location.state, from]);
 
   useEffect(() => {
     reset();

@@ -1,4 +1,4 @@
-import { File, ImagePlus, X } from "lucide-react";
+import { ImagePlus, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 interface ImageUploaderProps {

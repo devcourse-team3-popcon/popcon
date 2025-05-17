@@ -43,8 +43,6 @@ export default function BopCard({
   };
 
   const [showCompletedModal, setShowCompletedModal] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const myMenuItems = [
     {
@@ -162,7 +160,12 @@ export default function BopCard({
 
               <span className="w-full h-[10%] text-[10px] text-right px-1">
                 Recommended By.
-                <span className="text-[color:var(--primary-300)] ml-1">
+                <span
+                  className="text-[color:var(--primary-300)] ml-1 cursor-pointer"
+                  onClick={() => {
+                    navigate(`/userdetail/${post.author._id}`);
+                  }}
+                >
                   {parsedUserName.name}
                 </span>
               </span>
@@ -254,14 +257,6 @@ export default function BopCard({
         <StatusModal
           message="플레이리스트에 추가되었습니다!"
           onClose={() => setShowCompletedModal(false)}
-        />
-      )}
-
-      {showErrorModal && (
-        <StatusModal
-          message={errorMessage}
-          onClose={() => setShowErrorModal(false)}
-          type="error"
         />
       )}
     </>

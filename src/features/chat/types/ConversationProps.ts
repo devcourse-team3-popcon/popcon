@@ -1,5 +1,3 @@
-// import { UserInfo } from "./UserInfo";
-
 export interface ConversationProps {
   sender: string;
   loginId: string;
