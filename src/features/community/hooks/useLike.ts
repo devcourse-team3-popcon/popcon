@@ -43,7 +43,6 @@ export const useLike = (initialPost: Post | null) => {
             : null
         );
       } else {
-        // 좋아요 추가
         const res = await axiosInstance.post(`/likes/create`, {
           postId: post._id,
           userId: currentUserId,

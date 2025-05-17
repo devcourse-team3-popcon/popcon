@@ -7,8 +7,8 @@ interface PostInputFormProps {
   contentInput: string;
   setTitleInput: (value: string) => void;
   setContentInput: (value: string) => void;
-  setImageInput: (file: File | null) => void;
-  setIsImageDeleted: (value: boolean) => void;
+  setImageInput?: (file: File | null) => void;
+  setIsImageDeleted?: (value: boolean) => void;
   existingImageUrl?: string;
 }
 
@@ -52,11 +52,13 @@ export default function PostInputForm({
             }}
           />
 
-          <ImageUploader
-            onImageChange={setImageInput}
-            initialImageUrl={existingImageUrl}
-            onImageDelete={() => setIsImageDeleted(true)}
-          />
+          {setImageInput && (
+            <ImageUploader
+              onImageChange={setImageInput}
+              initialImageUrl={existingImageUrl}
+              onImageDelete={() => setIsImageDeleted && setIsImageDeleted(true)}
+            />
+          )}
         </div>
       </form>
     </>

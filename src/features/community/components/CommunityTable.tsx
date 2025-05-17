@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { parseTitle } from "../../../utils/parseTitle";
 import { Post } from "../types/Post";
 import { parseUserName } from "../../../utils/parseUserName";
+import { useEffect } from "react";
 
 type CommunityTableProps = {
   posts: Post[];
@@ -10,6 +11,10 @@ type CommunityTableProps = {
 
 export default function CommunityTable({ posts }: CommunityTableProps) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(posts);
+  });
 
   const formatTime = (date: Date) => {
     return date.toLocaleDateString("ko-KR", {
@@ -27,6 +32,14 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
           : "open-community"
       }/post/${post._id}`
     );
+  };
+
+  const getParsedUserName = (post: Post) => {
+    if (!post.author) return "작성자 없음";
+
+    return post.author.fullName
+      ? parseUserName(post.author.fullName).name
+      : "이름 없음";
   };
 
   return (
@@ -74,8 +87,10 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
               </tr>
             ) : (
               posts.map((post) => {
-                const parsedTitle = parseTitle(post.title);
-                const parsedUserName = parseUserName(post.author.fullName);
+                if (!post) return null;
+                const parsedTitle = post.title
+                  ? parseTitle(post.title)
+                  : { title: "제목 없음" };
                 return (
                   <tr
                     key={post._id}
@@ -86,7 +101,7 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
                       {parsedTitle.title}
                     </td>
                     <td className="text-center p-2 md:p-4 sm:text-[14px] md:text-[15px]">
-                      {parsedUserName.name}
+                      {getParsedUserName(post)}
                     </td>
                     <td className="text-center p-2 md:p-4 sm:text-[14px] md:text-[15px]">
                       {post.comments.length}

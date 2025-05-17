@@ -9,7 +9,20 @@ type Props = {
   updateNotifications: (notiId: string) => void;
   closeNotifications: () => void;
 };
+interface Post {
+  _id: string;
+  channel: string;
+}
 
+function isPost(obj: unknown): obj is Post {
+  return (
+    obj !== null &&
+    obj !== undefined &&
+    typeof obj === "object" &&
+    "_id" in obj &&
+    "channel" in obj
+  );
+}
 export default function NotificationItem({ noti, closeNotifications }: Props) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -54,21 +67,30 @@ export default function NotificationItem({ noti, closeNotifications }: Props) {
     notificationMessage = `${authorName} 님의 알림입니다.`;
   }
 
-  const clickHandler = (e) => {
+  const clickHandler = (e: React.MouseEvent<HTMLLIElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    let post = null;
-    if (comment && comment.post && typeof comment.post === "object") {
-      post = comment.post;
+    let postId: string | undefined;
+    let channelId: string | undefined;
+
+    if (comment?.post) {
+      if (isPost(comment.post)) {
+        postId = comment.post._id;
+        channelId = comment.post.channel;
+      } else if (typeof comment.post === "string") {
+        postId = comment.post;
+      }
     } else if (like?.post) {
-      post = like.post;
+      if (isPost(like.post)) {
+        postId = like.post._id;
+        channelId = like.post.channel;
+      } else if (typeof like.post === "string") {
+        postId = like.post;
+      }
     }
 
-    if (post && post.channel) {
-      const channelId = post.channel;
-      const postId = post._id;
-
+    if (channelId && postId) {
       if (channelId === "681e2fbc7380bb759ecc6367") {
         navigate("/community/bops-community");
       } else {
@@ -80,6 +102,8 @@ export default function NotificationItem({ noti, closeNotifications }: Props) {
           `/community/${channelPath}/post/${encodeURIComponent(postId)}`
         );
       }
+    } else if (postId) {
+      navigate(`/community/open-community/post/${encodeURIComponent(postId)}`);
     } else if (message) {
       navigate(`/chat/${author._id}`, { state: { from: location.pathname } });
     }
@@ -92,7 +116,11 @@ export default function NotificationItem({ noti, closeNotifications }: Props) {
       className="group text-[12px] w-[288px] p-2 rounded-lg flex items-center cursor-pointer hover:bg-[color:var(--grey-500)]"
       onClick={clickHandler}
     >
-      <img src={authorImage} className="w-6 h-6 rounded-4xl" />
+      <img
+        src={authorImage}
+        className="w-6 h-6 rounded-4xl"
+        alt="프로필 이미지"
+      />
       <p className="pl-3 w-[247px] h-auto">{notificationMessage}</p>
     </li>
   );
