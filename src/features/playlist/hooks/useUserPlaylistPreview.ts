@@ -30,16 +30,21 @@ export function useUserPlaylistPreview() {
     }
 
     const getUsersData = async () => {
-      setIsLoading(true);
-      try {
-        const usersData = await getUserPlaylist(inputValue);
-        setUserList(usersData);
-      } catch (error) {
-        console.error("유저 검색 실패:", error);
-      } finally {
-        setIsLoading(false);
-      }
+      const timer = setTimeout(async () => {
+        setIsLoading(true);
+        try {
+          const usersData = await getUserPlaylist(inputValue);
+          setUserList(usersData);
+        } catch (error) {
+          console.error("유저 검색 실패:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      }, 300); 
+
+      return () => clearTimeout(timer);
     };
+
     getUsersData();
   }, [inputValue]);
 
