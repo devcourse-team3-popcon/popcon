@@ -1,11 +1,20 @@
 import {ChevronRight} from "lucide-react";
 import {useNavigate} from "react-router";
 
-export default function ForwardButton({to, label = "작성 글 보기"}: {to: string; label?: string}) {
+type ForwardButtonProps = {
+  to: string;
+  label?: string;
+  state?: {
+    authorId: string;
+    username: string;
+  };
+};
+
+export default function ForwardButton({to, label = "작성 글 보기", state}: ForwardButtonProps) {
   const navigate = useNavigate();
 
   const clickHandler = () => {
-    navigate(to);
+    navigate(to, {state});
   };
 
   return (

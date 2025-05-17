@@ -198,7 +198,11 @@ export default function MyPage() {
     <div className='min-h-screen text-[color:var(--white)] flex flex-col items-center py-6 px-4 h-[calc(100vh-68px)] w-[80%]'>
       <div className='w-full flex justify-between items-center mb-4'>
         <BackButton from={-1} />
-        <ForwardButton to='/postsbyuser' label='작성 글 보기' />
+        <ForwardButton
+          to='/postsbyuser'
+          label='작성 글 보기'
+          state={{authorId: storedUserId, username: username}}
+        />
       </div>
       <input
         type='file'
