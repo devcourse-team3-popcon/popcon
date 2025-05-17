@@ -1,6 +1,5 @@
 import { Send } from "lucide-react";
 import useSendMessage from "../hooks/useSendMessage";
-// import { useRefreshStore } from "../stores/refreshStore";
 import { useMsgVersionStore } from "../stores/msgVersionStore";
 
 interface SearchBarProps {
@@ -21,7 +20,6 @@ export default function TextBox({
   userId,
 }: SearchBarProps) {
   const sendMessage = useSendMessage();
-  // const refreshMessages = useRefreshStore((state) => state.refreshMessages);
   const updateCVersion = useMsgVersionStore((state) => state.c_increment);
   const updateMVersion = useMsgVersionStore((state) => state.m_increment);
 
@@ -32,7 +30,6 @@ export default function TextBox({
 
     await sendMessage({ message: value, userId });
 
-    // refreshMessages?.();
     updateCVersion();
     updateMVersion();
 

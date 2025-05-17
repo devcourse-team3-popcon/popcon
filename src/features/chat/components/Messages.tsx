@@ -1,4 +1,3 @@
-// import { UserInfo } from "../types/UserInfo";
 import { useParams } from "react-router";
 import MessageList from "./MessageList";
 import NoMessages from "./NoMessages";

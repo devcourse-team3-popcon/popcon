@@ -6,9 +6,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Section3() {
   const boxRef = useRef<HTMLDivElement | null>(null);
+  const detailRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!boxRef.current) return;
+    if (!boxRef.current || !detailRef) return;
+
+    gsap.fromTo(
+      detailRef.current,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: detailRef.current,
+          start: "top 85%",
+          end: "top 50%",
+          scrub: 1,
+        },
+      }
+    );
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -46,9 +63,9 @@ export default function Section3() {
           </h3>
           <div
             ref={boxRef}
-            className="w-[60%] flex flex-col gap-15 bg-[color:var(--primary-300)] text-[color:var(--bg-color)] py-15 rounded-4xl "
+            className="w-[60%] flex flex-col gap-15 bg-[color:var(--primary-300)] text-[color:var(--bg-color)] py-15 rounded-4xl text-sm lg:text-lg"
           >
-            <h2 className="font-bold text-4xl">
+            <h2 className="font-bold text-2xl lg:text-4xl">
               매일 똑같은 노래가 지겹지 않으셨나요?
             </h2>
             <div className="space-y-8">
@@ -67,25 +84,28 @@ export default function Section3() {
             </div>
           </div>
 
-          <div className="flex gap-10 justify-center text-left font-light items-center text-lg">
+          <div
+            className="flex gap-10 justify-center text-left font-light items-center text-sm/7 lg:text-md/8 text-[color:var(--white-80)] "
+            ref={detailRef}
+          >
             <p className="w-[30%] p-6 ">
               지루한 플레이리스트에서 벗어나고 싶었던 당신에게, 취향에 딱 맞는
-              <span className="text-[color:var(--primary-300)]">
+              <span className="text-[color:var(--primary-300-50)]">
                 {" "}
                 음악 추천
               </span>
               , 다른 사람들의{" "}
-              <span className="text-[color:var(--primary-300)]">
+              <span className="text-[color:var(--primary-300-50)]">
                 숨은 명곡{" "}
               </span>
               공유, 그리고 해외 아티스트{" "}
-              <span className="text-[color:var(--primary-300)]">
+              <span className="text-[color:var(--primary-300-50)]">
                 {" "}
                 내한 공연
               </span>{" "}
               정보까지 한곳에서 모두 즐길 수 있는 공간을 만들어드립니다.
             </p>
-            <p className="w-[30%] p-6 ">
+            <p className="w-[30%] p-6 text-sm/6">
               POPCON offers a space where you can enjoy personalized music
               recommendations, discover hidden gems shared by others, and stay
               updated on overseas artists' concerts—all in one place.

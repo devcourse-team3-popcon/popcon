@@ -6,9 +6,9 @@ import useConcerts from "../features/upcoming_concerts/hooks/useConcerts";
 import { usePaginatedConcerts } from "../features/upcoming_concerts/hooks/usePaginatedConcerts";
 
 export default function UpcomingConcerts() {
-  const channelId = "681728150949dd30548aa760"; // Upcoming Concerts channel
+  const channelId = "681728150949dd30548aa760";
   const { concerts, loading } = useConcerts(channelId);
-  const { currentConcerts, currentPage, cntPage, setPagination } =
+  const { currentConcerts, cntPage, setPagination } =
     usePaginatedConcerts(concerts);
 
   return (
@@ -23,7 +23,6 @@ export default function UpcomingConcerts() {
             {concerts && concerts.length > 0 && (
               <div className="mt-20 flex justify-center">
                 <Pagination
-                  page={currentPage}
                   cntPage={cntPage}
                   totalCnt={concerts.length}
                   setPagination={setPagination}

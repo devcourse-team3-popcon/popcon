@@ -14,7 +14,6 @@ export default function NotificationList({closeNotifications}: NotificationListP
   const notificationListRef = useRef<HTMLDivElement | null>(null);
   const unseenCount = notifications.filter((noti) => !noti.seen).length;
 
-  // 알림 상태 업데이트
   const updateNoti = async () => {
     try {
       await readNotifications();
@@ -26,7 +25,6 @@ export default function NotificationList({closeNotifications}: NotificationListP
     }
   };
 
-  // 외부 클릭 시 알림창 닫기
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (notificationListRef.current && !notificationListRef.current.contains(e.target as Node)) {
@@ -45,7 +43,7 @@ export default function NotificationList({closeNotifications}: NotificationListP
     <div className='absolute z-[9999] flex justify-center items-center top-[100%] right-[-3px] mt-[-5px]'>
       <div
         ref={notificationListRef}
-        className='p-4 rounded-[20px] w-[320px] h-[320px] bg-[color:var(--grey-600)] shadow-md '
+        className='p-4 rounded-[20px] w-[320px] h-[320px] bg-[color:var(--grey-600)] shadow-md overflow-y-auto scrollbar-hide'
         onClick={(e) => e.stopPropagation()} // 알림창 내부 클릭 시 닫히지 않도록
       >
         <div className='flex justify-between items-center mx-2 my-3'>

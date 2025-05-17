@@ -12,6 +12,7 @@ export default function useSearchUsers(keyword: string) {
   useEffect(() => {
     if (!debouncedKeyword.trim()) {
       setUserList([]);
+      setLoading(false);
       return;
     }
 
@@ -21,24 +22,34 @@ export default function useSearchUsers(keyword: string) {
           `/search/users/${debouncedKeyword}`
         );
 
+        const lowercasedKeyword = debouncedKeyword.trim().toLowerCase();
         const parsed = data
           .filter((user: User) => user.fullName !== "orca")
           .map((user: User) => {
             try {
               const parsedFullName = JSON.parse(user.fullName);
-
               return {
                 ...user,
                 fullName: parsedFullName,
               };
             } catch (error) {
               console.error("Data parsing error", error);
+              return {
+                ...user,
+                fullName: { name: user.fullName },
+              };
             }
-          });
+          })
+          .filter(
+            (user: ParsedUser) =>
+              user?.fullName?.name &&
+              user.fullName.name.toLowerCase().includes(lowercasedKeyword)
+          );
 
         setUserList(parsed);
       } catch (error) {
         console.error("Failed to search users", error);
+        setUserList([]);
       } finally {
         setLoading(false);
       }
