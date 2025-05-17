@@ -6,7 +6,12 @@ type MvpCardProps = {
 };
 type Theme = "black" | "green";
 
-export default function MvpCard({title, text, imageSrc, theme}: MvpCardProps) {
+export default function MvpCard({
+  title,
+  text,
+  imageSrc,
+  theme,
+}: MvpCardProps) {
   const themeStyles = {
     black: {
       backgroundColor: "#272727",
@@ -17,16 +22,16 @@ export default function MvpCard({title, text, imageSrc, theme}: MvpCardProps) {
       textColor: "var(--bg-color)",
     },
   };
-  const {backgroundColor, textColor} = themeStyles[theme];
+  const { backgroundColor, textColor } = themeStyles[theme];
 
   return (
     <div
-      className='w-[210px] h-[325px] rounded-2xl shadow-md flex flex-col items-center justify-center text-center'
-      style={{backgroundColor, color: textColor}}
+      className="w-[420px] h-[650px] rounded-2xl flex flex-col items-center justify-center text-center shadow-lg shadow-[rgba(0,0,0,0.25)] "
+      style={{ backgroundColor, color: textColor }}
     >
-      <p className='text-sm font-bold mb-2'>{title}</p>
-      <p className='text-xs  mb-4 whitespace-pre-line'>{text}</p>
-      <img src={imageSrc} alt='' className='max-h-[200px] ' />
+      <p className="text-2xl font-bold mb-4">{title}</p>
+      <p className="text-lg  mb-8 whitespace-pre-line">{text}</p>
+      <img src={imageSrc} alt="" className="max-h-[400px] " />
     </div>
 
     /* 사용하실 때 그대로 복사하시면 됩니다!

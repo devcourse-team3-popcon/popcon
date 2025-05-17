@@ -1,35 +1,29 @@
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import MvpCard from "./MvpCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface Item {
-  id: number;
-  imgSrc: string;
-  title: string;
-  content: string;
-}
-
-const items: Item[] = [
-  {
-    id: 1,
-    imgSrc: "/src/assets/images/mvp1.png",
-    title: "title",
-    content: "content",
-  },
-  {
-    id: 2,
-    imgSrc: "/src/assets/images/mvp2.png",
-    title: "title",
-    content: "content",
-  },
-  {
-    id: 3,
-    imgSrc: "/src/assets/images/mvp2.png",
-    title: "title",
-    content: "content",
-  },
+const items = [
+  <MvpCard
+    theme="green"
+    title="숨겨진 명곡 탐색"
+    text={"공유된 숨듣명을 카드로 모아\n손쉬운 탐색 경험 제공"}
+    imageSrc="/src/assets/images/bop-card.png"
+  />,
+  <MvpCard
+    theme="black"
+    title="내한 공연 소식"
+    text={"좋아하는 아티스트의 내한 일정까지\n한 번에 확인 가능"}
+    imageSrc="/src/assets/images/concert-card.png"
+  />,
+  <MvpCard
+    theme="green"
+    title="플레이 리스트 기반 추천"
+    text={"내가 담은 음악을 바탕으로\n비슷한 감성의 음악을 자동 추천"}
+    imageSrc="/src/assets/images/bop-card.png"
+  />,
 ];
 
 export default function Section4() {
@@ -43,11 +37,8 @@ export default function Section4() {
     const itemsEls = gsap.utils.toArray<HTMLElement>(
       section.querySelectorAll(".work-li")
     );
-    const imgBoxes = gsap.utils.toArray<HTMLElement>(
-      section.querySelectorAll(".imgBox")
-    );
-    const textBoxes = gsap.utils.toArray<HTMLElement>(
-      section.querySelectorAll(".textBox")
+    const mvpBoxes = gsap.utils.toArray<HTMLElement>(
+      section.querySelectorAll(".mvpBox")
     );
 
     const scrollTween = gsap.to(itemsEls, {
@@ -63,11 +54,11 @@ export default function Section4() {
       },
     });
 
-    imgBoxes.forEach((imgBox) => {
+    mvpBoxes.forEach((mvpBox) => {
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: imgBox,
+            trigger: mvpBox,
             containerAnimation: scrollTween,
             start: "center right",
             end: "center left",
@@ -75,69 +66,31 @@ export default function Section4() {
             // markers: true,
           },
         })
-        .fromTo(imgBox, { scale: 0.5 }, { scale: 1, ease: "none" })
-        .to(imgBox, { scale: 0.5, ease: "none" });
-    });
-
-    textBoxes.forEach((textBox) => {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: textBox,
-            containerAnimation: scrollTween,
-            start: "center 70%",
-            end: "center 40%",
-            scrub: true,
-          },
-        })
-        .to(textBox, { opacity: 1, x: -100 }, 0);
-
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: textBox,
-            containerAnimation: scrollTween,
-            start: "center 30%",
-            end: "center 20%",
-            scrub: true,
-          },
-        })
-        .to(textBox, { opacity: 0 }, 0);
+        .fromTo(mvpBox, { scale: 0.5 }, { scale: 1, ease: "none" })
+        .to(mvpBox, { scale: 0.5, ease: "none" });
     });
 
     return () => {
       ScrollTrigger.getAll().forEach((st) => st.kill());
       gsap.killTweensOf(itemsEls);
-      gsap.killTweensOf(imgBoxes);
-      gsap.killTweensOf(textBoxes);
+      gsap.killTweensOf(mvpBoxes);
     };
   }, []);
 
   return (
     <>
-      <section ref={sectionRef} className="h-screen relative">
-        <ul className="flex py-[3%] px-[30%] box-border items-center">
-          {items.map((item) => (
+      <section ref={sectionRef} className="h-screen relative ">
+        <ul className="flex py-[3%] px-[30%] box-border items-center h-full">
+          {items.map((item, i) => (
             <li
-              key={item.id}
-              className="work-li w-[720px] pr-[100px] box-border flex-shrink-0 ml-20 "
+              key={i}
+              className="work-li w-[720px] pr-[100px] box-border flex-shrink-0 "
             >
               <div
-                className="imgBox relative flex justify-center items-center"
+                className="mvpBox relative flex justify-center items-center"
                 style={{ scale: 0.5 }}
               >
-                <img
-                  src={item.imgSrc}
-                  alt={`Image ${item.id}`}
-                  className="h-200"
-                />
-              </div>
-              <div
-                className={`textBox absolute left-0 bottom-[10%] opacity-0`}
-                style={{ textShadow: "2px 2px 10px rgba(0,0,0,0.3)" }}
-              >
-                <p className="title text-5xl">{item.title}</p>
-                <p className="text text-2xl pl-1">{item.content}</p>
+                {item}
               </div>
             </li>
           ))}
