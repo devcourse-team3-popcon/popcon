@@ -52,11 +52,13 @@ export default function PostInputForm({
             }}
           />
 
-          <ImageUploader
-            onImageChange={setImageInput}
-            initialImageUrl={existingImageUrl}
-            onImageDelete={() => setIsImageDeleted(true)}
-          />
+          {setImageInput && (
+            <ImageUploader
+              onImageChange={setImageInput}
+              initialImageUrl={existingImageUrl}
+              onImageDelete={() => setIsImageDeleted && setIsImageDeleted(true)}
+            />
+          )}
         </div>
       </form>
     </>

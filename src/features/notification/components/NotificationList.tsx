@@ -14,7 +14,6 @@ export default function NotificationList({closeNotifications}: NotificationListP
   const notificationListRef = useRef<HTMLDivElement | null>(null);
   const unseenCount = notifications.filter((noti) => !noti.seen).length;
 
-  // 알림 상태 업데이트
   const updateNoti = async () => {
     try {
       await readNotifications();
@@ -26,7 +25,6 @@ export default function NotificationList({closeNotifications}: NotificationListP
     }
   };
 
-  // 외부 클릭 시 알림창 닫기
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (notificationListRef.current && !notificationListRef.current.contains(e.target as Node)) {
