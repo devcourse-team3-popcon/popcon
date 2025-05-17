@@ -29,6 +29,7 @@ export default function UserPlaylistPreview({
               users={displayUsers}
               isLoading={isLoading}
               setSelectedUserId={setSelectedUserId}
+              inputValue={inputValue}
             />
           </div>
         </div>
