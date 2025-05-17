@@ -17,7 +17,7 @@ export default function UserList({ users, setSelectedUserId }: UserListProps) {
   }
 
   return (
-    <div className="flex flex-col overflow-auto h-[60%] scrollbar-hide w-full">
+    <div className="flex flex-col overflow-auto scrollbar-hide w-full pb-4 ">
       {users.map((user) => {
         const parsedUser = parseUser(user);
         return (

@@ -12,11 +12,11 @@ export default function UserPlaylistPreview({
     useUserPlaylistPreview();
 
   return (
-    <section className="flex flex-col md:pt-12  md:px-12 md:bg-[color:var(--grey-600)] w-full h-[440px] overflow-hidden md:h-[408px] md:rounded-[30px] gap-5 md:gap-[32px]">
+    <section className="flex flex-col pt-10 px-12 bg-[color:var(--grey-600)] w-full overflow-hidden rounded-[30px] gap-[16px] h-[55%] mb-12 xl:mb-0 xl:min-h-0 min-h-80">
       <UserPlaylistHeader />
 
-      <div>
-        <div className="flex flex-col w-full h-full md:h-[336px] items-center gap-[8px] 2xl:px-8">
+      <div className="flex-1 overflow-hidden">
+        <div className="flex flex-col w-full h-full items-center gap-[8px] px-4">
           <SearchBar
             value={inputValue}
             className="w-full"
@@ -24,12 +24,13 @@ export default function UserPlaylistPreview({
             onChange={handleInputChange}
             aria-label="사용자 검색"
           />
-
-          <UserList
-            users={displayUsers}
-            isLoading={isLoading}
-            setSelectedUserId={setSelectedUserId}
-          />
+          <div className="w-full flex-1 overflow-auto scrollbar-hide">
+            <UserList
+              users={displayUsers}
+              isLoading={isLoading}
+              setSelectedUserId={setSelectedUserId}
+            />
+          </div>
         </div>
       </div>
     </section>

@@ -52,13 +52,13 @@ export default function ChatUser({
           <img
             src={userImage ? userImage : defaultProfile}
             alt={`${userName} 유저 프로필`}
-            className="rounded-full size-[48px]"
+            className="rounded-full size-[32px]"
           />
           {userIsOnline && (
             <img
               src={onlineIcon}
               alt="온라인 표시"
-              className="absolute right-0.5 bottom-0.5"
+              className="absolute left-6 bottom-0"
             />
           )}
         </div>

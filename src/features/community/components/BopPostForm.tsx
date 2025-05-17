@@ -51,7 +51,6 @@ export default function BopPostForm({
     const accessToken = await getSpotifyAccessToken();
     const results = await searchTrack(trackInput, accessToken);
     setTracks(results);
-    console.log(results);
   };
 
   return (

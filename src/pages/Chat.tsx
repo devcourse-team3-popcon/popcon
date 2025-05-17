@@ -37,8 +37,6 @@ export default function Chat() {
     fetchUserId();
   }, []);
 
-  console.log(from);
-
   return (
     <>
       {loginId === undefined ? (
@@ -47,20 +45,21 @@ export default function Chat() {
         </div>
       ) : (
         <>
-          <div className="md:flex flex-row gap-8 w-[90%] h-[85vh] justify-center items-end hidden">
-            <div className="flex flex-col w-[23%] h-full items-start gap-4">
-              <div className="h-[5%]">
-                <BackButton from={from} />
-              </div>
-              <div className="h-[93%] w-full">
+          <div className="md:flex flex-col md:w-[720px] lg:w-[960px] xl:x-[1080px] h-[88vh] hidden py-4 gap-4">
+            <div className="w-full">
+              <BackButton from={from} />
+            </div>
+            <div className="flex h-[90%] w-full justify-between">
+              <div className="w-[30%] h-full">
                 <Conversations key={version} loginId={loginId} from={from} />
               </div>
+              <div className="w-[68%] h-full">
+                <Messages />
+              </div>
             </div>
-
-            <Messages />
           </div>
 
-          <div className="md:hidden w-full flex flex-col gap-[20px] h-150 px-6">
+          <div className="md:hidden w-full flex flex-col gap-[20px] h-[78vh] px-12">
             {userId ? (
               <Messages />
             ) : (

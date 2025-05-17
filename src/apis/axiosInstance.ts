@@ -24,7 +24,6 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     if (error.response?.status === 403 && !retry) {
-      console.log("token 실패");
       retry = true;
       try {
         const {data} = await axiosInstance.post("/token");
@@ -35,8 +34,8 @@ axiosInstance.interceptors.response.use(
         retry = false;
         originalRequest.headers["Authorization"] = `Bearer ${data.accessToken}`;
         return axiosInstance(originalRequest);
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.error(error);
       }
     }
     if (error.response?.status === 400) {

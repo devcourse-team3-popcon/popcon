@@ -11,9 +11,8 @@ export default function useGetConversation() {
       const { data } = await axiosInstance.get("/messages/conversations");
 
       setConversations(data);
-      console.log("fetch conversations");
-    } catch (error) {
-      console.log("Failed to fetch conversations", error);
+    } catch {
+      throw new Error();
     } finally {
       setLoading(false);
     }

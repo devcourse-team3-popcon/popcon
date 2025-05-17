@@ -24,7 +24,7 @@ export default React.memo(function LeftMessageBox({
     <>
       <div className="flex items-end md:gap-4 gap-2">
         <div
-          className={`flex items-center md:min-h-[48px] max-w-[400px] bg-[var(--grey-500)] rounded-tr-[20px] rounded-br-[20px] ${rounded} md:text-lg font-regular px-4 py-2`}
+          className={`flex items-center md:min-h-[48px] max-w-[400px] bg-[var(--grey-500)] rounded-tr-[20px] rounded-br-[20px] ${rounded} text-sm md:text-sm lg:text-base font-regular px-4 py-2`}
         >
           {text}
         </div>

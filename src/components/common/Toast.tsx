@@ -3,7 +3,7 @@ import { CircleAlert, CircleCheckBig } from "lucide-react";
 
 export const showSuccessToast = (message: string) =>
   toast.success(
-    <div className="flex items-center gap-3 text-sm font-medium text-white">
+    <div className="flex items-center gap-3 text-sm font-medium text-[color:var(--white)]">
       <CircleCheckBig className="w-5 h-5 text-[color:var(--primary-300)]" />
       <span>{message}</span>
     </div>,
@@ -22,7 +22,7 @@ export const showSuccessToast = (message: string) =>
 
 export const showErrorToast = (message: string) =>
   toast.error(
-    <div className="flex items-center gap-3 text-sm font-medium text-white">
+    <div className="flex items-center gap-3 text-sm font-medium text-[color:var(--white)]">
       <CircleAlert className="w-5 h-5 text-[color:var(--red)]" />
       <span>{message}</span>
     </div>,

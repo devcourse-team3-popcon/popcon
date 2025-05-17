@@ -1,7 +1,7 @@
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router";
 
-export default function BackButton({ from = -1 }: { from: number | string }) {
+export default function BackButton({ from = -1 }: { from?: number | string }) {
   const navigate = useNavigate();
 
   const clickHandler = () => {

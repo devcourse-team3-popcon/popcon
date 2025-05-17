@@ -1,6 +1,6 @@
 import gsap from "gsap";
-import {useEffect, useRef} from "react";
-import {ScrollTrigger} from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,9 +40,15 @@ export default function Section4() {
 
     if (!section) return;
 
-    const itemsEls = gsap.utils.toArray<HTMLElement>(section.querySelectorAll(".work-li"));
-    const imgBoxes = gsap.utils.toArray<HTMLElement>(section.querySelectorAll(".imgBox"));
-    const textBoxes = gsap.utils.toArray<HTMLElement>(section.querySelectorAll(".textBox"));
+    const itemsEls = gsap.utils.toArray<HTMLElement>(
+      section.querySelectorAll(".work-li")
+    );
+    const imgBoxes = gsap.utils.toArray<HTMLElement>(
+      section.querySelectorAll(".imgBox")
+    );
+    const textBoxes = gsap.utils.toArray<HTMLElement>(
+      section.querySelectorAll(".textBox")
+    );
 
     const scrollTween = gsap.to(itemsEls, {
       xPercent: -100 * (itemsEls.length - 1),
@@ -69,8 +75,8 @@ export default function Section4() {
             // markers: true,
           },
         })
-        .fromTo(imgBox, {scale: 0.5}, {scale: 1, ease: "none"})
-        .to(imgBox, {scale: 0.5, ease: "none"});
+        .fromTo(imgBox, { scale: 0.5 }, { scale: 1, ease: "none" })
+        .to(imgBox, { scale: 0.5, ease: "none" });
     });
 
     textBoxes.forEach((textBox) => {
@@ -84,7 +90,7 @@ export default function Section4() {
             scrub: true,
           },
         })
-        .to(textBox, {opacity: 1, x: -100}, 0);
+        .to(textBox, { opacity: 1, x: -100 }, 0);
 
       gsap
         .timeline({
@@ -96,7 +102,7 @@ export default function Section4() {
             scrub: true,
           },
         })
-        .to(textBox, {opacity: 0}, 0);
+        .to(textBox, { opacity: 0 }, 0);
     });
 
     return () => {
@@ -109,25 +115,29 @@ export default function Section4() {
 
   return (
     <>
-      <section ref={sectionRef} className='h-screen relative'>
-        <ul className='flex py-[3%] px-[30%] box-border items-center'>
+      <section ref={sectionRef} className="h-screen relative">
+        <ul className="flex py-[3%] px-[30%] box-border items-center">
           {items.map((item) => (
             <li
               key={item.id}
-              className='work-li w-[720px] pr-[100px] box-border flex-shrink-0 ml-20 '
+              className="work-li w-[720px] pr-[100px] box-border flex-shrink-0 ml-20 "
             >
               <div
-                className='imgBox relative flex justify-center items-center'
-                style={{scale: 0.5}}
+                className="imgBox relative flex justify-center items-center"
+                style={{ scale: 0.5 }}
               >
-                <img src={item.imgSrc} alt={`Image ${item.id}`} className='h-200' />
+                <img
+                  src={item.imgSrc}
+                  alt={`Image ${item.id}`}
+                  className="h-200"
+                />
               </div>
               <div
                 className={`textBox absolute left-0 bottom-[10%] opacity-0`}
-                style={{textShadow: "2px 2px 10px rgba(0,0,0,0.3)"}}
+                style={{ textShadow: "2px 2px 10px rgba(0,0,0,0.3)" }}
               >
-                <p className='title text-5xl'>{item.title}</p>
-                <p className='text text-2xl pl-1'>{item.content}</p>
+                <p className="title text-5xl">{item.title}</p>
+                <p className="text text-2xl pl-1">{item.content}</p>
               </div>
             </li>
           ))}

@@ -15,9 +15,6 @@ export default function useSendMessage() {
       });
 
       if (status === 200) {
-        console.log(data);
-        console.log("Message sent successfully!");
-
         try {
           const { status } = await axiosInstance.post("/notifications/create", {
             notificationType: "MESSAGE",
@@ -27,21 +24,18 @@ export default function useSendMessage() {
           });
 
           if (status === 200) {
-            console.log("Message alert sent!");
             return "";
           } else {
             console.log("Failed to send message alert");
           }
         } catch (error) {
-          console.log("Message alert sending error: ", error);
+          console.error("Message alert sending error: ", error);
         }
-
-        // return "";
       } else {
         console.log("Failed to send message");
       }
     } catch (error) {
-      console.log("Message sending error: ", error);
+      console.error("Message sending error: ", error);
     }
   };
 

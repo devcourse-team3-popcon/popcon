@@ -37,9 +37,6 @@ export default function MessageList({ userId }: { userId: string }) {
     const container = bottomRef.current?.parentElement;
     if (!container) return;
     const isOverflowing = container.scrollHeight > container.clientHeight;
-    // console.log("container.scrollHeight: ", container.scrollHeight);
-    // console.log("container.clientHeight: ", container.clientHeight);
-    // console.log("isOverflowing: ", isOverflowing);
 
     if (isOverflowing) {
       bottomRef.current?.scrollIntoView({ behavior: "auto" });
@@ -53,7 +50,7 @@ export default function MessageList({ userId }: { userId: string }) {
   return (
     <>
       <div className="flex flex-col h-full w-full">
-        <div className="px-3 md:pb-6 pb-2 border-b border-[var(--grey-500)] flex gap-4 items-center box-border">
+        <div className="px-3 pb-4 border-b border-[var(---white-80)] flex gap-4 items-center box-border">
           <button
             className="md:hidden cursor-pointer"
             onClick={() => navigate("/chat")}
@@ -64,18 +61,18 @@ export default function MessageList({ userId }: { userId: string }) {
             <img
               src={userInfo?.image ? userInfo?.image : defaultProfile}
               alt={`${userInfo?.userName} 유저 프로필`}
-              className="rounded-full md:size-[56px] size-[46px]"
+              className="rounded-full size-[32px]"
             />
             {userInfo?.isOnline && (
               <img
                 src={onlineIcon}
                 alt="온라인 표시"
-                className="absolute right-0.5 bottom-0.5"
+                className="absolute left-6 bottom-0"
               />
             )}
           </div>
 
-          <div className="md:text-2xl text-xl font-medium">
+          <div className="md:text-lg lg:text-xl text-base font-medium">
             {userInfo?.userName}
           </div>
         </div>
