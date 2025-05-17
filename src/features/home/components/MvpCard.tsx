@@ -26,12 +26,12 @@ export default function MvpCard({
 
   return (
     <div
-      className="w-[420px] h-[650px] rounded-2xl flex flex-col items-center justify-center text-center shadow-lg shadow-[rgba(0,0,0,0.25)] "
+      className="w-[315px] h-[432px] lg:w-[420px] lg:h-[650px] rounded-2xl flex flex-col items-center justify-center text-center shadow-lg shadow-[rgba(0,0,0,0.25)] "
       style={{ backgroundColor, color: textColor }}
     >
-      <p className="text-2xl font-bold mb-4">{title}</p>
-      <p className="text-lg  mb-8 whitespace-pre-line">{text}</p>
-      <img src={imageSrc} alt="" className="max-h-[400px] " />
+      <p className="text-xl lg:text-2xl font-bold mb-4">{title}</p>
+      <p className="text-base lg:text-lg  mb-8 whitespace-pre-line">{text}</p>
+      <img src={imageSrc} alt="" className=" max-h-[200px] lg:max-h-[400px] " />
     </div>
 
     /* 사용하실 때 그대로 복사하시면 됩니다!
