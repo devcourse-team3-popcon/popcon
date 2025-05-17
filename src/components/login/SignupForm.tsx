@@ -178,7 +178,7 @@ export default function SignupForm() {
           <h2 className='text-[color:var(--white)]] text-xl font-bold mb-8'>SIGN UP</h2>
 
           <div className='flex items-center justify-between mb-2'>
-            <label className='text-[color:var(--white)] font-bold'>이름/닉네임</label>
+            <label className='text-[color:var(--white)]'>이름/닉네임</label>
             {isSubmitted && nameError && <p className='text-[var(--red)] text-sm'>{nameError}</p>}
           </div>
           <input
@@ -198,7 +198,7 @@ export default function SignupForm() {
           />
 
           <div className='flex items-center justify-between mb-2'>
-            <label className='text-[color:var(--white)] font-bold'>이메일</label>
+            <label className='text-[color:var(--white)]'>이메일</label>
             {isSubmitted && emailError && (
               <p className='text-sm text-[color:var(--red)]'>{emailError}</p>
             )}
@@ -220,7 +220,7 @@ export default function SignupForm() {
           />
 
           <div className='flex items-center justify-between mb-2'>
-            <label className='text-[color:var(--white)] font-bold'>비밀번호</label>
+            <label className='text-[color:var(--white)]'>비밀번호</label>
             {isSubmitted && passwordError && (
               <p className='text-sm text-[color:var(--red)]'>{passwordError}</p>
             )}
@@ -250,7 +250,7 @@ export default function SignupForm() {
           />
 
           <div className='flex items-center justify-between mb-2'>
-            <label className='text-[color:var(--white)] font-bold'>비밀번호 확인</label>
+            <label className='text-[color:var(--white)]'>비밀번호 확인</label>
             {confirmPasswordError && (
               <p className='text-[color:var(--red)] text-sm'>{confirmPasswordError}</p>
             )}

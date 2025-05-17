@@ -218,12 +218,12 @@ export default function MyPage() {
         className='hidden'
       />
 
-      <div className='flex flex-col items-center w-full max-w-48'>
+      <div className='flex flex-col items-center w-full max-w-32'>
         <div className='relative w-full aspect-square mt-8'>
           <img
             src={imageUrl || defaultProfileLogo}
             alt='프로필 사진'
-            className='w-full h-full max-h-48 rounded-full object-cover'
+            className='w-full h-full max-h-32 rounded-full object-cover'
           />
           {editMode && (
             <div className='absolute bottom-0 right-0'>
@@ -270,7 +270,7 @@ export default function MyPage() {
             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-12'>
               <div className='flex flex-col gap-4 '>
                 <div className='flex justify-between items-center'>
-                  <label htmlFor='username' className='font-semibold text-lg'>
+                  <label htmlFor='username' className='text-lg'>
                     사용자 이름
                   </label>
                   {userNameError && (
@@ -297,7 +297,7 @@ export default function MyPage() {
 
               <div className='flex flex-col gap-4 '>
                 <div className='flex justify-between items-center'>
-                  <label htmlFor='username' className='font-semibold text-lg'>
+                  <label htmlFor='username' className='text-lg'>
                     이메일
                   </label>
                 </div>
@@ -314,7 +314,7 @@ export default function MyPage() {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-[48px]'>
               <div className='relative flex flex-col gap-4 w-full' ref={suggestionsRef}>
-                <label htmlFor='favoriteArtist' className='text-lg font-semibold'>
+                <label htmlFor='favoriteArtist' className='text-lg'>
                   좋아하는 가수 (선택)
                 </label>
                 <input
@@ -353,7 +353,7 @@ export default function MyPage() {
               </div>
 
               <div className='flex flex-col gap-4 relative' ref={genreSelectRef}>
-                <label htmlFor='favoriteGenre' className='text-lg font-semibold'>
+                <label htmlFor='favoriteGenre' className='text-lg'>
                   좋아하는 장르 (선택)
                 </label>
                 <div
@@ -433,14 +433,17 @@ export default function MyPage() {
           <>
             <button
               onClick={() => setCheckPassword("check-password")}
-              className='hover:underline cursor-pointer text-sm'
+              className='hover:underline cursor-pointer text-sm text-[color:var(--white-80)]'
             >
               비밀번호 변경
             </button>
             <span className='px-3'>|</span>
           </>
         )}
-        <button onClick={handleLogout} className='hover:underline cursor-pointer text-sm'>
+        <button
+          onClick={handleLogout}
+          className='hover:underline cursor-pointer text-sm text-[color:var(--white-80)]'
+        >
           로그아웃
         </button>
         <span className='px-3'>|</span>

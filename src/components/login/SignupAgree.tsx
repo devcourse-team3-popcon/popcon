@@ -11,7 +11,7 @@ export default function SignupAgree() {
     if (checked) navigate("/signupform");
   };
   return (
-    <div className='w-full flex flex-col-reverse md:flex-row overflow-hidden h-auto md:h-[calc(100vh-68px)] md:mt-13'>
+    <div className='w-full flex flex-col-reverse md:flex-row-reverse overflow-hidden h-auto md:h-[calc(100vh-68px)] md:mt-13'>
       <div className='w-full md:w-[50%] bg-[color:var(--grey-600)] flex items-center justify-center h-auto md:h-full'>
         <div className='w-full max-w-[600px] p-8'>
           <h1 className='text-[22px] font-bold mb-6 text-center'>이용약관 동의</h1>

@@ -129,7 +129,7 @@ export default function LoginPage() {
         <div className='w-[80%] max-w-[700px] mt-6 md:mt-0'>
           <h2 className='text-[color:var(--white)] text-xl font-bold mb-6'>WELCOME BACK</h2>
           <div className='flex items-center justify-between mb-2'>
-            <label className='text-[color:var(--white)] font-bold'>팝콘 이메일</label>
+            <label className='text-[color:var(--white)]'>팝콘 이메일</label>
             {emailError && (
               <p className='text-[color:var(--red)] text-sm whitespace-nowrap'>{emailError}</p>
             )}
@@ -149,7 +149,7 @@ export default function LoginPage() {
           />
 
           <div className='flex items-center justify-between mb-2'>
-            <label className='text-[color:var(--white)] font-bold'>팝콘 비밀번호</label>
+            <label className='text-[color:var(--white)]'>팝콘 비밀번호</label>
             {passwordError && (
               <p className='text-[color:var(--red)] text-sm whitespace-nowrap'>{passwordError}</p>
             )}
