@@ -74,54 +74,56 @@ export default function TrackAddModal({
   }, [inputValue]);
 
   return (
-    <dialog
-      ref={dialogRef}
-      className="w-[464px] h-[672px] bg-[color:var(--bg-color)] rounded-[30px] border border-[#fbfbfb78] px-[48px] py-[32px] flex flex-col m-auto z-50"
-    >
-      <div className="flex justify-between items-center">
-        <h2 className="text-[20px] font-bold text-[color:var(--white)]">
-          음악 추가
-        </h2>
-        <X
-          onClick={() => {
-            dialogRef.current?.close();
-            onClose();
-          }}
-          className="text-[#fbfbfbC2] cursor-pointer"
-        />
-      </div>
-      <div className="flex justify-center mt-[24px]">
-        <SearchBar
-          value={inputValue}
-          onChange={handleInputChange}
-          className="w-[100%]"
-        />
-      </div>
-      <div className="overflow-auto flex-1 mt-4 scrollbar-hide">
-        {isSearching ? (
-          Array.from({ length: 5 }).map((_, index) => (
-            <PlaylistTrackItemSkeleton key={index} />
-          ))
-        ) : inputValue.trim() === "" ? (
-          ""
-        ) : trackList.length === 0 ? (
-          <div className="flex flex-col w-full h-full justify-center items-center text-[color:var(--grey-300)]">
-            <img src={frownIcon} alt="No results icon" />
-            <p>No results found</p>
-          </div>
-        ) : (
-          trackList.map((track, index) => (
-            <PlaylistTrackItem
-              key={track.id || index}
-              track={track}
-              trackId={track.id}
-              onClick={handleTrackClick}
-              currentVideo={currentVideo}
-              setCurrentVideo={setCurrentVideo}
-            />
-          ))
-        )}
-      </div>
-    </dialog>
+    <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center">
+      <dialog
+        ref={dialogRef}
+        className="w-[464px] h-[672px] bg-[color:var(--bg-color)] rounded-[30px] px-[48px] py-[32px] flex flex-col m-auto z-50"
+      >
+        <div className="flex justify-between items-center">
+          <h2 className="text-[20px] font-bold text-[color:var(--white)]">
+            음악 추가
+          </h2>
+          <X
+            onClick={() => {
+              dialogRef.current?.close();
+              onClose();
+            }}
+            className="text-[#fbfbfbC2] cursor-pointer"
+          />
+        </div>
+        <div className="flex justify-center mt-[24px]">
+          <SearchBar
+            value={inputValue}
+            onChange={handleInputChange}
+            className="w-[100%]"
+          />
+        </div>
+        <div className="overflow-auto flex-1 mt-4 scrollbar-hide">
+          {isSearching ? (
+            Array.from({ length: 5 }).map((_, index) => (
+              <PlaylistTrackItemSkeleton key={index} />
+            ))
+          ) : inputValue.trim() === "" ? (
+            ""
+          ) : trackList.length === 0 ? (
+            <div className="flex flex-col w-full h-full justify-center items-center text-[color:var(--grey-300)]">
+              <img src={frownIcon} alt="No results icon" />
+              <p>No results found</p>
+            </div>
+          ) : (
+            trackList.map((track, index) => (
+              <PlaylistTrackItem
+                key={track.id || index}
+                track={track}
+                trackId={track.id}
+                onClick={handleTrackClick}
+                currentVideo={currentVideo}
+                setCurrentVideo={setCurrentVideo}
+              />
+            ))
+          )}
+        </div>
+      </dialog>
+    </div>
   );
 }
