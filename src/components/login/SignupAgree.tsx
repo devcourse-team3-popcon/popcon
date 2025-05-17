@@ -14,7 +14,7 @@ export default function SignupAgree() {
     <div className='w-full flex flex-col-reverse md:flex-row overflow-hidden h-auto md:h-[calc(100vh-120px)]'>
       <div className='w-full md:w-[50%] bg-[#333333] flex items-center justify-center h-auto md:h-full'>
         <div className='w-full max-w-[600px] p-8'>
-          <h1 className='text-2xl font-bold mb-6 text-center'>이용약관 동의</h1>
+          <h1 className='text-[22px] font-bold mb-6 text-center'>이용약관 동의</h1>
 
           <div className='h-[300px] overflow-y-auto border rounded-md border-[#8EF3BF] p-4 text-sm leading-relaxed mb-6 scroll overflow-scroll [&::-webkit-scrollbar]:hidden'>
             <p>
