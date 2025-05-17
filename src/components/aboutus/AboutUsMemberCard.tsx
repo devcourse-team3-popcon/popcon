@@ -28,7 +28,7 @@ export default function AboutUsMemberCard({
             {korname}
           </p>
         </div>
-        <p className="text-[color:var(--primary-300)] text-[14px] font-medium">
+        <p className="text-[color:var(--primary-300)] text-[14px] font-medium w-[155px]">
           FRONTEND DEVELOPER
         </p>
         <a href={contact} className="text-[12px] font-light">
