@@ -195,7 +195,7 @@ export default function MyPage() {
   };
 
   return (
-    <div className='min-h-screen text-[color:var(--white)] flex flex-col items-center py-10 px-4 h-[calc(100vh-68px)] w-[80%] md:mt-4'>
+    <div className='min-h-screen text-[color:var(--white)] flex flex-col items-center py-6 px-4 h-[calc(100vh-68px)] w-[80%]'>
       <div className='w-full flex justify-between items-center mb-4'>
         <BackButton from={-1} />
         <ForwardButton to='/postsbyuser' label='작성 글 보기' />
@@ -216,18 +216,18 @@ export default function MyPage() {
             className='w-full h-full max-h-32 rounded-full object-cover'
           />
           {editMode && (
-            <div className='absolute bottom-0 right-0'>
+            <div className='absolute bottom-0 right-0 translate-x-3 translate-y-3'>
               <div
                 onClick={() => setShowImageDropdown((prev) => !prev)}
-                className='w-[56px] h-[56px] bg-[#8EF3BF] rounded-full flex items-center justify-center cursor-pointer relative z-10'
+                className='w-[56px] h-[56px] bg-[color:var(--primary-200)] rounded-full flex items-center justify-center cursor-pointer relative z-10'
               >
                 <img src={cameraIcon} alt='카메라 아이콘' />
               </div>
 
               {showImageDropdown && (
-                <ul className='absolute bottom-[-100px] right-0 w-[160px] bg-[#2C2C2C] text-white rounded-[10px] shadow z-20 text-sm'>
+                <ul className='absolute bottom-[-100px] right-0 w-[160px] bg-[color:var(--grey-600)] text-[color:var] rounded-[10px] shadow z-20 text-sm'>
                   <li
-                    className='px-4 py-2 hover:bg-[#444] cursor-pointer rounded-tl-[10px] rounded-tr-[10px]'
+                    className='px-4 py-2 hover:bg-[color:var(--grey-500)] cursor-pointer rounded-tl-[10px] rounded-tr-[10px]'
                     onClick={() => {
                       handleResetProfileImage();
                       setShowImageDropdown(false);
@@ -261,6 +261,23 @@ export default function MyPage() {
               <div className='flex flex-col gap-4 '>
                 <div className='flex justify-between items-center'>
                   <label htmlFor='username' className='text-lg'>
+                    이메일
+                  </label>
+                </div>
+                <input
+                  id='email'
+                  name='email'
+                  type='email'
+                  value={email}
+                  disabled
+                  onChange={(e) => setEmail(e.target.value)}
+                  className='w-full px-4 py-2 rounded-[10px] border border-[color:var(--white-80)] bg-transparent text-[16px] cursor-not-allowed text-[color:var(--grey-500)]'
+                />
+              </div>
+
+              <div className='flex flex-col gap-4 '>
+                <div className='flex justify-between items-center'>
+                  <label htmlFor='username' className='text-lg'>
                     사용자 이름
                   </label>
                   {userNameError && (
@@ -282,23 +299,6 @@ export default function MyPage() {
                       ? "border-[color:var(--red)] focus:border-[color:var(--red)]"
                       : "border-[color:var(--white-80)] focus:border-[color:var(--primary-200)]"
                   } bg-transparent focus:outline-none`}
-                />
-              </div>
-
-              <div className='flex flex-col gap-4 '>
-                <div className='flex justify-between items-center'>
-                  <label htmlFor='username' className='text-lg'>
-                    이메일
-                  </label>
-                </div>
-                <input
-                  id='email'
-                  name='email'
-                  type='email'
-                  value={email}
-                  disabled
-                  onChange={(e) => setEmail(e.target.value)}
-                  className='w-full px-4 py-2 rounded-[10px] border border-[color:var(--white-80)] bg-transparent text-[16px] cursor-not-allowed'
                 />
               </div>
             </div>
