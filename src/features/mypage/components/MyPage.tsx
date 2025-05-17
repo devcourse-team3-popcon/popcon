@@ -16,6 +16,7 @@ import {searchArtist} from "../../../apis/spotify/spotifySearch";
 import CheckPassword from "./CheckPassword";
 import ActionModal from "../../../components/common/ActionModal";
 import {useAuthStore} from "../../../stores/authStore";
+import ForwardButton from "../../../components/common/ForwardButton";
 
 export default function MyPage() {
   const genres = [
@@ -197,18 +198,7 @@ export default function MyPage() {
     <div className='min-h-screen text-[color:var(--white)] flex flex-col items-center py-10 px-4 h-[calc(100vh-68px)] w-[80%] md:mt-4'>
       <div className='w-full flex justify-between items-center mb-4'>
         <BackButton from={-1} />
-        <button
-          onClick={() =>
-            navigate("/postsbyuser", {
-              state: {
-                authorId: storedUserId,
-              },
-            })
-          }
-          className='text-[color:var(--grey-300)] text-sm px-4 py-2 border border-[color:var(--white-80)] rounded-[10px] h-10 hover:border-[color:var(--primary-200)] hover:text-[color:var(--primary-200)]'
-        >
-          작성한 게시글 보기
-        </button>
+        <ForwardButton to='/postsbyuser' label='작성 글 보기' />
       </div>
       <input
         type='file'
