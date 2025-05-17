@@ -162,7 +162,7 @@ export default function SignupForm() {
   };
 
   return (
-    <div className='h-[calc(100vh-84px)] w-full flex flex-col md:flex-row overflow-visible md:overflow-hidden mt-24 md:mt-0'>
+    <div className='h-[calc(100vh-68px)] w-full flex flex-col md:flex-row overflow-visible md:overflow-hidden mt-24 md:mt-13'>
       <div className='w-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
         <div className='flex items-center justify-center h-full pb-8 md:pb-0'>
           <img src={loginGroup} alt='캐릭터' className='w-[70%] max-w-[500px] object-contain' />
