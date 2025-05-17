@@ -11,7 +11,7 @@ export default function SignupAgree() {
     if (checked) navigate("/signupform");
   };
   return (
-    <div className='w-full flex flex-col-reverse md:flex-row-reverse overflow-hidden h-auto md:h-[calc(100vh-68px)] md:mt-13'>
+    <div className='w-full flex flex-col-reverse md:flex-row-reverse overflow-hidden h-auto md:h-[calc(100vh-68px)] mt-20 md:mt-3'>
       <div className='w-full md:w-[50%] bg-[color:var(--grey-600)] flex items-center justify-center h-auto md:h-full'>
         <div className='w-full max-w-[600px] p-8'>
           <h1 className='text-[22px] font-bold mb-6 text-center'>이용약관 동의</h1>
@@ -78,7 +78,7 @@ export default function SignupAgree() {
       </div>
 
       <div className='w-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
-        <div className='flex items-center justify-center h-auto md:h-full pb-8 md:pb-0 pt-24 md:pt-0'>
+        <div className='flex items-center justify-center h-auto md:h-full pb-8 md:pb-0'>
           <img src={loginGroup} alt='캐릭터' className='w-[70%] max-w-[500px] object-contain' />
         </div>
         <div className='absolute bottom-[5%] right-[10%] hidden md:block'>
