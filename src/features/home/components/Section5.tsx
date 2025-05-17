@@ -47,8 +47,8 @@ export default function Section5() {
     <>
       <section ref={sectionRef} className="relative h-[1200px] overflow-hidden">
         <span className="circle block w-[2500px] h-[2500px] bg-[color:var(--primary-300)] rounded-full absolute top-[40%] left-1/2 -translate-x-1/2 z-0"></span>
-        <div className="textBox absolute top-[60%] left-1/2 text-[color:var(--bg-color)] -translate-x-1/2 text-center z-10">
-          <p className="text-5xl font-bold tracking-[-5px] leading-[2]">
+        <div className="textBox absolute top-[60%] left-1/2 text-[color:var(--bg-color)] -translate-x-1/2 text-center z-10 w-full">
+          <p className="text-3xl md:text-4xl xl:text-5xl font-bold xl:tracking-[-5px] leading-[2] w-full">
             팝콘은 지루했던 음악 생활에 <br />
             팝콘처럼 톡톡 튀는 즐거움을 더해드립니다. <br />
             🍿

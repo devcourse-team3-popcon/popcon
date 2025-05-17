@@ -6,15 +6,15 @@ import UserSection from "./UserSection";
 export default function Header() {
   return (
     <>
-      <div className="bg-[color:var(--bg-color-80)] py-4 px-6 md:px-0 md:py-0  md:hidden fixed z-100 w-full">
+      <div className='bg-[color:var(--bg-color-80)] py-4 px-6 md:px-0 md:py-0  md:hidden fixed z-100 w-full'>
         <div>
           <Logo />
           <SideMenu />
         </div>
       </div>
 
-      <div className="hidden md:block">
-        <div className="flex justify-between px-4">
+      <div className='hidden md:block fixed top-0 left-0 w-full z-100 bg-[color:var(--bg-color-80)]'>
+        <div className='flex justify-between px-12'>
           <Logo />
           <MainNav />
           <UserSection />
