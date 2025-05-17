@@ -84,7 +84,7 @@ export default function Section4() {
           {items.map((item, i) => (
             <li
               key={i}
-              className="work-li w-[720px] pr-[100px] box-border flex-shrink-0 "
+              className="work-li w-[400px] pr-[20px]  lg:w-[720px] lg:pr-[100px] box-border flex-shrink-0 "
             >
               <div
                 className="mvpBox relative flex justify-center items-center"
