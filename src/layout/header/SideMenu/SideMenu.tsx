@@ -106,7 +106,7 @@ export default function SideMenu() {
     <>
       <Menu
         onClick={toggleMenu}
-        className="md:hidden fixed top-12 right-5 z-50 text-[color:var(--white)] cursor-pointer"
+        className="md:hidden fixed top-9.5 right-5 z-50 text-[color:var(--white)] cursor-pointer"
         strokeWidth={1.5}
       />
 
@@ -120,7 +120,7 @@ export default function SideMenu() {
             <X
               onClick={toggleMenu}
               strokeWidth={1.5}
-              className="absolute top-12 right-5 text-[color:var(--white)] cursor-pointer"
+              className="absolute top-9.5 right-5 text-[color:var(--white)] cursor-pointer"
             />
           )}
         </div>
