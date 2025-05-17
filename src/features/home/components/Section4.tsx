@@ -22,7 +22,7 @@ const items = [
     theme="green"
     title="플레이 리스트 기반 추천"
     text={"내가 담은 음악을 바탕으로\n비슷한 감성의 음악을 자동 추천"}
-    imageSrc="/src/assets/images/bop-card.png"
+    imageSrc="/src/assets/images/playlist-card.png"
   />,
 ];
 
