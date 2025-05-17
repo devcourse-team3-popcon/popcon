@@ -54,7 +54,7 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
       <div className="flex flex-col gap-8 w-full pb-20 px-5">
         <div className="flex w-full justify-between items-center">
           <div className="flex flex-col gap-8 mt-10 w-full">
-            <p className="text-[30px] font-semibold">
+            <p className="text-xl md:text-4xl font-semibold">
               여기는{" "}
               <span className="text-[color:var(--primary-300)]">
                 숨겨진 명곡

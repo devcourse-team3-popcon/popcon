@@ -116,7 +116,7 @@ export default function UserSection() {
         <div className="relative flex h-[68px] items-center gap-6">
           <NavLink to="/chat">
             {({ isActive }) => (
-              <div className="w-4.5 h-4.5 2xl:w-5 2xl:h-5">
+              <div className="w-4 h-4 2xl:w-4.5 2xl:h-4.5">
                 <img
                   src={getImageSrc(
                     chat,

@@ -9,7 +9,7 @@ export default function Layout() {
     loadSavedTheme();
   }, []);
   return (
-    <div className="md:py-4 ">
+    <div className="md:pt-14">
       <Header />
       <div className="py-[0] flex justify-center items-center h-auto">
         <Outlet />
