@@ -20,9 +20,6 @@ export default function Conversations({
     (state) => state.setRefreshConversations
   );
 
-  // const refreshConv = useRefreshStore((state) => state.refreshConversations);
-  // const refreshMsg = useRefreshStore((state) => state.refreshMessages);
-
   const updateCversion = useMsgVersionStore((state) => state.c_increment);
   const updateMVersion = useMsgVersionStore((state) => state.m_increment);
 
@@ -39,9 +36,6 @@ export default function Conversations({
   }, [refresh, setRefreshConv]);
 
   const refreshHandler = () => {
-    // refreshConv?.();
-    // refreshMsg?.();
-
     updateCversion();
     updateMVersion();
   };

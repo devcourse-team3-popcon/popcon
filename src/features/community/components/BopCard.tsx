@@ -43,8 +43,6 @@ export default function BopCard({
   };
 
   const [showCompletedModal, setShowCompletedModal] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const myMenuItems = [
     {
@@ -259,14 +257,6 @@ export default function BopCard({
         <StatusModal
           message="플레이리스트에 추가되었습니다!"
           onClose={() => setShowCompletedModal(false)}
-        />
-      )}
-
-      {showErrorModal && (
-        <StatusModal
-          message={errorMessage}
-          onClose={() => setShowErrorModal(false)}
-          type="error"
         />
       )}
     </>

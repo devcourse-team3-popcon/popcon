@@ -47,7 +47,6 @@ export default function ChatUser({
           isSelected && "bg-[var(--grey-500)]"
         }`}
       >
-        {/* <div className="lg:block hidden"> */}
         <div className="relative">
           <img
             src={userImage ? userImage : defaultProfile}
@@ -62,18 +61,10 @@ export default function ChatUser({
             />
           )}
         </div>
-        {/* </div> */}
 
         <div className="flex flex-col flex-1 p-0.5 w-[50%]">
           <div className="text-base font-medium flex gap-2 items-center">
             {userName}
-            {/* {userIsOnline && (
-              <img
-                src={onlineIcon}
-                alt="온라인 표시"
-                className="lg:hidden block size-2"
-              />
-            )} */}
           </div>
 
           <div className="flex items-center justify-between gap-2">

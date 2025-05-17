@@ -7,8 +7,8 @@ interface PostInputFormProps {
   contentInput: string;
   setTitleInput: (value: string) => void;
   setContentInput: (value: string) => void;
-  setImageInput: (file: File | null) => void;
-  setIsImageDeleted: (value: boolean) => void;
+  setImageInput?: (file: File | null) => void;
+  setIsImageDeleted?: (value: boolean) => void;
   existingImageUrl?: string;
 }
 
