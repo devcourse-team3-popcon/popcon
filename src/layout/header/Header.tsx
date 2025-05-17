@@ -13,7 +13,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className='hidden md:block'>
+      <div className='hidden md:block fixed top-0 left-0 w-full z-100 bg-[color:var(--bg-color-80)]'>
         <div className='flex justify-between px-12'>
           <Logo />
           <MainNav />
