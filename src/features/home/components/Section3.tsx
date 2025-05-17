@@ -63,7 +63,7 @@ export default function Section3() {
           </h3>
           <div
             ref={boxRef}
-            className="w-[60%] flex flex-col gap-15 bg-[color:var(--primary-300)] text-[color:var(--bg-color)] py-15 rounded-4xl "
+            className="w-[60%] flex flex-col gap-15 bg-[color:var(--primary-300)] text-[color:var(--bg-color)] py-15 rounded-4xl text-sm lg:text-lg"
           >
             <h2 className="font-bold text-2xl lg:text-4xl">
               매일 똑같은 노래가 지겹지 않으셨나요?
