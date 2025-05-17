@@ -65,7 +65,7 @@ export default function Section3() {
             ref={boxRef}
             className="w-[60%] flex flex-col gap-15 bg-[color:var(--primary-300)] text-[color:var(--bg-color)] py-15 rounded-4xl "
           >
-            <h2 className="font-bold text-4xl">
+            <h2 className="font-bold text-2xl lg:text-4xl">
               매일 똑같은 노래가 지겹지 않으셨나요?
             </h2>
             <div className="space-y-8">
@@ -85,7 +85,7 @@ export default function Section3() {
           </div>
 
           <div
-            className="flex gap-10 justify-center text-left font-light items-center text-md text-[color:var(--white-80)] "
+            className="flex gap-10 justify-center text-left font-light items-center text-sm/7 lg:text-md/8 text-[color:var(--white-80)] "
             ref={detailRef}
           >
             <p className="w-[30%] p-6 ">
