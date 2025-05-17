@@ -11,12 +11,12 @@ export default function SignupAgree() {
     if (checked) navigate("/signupform");
   };
   return (
-    <div className='w-full flex flex-col-reverse md:flex-row overflow-hidden h-auto md:h-[calc(100vh-120px)]'>
-      <div className='w-full md:w-[50%] bg-[#333333] flex items-center justify-center h-auto md:h-full'>
+    <div className='w-full flex flex-col-reverse md:flex-row overflow-hidden h-auto md:h-[calc(100vh-84px)]'>
+      <div className='w-full md:w-[50%] bg-[color:var(--grey-600)] flex items-center justify-center h-auto md:h-full'>
         <div className='w-full max-w-[600px] p-8'>
           <h1 className='text-[22px] font-bold mb-6 text-center'>이용약관 동의</h1>
 
-          <div className='h-[300px] overflow-y-auto border rounded-md border-[#8EF3BF] p-4 text-sm leading-relaxed mb-6 scroll overflow-scroll [&::-webkit-scrollbar]:hidden'>
+          <div className='h-[300px] overflow-y-auto border rounded-md border-[color:var(--primary-200)] p-4 text-sm leading-relaxed mb-6 scroll overflow-scroll [&::-webkit-scrollbar]:hidden'>
             <p>
               본 서비스는 POPcon이 제공하는 온라인 음악 감상 및 추천 콘텐츠 플랫폼으로, 회원가입을
               통해 다양한 기능을 이용하실 수 있습니다.
@@ -49,25 +49,27 @@ export default function SignupAgree() {
               type='checkbox'
               checked={checked}
               onChange={(e) => setChecked(e.target.checked)}
-              className='mr-2 accent-[#71EBBE]'
+              className='mr-2 accent-[color:var(--primary-300)]'
             />
             [필수] 위 약관에 동의합니다.
           </label>
 
           <label className='flex items-center text-sm mb-3'>
-            <input type='checkbox' className='mr-2 accent-[#71EBBE]' />
+            <input type='checkbox' className='mr-2 accent-[color:var(--primary-300)]' />
             [선택] 이벤트 및 프로모션 알림 수신에 동의합니다.
           </label>
           <label className='flex items-center text-sm mb-6'>
-            <input type='checkbox' className='mr-2 accent-[#71EBBE]' />
+            <input type='checkbox' className='mr-2 accent-[color:var(--primary-300)]' />
             [선택] Sucoding handsome에 동의합니다.
           </label>
 
           <button
             onClick={handleNext}
             disabled={!checked}
-            className={`w-full py-2 rounded-md font-semibold text-black transition-colors ${
-              checked ? "bg-[#71EBBE] cursor-pointer " : "bg-[#8B8B8B] cursor-not-allowed"
+            className={`w-full py-2 rounded-md font-semibold text-[color:var(--bg-color)] transition-colors ${
+              checked
+                ? "bg-[color:var(--primary-300)] cursor-pointer "
+                : "bg-[color:var(--white-80)] cursor-not-allowed"
             }`}
           >
             다음 단계로
@@ -75,7 +77,7 @@ export default function SignupAgree() {
         </div>
       </div>
 
-      <div className='w-full md:w-[50%] bg-[#1B1C1E] relative'>
+      <div className='w-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
         <div className='flex items-center justify-center h-auto md:h-full pb-8 md:pb-0 pt-24 md:pt-0'>
           <img src={loginGroup} alt='캐릭터' className='w-[70%] max-w-[500px] object-contain' />
         </div>

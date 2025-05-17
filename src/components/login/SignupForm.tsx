@@ -1,24 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import {useState, useEffect, useRef} from "react";
 import loginGroup from "../../assets/images/login-group.svg";
 import logo from "../../assets/images/logo-no-period.svg";
 import logoPopcon from "../../assets/images/logo-login-popcon.svg";
-import { signupUser } from "../../apis/login/login";
-import { searchArtist } from "../../apis/spotify/spotifySearch";
-import { getSpotifyAccessToken } from "../../apis/spotify/getSpotifyAccessToken";
-import { Link, useNavigate } from "react-router";
+import {signupUser} from "../../apis/login/login";
+import {searchArtist} from "../../apis/spotify/spotifySearch";
+import {getSpotifyAccessToken} from "../../apis/spotify/getSpotifyAccessToken";
+import {Link, useNavigate} from "react-router";
 import axios from "axios";
 
-const genres = [
-  "Country",
-  "Hip-hop",
-  "POP",
-  "Rock",
-  "EDM",
-  "Jazz",
-  "R&B",
-  "Indie",
-  "alternative",
-];
+const genres = ["Country", "Hip-hop", "POP", "Rock", "EDM", "Jazz", "R&B", "Indie", "alternative"];
 const allowedDomains = ["gmail.com", "naver.com"];
 
 const useDebounce = (value: string, delay: number) => {
@@ -61,16 +51,10 @@ export default function SignupForm() {
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (
-        suggestionsRef.current &&
-        !suggestionsRef.current.contains(e.target as Node)
-      ) {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(e.target as Node)) {
         setArtistSuggestions([]);
       }
-      if (
-        genreSelectRef.current &&
-        !genreSelectRef.current.contains(e.target as Node)
-      ) {
+      if (genreSelectRef.current && !genreSelectRef.current.contains(e.target as Node)) {
         setGenreDropdownOpen(false);
       }
     };
@@ -88,9 +72,7 @@ export default function SignupForm() {
       try {
         const token = await getSpotifyAccessToken();
         const results = await searchArtist(debouncedArtist, token);
-        const simplified = results.map(
-          (artist: { name: string }) => artist.name
-        );
+        const simplified = results.map((artist: {name: string}) => artist.name);
         setArtistSuggestions(simplified);
       } catch (e) {
         console.error("아티스트 검색 실패:", e);
@@ -118,14 +100,7 @@ export default function SignupForm() {
     }, 0);
 
     return () => clearTimeout(timer);
-  }, [
-    isSubmitted,
-    shouldFocus,
-    nameError,
-    emailError,
-    passwordError,
-    confirmPasswordError,
-  ]);
+  }, [isSubmitted, shouldFocus, nameError, emailError, passwordError, confirmPasswordError]);
 
   const validateSignupForm = (): boolean => {
     let valid = true;
@@ -187,35 +162,29 @@ export default function SignupForm() {
   };
 
   return (
-    <div className="h-[calc(100vh-120px)] w-full flex flex-col md:flex-row overflow-visible md:overflow-hidden">
-      <div className="w-full md:w-[50%] bg-[#1B1C1E] relative">
-        <div className="flex items-center justify-center h-full pb-8 md:pb-0">
-          <img
-            src={loginGroup}
-            alt="캐릭터"
-            className="w-[70%] max-w-[500px] object-contain"
-          />
+    <div className='h-[calc(100vh-84px)] w-full flex flex-col md:flex-row overflow-visible md:overflow-hidden mt-24 md:mt-0'>
+      <div className='w-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
+        <div className='flex items-center justify-center h-full pb-8 md:pb-0'>
+          <img src={loginGroup} alt='캐릭터' className='w-[70%] max-w-[500px] object-contain' />
         </div>
 
-        <div className="absolute bottom-[5%] right-[10%] hidden md:block">
-          <img src={logo} alt="POPcon 로고" className="w-[200px] h-auto" />
+        <div className='absolute bottom-[5%] right-[10%] hidden md:block'>
+          <img src={logo} alt='POPcon 로고' className='w-[200px] h-auto' />
         </div>
       </div>
 
-      <div className="w-full md:w-[50%] bg-[#333333] flex items-center justify-center">
-        <div className="w-[80%] max-w-[700px] mt-6 md:mt-0">
-          <h2 className="text-white text-2xl font-bold mb-6">SIGN UP</h2>
+      <div className='w-full md:w-[50%] bg-[color:var(--grey-600)] flex items-center justify-center'>
+        <div className='w-[80%] max-w-[700px] mt-6'>
+          <h2 className='text-[color:var(--white)]] text-xl font-bold mb-8'>SIGN UP</h2>
 
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-white text-lg font-bold">이름/닉네임</label>
-            {isSubmitted && nameError && (
-              <p className="text-[#E42F42] text-sm">{nameError}</p>
-            )}
+          <div className='flex items-center justify-between mb-2'>
+            <label className='text-[color:var(--white)] font-bold'>이름/닉네임</label>
+            {isSubmitted && nameError && <p className='text-[var(--red)] text-sm'>{nameError}</p>}
           </div>
           <input
-            type="text"
+            type='text'
             ref={nameRef}
-            placeholder="popcon"
+            placeholder='popcon'
             value={name}
             onChange={(e) => {
               setName(e.target.value);
@@ -224,20 +193,20 @@ export default function SignupForm() {
               }
             }}
             className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
-              nameError ? "border-[#E42F42]" : "border-white"
-            } focus:outline-none focus:border-[#8EF3BF]`}
+              nameError ? "border-[color:var(--red)]" : "border-[color:var(--white)]"
+            } focus:outline-none focus:border-[color:var(--primary-200)]`}
           />
 
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-white text-lg font-bold">이메일</label>
+          <div className='flex items-center justify-between mb-2'>
+            <label className='text-[color:var(--white)] font-bold'>이메일</label>
             {isSubmitted && emailError && (
-              <p className="text-[#E42F42]">{emailError}</p>
+              <p className='text-sm text-[color:var(--red)]'>{emailError}</p>
             )}
           </div>
           <input
-            type="email"
+            type='email'
             ref={emailRef}
-            placeholder="user@email.com"
+            placeholder='user@email.com'
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
@@ -246,20 +215,20 @@ export default function SignupForm() {
               }
             }}
             className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
-              emailError ? "border-[#E42F42]" : "border-white"
-            } focus:outline-none focus:border-[#8EF3BF]`}
+              emailError ? "border-[color:var(--red)]" : "border-[color:var(--white)]"
+            } focus:outline-none focus:border-[color:var(--primary-200)]`}
           />
 
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-white text-lg font-bold">비밀번호</label>
+          <div className='flex items-center justify-between mb-2'>
+            <label className='text-[color:var(--white)] font-bold'>비밀번호</label>
             {isSubmitted && passwordError && (
-              <p className="text-[#E42F42] text-sm">{passwordError}</p>
+              <p className='text-sm text-[color:var(--red)]'>{passwordError}</p>
             )}
           </div>
           <input
-            type="password"
+            type='password'
             ref={passwordRef}
-            placeholder="Your password"
+            placeholder='Your password'
             value={password}
             onChange={(e) => {
               const value = e.target.value;
@@ -276,22 +245,20 @@ export default function SignupForm() {
               }
             }}
             className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
-              passwordError ? "border-[#E42F42]" : "border-white"
-            } focus:outline-none focus:border-[#8EF3BF]`}
+              passwordError ? "border-[color:var(--red)]" : "border-[color:var(--white)]"
+            } focus:outline-none focus:border-[color:var(--primary-200)]`}
           />
 
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-white text-lg font-bold">
-              비밀번호 확인
-            </label>
+          <div className='flex items-center justify-between mb-2'>
+            <label className='text-[color:var(--white)] font-bold'>비밀번호 확인</label>
             {confirmPasswordError && (
-              <p className="text-[#E42F42] text-sm">{confirmPasswordError}</p>
+              <p className='text-[color:var(--red)] text-sm'>{confirmPasswordError}</p>
             )}
           </div>
           <input
-            type="password"
+            type='password'
             ref={confirmPasswordRef}
-            placeholder="Confirm password"
+            placeholder='Confirm password'
             value={confirmPassword}
             onChange={(e) => {
               const value = e.target.value;
@@ -306,24 +273,22 @@ export default function SignupForm() {
               }
             }}
             className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
-              confirmPasswordError ? "border-[#E42F42]" : "border-white"
-            } focus:outline-none focus:border-[#8EF3BF]`}
+              confirmPasswordError ? "border-[color:var(--red)]" : "border-[color:var(--white)]"
+            } focus:outline-none focus:border-[color:var(--primary-200)]`}
           />
 
-          <div className="flex flex-col gap-4 md:flex-row md:gap-2">
-            <div className="w-full md:w-1/2 relative" ref={suggestionsRef}>
-              <label className="block mb-1 text-white">
-                좋아하는 가수 (선택)
-              </label>
+          <div className='flex flex-col gap-3 md:flex-row md:gap-6'>
+            <div className='w-full md:w-1/2 relative' ref={suggestionsRef}>
+              <label className='block mb-2 text-[color:var(--white)]'>좋아하는 가수 (선택)</label>
               <input
-                type="text"
-                placeholder="Lauv"
+                type='text'
+                placeholder='Lauv'
                 value={favoriteArtist}
                 onChange={(e) => setFavoriteArtist(e.target.value)}
-                className="w-full h-[48px] px-4 rounded-[10px] border border-white bg-[#333333] text-white focus:border-[#71EBBE] focus:outline-none"
+                className='w-full h-10 px-4 rounded-[10px] border border-[color:var(--white)] bg-[color:var(--grey-600)] text-[color:var(--white)] focus:border-[color:var(--primary-300)] focus:outline-none'
               />
               {artistSuggestions.length > 0 && (
-                <ul className="absolute mt-1 bg-[#333333] border border-[#71EBBE] text-white rounded-[10px] w-full max-h-[100px] overflow-y-auto z-30">
+                <ul className='absolute mt-1 bg-[color:var(--grey-600)] border border-[color:var(--primary-300)] text-[color:var(--white)] rounded-[10px] w-full max-h-[100px] overflow-y-auto z-30'>
                   {artistSuggestions.map((name, index) => (
                     <li
                       key={`${name}-${index}`}
@@ -332,7 +297,7 @@ export default function SignupForm() {
                         setFavoriteArtist(name);
                         setArtistSuggestions([]);
                       }}
-                      className="px-4 py-2 hover:bg-[#71EBBE] hover:text-[#333333] cursor-pointer"
+                      className='px-4 py-2 hover:bg-[color:var(--primary-300)] hover:text-[color:var(--grey-600)] cursor-pointer'
                     >
                       {name}
                     </li>
@@ -341,10 +306,10 @@ export default function SignupForm() {
               )}
             </div>
 
-            <div className="w-full md:w-1/2 relative" ref={genreSelectRef}>
-              <label className="block mb-1 text-white">좋아하는 장르</label>
+            <div className='w-full md:w-1/2 relative' ref={genreSelectRef}>
+              <label className='block mb-2 text-[color:var(--white)]'>좋아하는 장르</label>
               <div
-                role="button"
+                role='button'
                 tabIndex={0}
                 onFocus={() => setGenreDropdownOpen(true)}
                 onKeyDown={(e) => {
@@ -352,14 +317,16 @@ export default function SignupForm() {
                     setGenreDropdownOpen((prev) => !prev);
                   }
                 }}
-                className={`w-full h-[48px] px-4 text-left border bg-[#333333] text-white rounded-[10px] flex items-center cursor-pointer focus:outline-none ${
-                  genreDropdownOpen ? "border-[#71EBBE]" : "border-white"
+                className={`w-full h-10 px-4 text-left border bg-[color:var(--grey-600)] text-[color:var(--white)] rounded-[10px] flex items-center cursor-pointer focus:outline-none ${
+                  genreDropdownOpen
+                    ? "border-[color:var(--primary-300)]"
+                    : "border-[color:var(--white)]"
                 }`}
               >
                 {favoriteGenre}
               </div>
               {genreDropdownOpen && (
-                <ul className="absolute mt-1 w-full max-h-[100px] overflow-auto bg-[#333333] border border-[#71EBBE] rounded-[10px] z-10">
+                <ul className='overflow-scroll [&::-webkit-scrollbar]:hidden absolute mt-1 w-full max-h-[100px] bg-[color:var(--grey-600)] border border-[color:var(--primary-300)] rounded-[10px] z-10'>
                   {genres.map((genre) => (
                     <li
                       key={genre}
@@ -367,7 +334,7 @@ export default function SignupForm() {
                         setFavoriteGenre(genre);
                         setGenreDropdownOpen(false);
                       }}
-                      className="px-4 py-2 hover:bg-[#71EBBE] hover:text-[#333333] cursor-pointer"
+                      className='px-4 py-2 hover:bg-[color:var(--primary-300)]  hover:text-[color:var(--grey-600)] cursor-pointer '
                     >
                       {genre}
                     </li>
@@ -379,15 +346,15 @@ export default function SignupForm() {
 
           <button
             onClick={handleSignup}
-            className="w-full bg-[#71EBBE] text-black py-2 rounded-md font-semibold mb-2 flex items-center justify-center mt-4 cursor-pointer"
+            className='w-full bg-[color:var(--primary-300)] text-[color:var(--bg-color)] py-2 rounded-md font-semibold mb-2 flex items-center justify-center mt-5 cursor-pointer'
           >
-            <img src={logoPopcon} alt="팝콘로고" className="mr-2" />
+            <img src={logoPopcon} alt='팝콘로고' className='mr-2' />
             팝콘 회원가입
           </button>
 
-          <p className="text-sm text-[#FFFFFF] mt-8 mb-6">
+          <p className='text-sm text-[color:var(--white)] mt-8 mb-6'>
             Already have an account?{" "}
-            <Link to="/Login" className="text-[#71EBBE] underline">
+            <Link to='/Login' className='text-[color:var(--primary-300)] underline'>
               Log in
             </Link>
           </p>

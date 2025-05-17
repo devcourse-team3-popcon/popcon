@@ -1,17 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import loginGroup from "../../assets/images/login-group.svg";
 import logo from "../../assets/images/logo-no-period.svg";
 import logoPopcon from "../../assets/images/logo-login-popcon.svg";
 import logoKakao from "../../assets/images/logo-kakao.svg";
-import { Link, useNavigate } from "react-router";
-import { loginUser, signupUser } from "../../apis/login/login";
-import {
-  initKakaoSdk,
-  loadKakaoSdk,
-  loginWithKakao,
-} from "../../apis/login/socialLogin";
+import {Link, useNavigate} from "react-router";
+import {loginUser, signupUser} from "../../apis/login/login";
+import {initKakaoSdk, loadKakaoSdk, loginWithKakao} from "../../apis/login/socialLogin";
 import axios from "axios";
-import { useAuthStore } from "../../stores/authStore";
+import {useAuthStore} from "../../stores/authStore";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -118,89 +114,79 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="h-[calc(100vh-120px)] w-full flex flex-col md:flex-row overflow-hidden">
-      <div className="w-full md:w-[50%] bg-[#1B1C1E] relative">
-        <div className="flex items-center justify-center h-full pb-8 md:pb-0">
-          <img
-            src={loginGroup}
-            alt="캐릭터"
-            className="w-[70%] max-w-[500px] object-contain"
-          />
+    <div className='h-[calc(100vh-84px)] w-full flex flex-col md:flex-row mt-24 md:mt-0'>
+      <div className='w-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
+        <div className='flex items-center justify-center h-full pb-8 md:pb-0'>
+          <img src={loginGroup} alt='캐릭터' className='w-[70%] max-w-[500px] object-contain' />
         </div>
 
-        <div className="absolute bottom-[5%] right-[10%] hidden md:block">
-          <img src={logo} alt="POPcon 로고" className="w-[200px] h-auto" />
+        <div className='absolute bottom-[5%] right-[10%] hidden md:block'>
+          <img src={logo} alt='POPcon 로고' className='w-[200px] h-auto' />
         </div>
       </div>
 
-      <div className="w-full md:w-[50%] bg-[#333333] flex items-center justify-center">
-        <div className="w-[80%] max-w-[700px] mt-6 md:mt-0">
-          <h2 className="text-white text-2xl font-bold mb-6">WELCOME BACK</h2>
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-white text-lg font-bold">팝콘 이메일</label>
+      <div className='w-full md:w-[50%] bg-[color:var(--grey-600)] flex items-center justify-center'>
+        <div className='w-[80%] max-w-[700px] mt-6 md:mt-0'>
+          <h2 className='text-[color:var(--white)] text-xl font-bold mb-6'>WELCOME BACK</h2>
+          <div className='flex items-center justify-between mb-2'>
+            <label className='text-[color:var(--white)] font-bold'>팝콘 이메일</label>
             {emailError && (
-              <p className="text-[#E42F42] text-sm whitespace-nowrap">
-                {emailError}
-              </p>
+              <p className='text-[color:var(--red)] text-sm whitespace-nowrap'>{emailError}</p>
             )}
           </div>
           <input
-            type="email"
+            type='email'
             ref={emailRef}
-            placeholder="user@email.com"
+            placeholder='user@email.com'
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
               if (e.target.value.trim()) setEmailError("");
             }}
             className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
-              emailError ? "border-[#E42F42]" : "border-white"
-            } focus:outline-none focus:border-[#8EF3BF]`}
+              emailError ? "border-[color:var(--red)]" : "border-[color:var(--white)]"
+            } focus:outline-none focus:border-[color:var(--primary-200)]`}
           />
 
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-white text-lg font-bold">
-              팝콘 비밀번호
-            </label>
+          <div className='flex items-center justify-between mb-2'>
+            <label className='text-[color:var(--white)] font-bold'>팝콘 비밀번호</label>
             {passwordError && (
-              <p className="text-[#E42F42] text-sm whitespace-nowrap">
-                {passwordError}
-              </p>
+              <p className='text-[color:var(--red)] text-sm whitespace-nowrap'>{passwordError}</p>
             )}
           </div>
           <input
-            type="password"
+            type='password'
             ref={passwordRef}
-            placeholder="Your password"
+            placeholder='Your password'
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
               if (e.target.value.trim()) setPasswordError("");
             }}
             className={`w-full mb-3 px-4 py-2 rounded-[10px] border ${
-              passwordError ? "border-[#E42F42]" : "border-white"
-            } focus:outline-none focus:border-[#8EF3BF]`}
+              passwordError ? "border-[color:var(--red)]" : "border-[color:var(--white)]"
+            } focus:outline-none focus:border-[color:var(--primary-200)]`}
           />
 
           <button
             onClick={handleLogin}
-            className="w-full bg-[#71EBBE] text-black py-2 rounded-md font-semibold mb-2 flex items-center justify-center cursor-pointer"
+            className='w-full bg-[color:var(--primary-300)] text-[color:var(--bg-color)] py-2 rounded-md text-sm font-semibold mb-2 flex items-center justify-center cursor-pointer mt-5 h-10'
           >
-            <img src={logoPopcon} alt="팝콘로고" className="mr-2" />
+            <img src={logoPopcon} alt='팝콘로고' className='mr-2' />
             팝콘 로그인
           </button>
 
           <button
             onClick={handleKakaoLogin}
-            className="w-full bg-[#FEE500] text-black py-2 rounded-md font-semibold mb-2 flex items-center justify-center border-2 border-[#FEE500] cursor-pointer"
+            className='w-full text-sm bg-[#FEE500] text-[color:var(--bg-color)] py-2 rounded-md text-md font-semibold mb-2 flex items-center justify-center border-2 border-[#FEE500] cursor-pointer h-10'
           >
-            <img src={logoKakao} alt="카카오로고" className="mr-2" />
+            <img src={logoKakao} alt='카카오로고' className='mr-2' />
             카카오 로그인
           </button>
 
-          <p className="text-sm text-[#FFFFFF] mt-8 mb-6">
+          <p className='text-sm text-[color:var(--white)] mt-8 mb-6'>
             Do not have an account yet?{" "}
-            <Link to="/SignupAgree" className="text-[#71EBBE] underline">
+            <Link to='/SignupAgree' className='text-[color:var(--primary-300)] underline'>
               Sign up.
             </Link>
           </p>
