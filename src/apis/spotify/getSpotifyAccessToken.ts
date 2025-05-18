@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token";
 const GRANT_TYPE = "client_credentials";
 
 interface TokenCache {
@@ -37,7 +36,7 @@ export const getSpotifyAccessToken = async (): Promise<string> => {
 
   try {
     const res = await axios.post(
-      SPOTIFY_TOKEN_URL,
+      import.meta.env.VITE_SPOTIFY_TOKEN_URL,
       new URLSearchParams({ grant_type: GRANT_TYPE }),
       {
         headers: {
