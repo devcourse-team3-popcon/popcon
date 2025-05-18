@@ -65,7 +65,7 @@ export default function SelectBox({
           </div>
         </button>
         {isOpen && (
-          <ul className="absolute left-0 right-0 mt-1 border rounded-[10px] bg-[color:var(--bg-color)] shadow z-10 max-h-60 overflow-y-auto border-[color:var(--primary-200)]">
+          <ul className="absolute left-0 right-0 mt-1 border rounded-[10px] bg-[color:var(--bg-color)] shadow z-10 max-h-60 overflow-y-auto border-[color:var(--primary-200)] scrollbar-hide">
             {options.map((option) => (
               <li
                 key={option.value}
