@@ -41,7 +41,7 @@ export default function InputField({
           maxLength={maxLength}
           className={twMerge(
             className,
-            "border px-4 rounded-[10px] text-[16px] focus:outline-none w-full",
+            "border px-4 rounded-[10px] text-[16px] focus:outline-none w-full bg-transparent",
             value
               ? "border-[color:var(--primary-200)]"
               : "border-[color:var(--white-80)] focus:border-[color:var(--primary-200)]"

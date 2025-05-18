@@ -58,10 +58,20 @@ export default function PostsByUser() {
     const fetchPosts = async () => {
       try {
         const res = await getPostsByUser(authorId);
-        const parsed = res.map((post: Post) => ({
-          ...post,
-          title: JSON.parse(post.title).title,
-        }));
+
+        const parsed = res
+          .map((post: Post) => ({
+            ...post,
+            title: JSON.parse(post.title).title,
+          }))
+          .filter((post: Post) => {
+            const path = getChannelPath(post.channel.name);
+            if (path === "unknown") {
+              console.error("알 수 없는 채널:", post.channel.name);
+              return false;
+            }
+            return true;
+          });
 
         setAllPosts(parsed);
       } catch (err) {
