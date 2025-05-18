@@ -4,6 +4,7 @@ import defaultProfileLogo from "../../../assets/images/default-profile-logo.svg"
 import BackButton from "../../../components/common/BackButton";
 import { getUserDetail } from "../../../apis/mypage/userDetail";
 import { useNavigate } from "react-router";
+import ForwardButton from "../../../components/common/ForwardButton";
 
 export default function UserDetailPage() {
   const { userId } = useParams();
@@ -42,19 +43,11 @@ export default function UserDetailPage() {
     <div className="min-h-screen text-[color:var(--white)] flex flex-col items-center py-10 px-4">
       <div className="w-full flex justify-between items-center mb-4">
         <BackButton from={-1} />
-        <button
-          onClick={() =>
-            navigate("/postsbyuser", {
-              state: {
-                authorId: userId,
-                username: username,
-              },
-            })
-          }
-          className="text-[color:var(--grey-300)] text-sm px-4 py-2 border border-[color:var(--white-80)] rounded-[10px] h-10 hover:border-[color:var(--primary-200)] hover:text-[color:var(--primary-200)]"
-        >
-          작성한 게시글 보기
-        </button>
+        <ForwardButton
+          to="/postsbyuser"
+          label="작성 글 보기"
+          state={{ authorId: userId as string, username: username }}
+        />
       </div>
 
       <div className="flex flex-col items-center w-full max-w-[240px]">
