@@ -1,6 +1,5 @@
 import {useEffect, useRef, useState} from "react";
 import loginGroup from "../../assets/images/login-group.svg";
-import logo from "../../assets/images/logo-no-period.svg";
 import logoPopcon from "../../assets/images/logo-login-popcon.svg";
 import logoKakao from "../../assets/images/logo-kakao.svg";
 import {Link, useNavigate} from "react-router";
@@ -114,14 +113,24 @@ export default function LoginPage() {
   };
 
   return (
-    <div className='h-[calc(100vh-68px)] w-full flex flex-col md:flex-row mt-20 md:mt-3'>
-      <div className='w-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
-        <div className='flex items-center justify-center h-full pb-8 md:pb-0'>
-          <img src={loginGroup} alt='캐릭터' className='w-[70%] max-w-[500px] object-contain' />
-        </div>
+    // <div className='h-[calc(100vh-68px)] w-full flex flex-col md:flex-row mt-20 md:mt-3'>
+    //   <div className='w-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
+    //     <div className='flex items-center justify-center h-full pb-8 md:pb-0'>
+    //       <img src={loginGroup} alt='캐릭터' className='w-[70%] max-w-[500px] object-contain' />
+    //     </div>
 
-        <div className='absolute bottom-[5%] right-[10%] hidden md:block'>
-          <img src={logo} alt='POPcon 로고' className='w-[200px] h-auto' />
+    //     <div className='absolute bottom-[5%] right-[10%] hidden md:block'>
+    //       <img src={logo} alt='POPcon 로고' className='w-[200px] h-auto' />
+    //     </div>
+
+    <div className='md:h-[calc(100vh-120px)] w-full flex flex-col md:flex-row overflow-hidden'>
+      <div className='w-full h-[400px] md:h-full md:w-[50%] bg-[#1B1C1E] relative'>
+        <div className='flex items-center justify-center h-full pb-8 md:pb-0'>
+          <img
+            src={loginGroup}
+            alt='캐릭터'
+            className='md:w-[70%] w-[40%] max-w-[500px] object-contain'
+          />
         </div>
       </div>
 

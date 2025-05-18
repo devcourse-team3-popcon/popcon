@@ -1,7 +1,6 @@
 import {useState} from "react";
 import {useNavigate} from "react-router";
 import loginGroup from "../../assets/images/login-group.svg";
-import logo from "../../assets/images/logo-no-period.svg";
 
 export default function SignupAgree() {
   const [checked, setChecked] = useState(false);
@@ -11,10 +10,16 @@ export default function SignupAgree() {
     if (checked) navigate("/signupform");
   };
   return (
+    // <div className='w-full flex flex-col-reverse md:flex-row-reverse overflow-hidden h-auto md:h-[calc(100vh-68px)] mt-20 md:mt-3'>
+    //   <div className='w-full md:w-[50%] bg-[color:var(--grey-600)] flex items-center justify-center h-auto md:h-full'>
+    //     <div className='w-full max-w-[600px] p-8'>
+    //       <h1 className='text-[22px] font-bold mb-6 text-center'>이용약관 동의</h1>
     <div className='w-full flex flex-col-reverse md:flex-row-reverse overflow-hidden h-auto md:h-[calc(100vh-68px)] mt-20 md:mt-3'>
-      <div className='w-full md:w-[50%] bg-[color:var(--grey-600)] flex items-center justify-center h-auto md:h-full'>
+      {/* main */}
+      {/* <div className='w-full flex flex-col-reverse md:flex-row-reverse overflow-hidden h-full md:h-[calc(100vh-120px)]'> */}
+      <div className='w-full md:w-[50%] bg-[#333333] flex items-center justify-center h-auto md:h-full'>
         <div className='w-full max-w-[600px] p-8'>
-          <h1 className='text-[22px] font-bold mb-6 text-center'>이용약관 동의</h1>
+          <h1 className='text-2xl font-bold mb-6 text-center'>이용약관 동의</h1>
 
           <div className='h-[300px] overflow-y-auto border rounded-md border-[color:var(--primary-200)] p-4 text-sm leading-relaxed mb-6 scroll overflow-scroll [&::-webkit-scrollbar]:hidden'>
             <p>
@@ -77,12 +82,20 @@ export default function SignupAgree() {
         </div>
       </div>
 
-      <div className='w-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
-        <div className='flex items-center justify-center h-auto md:h-full pb-8 md:pb-0'>
-          <img src={loginGroup} alt='캐릭터' className='w-[70%] max-w-[500px] object-contain' />
-        </div>
-        <div className='absolute bottom-[5%] right-[10%] hidden md:block'>
-          <img src={logo} alt='POPcon 로고' className='w-[200px] h-auto' />
+      {/* // <div className='w-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
+      //   <div className='flex items-center justify-center h-auto md:h-full pb-8 md:pb-0'>
+      //     <img src={loginGroup} alt='캐릭터' className='w-[70%] max-w-[500px] object-contain' />
+      //   </div>
+      //   <div className='absolute bottom-[5%] right-[10%] hidden md:block'>
+      //     <img src={logo} alt='POPcon 로고' className='w-[200px] h-auto' />
+      //   </div> */}
+      <div className='w-full h-[400px] md:h-full md:w-[50%] bg-[#1B1C1E] relative'>
+        <div className='flex items-center justify-center md:h-full pb-8 md:pb-0 h-full'>
+          <img
+            src={loginGroup}
+            alt='캐릭터'
+            className='md:w-[70%] w-[40%] max-w-[500px] object-contain'
+          />
         </div>
       </div>
     </div>
