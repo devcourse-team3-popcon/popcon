@@ -7,7 +7,7 @@ export const PlaylistHeader = ({
   displayName: string | null;
   onBack: () => void;
 }) => (
-  <header className="flex items-center gap-2 px-[18px]">
+  <header className="flex items-center  px-[18px]">
     <ChevronLeft
       className="cursor-pointer hover:text-gray-400 transition-colors"
       onClick={onBack}

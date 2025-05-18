@@ -12,7 +12,7 @@ export default function UserPlaylistPreview({
     useUserPlaylistPreview();
 
   return (
-    <section className="flex flex-col pt-10 px-12 bg-[color:var(--grey-600)] w-full overflow-hidden rounded-[30px] gap-[16px] h-[55%] mb-12 xl:mb-0 xl:min-h-0 min-h-80">
+    <section className="flex flex-col pt-8 px-10 pb-2 bg-[color:var(--grey-600)] w-full overflow-hidden rounded-[30px] gap-[16px] h-full">
       <UserPlaylistHeader />
 
       <div className="flex-1 overflow-hidden">
