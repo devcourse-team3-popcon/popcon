@@ -101,7 +101,7 @@ export default function CommunityPage({
               onChange={(e) => {
                 setSearchInput(e.target.value);
               }}
-              className="w-[280px]"
+              className="w-[200px]"
             />
           </div>
 

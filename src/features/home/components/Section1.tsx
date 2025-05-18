@@ -1,5 +1,3 @@
-import mockupImg from "../../../assets/images/section1.svg";
-
 export default function Section1() {
   return (
     <>
@@ -21,7 +19,7 @@ export default function Section1() {
         </div>
         <div className="w-full md:basis-[65%] flex justify-end items-end h-full translate-x-40">
           <img
-            src={mockupImg}
+            src="/src/assets/images/section1.svg"
             alt="목업 이미지"
             className="max-h-[75%] object-contain"
           />

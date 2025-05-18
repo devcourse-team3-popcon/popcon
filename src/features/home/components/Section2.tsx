@@ -83,7 +83,7 @@ export default function Section2() {
           <h3 className="w-full text-center p-6">Overview</h3>
           <div
             ref={titleRef}
-            className="flex flex-col w-full items-center font-bold text-2xl lg:text-4xl leading-16 p-20 "
+            className="flex flex-col w-full items-center font-bold sm:text-xl md:text-2xl lg:text-4xl leading-16 p-20 "
           >
             <p>해외 팝송을 좋아하는 사람들을 위한,</p>
             <p>노래 추천부터 숨은 명곡, 내한 공연 정보까지</p>
@@ -91,7 +91,7 @@ export default function Section2() {
 
           <div
             ref={subTitleRef}
-            className="flex flex-col w-full items-center font-light text-md lg:text-xl p-5"
+            className="flex flex-col w-full items-center font-light text-sm sm:text-base md:text-md lg:text-xl p-5"
           >
             <p>
               지금까지의 음악 서비스가 단순한 스트리밍에 머물렀다면, 팝콘은{" "}
