@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import profileImg from "../../assets/images/default-profile-logo.svg";
 import { deleteComment } from "../../utils/comment";
 import ActionModal from "./ActionModal";
+import { useNavigate } from "react-router";
 
 type CommentProps = {
   comment: CommentType;
@@ -17,6 +18,7 @@ export default function Comment({ comment, onDelete }: CommentProps) {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const parsedUserName = parseUserName(comment.author.fullName);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
   const cancelHandler = () => {
@@ -53,9 +55,10 @@ export default function Comment({ comment, onDelete }: CommentProps) {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <img
-              className="w-7 h-7 rounded-full mr-4"
+              className="w-7 h-7 rounded-full mr-4 cursor-pointer"
               src={comment.author.image || profileImg}
               alt="댓글 작성자 프로필 이미지"
+              onClick={() => navigate(`/userdetail/${comment.author._id}`)}
             />
             <div className="flex flex-col">
               <span className="text-[14px]">{parsedUserName.name}</span>
