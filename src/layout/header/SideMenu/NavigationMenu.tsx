@@ -1,5 +1,6 @@
 import { Bell, Calendar, Globe, Headphones, User, Users } from "lucide-react";
 import { NavigateOptions, useLocation, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 import chat from "../../../assets/images/icon-chat.svg";
 import { getCurrentTheme } from "../../../utils/theme";
 
@@ -41,9 +42,30 @@ function UserNavItems({
   toggleNotifications,
   unseenCount,
 }: NavItemsProps) {
-
   const location = useLocation();
-  const theme = getCurrentTheme();
+  const [theme, setTheme] = useState(getCurrentTheme());
+  
+  useEffect(() => {
+    setTheme(getCurrentTheme());
+    const handleThemeChange = () => {
+      setTheme(getCurrentTheme());
+    };
+    
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach(() => {
+        handleThemeChange();
+      });
+    });
+    
+    observer.observe(document.documentElement, { 
+      attributes: true, 
+      attributeFilter: ['class'] 
+    });
+    
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <nav className="flex flex-col gap-2 text-lg">
