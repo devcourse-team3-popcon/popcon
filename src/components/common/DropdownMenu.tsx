@@ -44,22 +44,17 @@ export default function DropdownMenu({
 
   useEffect(() => {
     const outsideClickHandler = (event: MouseEvent) => {
-      const themeToggleWrapper = document.getElementById(
-        "theme-toggle-wrapper"
-      );
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        themeToggleWrapper &&
-        !themeToggleWrapper.contains(event.target as Node)
-      ) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
-
-    document.addEventListener("mousedown", outsideClickHandler);
-    return () => document.removeEventListener("mousedown", outsideClickHandler);
-  }, [setIsOpen]);
+    if (isOpen) {
+      document.addEventListener("mousedown", outsideClickHandler);
+    }
+    return () => {
+      document.removeEventListener("mousedown", outsideClickHandler);
+    };
+  }, [isOpen, setIsOpen]);
 
   if (!isOpen) return null;
 
