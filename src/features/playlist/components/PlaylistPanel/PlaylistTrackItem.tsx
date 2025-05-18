@@ -62,7 +62,7 @@ export default function PlaylistTrackItem({
 
   const togglePlayTrack = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    
+
     if (isPlaying) {
       setCurrentVideo(null);
       setVideoId(null);
@@ -99,14 +99,14 @@ export default function PlaylistTrackItem({
   };
 
   return (
-    <div 
+    <div
       className="flex h-auto p-2 justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer"
-      onClick={track ? handleTrackItemClick : item ? togglePlayTrack : undefined}
+      onClick={
+        track ? handleTrackItemClick : item ? togglePlayTrack : undefined
+      }
     >
-      <div
-        className="flex gap-[24px] items-center flex-1 overflow-hidden"
-      >
-        <div 
+      <div className="flex gap-[24px] items-center flex-1 overflow-hidden">
+        <div
           className="flex rounded-[10px] justify-center items-center relative group overflow-hidden"
           onClick={track ? togglePlayTrack : undefined}
         >
@@ -121,9 +121,17 @@ export default function PlaylistTrackItem({
             }`}
           >
             {isPlaying ? (
-              <Pause onClick={togglePlayTrack} className="z-50" />
+              <Pause
+                color="#FBFBFB"
+                onClick={togglePlayTrack}
+                className="z-50 "
+              />
             ) : (
-              <Play onClick={togglePlayTrack} className="z-50" />
+              <Play
+                color="#FBFBFB"
+                onClick={togglePlayTrack}
+                className="z-50"
+              />
             )}
           </div>
           {isPlaying && currentVideo?.videoId && (
