@@ -161,18 +161,8 @@ export default function SignupForm() {
   };
 
   return (
-    // <div className='h-[calc(100vh-68px)] w-full flex flex-col md:flex-row overflow-visible md:overflow-hidden mt-20 md:mt-3'>
-    //   <div className='w-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
-    //     <div className='flex items-center justify-center h-full pb-8 md:pb-0'>
-    //       <img src={loginGroup} alt='캐릭터' className='w-[70%] max-w-[500px] object-contain' />
-    //     </div>
-
-    //     <div className='absolute bottom-[5%] right-[10%] hidden md:block'>
-    //       <img src={logo} alt='POPcon 로고' className='w-[200px] h-auto' />
-    //     </div>
-
-    <div className='md:h-[calc(100vh-120px)] w-full flex flex-col md:flex-row overflow-hidden'>
-      <div className='w-full h-[400px] md:h-full md:w-[50%] bg-[#1B1C1E] relative'>
+    <div className='h-[calc(100vh-68px)] w-full flex flex-col md:flex-row overflow-visible md:overflow-hidden mt-25 md:mt-3'>
+      <div className='w-full h-[400px] md:h-full md:w-[50%] bg-[color:var(--bg-color)] relative'>
         <div className='flex items-center justify-center h-full pb-8 md:pb-0 '>
           <img
             src={loginGroup}
