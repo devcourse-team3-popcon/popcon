@@ -79,7 +79,7 @@ export default function BopsCommunityPage({ channelId }: BopsCommunityProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 max-w-6xl min-w-1xl mx-auto w-full">
+        <div className="grid grid-cols-1 min-[600px]:grid-cols-2 min-[910px]:grid-cols-3 xl:grid-cols-4 gap-8 max-w-6xl min-w-1xl mx-auto w-full justify-items-center">
           {currentPosts.map((post) => (
             <BopCard
               key={post._id}
