@@ -114,7 +114,7 @@ export default function UserSection() {
         </div>
       ) : (
         <div className="relative flex h-[68px] items-center gap-6">
-          <NavLink to="/chat">
+          <NavLink to="/chat" state={{ from: location.pathname }}>
             {({ isActive }) => (
               <div className="w-4 h-4 2xl:w-4.5 2xl:h-4.5">
                 <img
