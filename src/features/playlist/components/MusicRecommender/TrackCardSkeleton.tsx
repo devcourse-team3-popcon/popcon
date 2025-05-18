@@ -1,7 +1,7 @@
 export default function TrackCardSkeleton() {
   return (
-    <div className="md:w-[160px] xl:w-[112px] 2xl:w-[120px] h-[90%] overflow-hidden flex flex-col justify-center items-center md:gap-4 box-border min-h-32">
-      <div className="flex h-[35%] justify-center items-center rounded-full overflow-hidden min-w-15  min-h-15">
+    <div className="md:w-[160px] xl:w-[112px] 2xl:w-[120px]  overflow-hidden flex flex-col justify-center items-center md:gap-4 box-border min-h-32 ">
+      <div className="flex h-[80px] w-[80px] justify-center items-center rounded-full overflow-hidden min-w-15  min-h-15">
         <div className="w-full h-full bg-[color:var(--grey-500)] rounded-full animate-pulse" />
       </div>
       <div className="flex flex-col md:gap-2 justify-center items-center w-full h-[40%]">

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import defaultProfileLogo from "../../../assets/images/default-profile-logo.svg";
 import cameraIcon from "../../../assets/images/camera-icon.png";
 import BackButton from "../../../components/common/BackButton";
@@ -10,12 +10,12 @@ import {
   myPageUserInfo,
   myPageUserInfoUpdate,
 } from "../../../apis/mypage/myPage";
-import {useNavigate} from "react-router";
-import {getSpotifyAccessToken} from "../../../apis/spotify/getSpotifyAccessToken";
-import {searchArtist} from "../../../apis/spotify/spotifySearch";
+import { useNavigate } from "react-router";
+import { getSpotifyAccessToken } from "../../../apis/spotify/getSpotifyAccessToken";
+import { searchArtist } from "../../../apis/spotify/spotifySearch";
 import CheckPassword from "./CheckPassword";
 import ActionModal from "../../../components/common/ActionModal";
-import {useAuthStore} from "../../../stores/authStore";
+import { useAuthStore } from "../../../stores/authStore";
 import ForwardButton from "../../../components/common/ForwardButton";
 
 export default function MyPage() {
@@ -32,7 +32,9 @@ export default function MyPage() {
   ];
   const navigate = useNavigate();
 
-  const [checkPassword, setCheckPassword] = useState<"view" | "check-password">("view");
+  const [checkPassword, setCheckPassword] = useState<"view" | "check-password">(
+    "view"
+  );
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -88,7 +90,9 @@ export default function MyPage() {
       try {
         const token = await getSpotifyAccessToken();
         const results = await searchArtist(debouncedArtist, token);
-        const simplified = results.map((artist: {name: string}) => artist.name);
+        const simplified = results.map(
+          (artist: { name: string }) => artist.name
+        );
         setArtistSuggestions(simplified);
       } catch (e) {
         console.error("아티스트 검색 실패:", e);
@@ -195,43 +199,43 @@ export default function MyPage() {
   };
 
   return (
-    <div className='min-h-screen text-[color:var(--white)] flex flex-col items-center py-6 px-4 h-[calc(100vh-68px)] w-[80%]'>
-      <div className='w-full flex justify-between items-center mb-4'>
+    <div className="mt-16 md:mt-0 w-[80%] lg:w-[800px] xl:w-[1080px] min-h-screen text-[color:var(--white)] flex flex-col items-center py-10 ">
+      <div className="w-full flex justify-between items-center mb-4">
         <BackButton from={-1} />
         <ForwardButton
-          to='/postsbyuser'
-          label='작성 글 보기'
-          state={{authorId: storedUserId, username: username}}
+          to="/postsbyuser"
+          label="작성 글 보기"
+          state={{ authorId: storedUserId, username: username }}
         />
       </div>
       <input
-        type='file'
-        accept='image/*'
+        type="file"
+        accept="image/*"
         ref={fileInputRef}
         onChange={handleImageChange}
-        className='hidden'
+        className="hidden"
       />
 
-      <div className='flex flex-col items-center w-full max-w-32'>
-        <div className='relative w-full aspect-square mt-8'>
+      <div className="flex flex-col items-center w-full max-w-32">
+        <div className="relative w-[80px] h-[80px] lg:w-32 lg:h-32 aspect-square mt-8">
           <img
             src={imageUrl || defaultProfileLogo}
-            alt='프로필 사진'
-            className='w-full h-full max-h-32 rounded-full object-cover'
+            alt="프로필 사진"
+            className="w-full h-full max-h-32 rounded-full object-cover"
           />
           {editMode && (
-            <div className='absolute bottom-0 right-0 translate-x-3 translate-y-3'>
+            <div className="absolute bottom-0 right-0 translate-x-3 translate-y-3">
               <div
                 onClick={() => setShowImageDropdown((prev) => !prev)}
-                className='w-[56px] h-[56px] bg-[color:var(--primary-200)] rounded-full flex items-center justify-center cursor-pointer relative z-10'
+                className="w-6 h-6 lg:w-10 lg:h-10 bg-[color:var(--primary-200)] rounded-full flex items-center justify-center cursor-pointer relative z-10"
               >
-                <img src={cameraIcon} alt='카메라 아이콘' />
+                <img src={cameraIcon} alt="카메라 아이콘" />
               </div>
 
               {showImageDropdown && (
-                <ul className='absolute bottom-[-100px] right-0 w-[160px] bg-[color:var(--grey-600)] text-[color:var] rounded-[10px] shadow z-20 text-sm'>
+                <ul className="absolute bottom-[-100px] right-0 w-[160px] bg-[color:var(--grey-600)] text-[color:var] rounded-[10px] shadow z-20 text-sm">
                   <li
-                    className='px-4 py-2 hover:bg-[color:var(--grey-500)] cursor-pointer rounded-tl-[10px] rounded-tr-[10px]'
+                    className="px-4 py-2 hover:bg-[color:var(--grey-500)] cursor-pointer rounded-tl-[10px] rounded-tr-[10px]"
                     onClick={() => {
                       handleResetProfileImage();
                       setShowImageDropdown(false);
@@ -240,7 +244,7 @@ export default function MyPage() {
                     기본 이미지로 변경
                   </li>
                   <li
-                    className='px-4 py-2 hover:bg-[#444] cursor-pointer rounded-bl-[10px] rounded-br-[10px]'
+                    className="px-4 py-2 hover:bg-[#444] cursor-pointer rounded-bl-[10px] rounded-br-[10px]"
                     onClick={() => {
                       fileInputRef.current?.click();
                       setShowImageDropdown(false);
@@ -253,50 +257,52 @@ export default function MyPage() {
             </div>
           )}
         </div>
-        <p className='mt-[32px] text-[24px] md:text-[32px] font-semibold text-center'>
+        <p className="mt-[32px] text-[24px] md:text-[32px] font-semibold text-center">
           {mainProfileName}
         </p>
       </div>
 
-      <div className='mt-[40px] w-full max-w-[1049px] mx-auto bg-[#333333]/[0.35] rounded-[30px] pt-[40px] md:pt-[80px] px-10 md:px-20 flex flex-col'>
+      <div className="mt-[40px] w-full mx-auto bg-[#333333]/[0.35] rounded-[30px] pt-[40px] md:pt-[80px] px-10 md:px-20 flex flex-col">
         {checkPassword === "view" ? (
           <>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-12'>
-              <div className='flex flex-col gap-4 '>
-                <div className='flex justify-between items-center'>
-                  <label htmlFor='username' className='text-lg'>
+            <div className=" grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-12">
+              <div className="flex flex-col gap-4 ">
+                <div className="flex justify-between items-center">
+                  <label htmlFor="username" className="text-lg">
                     이메일
                   </label>
                 </div>
                 <input
-                  id='email'
-                  name='email'
-                  type='email'
+                  id="email"
+                  name="email"
+                  type="email"
                   value={email}
                   disabled
                   onChange={(e) => setEmail(e.target.value)}
-                  className='w-full px-4 py-2 rounded-[10px] border border-[color:var(--white-80)] bg-transparent text-[16px] cursor-not-allowed text-[color:var(--grey-500)]'
+                  className="w-full px-4 py-2 rounded-[10px] border border-[color:var(--white-80)] bg-transparent text-[16px] cursor-not-allowed text-[color:var(--grey-500)]"
                 />
               </div>
 
-              <div className='flex flex-col gap-4 '>
-                <div className='flex justify-between items-center'>
-                  <label htmlFor='username' className='text-lg'>
+              <div className="flex flex-col gap-4 ">
+                <div className="flex justify-between items-center">
+                  <label htmlFor="username" className="text-lg">
                     사용자 이름
                   </label>
                   {userNameError && (
-                    <span className='text-[14px] text-[color:var(--red)]'>{userNameError}</span>
+                    <span className="text-[14px] text-[color:var(--red)]">
+                      {userNameError}
+                    </span>
                   )}
                 </div>
                 <input
-                  id='username'
+                  id="username"
                   ref={userNameRef}
                   value={username}
                   onChange={(e) => {
                     setUsername(e.target.value);
                     if (userNameError) setuserNameError("");
                   }}
-                  placeholder='user name'
+                  placeholder="user name"
                   disabled={!editMode}
                   className={`w-full h-10 px-4 rounded-[10px] text-[16px] border ${
                     userNameError
@@ -306,14 +312,17 @@ export default function MyPage() {
                 />
               </div>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-[48px]'>
-              <div className='relative flex flex-col gap-4 w-full' ref={suggestionsRef}>
-                <label htmlFor='favoriteArtist' className='text-lg'>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4 md:gap-x-12 md:gap-y-0 md:mb-[48px]">
+              <div
+                className="relative flex flex-col gap-4 w-full"
+                ref={suggestionsRef}
+              >
+                <label htmlFor="favoriteArtist" className="text-lg">
                   좋아하는 가수 (선택)
                 </label>
                 <input
-                  type='text'
-                  id='favoriteArtist'
+                  type="text"
+                  id="favoriteArtist"
                   value={favoriteArtist}
                   onChange={(e) => setFavoriteArtist(e.target.value)}
                   disabled={!editMode}
@@ -328,7 +337,7 @@ export default function MyPage() {
                 />
 
                 {editMode && artistSuggestions.length > 0 && (
-                  <ul className='absolute top-full left-0 right-0 mt-1 border rounded-[10px] bg-[color:var(--bg-color)] shadow z-10 max-h-60 overflow-y-auto border-[color:var(--primary-200)]'>
+                  <ul className="absolute top-full left-0 right-0 mt-1 border rounded-[10px] bg-[color:var(--bg-color)] shadow z-10 max-h-60 overflow-y-auto border-[color:var(--primary-200)]">
                     {artistSuggestions.map((name, index) => (
                       <li
                         key={`${name}-${index}`}
@@ -337,7 +346,7 @@ export default function MyPage() {
                           setFavoriteArtist(name);
                           setArtistSuggestions([]);
                         }}
-                        className='px-4 py-[10px] text-[14px] hover:bg-[color:var(--grey-600)] hover:text-white cursor-pointer transition-colors duration-100'
+                        className="px-4 py-[10px] text-[14px] hover:bg-[color:var(--grey-600)] hover:text-white cursor-pointer transition-colors duration-100"
                       >
                         {name}
                       </li>
@@ -346,15 +355,22 @@ export default function MyPage() {
                 )}
               </div>
 
-              <div className='flex flex-col gap-4 relative' ref={genreSelectRef}>
-                <label htmlFor='favoriteGenre' className='text-lg'>
+              <div
+                className="flex flex-col gap-4 relative"
+                ref={genreSelectRef}
+              >
+                <label htmlFor="favoriteGenre" className="text-lg">
                   좋아하는 장르 (선택)
                 </label>
                 <div
-                  role='button'
+                  role="button"
                   tabIndex={0}
-                  onClick={() => editMode && setGenreDropdownOpen((prev) => !prev)}
-                  onBlur={() => setTimeout(() => setGenreDropdownOpen(false), 100)}
+                  onClick={() =>
+                    editMode && setGenreDropdownOpen((prev) => !prev)
+                  }
+                  onBlur={() =>
+                    setTimeout(() => setGenreDropdownOpen(false), 100)
+                  }
                   className={`w-full h-[40px] px-4 text-left text-[16px] flex items-center rounded-[10px] border ${
                     editMode ? "cursor-pointer" : "pointer-events-none "
                   } ${
@@ -366,7 +382,7 @@ export default function MyPage() {
                   {favoriteGenre || "선택하세요"}
                 </div>
                 {genreDropdownOpen && (
-                  <ul className='absolute top-full left-0 right-0 mt-1 border rounded-[10px] bg-[color:var(--bg-color)] shadow z-10 max-h-60 overflow-y-auto border-[color:var(--primary-200)]'>
+                  <ul className="absolute top-full left-0 right-0 mt-1 border rounded-[10px] bg-[color:var(--bg-color)] shadow z-10 max-h-60 overflow-y-auto border-[color:var(--primary-200)]">
                     {genres.map((genre) => (
                       <li
                         key={genre}
@@ -374,7 +390,7 @@ export default function MyPage() {
                           setFavoriteGenre(genre);
                           setGenreDropdownOpen(false);
                         }}
-                        className='px-4 py-[10px] text-[14px] hover:bg-[color:var(--grey-600)] hover:text-white cursor-pointer transition-colors duration-100'
+                        className="px-4 py-[10px] text-[14px] hover:bg-[color:var(--grey-600)] hover:text-white cursor-pointer transition-colors duration-100"
                       >
                         {genre}
                       </li>
@@ -383,26 +399,26 @@ export default function MyPage() {
                 )}
               </div>
             </div>
-            <div className='flex justify-center gap-4 mb-[40px]'>
+            <div className="flex justify-center gap-4 mb-[40px]">
               {editMode ? (
                 <>
                   <button
-                    type='button'
+                    type="button"
                     onClick={() => {
                       setUsername(initialUserData.username);
                       setFavoriteArtist(initialUserData.favoriteArtist);
                       setFavoriteGenre(initialUserData.favoriteGenre);
                       setEditMode(false);
                     }}
-                    className='px-10 py-3 rounded-[30px] border border-[color:var(--grey-400)] text-[color:var(--grey-100)] font-bold cursor-pointer'
+                    className="px-10 py-3 rounded-[30px] border border-[color:var(--grey-400)] text-[color:var(--grey-100)] font-bold cursor-pointer"
                   >
                     취소하기
                   </button>
 
                   <button
-                    type='submit'
+                    type="submit"
                     onClick={() => handleUpdate()}
-                    className='px-10 py-3 rounded-[30px] bg-[color:var(--primary-200)] text-[color:var(--bg-color)] font-bold cursor-pointer'
+                    className="px-10 py-3 rounded-[30px] bg-[color:var(--primary-200)] text-[color:var(--bg-color)] font-bold cursor-pointer"
                   >
                     저장하기
                   </button>
@@ -410,7 +426,7 @@ export default function MyPage() {
               ) : (
                 <button
                   onClick={() => setEditMode(true)}
-                  className='px-10 py-3 rounded-[30px] bg-[color:var(--primary-200)] text-[color:var(--bg-color)] font-bold cursor-pointer'
+                  className="px-10 py-3 rounded-[30px] bg-[color:var(--primary-200)] text-[color:var(--bg-color)] font-bold cursor-pointer"
                 >
                   수정하기
                 </button>
@@ -418,32 +434,35 @@ export default function MyPage() {
             </div>{" "}
           </>
         ) : (
-          <CheckPassword email={email} onCheckPassword={() => setCheckPassword("view")} />
+          <CheckPassword
+            email={email}
+            onCheckPassword={() => setCheckPassword("view")}
+          />
         )}
       </div>
 
-      <div className='mt-[80px] w-[324px] h-[21px] flex items-center justify-center text-[18px] pb-10'>
+      <div className="mt-[80px] w-[324px] h-[21px] flex items-center justify-center text-[18px] pb-10">
         {!email.includes("@kakao.com") && (
           <>
             <button
               onClick={() => setCheckPassword("check-password")}
-              className='hover:underline cursor-pointer text-sm text-[color:var(--white-80)]'
+              className="hover:underline cursor-pointer text-sm text-[color:var(--white-80)]"
             >
               비밀번호 변경
             </button>
-            <span className='px-3'>|</span>
+            <span className="px-3">|</span>
           </>
         )}
         <button
           onClick={handleLogout}
-          className='hover:underline cursor-pointer text-sm text-[color:var(--white-80)]'
+          className="hover:underline cursor-pointer text-sm text-[color:var(--white-80)]"
         >
           로그아웃
         </button>
-        <span className='px-3'>|</span>
+        <span className="px-3">|</span>
         <button
           onClick={() => setShowModal(true)}
-          className='hover:underline cursor-pointer text-[color:var(--red)] text-sm'
+          className="hover:underline cursor-pointer text-[color:var(--red)] text-sm"
         >
           회원 탈퇴
         </button>
@@ -452,7 +471,7 @@ export default function MyPage() {
             modalMessage={`정말로 회원 탈퇴하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`}
             onCancel={() => setShowModal(false)}
             onConfirmAction={handleDelete}
-            confirmButtonText='탈퇴하기'
+            confirmButtonText="탈퇴하기"
           />
         )}
       </div>
