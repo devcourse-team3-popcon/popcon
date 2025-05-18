@@ -19,14 +19,9 @@ export const getSpotifyAccessToken = async (): Promise<string> => {
     return tokenCache.accessToken;
   }
 
-  const clientId =
-    window.location.hostname === "localhost"
-      ? import.meta.env.VITE_SPOTIFY_CLIENT_ID
-      : "/api";
-  const clientSecret =
-    window.location.hostname === "localhost"
-      ? import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
-      : "/api";
+  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+
+  const clientSecret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
     throw new Error("Spotify 인증 정보가 없습니다");
