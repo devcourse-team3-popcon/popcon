@@ -449,8 +449,7 @@ export default function MyPage() {
         </button>
         {showModal && (
           <ActionModal
-            modalMessage='정말로 회원 탈퇴하시겠습니까?
-            이 작업은 되돌릴 수 없습니다.'
+            modalMessage={`정말로 회원 탈퇴하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`}
             onCancel={() => setShowModal(false)}
             onConfirmAction={handleDelete}
             confirmButtonText='탈퇴하기'
