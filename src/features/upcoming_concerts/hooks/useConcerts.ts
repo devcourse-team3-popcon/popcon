@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
-import {getConcerts} from "../../../apis/upcoming_concerts/getConcerts";
-import {Concert} from "../../../types/upcoming_concerts/Concert";
+import { useEffect, useState } from "react";
+import { getConcerts } from "../../../apis/upcoming_concerts/getConcerts";
+import { Concert } from "../types/Concert";
 
 export default function useConcerts(channelId: string) {
   const [concerts, setConcerts] = useState<Concert[]>([]);
@@ -14,7 +14,7 @@ export default function useConcerts(channelId: string) {
         });
 
         const concertData = response.map(
-          (concert: {_id: string; image: string; title: string}) => ({
+          (concert: { _id: string; image: string; title: string }) => ({
             id: concert._id,
             image: concert.image,
             title: JSON.parse(concert.title),
@@ -40,5 +40,5 @@ export default function useConcerts(channelId: string) {
     fetchConcerts();
   }, [channelId]);
 
-  return {concerts, loading};
+  return { concerts, loading };
 }

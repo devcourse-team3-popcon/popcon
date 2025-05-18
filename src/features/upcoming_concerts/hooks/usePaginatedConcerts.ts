@@ -1,6 +1,6 @@
-import {useMemo, useState} from "react";
-import {useSearchParams} from "react-router";
-import {Concert} from "../../../types/upcoming_concerts/Concert";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router";
+import { Concert } from "../types/Concert";
 
 export function usePaginatedConcerts(concerts: Concert[]) {
   const [searchParams, setSearchParams] = useSearchParams();

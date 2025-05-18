@@ -1,4 +1,4 @@
-import { Concert } from "../../../types/upcoming_concerts/Concert";
+import { Concert } from "../types/Concert";
 
 export default function ConcertCard({ data }: { data: Concert }) {
   const {

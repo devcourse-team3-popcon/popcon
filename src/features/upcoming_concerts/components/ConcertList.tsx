@@ -1,4 +1,4 @@
-import { Concert } from "../../../types/upcoming_concerts/Concert";
+import { Concert } from "../types/Concert";
 import ConcertCard from "./ConcertCard";
 
 export default function ConcertList({ concerts }: { concerts: Concert[] }) {
