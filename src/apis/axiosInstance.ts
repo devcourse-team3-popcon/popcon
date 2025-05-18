@@ -1,10 +1,13 @@
 import axios from "axios";
 
-import {useAuthStore} from "../stores/authStore";
-import {getLoginStorage} from "./login/getLoginStorage";
+import { useAuthStore } from "../stores/authStore";
+import { getLoginStorage } from "./login/getLoginStorage";
 
 export const axiosInstance = axios.create({
-  baseURL: `${import.meta.env.VITE_PROGRAMMERS}`,
+  baseURL:
+    window.location.hostname === "localhost"
+      ? import.meta.env.VITE_PROGRAMMERS
+      : "/api",
   withCredentials: false,
 });
 
@@ -26,7 +29,7 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 403 && !retry) {
       retry = true;
       try {
-        const {data} = await axiosInstance.post("/token");
+        const { data } = await axiosInstance.post("/token");
         useAuthStore.setState({
           accessToken: data.accessToken,
           isLoggedIn: true,
