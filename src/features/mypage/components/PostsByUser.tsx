@@ -83,9 +83,9 @@ export default function PostsByUser() {
   }, [authorId]);
 
   return (
-    <div className='min-h-screen text-[color:var(--white)] py-6 px-4 h-[calc(100vh-68px)] w-[80%]'>
+    <div className='min-h-screen text-[color:var(--white)] py-6 px-4 h-[calc(100vh-68px)] w-full flex justify-center mx-auto'>
       <div className='mx-auto flex flex-col'>
-        <div className='w-full max-w-[1049px] px-4 md:px-[100px] flex mb-4'>
+        <div className='w-full max-w-[80%] px-4 md:px-[100px] flex mb-4'>
           <BackButton from={-1} />
         </div>
 
