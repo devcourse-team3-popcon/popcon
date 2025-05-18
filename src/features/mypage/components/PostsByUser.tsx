@@ -58,10 +58,20 @@ export default function PostsByUser() {
     const fetchPosts = async () => {
       try {
         const res = await getPostsByUser(authorId);
-        const parsed = res.map((post: Post) => ({
-          ...post,
-          title: JSON.parse(post.title).title,
-        }));
+
+        const parsed = res
+          .map((post: Post) => ({
+            ...post,
+            title: JSON.parse(post.title).title,
+          }))
+          .filter((post: Post) => {
+            const path = getChannelPath(post.channel.name);
+            if (path === "unknown") {
+              console.error("알 수 없는 채널:", post.channel.name);
+              return false;
+            }
+            return true;
+          });
 
         setAllPosts(parsed);
       } catch (err) {
@@ -71,7 +81,6 @@ export default function PostsByUser() {
 
     fetchPosts();
   }, [authorId]);
-
 
   return (
     <div className="min-h-screen text-[color:var(--white)] flex flex-col items-center py-10 px-4 ">
@@ -180,10 +189,7 @@ export default function PostsByUser() {
         </table>
         {allPosts.length > 0 && (
           <div className="mt-10 flex justify-center">
-            <Pagination
-              cntPage={limit}
-              totalCnt={allPosts.length}
-            />
+            <Pagination cntPage={limit} totalCnt={allPosts.length} />
           </div>
         )}
       </div>
