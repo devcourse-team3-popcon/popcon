@@ -1,27 +1,31 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router";
 import SearchBar from "../../../components/common/SearchBar";
 import { Plus } from "lucide-react";
 import { Post } from "../types/Post";
 import usePostsByChannel from "../../../hooks/usePostsByChannel";
 import Pagination from "../../../components/common/Pagination";
-import { usePagination } from "../../../hooks/usePagination";
-import SelectBox from "../../../components/common/SelectBox";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import NoneBorderSelectBox from "../../../components/common/NoneBorderSelectBox";
+import { useNavigate, useSearchParams } from "react-router";
 
 interface ComunityPageProps {
   renderTable: (posts: Post[]) => ReactNode;
   channelId: string;
 }
+
 export default function CommunityPage({
   renderTable,
   channelId,
 }: ComunityPageProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+
   const [searchInput, setSearchInput] = useState("");
   const [searchType, setSearchType] = useState<"all" | "title" | "writer">(
     "all"
   );
   const navigate = useNavigate();
-  const { page, cntPage, setPagination } = usePagination();
+  const [cntPage, setCntPage] = useState(10);
   const { posts, loading } = usePostsByChannel(channelId);
   const searchOptions = [
     { value: "all", label: "전체" },
@@ -43,16 +47,36 @@ export default function CommunityPage({
   }, [posts, searchInput, searchType]);
 
   useEffect(() => {
-    setPagination(cntPage, filteredPosts.length, 1);
-  }, [searchInput, searchType, cntPage]);
+    if (searchInput.trim() !== "" || searchType !== "all") {
+      setSearchParams((prev) => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set("page", "1");
+        return newParams;
+      });
+    }
+  }, [searchInput, searchType, setSearchParams]);
 
-  const indexOfLastPost = page * cntPage;
+  const setPagination = (newCntPage: number) => {
+    if (newCntPage !== cntPage) {
+      setCntPage(newCntPage);
+
+      setSearchParams((prev) => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set("page", "1");
+        return newParams;
+      });
+    }
+  };
+
+  const indexOfLastPost = currentPage * cntPage;
   const indexOfFirstPost = indexOfLastPost - cntPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
   if (loading)
     return (
-      <div className="w-full h-full flex justify-center items-center"></div>
+      <div className="w-full min-h-screen flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
     );
 
   return (
@@ -60,8 +84,8 @@ export default function CommunityPage({
       <div className="mb-24">
         <div className="flex w-full py-12 justify-between items-center text-[color:var(--white-80)]">
           <div className="w-auto flex gap-4 items-center">
-            <div>
-              <SelectBox
+            <div className="w-[94px]">
+              <NoneBorderSelectBox
                 options={searchOptions}
                 value={
                   searchOptions.find((opt) => opt.value === searchType) ?? null
@@ -91,7 +115,6 @@ export default function CommunityPage({
 
         <div className="mt-8 flex justify-center">
           <Pagination
-            page={page}
             cntPage={cntPage}
             totalCnt={filteredPosts.length}
             setPagination={setPagination}

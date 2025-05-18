@@ -33,7 +33,12 @@ export default function TextAreaField({
         autoComplete={autoComplete}
         onChange={onChange}
         maxLength={maxLength}
-        className="border border-[color:var(--white-80)] px-4 py-3 rounded-[10px] text-[16px] focus:outline-none focus:border-[color:var(--primary-200)] h-[240px] resize-none placeholder:text-[color:var(--white-80)] w-full"
+        className={twMerge(
+          "border px-4 py-3 rounded-[10px] text-[16px] focus:outline-none h-[240px] resize-none placeholder:text-[color:var(--white-80)] w-full",
+          value
+            ? "border-[color:var(--primary-200)]"
+            : "border-[color:var(--white-80)] focus:border-[color:var(--primary-200)]"
+        )}
       />
     </div>
   );

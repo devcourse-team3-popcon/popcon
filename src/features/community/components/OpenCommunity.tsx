@@ -23,9 +23,9 @@ export default function OpenCommunity() {
   if (!channelId) return <p>채널을 찾을 수 없습니다.</p>;
 
   return (
-    <>
+    <div className="px-5 h-full">
       <div className="flex flex-col gap-8 mt-10">
-        <p className="text-[30px] font-semibold">
+        <p className="text-xl md:text-4xl font-semibold">
           당신의{" "}
           <span className="text-[color:var(--primary-300)]">PlayList</span> 를
           채워줄 곳 ✨
@@ -40,12 +40,13 @@ export default function OpenCommunity() {
           ))}
         </div>
       </div>
+
       <CommunityPage
         channelId={channelId}
         renderTable={(filteredPosts) => (
           <CommunityTable posts={filteredPosts} />
         )}
       />
-    </>
+    </div>
   );
 }

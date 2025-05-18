@@ -22,9 +22,9 @@ export default function ConcertCommunity() {
     );
   if (!channelId) return <p>채널을 찾을 수 없습니다.</p>;
   return (
-    <>
+    <div className="px-5">
       <div className="flex flex-col gap-8 mt-10">
-        <p className="text-[30px] font-semibold">
+        <p className="text-xl md:text-4xl font-semibold">
           궁금했던{" "}
           <span className="text-[color:var(--primary-300)]">내한 공연</span>{" "}
           후기와 꿀팁 대방출 🍯
@@ -45,6 +45,6 @@ export default function ConcertCommunity() {
           <CommunityTable posts={filteredPosts} />
         )}
       />
-    </>
+    </div>
   );
 }

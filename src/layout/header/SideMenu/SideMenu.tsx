@@ -11,6 +11,7 @@ import {
   getNotifications,
   markAllNotificationsAsSeen,
 } from "../../../apis/alert/notificationService";
+import ThemeToggle from "../../../components/common/ThemeToggle";
 
 export default function SideMenu() {
   const [open, setOpen] = useState(false);
@@ -105,12 +106,12 @@ export default function SideMenu() {
     <>
       <Menu
         onClick={toggleMenu}
-        className="md:hidden fixed top-12 right-5 z-50 text-[color:var(--white)] cursor-pointer"
+        className="md:hidden fixed top-9.5 right-5 z-50 text-[color:var(--white)] cursor-pointer"
         strokeWidth={1.5}
       />
 
       <aside
-        className={`fixed top-0 right-0 h-full w-[320px] bg-[color:var(--grey-600)] shadow-lg z-50 transition-transform duration-300 transform ${
+        className={`flex flex-col fixed top-0 right-0 h-full w-[320px] bg-[color:var(--grey-600)] shadow-lg z-50 transition-transform duration-300 transform ${
           open ? "translate-x-0" : "translate-x-full"
         } md:translate-x-0 md:static md:w-[20%] md:right-0`}
       >
@@ -119,7 +120,7 @@ export default function SideMenu() {
             <X
               onClick={toggleMenu}
               strokeWidth={1.5}
-              className="absolute top-12 right-5 text-[color:var(--white)] cursor-pointer"
+              className="absolute top-9.5 right-5 text-[color:var(--white)] cursor-pointer"
             />
           )}
         </div>
@@ -148,8 +149,10 @@ export default function SideMenu() {
                 toggleNotifications={toggleNotifications}
                 unseenCount={unseenCount}
               />
-
-              <AuthButtons isLoggedIn={isLoggedIn} toggleMenu={toggleMenu} />
+              <div className="flex flex-col items-center mt-auto gap-3">
+                <ThemeToggle />
+                <AuthButtons isLoggedIn={isLoggedIn} toggleMenu={toggleMenu} />
+              </div>
             </>
           )}
         </div>

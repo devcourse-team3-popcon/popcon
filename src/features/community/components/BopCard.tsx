@@ -43,8 +43,6 @@ export default function BopCard({
   };
 
   const [showCompletedModal, setShowCompletedModal] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const myMenuItems = [
     {
@@ -122,7 +120,6 @@ export default function BopCard({
   const artistNames = Array.isArray(parsedBopTitle.track.artists)
     ? parsedBopTitle.track.artists.join(", ")
     : parsedBopTitle.track.artists;
-  console.log(artistNames);
 
   const togglePlayTrack = async () => {
     if (isPlaying) {
@@ -146,7 +143,7 @@ export default function BopCard({
   return (
     <>
       <div className="relative w-fit">
-        <div className="w-[240px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7  shadow-lg shadow-[rgba(0,0,0,0.50)] transition-transform duration-300 ease-in-out hover:-translate-y-4">
+        <div className="w-[224px] bg-[#55555534] p-4 rounded-2xl flex flex-col gap-4 mt-7  shadow-lg shadow-[rgba(0,0,0,0.50)] transition-transform duration-300 ease-in-out hover:-translate-y-4">
           <div className="relative w-full h-[208px] overflow-hidden rounded-2xl group shadow-lg shadow-[rgba(0,0,0,0.25)] ">
             <img
               className="w-full h-full bg-[#c2c2c2] rounded-2xl object-cover"
@@ -163,7 +160,12 @@ export default function BopCard({
 
               <span className="w-full h-[10%] text-[10px] text-right px-1">
                 Recommended By.
-                <span className="text-[color:var(--primary-300)] ml-1">
+                <span
+                  className="text-[color:var(--primary-300)] ml-1 cursor-pointer"
+                  onClick={() => {
+                    navigate(`/userdetail/${post.author._id}`);
+                  }}
+                >
                   {parsedUserName.name}
                 </span>
               </span>
@@ -228,7 +230,7 @@ export default function BopCard({
         </div>
 
         {isOpen && (
-          <div className="absolute left-full top-66 ml-41">
+          <div className="absolute left-full top-75 ">
             <DropdownMenu
               isOpen={isOpen}
               setIsOpen={setIsOpen}
@@ -255,14 +257,6 @@ export default function BopCard({
         <StatusModal
           message="플레이리스트에 추가되었습니다!"
           onClose={() => setShowCompletedModal(false)}
-        />
-      )}
-
-      {showErrorModal && (
-        <StatusModal
-          message={errorMessage}
-          onClose={() => setShowErrorModal(false)}
-          type="error"
         />
       )}
     </>

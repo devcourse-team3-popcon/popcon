@@ -1,7 +1,6 @@
-// import { UserInfo } from "./UserInfo";
-
 export interface ConversationProps {
   sender: string;
+  loginId: string;
   receiver: string;
   senderId: string;
   receiverId: string;
@@ -11,4 +10,5 @@ export interface ConversationProps {
   r_image: string;
   message: string;
   time: string;
+  from: string;
 }

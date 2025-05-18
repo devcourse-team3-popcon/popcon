@@ -3,8 +3,8 @@ import { twMerge } from "tailwind-merge";
 
 export default function Community() {
   return (
-    <div className="w-[1080px] min-h-screen">
-      <nav className="w-full grid grid-cols-3  mt-6 text-center  py-4">
+    <div className="w-[80%] lg:w-[800px] xl:w-[1080px] min-h-screen">
+      <nav className="w-full grid grid-cols-3 mt-24 md:mt-6 text-center  py-4">
         <NavLink
           to="bops-community"
           className={({ isActive }) =>

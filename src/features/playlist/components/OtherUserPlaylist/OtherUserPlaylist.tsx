@@ -14,7 +14,7 @@ export default function OtherUserPlaylist({
   const displayName = parsedData ? parsedData.name : selectedUserName;
 
   return (
-    <section className="flex flex-col pt-12 px-12 bg-[color:var(--grey-600)] w-full h-[408px] rounded-[30px] gap-[12px] overflow-hidden">
+    <section className="flex flex-col md:pt-10 md:px-10 bg-[color:var(--grey-600)] w-full h-[408px] rounded-[30px] gap-[12px] overflow-hidden">
       <PlaylistHeader
         displayName={displayName}
         onBack={() => setSelectedUserId(myId)}

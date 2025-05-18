@@ -69,7 +69,9 @@ export default function NotificationPanel({
         navigate(`/community/open-community/post/${notification.post}`);
       }
     } else {
-      navigate(`/chat/${notification.author._id}`);
+      navigate(`/chat/${notification.author._id}`, {
+        state: { from: location.pathname },
+      });
     }
     toggleMenu();
   };

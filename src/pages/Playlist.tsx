@@ -24,18 +24,18 @@ export default function Playlist() {
   }, []);
 
   return (
-    <div className="flex flex-col scrollbar-hide w-[80%] justify-center items-center">
+    <div className="mt-12 md:mt-0 lg:mt-25 flex flex-col scrollbar-hide w-[80%] lg:w-[800px] xl:w-[1080px] justify-center items-center h-auto lg:h-[70vh]">
       <PlayListBanner />
-      <div className="flex gap-[32px] w-full">
-        <div className="flex flex-col gap-[32px] w-[58%]">
+      <div className="flex flex-col xl:flex-row gap-[32px] w-full h-[70vh]">
+        <div className="flex flex-col gap-[32px] w-full xl:w-[58%] order-last xl:order-none h-full mt-8">
           <MusicRecommender
             setCurrentVideo={setCurrentVideo}
             currentVideo={currentVideo}
           />
-          {userId === selectedUserId && (
+
+          {userId === selectedUserId ? (
             <UserPlaylistPreview setSelectedUserId={setSelectedUserId} />
-          )}
-          {userId !== selectedUserId && (
+          ) : (
             <OtherUserPlaylist
               selectedUserId={selectedUserId}
               setSelectedUserId={setSelectedUserId}
@@ -44,7 +44,7 @@ export default function Playlist() {
             />
           )}
         </div>
-        <div className="w-[40%]">
+        <div className="w-full xl:w-[40%] order-first xl:order-none h-[70vh]">
           <PlaylistPanel
             setCurrentVideo={setCurrentVideo}
             currentVideo={currentVideo}

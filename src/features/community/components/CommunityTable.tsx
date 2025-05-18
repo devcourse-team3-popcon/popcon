@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { parseTitle } from "../../../utils/parseTitle";
 import { Post } from "../types/Post";
 import { parseUserName } from "../../../utils/parseUserName";
+import { useEffect } from "react";
 
 type CommunityTableProps = {
   posts: Post[];
@@ -10,6 +11,10 @@ type CommunityTableProps = {
 
 export default function CommunityTable({ posts }: CommunityTableProps) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(posts);
+  });
 
   const formatTime = (date: Date) => {
     return date.toLocaleDateString("ko-KR", {
@@ -29,11 +34,19 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
     );
   };
 
+  const getParsedUserName = (post: Post) => {
+    if (!post.author) return "작성자 없음";
+
+    return post.author.fullName
+      ? parseUserName(post.author.fullName).name
+      : "이름 없음";
+  };
+
   return (
     <>
-      <div className="w-full ">
+      <div className="w-full">
         <table className="w-full table-fixed">
-          <thead className="border-b text-[color:var(--primary-300-50)] ">
+          <thead className="border-b text-[color:var(--primary-300-50)] border-[color:var(--primary-300-50)]">
             <tr>
               <th className="p-4 w-[50%] text-left">
                 <div className="flex items-center">
@@ -74,21 +87,29 @@ export default function CommunityTable({ posts }: CommunityTableProps) {
               </tr>
             ) : (
               posts.map((post) => {
-                const parsedTitle = parseTitle(post.title);
-                const parsedUserName = parseUserName(post.author.fullName);
+                if (!post) return null;
+                const parsedTitle = post.title
+                  ? parseTitle(post.title)
+                  : { title: "제목 없음" };
                 return (
                   <tr
                     key={post._id}
-                    className="cursor-pointer hover:text-[color:var(--primary-300)] text-[#fbfbfb95]"
+                    className="cursor-pointer hover:text-[color:var(--primary-300)] text-[color:var(--white-95)]"
                     onClick={() => handleClick(post)}
                   >
-                    <td className="text-left p-4 font-normal text-[16px]">
+                    <td className="text-left sm:p-2 md:p-4 font-normal text-[14px] sm:text-[15px] md:text-[16px]">
                       {parsedTitle.title}
                     </td>
-                    <td className="text-center p-4">{parsedUserName.name}</td>
-                    <td className="text-center p-4">{post.comments.length}</td>
-                    <td className="text-center p-4">{post.likes.length}</td>
-                    <td className="text-center p-4">
+                    <td className="text-center p-2 md:p-4 sm:text-[14px] md:text-[15px]">
+                      {getParsedUserName(post)}
+                    </td>
+                    <td className="text-center p-2 md:p-4 sm:text-[14px] md:text-[15px]">
+                      {post.comments.length}
+                    </td>
+                    <td className="text-center p-2 md:p-4 sm:text-[14px] md:text-[15px]">
+                      {post.likes.length}
+                    </td>
+                    <td className="text-center p-2 md:p-4 text-[10px] sm:text-[12px] md:text-[14px]">
                       {formatTime(new Date(post.createdAt))}
                     </td>
                   </tr>

@@ -7,7 +7,8 @@ interface PostInputFormProps {
   contentInput: string;
   setTitleInput: (value: string) => void;
   setContentInput: (value: string) => void;
-  setImageInput: (file: File | null) => void;
+  setImageInput?: (file: File | null) => void;
+  setIsImageDeleted?: (value: boolean) => void;
   existingImageUrl?: string;
 }
 
@@ -18,6 +19,7 @@ export default function PostInputForm({
   setContentInput,
   setImageInput,
   existingImageUrl,
+  setIsImageDeleted,
 }: PostInputFormProps) {
   return (
     <>
@@ -33,7 +35,7 @@ export default function PostInputForm({
           onChange={(e) => {
             setTitleInput(e.target.value);
           }}
-          className="w-[100%]"
+          className="w-[100%] py-4"
         />
 
         <div className="flex gap-4 w-full">
@@ -50,10 +52,13 @@ export default function PostInputForm({
             }}
           />
 
-          <ImageUploader
-            onImageChange={setImageInput}
-            initialImageUrl={existingImageUrl}
-          />
+          {setImageInput && (
+            <ImageUploader
+              onImageChange={setImageInput}
+              initialImageUrl={existingImageUrl}
+              onImageDelete={() => setIsImageDeleted && setIsImageDeleted(true)}
+            />
+          )}
         </div>
       </form>
     </>

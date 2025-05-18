@@ -51,17 +51,17 @@ export default function useGetMessages(userId: string) {
         createdAt: formatTime(new Date(msg.createdAt)),
       }));
 
-      setMessages(msgData);
-
-      console.log("fetch messages");
-    } catch (error) {
-      console.log("Failed to Fetch Messages", error);
+      setMessages([...msgData]);
+    } catch {
+      throw new Error();
     } finally {
       setLoading(false);
     }
   }, [userId]);
 
   useEffect(() => {
+    setMessages([]);
+    setLoading(true);
     getMessages();
   }, [getMessages]);
 

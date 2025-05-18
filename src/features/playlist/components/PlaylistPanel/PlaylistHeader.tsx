@@ -10,18 +10,17 @@ export default function PlaylistHeader({
   onAddClick,
 }: PlaylistHeaderProps) {
   return (
-    <div className="flex justify-between items-center z-40">
-      <div className="flex gap-[16px] text-[24px] font-bold">
-        <h2 className="capitalize">
-          {userName}
-          님의 PlayList
-        </h2>
-        <span role="img">🌱</span>
+    <>
+      <div className="justify-between items-center z-40 flex">
+        <div className="flex gap-[16px] md:text-[20px] font-bold">
+          <h2 className="capitalize"> {userName} 님의 PlayList</h2>
+          <span className="inline">🌱</span>
+        </div>
+        <Plus
+          className="text-[color:var(--white-80)] cursor-pointer"
+          onClick={onAddClick}
+        />
       </div>
-      <Plus
-        className="text-[color:var(--white-80)] cursor-pointer"
-        onClick={onAddClick}
-      />
-    </div>
+    </>
   );
 }

@@ -80,27 +80,27 @@ export default function PlaylistTrackItem({
       postId = track.id;
     }
 
-    if (!query || !postId) {
-      return;
-    }
+    if (!query || !postId) return;
 
     const foundVideoId = await searchYoutubeVideo(query);
 
     if (foundVideoId) {
       setVideoId(foundVideoId);
-      setCurrentVideo({ postId: postId as string, videoId: foundVideoId });
+      setCurrentVideo({ postId, videoId: foundVideoId });
     }
   };
 
   return (
-    <div className="flex h-auto p-[18px] justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer">
-      <div className="flex gap-[24px] items-center flex-1 overflow-hidden">
+    <div className="flex h-auto p-2 justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer">
+      <div
+        className="flex gap-[24px] items-center flex-1 overflow-hidden"
+        onClick={togglePlayTrack}
+      >
         <div className="flex rounded-[10px] justify-center items-center relative group overflow-hidden">
           <img
             src={imageUrl}
             alt={imageAlt}
-            className="w-15 h-15 flex-shrink-0"
-            onClick={togglePlayTrack}
+            className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0"
           />
           <div
             className={`absolute flex justify-center items-center opacity-0 group-hover:opacity-100 group-hover:bg-black/50 w-full h-full z-10 ${
@@ -126,10 +126,10 @@ export default function PlaylistTrackItem({
           className="overflow-hidden"
           onClick={() => onClick && track && onClick(track)}
         >
-          <p className="text-[18px] text-[color:var(--white)] font-bold truncate">
+          <p className="text-[12px] md:text-[16px] text-[color:var(--white)] font-semibold truncate">
             {trackName}
           </p>
-          <p className="mt-2 text-[16px] text-[color:var(--grey-400)] truncate">
+          <p className="text-[10px] mt-2 md:text-[14px] text-[color:var(--grey-400)] truncate">
             {artistName}
           </p>
         </div>
@@ -137,14 +137,14 @@ export default function PlaylistTrackItem({
       {showEllipsis && (
         <div className="ml-2 flex-shrink-0">
           <Trash2
-            className="cursor-pointer invisible group-hover:visible transition-all"
+            className="cursor-pointer opacity-0 group-hover:opacity-100 text-[color:var(--white-80)] w-5 h-5 mr-2"
             onClick={(e) => deleteTrack(e, trackId)}
           />
         </div>
       )}
       {other && (
         <div className="ml-2 flex-shrink-0" onClick={handleListMusicClick}>
-          <ListMusic className="cursor-pointer invisible group-hover:visible transition-all" />
+          <ListMusic className="cursor-pointer opacity-0 group-hover:opacity-100 " />
         </div>
       )}
     </div>

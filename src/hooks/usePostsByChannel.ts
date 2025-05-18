@@ -12,7 +12,7 @@ export default function usePostsByChannel(channelId: string) {
         const response = await axiosInstance.get(`/posts/channel/${channelId}`);
         setPosts(response.data);
       } catch (e) {
-        console.log("Failed to Fetch Data:", e);
+        console.error("Failed to Fetch Data:", e);
       } finally {
         setLoading(false);
       }

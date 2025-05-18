@@ -89,7 +89,7 @@ export default function EditBopPost() {
   return (
     <>
       <BackButton />
-      <div className="flex flex-col w-full h-auto border border-(--white) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
+      <div className="flex flex-col w-full h-auto border border-(--white-80) border-opacity-50 rounded-lg p-[48px] box-border gap-8">
         <span className="w-full text-center text-2xl">숨듣명 수정하기</span>
         <BopPostForm
           bopTrack={bopTrack}
@@ -114,7 +114,6 @@ export default function EditBopPost() {
           </button>
         </div>
       </div>
-
       {showSuccessModal && (
         <StatusModal message="수정 완료었습니다!" onClose={closeModalHandler} />
       )}

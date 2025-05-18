@@ -1,6 +1,6 @@
 import { Send } from "lucide-react";
 import useSendMessage from "../hooks/useSendMessage";
-import { useRefreshStore } from "../stores/refreshStore";
+import { useMsgVersionStore } from "../stores/msgVersionStore";
 
 interface SearchBarProps {
   value: string;
@@ -20,7 +20,8 @@ export default function TextBox({
   userId,
 }: SearchBarProps) {
   const sendMessage = useSendMessage();
-  const refreshMessages = useRefreshStore((state) => state.refreshMessages);
+  const updateCVersion = useMsgVersionStore((state) => state.c_increment);
+  const updateMVersion = useMsgVersionStore((state) => state.m_increment);
 
   const sendMsgHandler = async (e: React.FormEvent | React.MouseEvent) => {
     e.preventDefault();
@@ -29,7 +30,9 @@ export default function TextBox({
 
     await sendMessage({ message: value, userId });
 
-    refreshMessages?.();
+    updateCVersion();
+    updateMVersion();
+
     onClear();
   };
 
@@ -38,13 +41,13 @@ export default function TextBox({
       <form onSubmit={sendMsgHandler} className={`relative ${className}`}>
         <input
           type="text"
-          className="w-full border border-[color:var(--white-80)] pl-[32px] pr-[68px] rounded-[10px] text-lg h-[64px] focus:outline-none focus:border-[color:var(--primary-200)] bg-transparent text-white"
+          className="w-full border border-[color:var(--white-80)] md:pl-8 pl-6 md:pr-17 pr-12 rounded-xl md:text-lg md:h-15 h-12 focus:outline-none focus:border-[color:var(--primary-200)] bg-transparent text-white"
           placeholder={placeholder}
           value={value}
           onChange={onChange}
         />
         <Send
-          className="absolute right-8 top-1/2 transform -translate-y-1/2 text-[color:var(--white-80)] cursor-pointer"
+          className="absolute md:right-8 right-5 top-1/2 transform -translate-y-1/2 text-[color:var(--white-80)] cursor-pointer md:size-6 size-5"
           onClick={sendMsgHandler}
         />
       </form>
