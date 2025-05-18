@@ -1,20 +1,7 @@
-import axios from "axios";
-
-import { getLoginStorage } from "../login/getLoginStorage";
+import { axiosInstance } from "../axiosInstance";
 
 export const myPageUserInfo = async () => {
-  const token = getLoginStorage();
-
-  const res = await axios.get(
-    window.location.hostname === "localhost"
-      ? "http://13.125.208.179:5007/auth-user"
-      : "/api",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const res = await axiosInstance.get("/auth-user");
   return res.data;
 };
 
@@ -24,29 +11,11 @@ export const myPageUserInfoUpdate = async (
   favoriteArtist: string
 ) => {
   try {
-    const token = getLoginStorage();
-
-    const customData = JSON.stringify({
-      name,
-      favoriteGenre,
-      favoriteArtist,
+    const customData = JSON.stringify({ name, favoriteGenre, favoriteArtist });
+    const response = await axiosInstance.put("/settings/update-user", {
+      fullName: customData,
+      username: "",
     });
-
-    const response = await axios.put(
-      window.location.hostname === "localhost"
-        ? "http://13.125.208.179:5007/settings/update-user"
-        : "/api",
-      {
-        fullName: customData,
-        username: "",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
     return response.data;
   } catch (err) {
     console.error("유저 정보 수정 실패:", err);
@@ -59,21 +28,9 @@ export const myPageUpdatePhoto = async (file: File) => {
     formData.append("isCover", "false");
     formData.append("image", file);
 
-    const token = getLoginStorage();
-
-    const res = await axios.post(
-      window.location.hostname === "localhost"
-        ? "http://13.125.208.179:5007/users/upload-photo"
-        : "/api",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
+    const res = await axiosInstance.post("/users/upload-photo", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     return res.data;
   } catch (error) {
     console.error("프로필 이미지 업로드 실패:", error);
@@ -82,20 +39,7 @@ export const myPageUpdatePhoto = async (file: File) => {
 
 export const logoutUser = async () => {
   try {
-    const token = getLoginStorage();
-
-    await axios.post(
-      window.location.hostname === "localhost"
-        ? "http://13.125.208.179:5007/logout"
-        : "/api",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
+    await axiosInstance.post("/logout");
     localStorage.removeItem("app_state");
   } catch (err) {
     console.error("로그아웃 실패:", err);
@@ -104,21 +48,9 @@ export const logoutUser = async () => {
 
 export const updateUserPassword = async (newPassword: string) => {
   try {
-    const token = getLoginStorage();
-
-    const res = await axios.put(
-      window.location.hostname === "localhost"
-        ? "http://13.125.208.179:5007/settings/update-password"
-        : "/api",
-      {
-        password: newPassword,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await axiosInstance.put("/settings/update-password", {
+      password: newPassword,
+    });
     return res.data;
   } catch (error) {
     console.error("비밀번호 변경 실패:", error);
@@ -126,23 +58,10 @@ export const updateUserPassword = async (newPassword: string) => {
 };
 
 export const deleteUser = async (userId: string) => {
-  const token = getLoginStorage();
-
   try {
-    const res = await axios.delete(
-      window.location.hostname === "localhost"
-        ? "http://13.125.208.179:5007/users/delete-user"
-        : "/api",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          id: userId,
-        },
-      }
-    );
-
+    const res = await axiosInstance.delete("/users/delete-user", {
+      data: { id: userId },
+    });
     return res.data;
   } catch (err) {
     console.error("회원 탈퇴 실패:", err);
@@ -150,21 +69,10 @@ export const deleteUser = async (userId: string) => {
 };
 
 export const myPageDeletePhoto = async () => {
-  const token = getLoginStorage();
   try {
-    const res = await axios.delete(
-      window.location.hostname === "localhost"
-        ? "http://13.125.208.179:5007/users/delete-photo"
-        : "/api",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          isCover: false,
-        },
-      }
-    );
+    const res = await axiosInstance.delete("/users/delete-photo", {
+      data: { isCover: false },
+    });
     return res.data;
   } catch (err) {
     console.error("프로필 이미지 삭제 실패:", err);

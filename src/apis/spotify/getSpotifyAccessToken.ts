@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token";
 const GRANT_TYPE = "client_credentials";
 
 interface TokenCache {
@@ -20,14 +19,9 @@ export const getSpotifyAccessToken = async (): Promise<string> => {
     return tokenCache.accessToken;
   }
 
-  const clientId =
-    window.location.hostname === "localhost"
-      ? import.meta.env.VITE_SPOTIFY_CLIENT_ID
-      : "/api";
-  const clientSecret =
-    window.location.hostname === "localhost"
-      ? import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
-      : "/api";
+  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+
+  const clientSecret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
     throw new Error("Spotify 인증 정보가 없습니다");
@@ -37,7 +31,7 @@ export const getSpotifyAccessToken = async (): Promise<string> => {
 
   try {
     const res = await axios.post(
-      SPOTIFY_TOKEN_URL,
+      import.meta.env.VITE_SPOTIFY_TOKEN_URL,
       new URLSearchParams({ grant_type: GRANT_TYPE }),
       {
         headers: {
