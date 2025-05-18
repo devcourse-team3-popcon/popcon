@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from "../axiosInstance";
 
 /**
  * @param name            사용자 이름
@@ -22,16 +22,12 @@ export const signupUser = async (
       favoriteArtist,
     });
 
-    const res = await axios.post(
-      window.location.hostname === "localhost"
-        ? "http://13.125.208.179:5007/signup"
-        : "/api",
-      {
-        fullName: customData,
-        email,
-        password,
-      }
-    );
+    const res = await axiosInstance.post("/signup", {
+      fullName: customData,
+      email,
+      password,
+    });
+
     return res.data;
   } catch (error) {
     console.error("회원가입 실패:", error);
@@ -41,15 +37,11 @@ export const signupUser = async (
 
 export const loginUser = async (email: string, password: string) => {
   try {
-    const res = await axios.post(
-      window.location.hostname === "localhost"
-        ? "http://13.125.208.179:5007/login"
-        : "/api",
-      {
-        email,
-        password,
-      }
-    );
+    const res = await axiosInstance.post("/login", {
+      email,
+      password,
+    });
+
     return res.data;
   } catch (error) {
     console.error("로그인 실패:", error);
