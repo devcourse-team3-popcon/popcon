@@ -60,7 +60,9 @@ export default function PlaylistTrackItem({
       currentVideo?.postId === track.id && currentVideo?.videoId === videoId;
   }
 
-  const togglePlayTrack = async () => {
+  const togglePlayTrack = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
     if (isPlaying) {
       setCurrentVideo(null);
       setVideoId(null);
@@ -90,13 +92,24 @@ export default function PlaylistTrackItem({
     }
   };
 
+  const handleTrackItemClick = () => {
+    if (onClick && track) {
+      onClick(track);
+    }
+  };
+
   return (
-    <div className="flex h-auto p-2 justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer">
+    <div 
+      className="flex h-auto p-2 justify-between items-center hover:bg-[color:var(--grey-500)] rounded-[10px] group cursor-pointer"
+      onClick={track ? handleTrackItemClick : item ? togglePlayTrack : undefined}
+    >
       <div
         className="flex gap-[24px] items-center flex-1 overflow-hidden"
-        onClick={togglePlayTrack}
       >
-        <div className="flex rounded-[10px] justify-center items-center relative group overflow-hidden">
+        <div 
+          className="flex rounded-[10px] justify-center items-center relative group overflow-hidden"
+          onClick={track ? togglePlayTrack : undefined}
+        >
           <img
             src={imageUrl}
             alt={imageAlt}
@@ -122,10 +135,7 @@ export default function PlaylistTrackItem({
             />
           )}
         </div>
-        <div
-          className="overflow-hidden"
-          onClick={() => onClick && track && onClick(track)}
-        >
+        <div className="overflow-hidden">
           <p className="text-[12px] md:text-[16px] text-[color:var(--white)] font-semibold truncate">
             {trackName}
           </p>
