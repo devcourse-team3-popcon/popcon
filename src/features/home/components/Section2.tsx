@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import section2Img from "../../../assets/images/section2.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -109,7 +110,7 @@ export default function Section2() {
           className="w-full flex justify-center px-4 sm:px-0 mt-auto"
         >
           <img
-            src="/src/assets/images/section2.svg"
+            src={section2Img}
             alt=""
             className="h-[20vh] sm:h-[35vh] lg:h-[40vh] object-contain"
           />
