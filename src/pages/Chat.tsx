@@ -37,7 +37,7 @@ export default function Chat() {
         </div>
       ) : (
         <>
-          <div className="md:flex flex-col md:w-[720px] lg:w-[960px] xl:x-[1080px] h-[88vh] hidden py-10 gap-4 ">
+          <div className="md:flex flex-col md:w-[720px] lg:w-[800px] xl:w-[1080px] xl:x-[1080px] h-[88vh] hidden py-10 gap-4 ">
             <div className="w-full">
               <BackButton from={from} />
             </div>
