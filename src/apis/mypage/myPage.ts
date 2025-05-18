@@ -5,11 +5,16 @@ import { getLoginStorage } from "../login/getLoginStorage";
 export const myPageUserInfo = async () => {
   const token = getLoginStorage();
 
-  const res = await axios.get("http://13.125.208.179:5007/auth-user", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const res = await axios.get(
+    window.location.hostname === "localhost"
+      ? "http://13.125.208.179:5007/auth-user"
+      : "/api",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return res.data;
 };
 
@@ -28,7 +33,9 @@ export const myPageUserInfoUpdate = async (
     });
 
     const response = await axios.put(
-      "http://13.125.208.179:5007/settings/update-user",
+      window.location.hostname === "localhost"
+        ? "http://13.125.208.179:5007/settings/update-user"
+        : "/api",
       {
         fullName: customData,
         username: "",
@@ -55,7 +62,9 @@ export const myPageUpdatePhoto = async (file: File) => {
     const token = getLoginStorage();
 
     const res = await axios.post(
-      "http://13.125.208.179:5007/users/upload-photo",
+      window.location.hostname === "localhost"
+        ? "http://13.125.208.179:5007/users/upload-photo"
+        : "/api",
       formData,
       {
         headers: {
@@ -76,7 +85,9 @@ export const logoutUser = async () => {
     const token = getLoginStorage();
 
     await axios.post(
-      "http://13.125.208.179:5007/logout",
+      window.location.hostname === "localhost"
+        ? "http://13.125.208.179:5007/logout"
+        : "/api",
       {},
       {
         headers: {
@@ -96,7 +107,9 @@ export const updateUserPassword = async (newPassword: string) => {
     const token = getLoginStorage();
 
     const res = await axios.put(
-      "http://13.125.208.179:5007/settings/update-password",
+      window.location.hostname === "localhost"
+        ? "http://13.125.208.179:5007/settings/update-password"
+        : "/api",
       {
         password: newPassword,
       },
@@ -117,7 +130,9 @@ export const deleteUser = async (userId: string) => {
 
   try {
     const res = await axios.delete(
-      "http://13.125.208.179:5007/users/delete-user",
+      window.location.hostname === "localhost"
+        ? "http://13.125.208.179:5007/users/delete-user"
+        : "/api",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -138,7 +153,9 @@ export const myPageDeletePhoto = async () => {
   const token = getLoginStorage();
   try {
     const res = await axios.delete(
-      "http://13.125.208.179:5007/users/delete-photo",
+      window.location.hostname === "localhost"
+        ? "http://13.125.208.179:5007/users/delete-photo"
+        : "/api",
       {
         headers: {
           Authorization: `Bearer ${token}`,

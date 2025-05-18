@@ -22,11 +22,16 @@ export const signupUser = async (
       favoriteArtist,
     });
 
-    const res = await axios.post("http://13.125.208.179:5007/signup", {
-      fullName: customData,
-      email,
-      password,
-    });
+    const res = await axios.post(
+      window.location.hostname === "localhost"
+        ? "http://13.125.208.179:5007/signup"
+        : "/api",
+      {
+        fullName: customData,
+        email,
+        password,
+      }
+    );
     return res.data;
   } catch (error) {
     console.error("회원가입 실패:", error);
@@ -36,10 +41,15 @@ export const signupUser = async (
 
 export const loginUser = async (email: string, password: string) => {
   try {
-    const res = await axios.post("http://13.125.208.179:5007/login", {
-      email,
-      password,
-    });
+    const res = await axios.post(
+      window.location.hostname === "localhost"
+        ? "http://13.125.208.179:5007/login"
+        : "/api",
+      {
+        email,
+        password,
+      }
+    );
     return res.data;
   } catch (error) {
     console.error("로그인 실패:", error);
