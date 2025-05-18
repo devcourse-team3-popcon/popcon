@@ -76,6 +76,7 @@ export default function UserSection() {
       label: "로그아웃",
       onClick: () => {
         setIsOpen(false);
+        localStorage.removeItem("app_state");
         navigate("/");
         logout();
       },
