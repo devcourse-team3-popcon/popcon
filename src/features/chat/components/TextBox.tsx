@@ -41,7 +41,7 @@ export default function TextBox({
       <form onSubmit={sendMsgHandler} className={`relative ${className}`}>
         <input
           type="text"
-          className="w-full border border-[color:var(--white-80)] md:pl-8 pl-6 md:pr-17 pr-12 rounded-xl md:text-lg md:h-15 h-12 focus:outline-none focus:border-[color:var(--primary-200)] bg-transparent text-white"
+          className="w-full border border-[color:var(--white-80)] md:pl-8 pl-6 md:pr-17 pr-12 rounded-xl md:text-lg md:h-15 h-12 focus:outline-none focus:border-[color:var(--primary-200)] bg-transparent text-[color:var(--white)]"
           placeholder={placeholder}
           value={value}
           onChange={onChange}
