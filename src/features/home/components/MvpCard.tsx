@@ -14,7 +14,7 @@ export default function MvpCard({
 }: MvpCardProps) {
   const themeStyles = {
     black: {
-      backgroundColor: "#272727",
+      backgroundColor: "var(--mvp-color)",
       textColor: "var(--white)",
     },
     green: {

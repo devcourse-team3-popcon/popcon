@@ -6,6 +6,7 @@
   --white-95: #fbfbfb95;
   --bg-color: #1b1c1e;
   --bg-color-80: #1b1c1e80;
+  --mvp-color: #272727;
   --grey-600: #333333;
   --grey-500: #555555;
   --grey-500-20: #55555520;
@@ -27,6 +28,7 @@ html.light {
   --white-95: #1b1c1e95;
   --bg-color: #ffffff;
   --bg-color-80: #f0f0f080;
+  --mvp-color: #c2c2c2;
   --grey-100: #333333;
   --grey-100-90: #33333390;
   --grey-200: #555555;
