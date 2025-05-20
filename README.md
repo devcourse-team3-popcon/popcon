@@ -30,24 +30,23 @@
 
 ### 1. 음악 커뮤니티
 
-<img width="70%" alt="image" src="https://github.com/user-attachments/assets/8a2c1ab5-5254-4ccb-a755-78d1bcec6c58">
+<img width="100%" alt="image" src="https://github.com/user-attachments/assets/300518fb-b3f9-4506-b2c8-2c343df7eef1">
 <br>
 
 <mark> 사람들의 숨듣명과 콘서트와 음악 이야기를 나누는 음악 커뮤니티를 만들었어요.</mark>
 
 ### 2. 나만의 플레이리스트 
-
-<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-  <img width="45%" src="https://github.com/user-attachments/assets/3c2aac50-8e9a-41a3-9bf6-39bfb1421ee7">
-  <img width="45%" src="https://github.com/user-attachments/assets/007f48f9-6647-4c45-a2b0-5fc5bc5bcb96">
-</div>
-
+  <img width="100%" src="https://github.com/user-attachments/assets/3c2aac50-8e9a-41a3-9bf6-39bfb1421ee7">
+  <mark>내 취향의 노래를 플레이리스트에 저장하고, 재생까지 가능해요.</mark>
+  <img width="100%"  src="https://github.com/user-attachments/assets/4532645f-9479-4cfc-a30e-9a4fe4a5a91b">
+  <mark>나의 플레이리스트 기반으로 AI기반 노래 추천도 해줘요. </mark>
+  <img width="100%"  src="https://github.com/user-attachments/assets/007f48f9-6647-4c45-a2b0-5fc5bc5bcb96">
 <br>
-<mark>내 취향의 노래를 플레이리스트에 저장하고, 재생까지 가능해요. 나의 플레이리스트 기반으로 AI기반 노래 추천도 해줘요. </mark>
+<mark>다른 사용자의 플레이리스트도 자유롭게 둘러볼 수 있어요.</mark>
 
 ### 3. 내한 공연 정보 확인
 
-<img width="70%" alt="image" src="https://github.com/user-attachments/assets/9988363d-fb19-4581-946e-23e489595e70">
+<img width="100%" alt="image" src="https://github.com/user-attachments/assets/1b88136f-1c00-4616-8a7c-08065795b6ae">
 <br>
 <mark>놓치기 쉬운 콘서트 정보도 함께 제공하여, 음악의 즐거움을 현실로 확장합니다. </mark>
 <br><br><br>
