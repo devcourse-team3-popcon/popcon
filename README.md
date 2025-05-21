@@ -53,7 +53,7 @@
 ### 1. 메인페이지
 <mark>메인 페이지는 POPcon을 처음 접하는 유저도 흥미를 가질 수 있도록 구성된 랜딩 페이지입니다.<br>
 GSAP 애니메이션을 활용해 콘텐츠에 동적인 요소를 더함으로써, 시각적인 재미와 몰입감을 주며, 사용자로 하여금 서비스에 대한 관심을 자연스럽게 유도합니다.</mark>
-<img width="100%" alt="image" src="https://github.com/user-attachments/assets/575f30d7-4a10-43c2-9311-073a7f89f758">
+<img width="100%" alt="image" src="https://github.com/user-attachments/assets/2207234d-8589-4851-a4ed-a50ab9be9dbf">
 > 라이트모드
 <img width="100%" alt="image" src="https://github.com/user-attachments/assets/6e4b01c1-2b6e-4365-8b3a-db8f8df692ab">
 <br><br><br>
