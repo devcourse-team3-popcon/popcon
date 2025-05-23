@@ -1,3 +1,5 @@
+
+https://github.com/user-attachments/assets/70b35fb6-ea4f-41bc-ae7e-0d77d81b26c8
 # 🎧 POPcon. 해외 팝송 팬들을 위한 커뮤니티
 <div align="center">
 <img alt="image" width="100%"  src="https://github.com/user-attachments/assets/95af0811-0d0b-4561-b0d4-ef4944991910">
@@ -345,6 +347,30 @@ GSAP 애니메이션을 활용해 콘텐츠에 동적인 요소를 더함으로�
 - 사용자에게 404 Not Found 페이지를 표시하여 안내합니다.
 
 <img width="100%" alt="image" src="https://github.com/user-attachments/assets/3228bc9e-faed-447d-87b9-e97469a2b64e">
+
+### 11. 회원가입
+
+- 사용자는 회원가입 전 모든 필수 약관 항목에 동의해야 다음 단계로 진행할 수 있습니다.
+- 약관 동의 후, 회원가입 입력 폼이 나타납니다.
+- 입력 폼에는 다음 항목이 포함됩니다:
+  - 이름 또는 닉네임 (필수)
+  - 이메일 (필수)
+    - 이메일은 유효한 형식 및 도메인 여부를 검사합니다.
+  - 비밀번호 (필수)
+    - 비밀번호는 유효성 검사를 거칩니다.
+  - 좋아하는 가수 (선택)
+    - Spotify API를 이용해 검색 기능을 통해 가수 목록을 불러올 수 있습니다.
+  - 좋아하는 음악 장르 (필수)
+  - 필수 항목을 모두 입력해야 회원가입을 완료할 수 있습니다.
+- 회원가입에 성공하면 로그인 페이지로 이동합니다.
+
+<img width="100%" alt="image" src="https://github.com/user-attachments/assets/0f73df4b-01cd-4bf7-8c16-cf6355d0450a">
+<img width="100%" alt="image" src="https://github.com/user-attachments/assets/a232197c-eb6f-433c-b30f-b5c682b811c4">
+
+<br>
+
+
+
 
 ---
 
