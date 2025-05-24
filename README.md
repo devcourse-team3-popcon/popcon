@@ -1,5 +1,3 @@
-
-https://github.com/user-attachments/assets/70b35fb6-ea4f-41bc-ae7e-0d77d81b26c8
 # 🎧 POPcon. 해외 팝송 팬들을 위한 커뮤니티
 <div align="center">
 <img alt="image" width="100%"  src="https://github.com/user-attachments/assets/95af0811-0d0b-4561-b0d4-ef4944991910">
