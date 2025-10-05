@@ -28,14 +28,14 @@ export default function Playlist() {
       <PlayListBanner />
       <div className="flex flex-col xl:flex-row gap-[32px] w-full h-auto xl:h-[70vh]">
         <div className="flex flex-col h-[70vh] justify-between w-full xl:w-[58%] order-last xl:order-none xl:mt-12 gap-8">
-          <div className="flex-1 overflow-auto scrollbar-hide">
+          <div className="flex-1 overflow-y-scroll scrollbar-hide">
             <MusicRecommender
               setCurrentVideo={setCurrentVideo}
               currentVideo={currentVideo}
             />
           </div>
 
-          <div className="flex-1 overflow-auto min-h-[300px]">
+          <div className="flex-1 overflow-y-scroll min-h-[300px] scrollbar-hide">
             {userId === selectedUserId ? (
               <UserPlaylistPreview setSelectedUserId={setSelectedUserId} />
             ) : (
@@ -49,10 +49,7 @@ export default function Playlist() {
           </div>
         </div>
 
-        <div
-          className="w-full xl:w-[40%] order-first xl:order-none 
-                        h-[500px] xl:h-[70vh] mt-12"
-        >
+        <div className="w-full xl:w-[40%] order-first xl:order-none h-[500px] xl:h-[70vh] mt-12 overflow-y-scroll scrollbar-hide">
           <PlaylistPanel
             setCurrentVideo={setCurrentVideo}
             currentVideo={currentVideo}
