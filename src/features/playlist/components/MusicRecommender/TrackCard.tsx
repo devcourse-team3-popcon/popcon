@@ -40,16 +40,16 @@ export default function TrackCard({
   };
 
   return (
-    <div className=" md:w-[160px] xl:w-[112px] 2xl:w-[120px] h-[90%] overflow-hidden flex flex-col justify-center items-center md:gap-4 box-border min-h-32">
-      <div className="flex h-[35%] justify-center items-center rounded-full relative group overflow-hidden  min-w-15  min-h-15">
+    <div className="md:w-[160px] xl:w-[112px] 2xl:w-[120px] h-auto overflow-visible flex flex-col justify-start items-center gap-2 md:gap-3 box-border">
+      <div className="flex justify-center items-center rounded-full relative group overflow-hidden w-16 h-16 md:w-20 md:h-20 xl:w-[72px] xl:h-[72px] 2xl:w-20 2xl:h-20 flex-shrink-0">
         <img
           src={track.album.images[0]?.url || ""}
           alt={`${track.name} 앨범 커버`}
-          className="w-full h-full object-cover cursor-pointer "
+          className="w-full h-full object-cover cursor-pointer"
           onClick={togglePlayTrack}
         />
         <div
-          className={`absolute flex justify-center items-center cursor-pointer opacity-0 group-hover:opacity-100 group-hover:bg-black/50 w-full h-full z-10 ${
+          className={`absolute flex justify-center items-center cursor-pointer opacity-0 group-hover:opacity-100 group-hover:bg-black/50 w-full h-full z-10 rounded-full ${
             isPlaying ? "opacity-100 bg-black/50" : ""
           }`}
         >
@@ -70,7 +70,7 @@ export default function TrackCard({
         />
       )}
 
-      <div className="flex flex-col md:gap-2 justify-center items-center w-full h-[40%]">
+      <div className="flex flex-col gap-1 md:gap-2 justify-start items-center w-full">
         <div className="flex flex-col gap-0.5 md:gap-2 xl:gap-1 w-full">
           <p
             className="text-[10px] md:text-[14px] font-bold text-[color:var(--white)] truncate w-full text-center"
@@ -87,11 +87,11 @@ export default function TrackCard({
         </div>
 
         <div
-          className="flex justify-center gap-[8px] items-center md:mt-2 group"
+          className="flex justify-center gap-[8px] items-center md:mt-1 group"
           onClick={onAddClick}
         >
           <Plus className="w-2 h-2 md:w-3 md:h-3 text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)] cursor-pointer" />
-          <p className=" text-[8px] md:text-[10px]  xl:text-[12px]  text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)] cursor-pointer">
+          <p className="text-[8px] md:text-[10px] xl:text-[12px] text-[color:var(--grey-400)] group-hover:text-[color:var(--primary-100)] cursor-pointer">
             Add Playlist
           </p>
         </div>
